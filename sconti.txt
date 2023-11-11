@@ -1,0 +1,119 @@
+ 
+
+Gioco A prezzo base 60euro  
+
+Giovanni ha speso 200 crediti  
+
+Marco ha acquistato un gioco dello stesso genere di A  
+
+Scontobasecrediti(giovanni)=20% 
+
+Scontogenere(marco)=30% 
+
+Cè uno sconto se acquisti un gioco dello stesso genere 
+
+ 
+
+ 
+
+Tabella utenti scontabili 
+
+Categoria utenti basata da crediti spesi finora: 
+
+Utente(id:005) 
+
+Utente(id:003) 
+
+Categoria utenti basata da crediti spesi fino a una certa data( 1° novembre): 
+
+Utente(id:001) 
+
+Utente(id:003) 
+
+ 
+
+Tabella giochi: 
+
+Sconti indiscriminati: 
+
+Gioco 1 
+
+Gioco 2 
+
+Sconti per chi ha speso N crediti finora: 
+
+Gioco 2  
+
+Gioco 4 
+
+ 
+
+Categoria sconti basati per chi ha speso N crediti da una certa data(1 novembre): 
+
+Gioco 5 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Caso 2 
+
+ 
+
+Gioco A 
+
+Prezzo base:x 
+
+Sconto indiscriminato:A=y/n 
+
+Qtsconto:y% 
+
+ 
+
+Prezzofinale=(x-A(x-y%)) 
+
+ 
+
+Dall'utente vedrà:  
+
+ 
+
+Gioco A con prezzo finale 
+
+ 
+
+ 
+
+Caso 3 
+
+Nella Tabella utenti ci sara 
+
+Utente A speso N crediti 
+
+ScontoNcrediti=20% 
+
+ScontoattivoNcrediti=1; 
+
+ 
+
+Ora l’utente 
+
+Apre gioco A 
+
+Prezzo base 60 
+
+Prezzo finale= (prezzo base-scontoattivo*(prezzobase-ScontoNcrediti)-altroattivatore*(prezzobase-altrosconto))... 
