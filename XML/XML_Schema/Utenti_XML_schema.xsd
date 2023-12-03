@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+  <xsd:element name="listaUtenti">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Utente" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="Utente">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element  name="linkFacebook"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  name="linkX"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  name="linkYoutube"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  name="linkTikTok"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  name="DataIscrizione"  type="xsd:int" minOccurs="1" maxOccurs="1"/>
+        <xsd:element  name="CasaDiSviluppoPreferita"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  name="GenerePreferito"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      </xsd:sequence>
+        <xsd:attribute name="id_user" typer="xsd:int" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
