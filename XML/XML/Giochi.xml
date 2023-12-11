@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabellaGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Giochi_XML_schema.xsd">
+    <Gioco id_gioco="1">
+     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
+     <Piattaforma>PC/Xbox One/Plastation 4</Piattaforma>
+     <MediaRecensioni>51.23</MediaRecensioni>
+     <immagine>loghi/overwatch_logo.png</immagine>
+     <TitoliCorrelati>
+       <idGiocoCorrelato>5</idGiocoCorrelato>
+       <idGiocoCorrelato>11</idGiocoCorrelato>
+     </TitoliCorrelati>
+    </Gioco>
+     <Gioco id_gioco="1">
+     <CasaSviluppo>Insomniac</CasaSviluppo>
+     <Piattaforma>PC</Piattaforma>
+     <MediaRecensioni>81.11</MediaRecensioni>
+     <immagine>loghi/Spiderman_logo.png</immagine>
+    </Gioco>
+</TabellaGiochi>

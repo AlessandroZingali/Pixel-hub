@@ -20,6 +20,7 @@
       <xsd:sequence>
         <xsd:element nome="id_gioco" type="xsd:interger" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
+       <xsd:attribute name="valoreSconto" typer="xsd:int" use="optional"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
