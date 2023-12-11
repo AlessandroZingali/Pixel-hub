@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<listaUtenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Utenti_XML_schema.xsd">
+   <Utente id_user="1">
+      <linkFacebook>https://www.facebook.com/MarcoAscani</linkFacebook>
+      <linkX>https://www.twitter.com/MarcoAscani</linkX>
+      <linkYoutube>https://www.youtube.com/MarcoAscani</linkYoutube>
+      <linkTikTok>https://www.tiktok.com/MarcoAscani</linkTikTok>
+      <DataIscrizione>18/02/2016</DataIscrizione>
+      <CasaDiSviluppoPreferita>Insomniac</CasaDiSviluppoPreferita>
+      <GenerePreferito>TPS</GenerePreferito>
+   </Utente>
+</listaUtenti>
