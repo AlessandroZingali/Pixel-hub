@@ -12,7 +12,7 @@
       <xsd:sequence>
         <xsd:element  ref="Commento" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-        <xsd:attribute name="id_gioco" type="xsd:int" use="required"/>
+        <xsd:attribute name="id_gioco" type="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
   <xsd:element name="Commento">
@@ -20,11 +20,11 @@
       <xsd:sequence>
         <xsd:element nome="text" type="xsd:string" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-      <xsd:attribute name="id_utente" type="xsd:int" use="required"/>
+      <xsd:attribute name="id_utente" type="xsd:interger" use="required"/>
       <xsd:attribute name="data" type="xsd:string" use="required"/>
       <xsd:attribute name="ora" type="xsd:time" use="required"/>
-      <xsd:attribute name="like" type="xsd:int" use="required"/>
-      <xsd:attribute name="dislike" type="xsd:int" use="required"/>
+      <xsd:attribute name="like" type="xsd:interger" use="required"/>
+      <xsd:attribute name="dislike" type="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>

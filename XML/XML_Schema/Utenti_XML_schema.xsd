@@ -14,11 +14,11 @@
         <xsd:element  name="linkX"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
         <xsd:element  name="linkYoutube"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
         <xsd:element  name="linkTikTok"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
-        <xsd:element  name="DataIscrizione"  type="xsd:int" minOccurs="1" maxOccurs="1"/>
+        <xsd:element  name="DataIscrizione"  type="xsd:interger" minOccurs="1" maxOccurs="1"/>
         <xsd:element  name="CasaDiSviluppoPreferita"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
         <xsd:element  name="GenerePreferito"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_user" typer="xsd:int" use="required"/>
+        <xsd:attribute name="id_user" typer="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
