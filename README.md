@@ -15,3 +15,4 @@ Fare il file xml e MYSQL per
 - [ ] arricchire le strutture dati non dettagliate
 - [ ] separare nelle strutture dettagliate separare mysql e giustificare la scelta
 - [ ] rivedere tutti i casi d'uso
+- [ ] rivedere la formattazione coi segnalibri e eventualmente fare un elenco puntato
