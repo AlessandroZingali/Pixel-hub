@@ -10,3 +10,7 @@ Fare il file xml e MYSQL per
 - [x] Tipologia sconti
 - [x] Commenti
 - [x] FAQ
+- [ ] modificare la sezione dei giochi con i requisiti pc
+- [ ] aggiungere sotto specifiche->specifiche pixel
+- [ ] arricchire le strutture dati non dettagliate
+- [ ] separare nelle strutture dettagliate separare mysql 
