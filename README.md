@@ -13,5 +13,5 @@ Fare il file xml e MYSQL per
 - [ ] modificare la sezione dei giochi con i requisiti pc
 - [ ] aggiungere sotto specifiche->specifiche pixel
 - [ ] arricchire le strutture dati non dettagliate
-- [ ] separare nelle strutture dettagliate separare mysql
+- [ ] separare nelle strutture dettagliate separare mysql e giustificare la scelta
 - [ ] rivedere tutti i casi d'uso
