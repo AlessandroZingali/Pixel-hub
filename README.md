@@ -15,4 +15,5 @@ Fare il file xml e MYSQL per
 - [x] arricchire le strutture dati non dettagliate
 - [x] separare nelle strutture dettagliate separare mysql e giustificare la scelta
 - [x] rivedere tutti i casi d'uso
-- [ ] rivedere la formattazione coi segnalibri e eventualmente fare un elenco puntato
+- [x] rivedere la formattazione coi segnalibri e eventualmente fare un elenco puntato
+- [x] aggiungere il formato delle recensioni
