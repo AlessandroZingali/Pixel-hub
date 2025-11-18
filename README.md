@@ -17,5 +17,5 @@ Fare il file xml e MYSQL per
 - [x] rivedere tutti i casi d'uso
 - [x] rivedere la formattazione coi segnalibri e eventualmente fare un elenco puntato
 - [x] aggiungere il formato delle recensioni
-- [] prova o
+- [ ] prova o
  
