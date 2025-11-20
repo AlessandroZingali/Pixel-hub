@@ -21,5 +21,5 @@ Fare il file xml e MYSQL per
 - [ ] creare scheletro pagina registrazione
 - [ ] creare scheletro homepage
 - [ ] creare pagina login
-- [ ] 
+
  
