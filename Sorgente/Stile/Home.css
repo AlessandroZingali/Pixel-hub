@@ -1,0 +1,28 @@
+#container{
+    border: solid red;
+    margin: 15px;
+    padding: 10px;
+}
+
+body{
+    border: solid green;
+    background: #000000;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(111, 112, 112, 1) 87%, rgba(43, 165, 217, 1) 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 1920px){
+    body{
+        width: 1920px;
+        height: 1080px;
+    }
+}
+
+@media (max-width: 1070px){
+     body{
+        width: 1024px;
+        height: 1366px;
+    }
+}
