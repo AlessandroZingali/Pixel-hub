@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "jabedhossain.web-preview"
+        "jabedhossain.web-preview",
+        "ms-vscode.live-server"
     ]
 }
