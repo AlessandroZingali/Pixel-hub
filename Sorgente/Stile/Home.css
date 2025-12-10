@@ -1,3 +1,29 @@
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
+}
+
+@media(max-height: 720px){
+
+    img#logoimg{
+        width: 60%;
+        height: 60%;
+        padding-left: 12%;
+    }
+
+}
+
+body{
+
+    border: solid green;
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    
+}
+
 #container{
     border: solid red;
     margin: 15px;
@@ -12,39 +38,16 @@
 #container h2{
     font-family: "font pixeloso", monospace;
     font-size: 22px;
-}
-
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
-@media(max-height: 720px){
-
-    img#logoimg{
-        width: 60%;
-        height: 60%;
-        padding-left: 12%;
-    }
-
-}
-
-body{
-    border: solid green;
-    background: #000000;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(111, 112, 112, 1) 87%, rgba(43, 165, 217, 1) 100%);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    
+    color: white;
 }
 
 #logo{
     width: 400px;
     height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: solid blue;
+    background-image: linear-gradient(to top, #9ae0f3 0%, #005bea 100%);
+    margin:auto;
+    border-radius: 60%;
+    /*border: solid blue;*/
 }
 
 #logoimg {
@@ -55,9 +58,26 @@ body{
 }
 
 #navigation{
-    border: solid orange;
-    width: 100%;
+
+    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+    box-shadow: 5px 5px 10px #000000;
+    width: 90%;
     text-align: center;
+    height: 40px;
+    padding: 10px;
+    border-radius: 80px;
+    /*border: solid orange;*/
+}
+
+#navigation ul{
+    list-style-type: none;
+    position: sticky;
+    float: left;
+    padding: 0;
+    margin: 0.5%;
+    width: 50%;
+
+    /*border: solid yellow;*/
 }
 
 #navigation ul li{
@@ -65,8 +85,17 @@ body{
     display: inline;
     margin: 20px;
     font-family: "font pixeloso", monospace;
-    font-size: 18px
+    font-size: 20px;
+    padding: 1%;
+
 }
+
+#navigation ul li:hover{
+    background-color: rgba(63, 56, 56, 0.911);
+    box-shadow: 2px 2px 5px #000000;
+    border-radius: 80px;
+}
+
 #navigation ul li a{
     text-decoration: none;
     color: white;
