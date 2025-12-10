@@ -9,8 +9,9 @@
     flex-wrap: wrap;
 }
 
-#header.h2{
+#container h2{
     font-family: "font pixeloso", monospace;
+    font-size: 22px;
 }
 
 @font-face {
@@ -51,6 +52,24 @@ body{
     height: 80%;
     margin: 2%;
     margin-left: 7%;
+}
+
+#navigation{
+    border: solid orange;
+    width: 100%;
+    text-align: center;
+}
+
+#navigation ul li{
+
+    display: inline;
+    margin: 20px;
+    font-family: "font pixeloso", monospace;
+    font-size: 18px
+}
+#navigation ul li a{
+    text-decoration: none;
+    color: white;
 }
 
 #navimg{
