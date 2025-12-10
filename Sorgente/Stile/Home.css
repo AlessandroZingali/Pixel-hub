@@ -9,11 +9,14 @@
     flex-wrap: wrap;
 }
 
-#header{
-    font-family: 'PixelatedElegance';
-    src: url(Stile/PixelatedElegance.ttf);
+#header.h2{
+    font-family: "font pixeloso", monospace;
 }
 
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
+}
 @media(max-height: 720px){
 
     img#logoimg{
@@ -48,4 +51,10 @@ body{
     height: 80%;
     margin: 2%;
     margin-left: 7%;
+}
+
+#navimg{
+    
+    border: solid purple;
+   
 }
