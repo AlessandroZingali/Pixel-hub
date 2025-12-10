@@ -100,14 +100,56 @@ body{
     text-decoration: none;
     color: white;
 }
-
-#navimg{
-    
-    border: solid purple;
-
-   
+#searchBar{
+    width: 30%;
+    display: inline-block;
+    float: right;
+    /*border: solid pink;*/
+    padding: 5px;
 }
-#diritti{
+#searchBar input[type="text"]{
+    width: 80%;
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+}
+#searchBar input[type="submit"]{
+    background-color: rgba(63, 56, 56, 0.911);
+    color: white;
+    font-family: "font pixeloso", monospace;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+}
+
+#footer{
+    border: pink solid;
+    width: 50%;
+    float: right;
+    padding-bottom: 10x;
+    
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10%;
     font-family: "font pixeloso", monospace;
     color: white;
+    }
+
+#footer ul{
+    list-style-type: none;
+    float: right;
+
+    padding: 0;
+    margin: 0;
+}
+
+#footer ul li{
+    display: inline;
+    margin: 4px;
+    font-size: 12px;
+    border-right: solid rgb(46, 42, 42) 2px;
+}
+#footer ul li a{
+    text-decoration: none;
+    color: rgb(0, 208, 255);
 }
