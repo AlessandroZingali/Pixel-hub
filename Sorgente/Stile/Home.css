@@ -9,6 +9,10 @@
     flex-wrap: wrap;
 }
 
+#header{
+    font-family: "Stile/PixelatedElegance.ttf";
+}
+
 @media(max-height: 720px){
 
     img#logoimg{
