@@ -104,5 +104,10 @@ body{
 #navimg{
     
     border: solid purple;
+
    
+}
+#diritti{
+    font-family: "font pixeloso", monospace;
+    color: white;
 }
