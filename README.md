@@ -2,7 +2,7 @@
  repository per la tesina di Alessandro Zingali e Tulini Riccardo per Linguaggi per il web
  Fase di progetto
 - [x] Inserire la formula per il calcolamento del punteggio per il grado
-Fare il file xml e MYSQL per
+- [ ] Fare il file xml e MYSQL per
 - [x] Tabella utenti
 - [x] Tabella dei giochi
 - [x] Carrello
@@ -17,7 +17,8 @@ Fare il file xml e MYSQL per
 - [x] rivedere tutti i casi d'uso
 - [x] rivedere la formattazione coi segnalibri e eventualmente fare un elenco puntato
 - [x] aggiungere il formato delle recensioni
-PARTE 2
+
+Parte 2
 - [ ] Creare scheletro pagina login
 - [ ] creare scheletro pagina registrazione
 - [ ] creare scheletro homepage
@@ -25,6 +26,10 @@ PARTE 2
 - [ ] creare scheletro commenti
 - [ ] creare database users
 - [ ] creare dashboard gestore admin
+      
+      
+
+
 
 
  
