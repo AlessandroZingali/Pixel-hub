@@ -109,6 +109,7 @@ body{
 }
 #searchBar input[type="text"]{
     width: 80%;
+    font-family: "font pixeloso", monospace;
     padding: 5px;
     border: none;
     border-radius: 20px;

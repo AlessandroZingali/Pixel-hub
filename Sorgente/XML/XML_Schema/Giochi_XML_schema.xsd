@@ -12,36 +12,40 @@
  
   <xsd:element name="Gioco"> 
     <xsd:complexType> 
-      <xsd:sequence> 
+      <xsd:sequence>
+        <xsd:element  ref="Titolo"  minOccurs="1"  maxOccurs="1" />
+        <xsd:element  ref="Prezzo"  minOccurs="1"  maxOccurs="1" /> 
         <xsd:element  ref="CasaSviluppo"  minOccurs="1" maxOccurs="unbounded"/> 
         <xsd:element  ref="RequisitiMinimi"   minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="RequisitiRaccomandati" minOccurs="1" maxOccurs="1"/> 
-        <xsd:element  ref="MediaRecensioniAdmin"  minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="DataDiUscita"  minOccurs="1" maxOccurs="1"/> 
-        <xsd:element  ref="MediaRecensioniUtenti"  type="xsd:float" minOccurs="1" maxOccurs="1"/> 
-        <xsd:element  ref="Immagine"  minOccurs="1" maxOccurs="3"/> 
-        <xsd:element  ref="TitoliCorrelati" minOccurs="0" maxOccurs="1"/> 
+        <xsd:element  ref="Immagine"  minOccurs="1" maxOccurs="3"/>  
         <xsd:element  ref="Generi"   minOccurs="1" maxOccurs="unbounded"/> 
-        <xsd:element  ref="Disponibile"   minOccurs="1" maxOccurs="1"/> 
+        <xsd:element  ref="Disponibile"   minOccurs="1" maxOccurs="1"/>
+        <xsd:element  ref="MediaRecensioniAdmin"  minOccurs="1" maxOccurs="1"/> 
+        <xsd:element  ref="MediaRecensioniUtenti" minOccurs="1" maxOccurs="1"/>
+        <xsd:element  ref="TitoliCorrelati" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence> 
-        <xsd:attribute name="id_gioco" typer="xsd:integer" use="required"/> 
+        <xsd:attribute name="id_gioco" type="xsd:integer" use="required"/> 
     </xsd:complexType> 
   </xsd:element>
 
+  <xsd:element  name="Titolo"  type="xsd:string" />
+  <xsd:element  name="Prezzo"  type="xsd:float" />
   <xsd:element  name="CasaSviluppo"  type="xsd:string" /> 
   <xsd:element  name="RequisitiMinimi"  type="xsd:string" /> 
   <xsd:element  name="RequisitiRaccomandati"  type="xsd:string"/> 
-  <xsd:element  name="MediaRecensioniAdmin"  type="xsd:float"/> 
   <xsd:element  name="DataDiUscita"  type="xsd:integer" /> 
-  <xsd:element  name="MediaRecensioniUtenti"  type="xsd:float" /> 
   <xsd:element  name="Immagine"  type="xsd:string"/> 
   <xsd:element  name="Generi"  type="xsd:string" /> 
   <xsd:element  name="Disponibile"  type="xsd:integer" /> 
-  
+  <xsd:element  name="MediaRecensioniAdmin"  type="xsd:float"/> 
+  <xsd:element  name="MediaRecensioniUtenti"  type="xsd:float" />
+
   <xsd:element name="TitoliCorrelati" > 
   <xsd:complexType> 
       <xsd:sequence> 
-        <xsd:element nome="idGiocoCorrelato" type=”xsd:integer” minOccurs="1"  maxOccurs="unbounded"/> 
+        <xsd:element name="idGiocoCorrelato" type=”xsd:integer” minOccurs="1"  maxOccurs="unbounded"/> 
       </xsd:sequence> 
     </xsd:complexType> 
   </xsd:element>
