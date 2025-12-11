@@ -10,7 +10,7 @@
             <div id="header">
                 <div id="logo">
                 
-                    <img src="Loghi/logo pixelhub slim.png" alt="Logo di Pixel Hub" id="logoimg"/>
+                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
                 
                 </div>
                 
@@ -53,9 +53,8 @@
                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                         echo "<td>";
-                        echo "<div class= \' GameCard \'> <img src= \' $immagine\'  
-                        echo " alt=\' GameImage\' class= \' product-image\'/ >
-                            <p class= \' product-title \'>$titoloGioco</p> </div> </td>";
+                        echo "<div class= \" GameCard \"> <img src=\"$immagine\" alt=\"GameImage\" witdh=200 class=\"product-image\" >
+                            <p class=\"product-title\">$titoloGioco</p> </div> </td>";
                                 
                     }
                     
