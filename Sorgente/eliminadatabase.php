@@ -5,7 +5,7 @@
 
 		$mysqliConnection = new mysqli("localhost", "Alessandro", "belandi");
          
-         if($resultQ = $mysqli_connect_errno($mysqliConnection)){ {
+         if(!(mysqli_connect_errno($mysqliConnection))){ {
        
 
             printf('connessione avvenuta con successo.<br />');

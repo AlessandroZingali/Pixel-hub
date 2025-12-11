@@ -48,7 +48,7 @@ else{
             $sqlQuery = "INSERT INTO $table_users 
             (Email, Password, Username, Grado, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, PIVA) 
             VALUES 
-            (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", 1, 1000, 50.0, \"15/04/1990\", \"Marco\", \"Rossi\", 1, \"\"),
+            (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", 1, 1000, 50.0, \"15/04/1990\", \"Marco\", \"Rossi\", 1, \"231231240\"),
             (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20/06/1985\", \"Gabriele\", \"Bianchi\", 2, \"12345678901\");
             ";
 
