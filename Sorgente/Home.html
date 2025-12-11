@@ -47,15 +47,15 @@
                 echo "<tr>";
                 for($j=0; $j < $elem->length; $j++){
                     $gioco=$elem->item($j);
-                    $valGiocoGrezzo=$gioco->getElementsbyTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                    $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
                     $valGioco = (float) $valGiocoGrezzo;
                     if($valGioco>=80){
                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                         echo "<td>";
-                        echo "<div class= \' GameCard \'> <img src= \' $immagine\' ; 
+                        echo "<div class= \' GameCard \'> <img src= \' $immagine\'  
                         echo " alt=\' GameImage\' class= \' product-image\'/ >
-                            <p class= \' product-title \'> $titoloGioco</p> </div> </td>";
+                            <p class= \' product-title \'>$titoloGioco</p> </div> </td>";
                                 
                     }
                     
