@@ -23,8 +23,6 @@
                     <li><a href="registrazione.html">Registrati </a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
-                    <li><a href="Creadatabasepixelhub.php">Crea database </a></li>
-                    <li><a href="eliminadatabase.php">cancella database </a></li>
                 </ul>
 
                 <form action="" id="searchBar">
@@ -35,6 +33,46 @@
            
             </div>
         </div>
+        <div>
+            <table id="GameTable">
+                <?php
+                $xmlString="";
+                foreach(file("XML/Giochi.xml") as $node){ 
+                    $xmlString .= trim($node);
+                }
+                $doc= new DOMDocument();
+                $doc->loadXML($xmlString);
+                $root=$doc->documentElement;
+                $elem=$root->childNodes;
+                echo "<tr>";
+                for($j=0; $j < $elem->length; $j++){
+                    $gioco=$elem->item($j);
+                    $valGiocoGrezzo=$gioco->getElementsbyTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                    $valGioco = (float) $valGiocoGrezzo;
+                    if($valGioco>=80){
+                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                        echo "<td>";
+                        echo "<div class= \' GameCard \'> <img src= \' $immagine\' ; 
+                        echo " alt=\' GameImage\' class= \' product-image\'/ >
+                            <p class= \' product-title \'> $titoloGioco</p> </div> </td>";
+                                
+                    }
+                    
+                                
+                              
+                    }   
+
+                    echo "</tr>";
+                
+                
+                ?>
+            </table>
+        </div>
+            
+        </div>
+
+
         <div id="footer">
             <ul>
                 <li><a href="">Contact Us</a></li>

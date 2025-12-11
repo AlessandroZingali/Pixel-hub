@@ -17,7 +17,7 @@
       <idGiocoCorrelato>11</idGiocoCorrelato>
     </TitoliCorrelati>  
   </Gioco>
-  <Gioco> id_gioco="2">
+  <Gioco id_gioco="2">
     <Titolo>The Witcher 3: Wild Hunt</Titolo>
     <Prezzo>49.99</Prezzo>
     <CasaSviluppo>CD Projekt Red</CasaSviluppo>

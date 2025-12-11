@@ -24,6 +24,15 @@ body{
     
 }
 
+table{
+    border: lime solid 10px;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+    font-family: "font pixeloso", monospace;
+    color: white;
+}
+
 #container{
     /*border: solid red;*/
     margin: 15px;
