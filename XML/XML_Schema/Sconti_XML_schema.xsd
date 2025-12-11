@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
   <xsd:element name="listaSconti">
     <xsd:complexType>
       <xsd:sequence>
@@ -7,6 +8,7 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="Sconto">
     <xsd:complexType>
       <xsd:sequence>
@@ -15,12 +17,16 @@
         <xsd:attribute name="id_tipoSconto" typer="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
+  
   <xsd:element name="Gioco">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element nome="id_gioco" type="xsd:interger" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="id_gioco" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
        <xsd:attribute name="valoreSconto" typer="xsd:int" use="optional"/>
     </xsd:complexType>
   </xsd:element>
+  
+  <xsd:element nome="id_gioco" type="xsd:interger" />
+
 </xsd:schema>

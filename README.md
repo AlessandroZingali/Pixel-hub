@@ -26,6 +26,7 @@ Parte 2
 - [ ] creare scheletro commenti
 - [ ] creare database users
 - [ ] creare dashboard gestore admin
+- [ ] creare database utenti sql 
       
       
 

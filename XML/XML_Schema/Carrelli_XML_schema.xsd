@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
   <xsd:element name="listaCarrelli">
     <xsd:complexType>
       <xsd:sequence>
@@ -7,21 +8,27 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="carrello">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element  ref="gioco"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_user" typer="xsd:intergererger" use="required"/>
+        <xsd:attribute name="id_user" typer="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
+  
   <xsd:element name="gioco">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element  name="Titolo"  type="xsd:string" minOccurs="1" maxOccurs="1"/>
-        <xsd:element  name="prezzo"  type="xsd:double" minOccurs="1" maxOccurs="1"/>
+        <xsd:element  ref="Titolo"  minOccurs="1" maxOccurs="1"/>
+        <xsd:element  ref="prezzo"  minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_gioco" typer="xsd:intergererger" use="required"/>
+        <xsd:attribute name="id_gioco" typer="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
+  
+  <xsd:element  name="Titolo"  type="xsd:string" />
+  <xsd:element  name="prezzo"  type="xsd:double" />
+
 </xsd:schema>

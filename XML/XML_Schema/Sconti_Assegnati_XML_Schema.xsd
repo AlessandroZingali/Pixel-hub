@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
   <xsd:element name="listaAssegnazioneSconti">
     <xsd:complexType>
       <xsd:sequence>
@@ -7,19 +8,24 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="Utente">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element  ref="scontiAssegnati" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_user" typer="xsd:interger" use="required"/>
+        <xsd:attribute name="id_user" type="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
+  
   <xsd:element name="scontiAssegnati">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element nome="sconto" type="xsd:interger" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="sconto"  minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
+<xsd:element name="sconto" type="xsd:interger" />
+
 </xsd:schema>
