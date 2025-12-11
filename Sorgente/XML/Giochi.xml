@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabellaGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Giochi_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Titolo>Overwatch</Titolo>
+    <Titolo>Overwatch: Origin Edition</Titolo>
     <Prezzo>39.99</Prezzo>
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
@@ -28,7 +28,7 @@
     <Generi>RPG</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>93.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>71.5</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>81.5</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>8</idGiocoCorrelato>
       <idGiocoCorrelato>14</idGiocoCorrelato>
@@ -45,7 +45,7 @@
     <Generi>RPG</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>78.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>79</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>90</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>9</idGiocoCorrelato>

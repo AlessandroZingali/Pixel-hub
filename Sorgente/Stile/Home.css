@@ -24,18 +24,57 @@ body{
     
 }
 
-table{
-    border: lime solid 5px;
-    width: 80%;
+#GameTable{
+    /*border: lime solid 5px;*/
+    width: 32%;
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-family: "font pixeloso", monospace;
     color: white;
+
 }
+
+#GameTable th{
+    
+    justify-content: right;
+    text-align: left;
+    border: red solid 2px;
+    font-size: 20px;
+
+    }
+
+#GameTable td{
+    
+    text-align: center;
+   /* border: red solid 2px   ;*/
+    }
+.GameCard{   
+  /*  border: yellow solid 2px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 8px;
+    padding: 10px;
+    
+    }
+.GameCard img{
+    /*border : blue solid 2px;*/
+    width: 280px;
+    height: 380px;
+    background-color: rgba(63, 56, 56, 0.911);
+    box-shadow: 5px 5px 10px #000000;
+    border-radius: 15px;
+    object-fit: cover;
+  
+
+    }
+
+
 
 #container{
     /*border: solid red;*/
-    margin: 15px;
+    margin: 20px;
     padding: 10px;
     display: flex;
     flex-direction: column; 

@@ -34,7 +34,9 @@
             </div>
         </div>
         <div>
+            
             <table id="GameTable">
+                <th>I piu' Popolari</th>
                 <?php
                 $xmlString="";
                 foreach(file("XML/Giochi.xml") as $node){ 
@@ -50,11 +52,11 @@
                     $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
                     $valGioco = (float) $valGiocoGrezzo;
                     if($valGioco>=80){
-                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+            
                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                         echo "<td>";
-                        echo "<div class= \" GameCard \"> <img src=\"$immagine\" alt=\"GameImage\" witdh=200 class=\"product-image\" >
-                            <p class=\"product-title\">$titoloGioco</p> </div> </td>";
+                        echo "<div class= \" GameCard \"> <img src=\"$immagine\" alt=\"GameImage\"  class=\"product-image\" >
+                             </div> </td>";
                                 
                     }
                     
