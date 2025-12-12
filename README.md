@@ -22,6 +22,9 @@ Parte 2
 - [ ] Creare scheletro pagina login
 - [ ] creare scheletro pagina registrazione
 - [ ] creare scheletro homepage
+     - [x] Impostare design pagina
+     - [] impostare script JS di resize e onload e media query CSS per resize e onload
+     - [] impostare script php di funzionalita sia visiva che di servizio per login
 - [ ] creare scheletro della faq
 - [ ] creare scheletro commenti
 - [ ] creare database users
