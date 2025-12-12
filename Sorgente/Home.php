@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
         <title>Pixel Hub - Home</title>
-        <link rel="stylesheet" type="text/css" href="Stile/Home.css" />
+        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" />
+        <script src="GameTableGestione.js"></script>
     </head>
     <body>
         <div id="container">
