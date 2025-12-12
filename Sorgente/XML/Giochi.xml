@@ -51,4 +51,74 @@
       <idGiocoCorrelato>9</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
+  <Gioco id_gioco="4">
+    <Titolo>Hades</Titolo>
+    <Prezzo>24.99</Prezzo>
+    <CasaSviluppo>Supergiant Games</CasaSviluppo>
+    <RequisitiMinimi>OS: Windows 7 SP1; Processor: Intel Core 2 Duo E8400; Memory: 4 GB RAM; Graphics: NVIDIA GeForce 8800 GT; DirectX: Version 10; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5-2300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/hades_logo.png</Immagine>
+    <Generi>Roguelike</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>92.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>95.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>6</idGiocoCorrelato>
+      <idGiocoCorrelato>12</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+    <Gioco id_gioco="5">
+    <Titolo>Expedition 33</Titolo>
+    <Prezzo>14.99</Prezzo>
+    <CasaSviluppo>Space Games Inc.</CasaSviluppo>
+    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core 2 Duo; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 9600 GT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 560; DirectX: Version 11; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2018</DataDiUscita> 
+    <Immagine>ImmaginiGiochi/expedition33_logo.png</Immagine>
+    <Generi>Avventura</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>75.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>80.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>1</idGiocoCorrelato>
+      <idGiocoCorrelato>7</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+  <Gioco id_gioco="6">
+    <Titolo>Helldivers II</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Arrowhead Game Studios</CasaSviluppo>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-2500K or AMD FX-6300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 770 or AMD Radeon R9 280; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4770K or AMD Ryzen 5 1500X; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1070 or AMD Radeon RX 580; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2023</DataDiUscita>
+    <Immagine>ImmaginiGiochi/helldivers2_logo.png</Immagine>
+    <Generi>Sparatutto</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>85.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>87.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>3</idGiocoCorrelato>
+      <idGiocoCorrelato>4</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Titolo>Bioshock</Titolo>
+    <Prezzo>19.99</Prezzo>
+    <CasaSviluppo>2K Games</CasaSviluppo>
+    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2007</DataDiUscita> 
+    <Immagine>ImmaginiGiochi/bioshock_logo.png</Immagine>
+    <Generi>Sparatutto</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>96.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>89.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>10</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+
+
 </TabellaGiochi>
