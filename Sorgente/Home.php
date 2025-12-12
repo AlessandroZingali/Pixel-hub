@@ -31,8 +31,8 @@
                 </form>
             </div>
             
-            
-            <table id="GameTable">
+            <div id="TablesBoard">
+                <table id="GameTable">
                 <th>I piu' Popolari</th>
                 <?php
                 $xmlString="";
@@ -69,6 +69,8 @@
                 ?>
             </table>
         
+            </div>
+            
            
         
             

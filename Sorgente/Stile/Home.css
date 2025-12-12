@@ -32,6 +32,11 @@ body{
     
 }
 
+#TablesBoard{
+    border: rgb(255, 0, 162) solid 5px;
+
+}
+
 #GameTable{
     border: lime solid 5px;
     width: 20%;
