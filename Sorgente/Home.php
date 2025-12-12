@@ -38,7 +38,6 @@
             <table id="GameTable">
                 <th>I piu' Popolari</th>
                 <?php
-                $n=0;
                 $xmlString="";
                 foreach(file("XML/Giochi.xml") as $node){ 
                     $xmlString .= trim($node);
@@ -49,24 +48,28 @@
                 $elem=$root->childNodes;
                 echo "<tr>";
                 for($j=0; $j < $elem->length; $j++){
-                    if($n==5){
-                        $gioco=$elem->item($j);
-                        $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
-                        $valGioco = (float) $valGiocoGrezzo;
-                        if($valGioco>=80){
-                            $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                            echo "<td>";
-                            echo "<div class= \" GameCard \"> <img src=\"$immagine\" alt=\"GameImage\"  class=\"product-image\" >
-                            </div> </td>";
-                            $n+=1;
+                    $gioco=$elem->item($j);
+                    $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                    $valGioco = (float) $valGiocoGrezzo;
+                    if($valGioco>=80){
+            
+                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                        echo "<td>";
+                        echo "<div class= \" GameCard \"> 
+                                <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                             </div> 
+                             </td>";
                                 
-                        }
+                    }
+                    
+                                
+                              
                     }   
+
                     echo "</tr>";
-                }
+                
                 
                 ?>
-
             </table>
         </div>
             

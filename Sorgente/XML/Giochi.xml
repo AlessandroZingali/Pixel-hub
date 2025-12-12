@@ -62,7 +62,7 @@
     <Generi>Roguelike</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>92.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>95.0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>85.0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>6</idGiocoCorrelato>
       <idGiocoCorrelato>12</idGiocoCorrelato>
@@ -75,11 +75,11 @@
     <RequisitiMinimi>OS: Windows 7; Processor: Intel Core 2 Duo; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 9600 GT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 560; DirectX: Version 11; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2018</DataDiUscita> 
-    <Immagine>ImmaginiGiochi/expedition33_logo.png</Immagine>
+    <Immagine>ImmaginiGiochi/expedition33_cover.png</Immagine>
     <Generi>Avventura</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>75.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>80.0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>100.0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>7</idGiocoCorrelato>
@@ -96,7 +96,7 @@
     <Generi>Sparatutto</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>85.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>87.0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>77.0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>3</idGiocoCorrelato>
       <idGiocoCorrelato>4</idGiocoCorrelato>
@@ -109,11 +109,11 @@
     <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2007</DataDiUscita> 
-    <Immagine>ImmaginiGiochi/bioshock_logo.png</Immagine>
+    <Immagine>ImmaginiGiochi/Bioshock_Cover.png</Immagine>
     <Generi>Sparatutto</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>96.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>89.0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>69.0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>10</idGiocoCorrelato>
