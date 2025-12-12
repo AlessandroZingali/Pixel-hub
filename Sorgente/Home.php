@@ -4,7 +4,9 @@
     <head>
         <title>Pixel Hub - Home</title>
         <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" />
-        <script src="GameTableGestione.js"></script>
+                <script type="text/javascript" src="Script/GameTableGestione.js?v=1">
+
+        </script>
     </head>
     <body>
         <div id="container">
@@ -88,5 +90,7 @@
             </ul>
         </div>
         
+
+
     </body>
 </html> 
