@@ -23,7 +23,7 @@
 
 body{
 
-    /*border: solid green;*/
+    border: solid green;
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
     background-size: cover;
@@ -80,7 +80,7 @@ body{
 
 
 #container{
-    /*border: solid red;*/
+    border: solid red;
     margin: 20px;
     padding: 10px;
     display: flex;
@@ -121,7 +121,7 @@ body{
     height: 40px;
     padding: 10px;
     border-radius: 80px;
-    /*border: solid orange;*/
+    border: solid orange;
 }
 
 #navigation ul{

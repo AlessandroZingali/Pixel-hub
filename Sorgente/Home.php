@@ -30,10 +30,7 @@
                     <input type="submit" value="Cerca"/>
                 </form>
             </div>
-           
-            </div>
-        </div>
-        <div>
+            
             
             <table id="GameTable">
                 <th>I piu' Popolari</th>
@@ -71,9 +68,13 @@
                 
                 ?>
             </table>
-        </div>
+        
+           
+        
             
         </div>
+        
+            
 
 
         <div id="footer">
