@@ -23,7 +23,7 @@
 
 body{
 
-    border: solid green;
+    border: solid rgb(168, 182, 41);
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
     background-size: cover;
