@@ -23,7 +23,7 @@
             <div id="navigation">
                 <ul>
                     <li><a href="login.html">Log in </a></li>
-                    <li><a href="registrazione.html">Registrati </a></li>
+                    <li><a href="home.php">Home</a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
                 </ul>
@@ -37,51 +37,82 @@
             <div id="TablesBoard">
                 <table id="GameTable">
                 <th>I piu' Popolari</th>
-                <?php
-                $xmlString="";
-                foreach(file("XML/Giochi.xml") as $node){ 
-                    $xmlString .= trim($node);
-                }
-                $doc= new DOMDocument();
-                $doc->loadXML($xmlString);
-                $root=$doc->documentElement;
-                $elem=$root->childNodes;
-                echo "<tr>";
-                for($j=0; $j < $elem->length; $j++){
-                    $gioco=$elem->item($j);
-                    $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
-                    $valGioco = (float) $valGiocoGrezzo;
-                    if($valGioco>=80){
-            
-                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                        echo "<td>";
-                        echo "<div class= \" GameCard \"> 
-                                <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
-                             </div> 
-                             </td>";
-                                
-                    }
-                    
-                                
-                              
-                    }   
-
-                    echo "</tr>";
+                    <?php
+                        $xmlString="";
+                        
+                        foreach(file("XML/Giochi.xml") as $node){ 
+                            $xmlString .= trim($node);
+                        }
+                        
+                        $doc= new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
+                        
+                        if($elem->length<15){
+                            $limite=$elem->length;
+                        } else {
+                            $limite=15;
+                        }
+                        
+                        echo "<tr>";
+                        for($j=0; $j < $limite ; $j++){
+                            $gioco=$elem->item($j);
+                            $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                            $valGioco = (float) $valGiocoGrezzo;
+                            if($valGioco>=80){
                 
+                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                echo "<td>";
+                                echo "<div class= \" GameCard \"> 
+                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                    </div> 
+                                    </td>";
+                                        
+                                }
+                                    
+                            }   
+                            echo "</tr>";    
+                    ?>
+                </table>
+                                <table id="GameTable">
+                <th>Sparatutto</th>
+                    <?php
+                        $xmlString="";
+                        
+                        foreach(file("XML/Giochi.xml") as $node){ 
+                            $xmlString .= trim($node);
+                        }
+                        
+                        $doc= new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
+                        
+                        echo "<tr>";
+                        for($j=0; $j < 5 ; $j++){
+                            $gioco=$elem->item($j);
+                            $genere=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                            
+                            if($genere=="Sparatutto"){
                 
-                ?>
-            </table>
-        
+                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                echo "<td>";
+                                echo "<div class= \" GameCard \"> 
+                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                    </div> 
+                                    </td>";
+                                        
+                                }
+                                    
+                            }   
+                            echo "</tr>";    
+                    ?>
+                </table>
             </div>
-            
-           
-        
             
         </div>
         
-            
-
-
         <div id="footer">
             <ul>
                 <li><a href="">Contact Us</a></li>
@@ -90,7 +121,5 @@
             </ul>
         </div>
         
-
-
     </body>
 </html> 
