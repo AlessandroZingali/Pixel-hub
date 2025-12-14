@@ -67,6 +67,7 @@ function scaleTableOnLoad(){
 function sliderTable(){
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
+    alert("enter");
 
     gameRow.cells[0].display.style = "none";
 }
