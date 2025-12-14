@@ -76,8 +76,9 @@
                     ?>
                 </table>
 
-                
-                    <input type="button" value="Vedi altro..." id="testing" onclick="sliderTable('GameTable')" />
+                                <input type="button" value="Scorri indietro" id="scorriindietro" onclick="sliderTableBack('GameTable')" />
+                    <input type="button" value="Scorri avanti" id="scorriavanti" onclick="sliderTableForward('GameTable')" />
+    
                    
             </div>
             

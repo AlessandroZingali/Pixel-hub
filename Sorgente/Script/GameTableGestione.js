@@ -35,9 +35,11 @@ window.addEventListener("resize", scaleTableOnResize);
 function scaleTableOnResize(){
 
     var width = window.innerWidth;
-    //var base = "GameTable";
+    var base = "GameTable";
 
+    for(let i=0; i<1; i++){
 
+    }
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
 
@@ -105,7 +107,7 @@ function scaleTableOnLoad(){
 
 
 
-function sliderTable(tabellaPassata){ //Funzione che fa scorrere in avanti la tabella giochi
+function sliderTableForward(tabellaPassata){ //Funzione che fa scorrere in avanti la tabella giochi
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
     for(let i=0;i < 1; i++ ){
@@ -118,6 +120,25 @@ function sliderTable(tabellaPassata){ //Funzione che fa scorrere in avanti la ta
         tabellaselezionata.end = tabellaselezionata.end + 1;
         gameRow.cells[tabellaselezionata.end].style.display = "table-cell";
         
+    }
+    
+
+}
+
+function sliderTableBack(tabellaPassata){ //Funzione che fa scorrere in indietro la tabella giochi
+    var table = document.getElementById("GameTable");
+    var gameRow = table.rows[1];
+    for(let i=0;i < 1; i++ ){
+    if(contenitore[i].tabella==tabellaPassata) tabellaselezionata=contenitore[i];
+    }
+
+    if(tabellaselezionata.start!=0) {
+       
+        gameRow.cells[tabellaselezionata.end].style.display = "none";
+        tabellaselezionata.end = tabellaselezionata.end - 1;
+
+        tabellaselezionata.start = tabellaselezionata.start - 1;
+        gameRow.cells[tabellaselezionata.start].style.display = "table-cell";        
     }
     
 
