@@ -1,9 +1,9 @@
-alert("1");
+//alert("1");
 import { selettore } from "./selettore.js";
 var cellCount = 1;
 
 var popolari = new selettore("GameTable");
-alert("2");
+//alert("2");
 var contenitore = new Array();
 
 contenitore[0]=popolari;
@@ -12,7 +12,7 @@ window.addEventListener("load", scaleTableOnLoad);
 window.addEventListener("resize", scaleTableOnResize);
 
 
-alert("3");
+//alert("3");
 function scaleTableOnResize(){
 
     var width = window.innerWidth;
