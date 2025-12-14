@@ -1,8 +1,13 @@
 //Dichiarazione struttura dati del selettore
+
+/*All'interno del codice della home abbiamo usato uno script PHP per chiedere al server alcuni giochi
+In base al gradimento da parte del publico o in base al genere. Abbiamo inserito poi questi giochi
+in delle tabelle a singola riga, simulando delle enormi tuple. Con la seguente struttura dati abbiamo creato una mascherina,
+un vero e proprio selettore che scorre questa tupla invisibile, rendendo di fatto i giochi visibili a scorrimento.*/
 class selettore{
     tabella;
     start;
-    end;
+    end;                                  
 
     constructor(tabella){
         this.tabella=tabella;
@@ -25,6 +30,8 @@ window.addEventListener("resize", scaleTableOnResize);
 
 
 //alert("3");
+
+//Resize automatico della tabella giochi in base alla larghezza della finestra
 function scaleTableOnResize(){
 
     var width = window.innerWidth;
@@ -68,14 +75,14 @@ function scaleTableOnResize(){
     }
 }
 
+//Formattazione iniziale della tabella giochi in base alla larghezza della finestra
 function scaleTableOnLoad(){
     var width = window.innerWidth;
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
     var string;
-    //gameRow.cells[gameRow.cells.length-1].style.display = "none";
-    //alert(" helo");
-    for(let i=0; i<1; i++){
+
+    for(let i=0; i<1; i++){ //Qui la tabella viene impostata, nascondendo tutti gli elementi al momento superflui
         string="GameTable"/*+i*/;
         //alert("nome tabella: " +`${string}`);
         styleTableSettings(string);
@@ -98,7 +105,7 @@ function scaleTableOnLoad(){
 
 
 
-function sliderTable(tabellaPassata){
+function sliderTable(tabellaPassata){ //Funzione che fa scorrere in avanti la tabella giochi
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
     for(let i=0;i < 1; i++ ){
@@ -116,7 +123,7 @@ function sliderTable(tabellaPassata){
 
 }
 
-function styleTableSettings(passaTable){
+function styleTableSettings(passaTable){ //Funzione che imposta lo stile iniziale della tabella giochi
     var table = document.getElementById(passaTable);
     var gameRow = table.rows[1];
     //alert("funzione richiamata" + gameRow.cells.length);
