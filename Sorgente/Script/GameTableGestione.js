@@ -47,38 +47,55 @@ function scaleTableOnResize(){
         //alert("larghezza schermo " +`${width}`);
 
         if(width<= 1200 && cellCount == 1){
-            
+            //alert("condizione 1200 cellcount 1 " +`${width}` +"|| contenitore end:"+ `${contenitore[i].end}`+" || cellCount: " +`${cellCount}`);
             gameRow.cells[contenitore[i].end].style.display = "none";
             contenitore[i].end--;
             cellCount++;
+            //alert("contenitore end dopo decremento (cond 1200): " +`${contenitore[i].end}`+" ||Cellcount++: " +`${cellCount}`);
+            if(width<=1000 && cellCount == 2){
+
+                gameRow.cells[contenitore[i].end].style.display = "none";
+                contenitore[i].end--;
+                
+                cellCount++;
+            
+
+        }
+            
 
         }
         else if(width<= 1000 && cellCount == 2){
-            gameRow.cells[contenitore[i].end].style.display = "none";;
+            //alert("condizione 1000 cellcount 2 " +`${width}` +" || contenitore end: "+ `${contenitore[i].end}`+" || cellCount: " +`${cellCount}`);
+            gameRow.cells[contenitore[i].end].style.display = "none";
             contenitore[i].end--;
             cellCount++;
+           //alert("contenitore end dopo decremento (cond 1000): " +`${contenitore[i].end}`+" ||Cellcount++: " +`${cellCount}`);
+            
         } 
-        else if(width<=1000 && cellCount == 1){
-            alert("ciao");
-            for(let j=0; j<2; j++){
-                alert("Numero iterazioni: " +`${j}`+ " contenitore end: " +`${contenitore[i].end}`);
-                gameRow.cells[contenitore[i].end].style.display = "none";
-                contenitore[i].end--;
-                alert("contenitore end dopo decremento: " +`${contenitore[i].end}`);
-                cellCount++;
-            }
-
-        }
+        //else
         else if (width>1000 && cellCount == 3){
-            gameRow.cells[contenitore[i].end + 1].style.display = "table-cell";
-            gameRow.cells[contenitore[i].end  + 2].style.display = "table-cell";
-            cellCount-=2;
-            contenitore[i].end+=2;
+            if(gameRow.cells.length -1 == contenitore[i].end){
+                gameRow.cells[contenitore[i].start - 1].style.display = "table-cell";
+                gameRow.cells[contenitore[i].start -  2].style.display = "table-cell";
+                cellCount-=2;
+                contenitore[i].end-=2;
+            } //controllare gli end e i -1/ -2 
+            else{
+                //alert("condizione maggiore 1000 cellcount 3 " +`${width}` +" || contenitore end: "+ `${contenitore[i].end}`+" || cellCount: " +`${cellCount}`); 
+                gameRow.cells[contenitore[i].end + 1].style.display = "table-cell";
+                gameRow.cells[contenitore[i].end +  2].style.display = "table-cell";
+                cellCount-=2;
+                contenitore[i].end+=2;
+                //alert("contenitore end dopo incremento (cond >1000): " +`${contenitore[i].end}`+" ||Cellcount--: " +`${cellCount}`);
+            }
+            
         }
-        else if (width>1200 && cellCount == 2){
+        else if (width>1200 && cellCount == 2){ 
+            //alert("condizione maggiore 1200 cellcount 2 " +`${width}` +" || contenitore end: "+ `${contenitore[i].end}`+" || cellCount: " +`${cellCount}`);
             gameRow.cells[contenitore[i].end +1].style.display = "table-cell";
             contenitore[i].end++;
             cellCount--;
+            //alert("contenitore end dopo incremento (cond >1200): " +`${contenitore[i].end}`+" ||Cellcount--: " +`${cellCount}`);
         }
         else if (width>1200 && cellCount == 3){
             for(let j=0; j<2; j++){
