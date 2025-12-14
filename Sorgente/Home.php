@@ -35,7 +35,7 @@
             </div>
             
             <div id="TablesBoard">
-                <table id="GameTable">
+                <table id="GameTable0">
                 <th>I piu' Popolari</th>
                     <?php
                         $xmlString="";
@@ -76,8 +76,8 @@
                     ?>
                 </table>
 
-                                <input type="button" value="Scorri indietro" id="scorriindietro" onclick="sliderTableBack('GameTable')" />
-                    <input type="button" value="Scorri avanti" id="scorriavanti" onclick="sliderTableForward('GameTable')" />
+                                <input type="button" value="Scorri indietro" id="scorriindietro" onclick="sliderTableBack('GameTable0')" />
+                    <input type="button" value="Scorri avanti" id="scorriavanti" onclick="sliderTableForward('GameTable0')" />
     
                    
             </div>

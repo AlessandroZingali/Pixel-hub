@@ -43,7 +43,7 @@ body{
 
 }
 
-#GameTable{
+#GameTable0 {
     border: lime solid 5px;
     width: 20%;
     margin: auto;
@@ -53,7 +53,7 @@ body{
 
 }
 
-#GameTable th{
+#GameTable0 th{
     
     justify-content: right;
     text-align: left;
@@ -62,7 +62,7 @@ body{
 
     }
 
-#GameTable td{
+#GameTable0 td{
     
    /* border: red solid 2px   ;*/
     }

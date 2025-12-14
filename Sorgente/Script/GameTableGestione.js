@@ -18,8 +18,9 @@ class selettore{
 //Fire Dichiarazione struttura dati del selettore
 
 var cellCount = 1;
+ var base = "GameTable";
 
-var popolari = new selettore("GameTable");
+var popolari = new selettore("GameTable0");
 //alert("2");
 var contenitore = new Array();
 
@@ -35,73 +36,96 @@ window.addEventListener("resize", scaleTableOnResize);
 function scaleTableOnResize(){
 
     var width = window.innerWidth;
-    var base = "GameTable";
+   
 
     for(let i=0; i<1; i++){
 
-    }
-    var table = document.getElementById("GameTable");
-    var gameRow = table.rows[1];
+        var table = document.getElementById(base + i);
+        var gameRow = table.rows[1];
+        
 
-    //alert("larghezza schermo " +`${width}`);
+        //alert("larghezza schermo " +`${width}`);
 
-    if(width<= 1200 && cellCount == 1){
-        gameRow.cells[gameRow.cells.length - cellCount].style.display = "none";
-        cellCount++;
-
-    }
-     else if(width<= 1000 && cellCount == 2){
-        gameRow.cells[gameRow.cells.length - cellCount].style.display = "none";
-        cellCount++;
-    } 
-    else if(width<=1000 && cellCount == 1){
-        for(let i=0; i<2; i++){
-            gameRow.cells[gameRow.cells.length - cellCount].style.display = "none";
+        if(width<= 1200 && cellCount == 1){
+            
+            gameRow.cells[contenitore[i].end].style.display = "none";
+            contenitore[i].end--;
             cellCount++;
-        }
 
-    }
-    else if (width>1000 && cellCount == 3){
-        gameRow.cells[gameRow.cells.length - (cellCount -1)].style.display = "table-cell";
-        cellCount--;
-    }
-    else if (width>1200 && cellCount == 2){
-        gameRow.cells[gameRow.cells.length - (cellCount -1)].style.display = "table-cell";
-        cellCount--;
-    }
-    else if (width>1200 && cellCount == 3){
-        for(let i=0; i<2; i++){
-            gameRow.cells[gameRow.cells.length - (cellCount -1)].style.display = "table-cell";
+        }
+        else if(width<= 1000 && cellCount == 2){
+            gameRow.cells[contenitore[i].end].style.display = "none";;
+            contenitore[i].end--;
+            cellCount++;
+        } 
+        else if(width<=1000 && cellCount == 1){
+            for(let j=0; j<2; j++){
+                gameRow.cells[contenitore[i].end - i].style.display = "none";
+                contenitore[i].end--;
+                cellCount++;
+            }
+
+        }
+        else if (width>1000 && cellCount == 3){
+            gameRow.cells[contenitore[i].end].style.display = "table-cell";
+            cellCount--;
+            contenitore[i].end++;
+        }
+        else if (width>1200 && cellCount == 2){
+            gameRow.cells[contenitore[i].end].style.display = "table-cell";
+            contenitore[i].end++;
             cellCount--;
         }
-    }
+        else if (width>1200 && cellCount == 3){
+            for(let j=0; j<2; j++){
+                gameRow.cells[contenitore[i].end - i].style.display = "table-cell";
+                contenitore[i].end++;
+                cellCount--;
+
+            }
+        }
+        
+        }
 }
 
 //Formattazione iniziale della tabella giochi in base alla larghezza della finestra
 function scaleTableOnLoad(){
     var width = window.innerWidth;
-    var table = document.getElementById("GameTable");
-    var gameRow = table.rows[1];
-    var string;
+    
 
     for(let i=0; i<1; i++){ //Qui la tabella viene impostata, nascondendo tutti gli elementi al momento superflui
-        string="GameTable"/*+i*/;
         //alert("nome tabella: " +`${string}`);
-        styleTableSettings(string);
+        styleTableSettings(base + i);
     }
 
     
 
-    if(width<=1000 && cellCount == 1){
-        for(let i=0; i<2; i++){
-            gameRow.cells[gameRow.cells.length - cellCount].style.display = "none";
+    for(let i=0; i<1; i++){
+
+        var table = document.getElementById(base + i);
+        var gameRow = table.rows[1];
+            
+        if(width<= 1200 && cellCount == 1){
+            
+            gameRow.cells[contenitore[i].end].style.display = "none";
+            contenitore[i].end--;
             cellCount++;
+
         }
+        
+        else if(width<=1000 && cellCount == 1){
+            for(let j=0; j<2; j++){
+                gameRow.cells[contenitore[i].end - i].style.display = "none";
+                contenitore[i].end--;
+                cellCount++;
+            }
+
+        }
+       
     }
-    else if(width<= 1200 && cellCount == 1){
-        gameRow.cells[gameRow.cells.length - cellCount].style.display = "none";
-        cellCount++;
-    }
+
+    
+
 
 }
 
