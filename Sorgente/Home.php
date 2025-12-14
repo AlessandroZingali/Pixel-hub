@@ -77,7 +77,7 @@
                 </table>
 
                 
-                    <input type="button" value="Vedi altro..." id="testing" onclick="sliderTable()" />
+                    <input type="button" value="Vedi altro..." id="testing" onclick="sliderTable('GameTable')" />
                    
             </div>
             

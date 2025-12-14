@@ -1,5 +1,17 @@
-//alert("1");
-import { selettore } from "./selettore.js";
+//Dichiarazione struttura dati del selettore
+class selettore{
+    tabella;
+    start;
+    end;
+
+    constructor(tabella){
+        this.tabella=tabella;
+        this.start=0;
+        this.end=4;
+    }
+}
+//Fire Dichiarazione struttura dati del selettore
+
 var cellCount = 1;
 
 var popolari = new selettore("GameTable");
@@ -16,6 +28,9 @@ window.addEventListener("resize", scaleTableOnResize);
 function scaleTableOnResize(){
 
     var width = window.innerWidth;
+    //var base = "GameTable";
+
+
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
 
@@ -62,7 +77,7 @@ function scaleTableOnLoad(){
     //alert(" helo");
     for(let i=0; i<1; i++){
         string="GameTable"/*+i*/;
-        alert("nome tabella: " +`${string}`);
+        //alert("nome tabella: " +`${string}`);
         styleTableSettings(string);
     }
 
@@ -83,8 +98,7 @@ function scaleTableOnLoad(){
 
 
 
-function sliderTable(){
-    
+function sliderTable(tabellaPassata){
     var table = document.getElementById("GameTable");
     var gameRow = table.rows[1];
     for(let i=0;i < 1; i++ ){
@@ -94,8 +108,9 @@ function sliderTable(){
     if((gameRow.cells.length - 1) > tabellaselezionata.end) {
         gameRow.cells[tabellaselezionata.start].style.display = "none";
         tabellaselezionata.start = tabellaselezionata.start + 1;
-        gameRow.cells[tabellaselezionata.end].style.display = "table-cell";
         tabellaselezionata.end = tabellaselezionata.end + 1;
+        gameRow.cells[tabellaselezionata.end].style.display = "table-cell";
+        
     }
     
 
@@ -104,9 +119,9 @@ function sliderTable(){
 function styleTableSettings(passaTable){
     var table = document.getElementById(passaTable);
     var gameRow = table.rows[1];
-    alert("funzione richiamata" + gameRow.cells.length);
+    //alert("funzione richiamata" + gameRow.cells.length);
     for(let i=5; i<gameRow.cells.length; i++){
-        alert("Nel for interazione "+i);
+        //alert("Nel for interazione "+i);
         gameRow.cells[i].style.display = "none";
     }
 
