@@ -75,40 +75,10 @@
                             echo "</tr>";    
                     ?>
                 </table>
-                                <table id="GameTable">
-                <th>Sparatutto</th>
-                    <?php
-                        $xmlString="";
-                        
-                        foreach(file("XML/Giochi.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                        
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
-                        
-                        echo "<tr>";
-                        for($j=0; $j < 5 ; $j++){
-                            $gioco=$elem->item($j);
-                            $genere=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
-                            
-                            if($genere=="Sparatutto"){
-                
-                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                echo "<td>";
-                                echo "<div class= \" GameCard \"> 
-                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
-                                    </div> 
-                                    </td>";
-                                        
-                                }
-                                    
-                            }   
-                            echo "</tr>";    
-                    ?>
-                </table>
+
+                <form action="home.php">
+                    <input type="button" value="Vedi altro..." id="vedialtrobutton" onclick="sliderTable()"/>
+                </form>     
             </div>
             
         </div>

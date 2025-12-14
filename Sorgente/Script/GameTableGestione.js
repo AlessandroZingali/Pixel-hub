@@ -1,6 +1,8 @@
 var cellCount = 1;
+var button = document.getElementById("vedialtrobutton");
 window.addEventListener("load", scaleTableOnLoad);
 window.addEventListener("resize", scaleTableOnResize);
+button.addEventListener("onclick", sliderTable);
 
 function scaleTableOnResize(){
 
@@ -45,7 +47,9 @@ function scaleTableOnResize(){
 function scaleTableOnLoad(){
     var width = window.innerWidth;
     var table = document.getElementById("GameTable");
-    var gameRow = table.rows[1];    
+    var gameRow = table.rows[1];
+    
+    //gameRow.cells[gameRow.cells.length-1].style.display = "none";
 
     if(width<=1000 && cellCount == 1){
         for(let i=0; i<2; i++){
@@ -59,3 +63,11 @@ function scaleTableOnLoad(){
     }
 
 }
+
+function sliderTable(){
+    var table = document.getElementById("GameTable");
+    var gameRow = table.rows[1];
+
+    gameRow.cells[0].display.style = "none";
+}
+
