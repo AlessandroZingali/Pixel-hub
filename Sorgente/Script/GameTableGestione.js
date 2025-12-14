@@ -59,26 +59,30 @@ function scaleTableOnResize(){
             cellCount++;
         } 
         else if(width<=1000 && cellCount == 1){
+            alert("ciao");
             for(let j=0; j<2; j++){
-                gameRow.cells[contenitore[i].end - i].style.display = "none";
+                alert("Numero iterazioni: " +`${j}`+ " contenitore end: " +`${contenitore[i].end}`);
+                gameRow.cells[contenitore[i].end].style.display = "none";
                 contenitore[i].end--;
+                alert("contenitore end dopo decremento: " +`${contenitore[i].end}`);
                 cellCount++;
             }
 
         }
         else if (width>1000 && cellCount == 3){
-            gameRow.cells[contenitore[i].end].style.display = "table-cell";
-            cellCount--;
-            contenitore[i].end++;
+            gameRow.cells[contenitore[i].end + 1].style.display = "table-cell";
+            gameRow.cells[contenitore[i].end  + 2].style.display = "table-cell";
+            cellCount-=2;
+            contenitore[i].end+=2;
         }
         else if (width>1200 && cellCount == 2){
-            gameRow.cells[contenitore[i].end].style.display = "table-cell";
+            gameRow.cells[contenitore[i].end +1].style.display = "table-cell";
             contenitore[i].end++;
             cellCount--;
         }
         else if (width>1200 && cellCount == 3){
             for(let j=0; j<2; j++){
-                gameRow.cells[contenitore[i].end - i].style.display = "table-cell";
+                gameRow.cells[contenitore[i].end + i + 1].style.display = "table-cell";
                 contenitore[i].end++;
                 cellCount--;
 
@@ -150,7 +154,7 @@ function sliderTableForward(tabellaPassata){ //Funzione che fa scorrere in avant
 }
 
 function sliderTableBack(tabellaPassata){ //Funzione che fa scorrere in indietro la tabella giochi
-    var table = document.getElementById("GameTable");
+    var table = document.getElementById(tabellaPassata);
     var gameRow = table.rows[1];
     for(let i=0;i < 1; i++ ){
     if(contenitore[i].tabella==tabellaPassata) tabellaselezionata=contenitore[i];
