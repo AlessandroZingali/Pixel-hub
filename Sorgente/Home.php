@@ -4,9 +4,9 @@
     <head>
         <title>Pixel Hub - Home</title>
         <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" />
-                <script type="text/javascript" src="Script/GameTableGestione.js?v=1">
+                <script type="text/javascript" src="Script/GameTableGestione.js?v=1">  </script>
 
-        </script>
+        <script type="type/javascript" src="Script/tabella.js?v=1"></script>
     </head>
     <body>
         <div id="container">
@@ -76,9 +76,9 @@
                     ?>
                 </table>
 
-                <form action="home.php">
-                    <input type="button" value="Vedi altro..." id="vedialtrobutton" onclick="sliderTable()"/>
-                </form>     
+                
+                    <input type="button" value="Vedi altro..." id="testing" onclick="sliderTable()" />
+                   
             </div>
             
         </div>
