@@ -132,7 +132,7 @@ function scaleTableOnLoad(){
 
 
 function sliderTableForward(tabellaPassata){ //Funzione che fa scorrere in avanti la tabella giochi
-    var table = document.getElementById("GameTable");
+    var table = document.getElementById(tabellaPassata);
     var gameRow = table.rows[1];
     for(let i=0;i < 1; i++ ){
     if(contenitore[i].tabella==tabellaPassata) tabellaselezionata=contenitore[i];

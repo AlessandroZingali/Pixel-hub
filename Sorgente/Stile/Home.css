@@ -62,10 +62,7 @@ body{
 
     }
 
-#GameTable0 td{
-    
-   /* border: red solid 2px   ;*/
-    }
+
 .GameCard{   
   /*  border: yellow solid 2px; */
     display: flex;
