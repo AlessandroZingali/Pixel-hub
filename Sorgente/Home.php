@@ -41,7 +41,7 @@
                     
                     <div>
                         
-                        <input type="button" value="<" id="scorriindietro" onclick="sliderTableBack('GameTable0')" />
+                        <input type="button" value="<" id="scorriindietro" onclick="sliderTable('GameTable0', 'back')" />
                         
                     </div>
                     <div>
@@ -97,14 +97,14 @@
 
                     <div>
                         
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable0')" />
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable0', 'forward')" />
                     
                     </div>
                 </div>
                 
                 <div class="GameSlider">
                     <div>
-                        <input type="button" value="<" id="scorriavanti" onclick="sliderTableBack('GameTable1')" />
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable1', 'back')" />
                     </div> <!-- < -->
                     <div>
                         <table id="GameTable1">
@@ -155,7 +155,7 @@
                         </table>
                     </div><!--tab -->
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable1')" />
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
                     </div><!-- > -->
                 </div>
 
