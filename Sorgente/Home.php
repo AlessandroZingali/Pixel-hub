@@ -104,7 +104,7 @@
                 
                 <div class="GameSlider">
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable1')" />
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTableBack('GameTable1')" />
                     </div> <!-- < -->
                     <div>
                         <table id="GameTable1">
@@ -135,7 +135,7 @@
                                     $gioco=$elem->item($j);
                                     $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
-                                    if($genereGioco=="Sparatutto"){
+                                   if($genereGioco=="Sparatutto"){
                         
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
