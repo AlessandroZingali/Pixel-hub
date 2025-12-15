@@ -38,8 +38,10 @@ function scaleTable(){
     const width = window.innerWidth;
 
     let visibili = 5;
+
     if (width <= 1000) visibili = 2;
-    else if (width <= 1200) visibili = 4;
+    else if (width <= 1200) visibili = 3;
+    else if (width <= 1500) visibili = 4;
 
     for(let i = 0; i < contenitore.length; i++){
         const sel = contenitore[i];
@@ -49,12 +51,11 @@ function scaleTable(){
         const savedStart = parseInt(localStorage.getItem(sel.tabella));
         sel.start = isNaN(savedStart) ? 0 : savedStart;
         
-        // mantiene lo start, ricalcola end
         sel.end = sel.start + visibili - 1;
 
-        // correzione limiti
         if(sel.end >= gameRow.cells.length){
-            sel.end = gameRow.cells.length - 1;
+            sel.end = gameRow.cells.length - 1; 
+
             sel.start = Math.max(0, sel.end - visibili + 1);
         }
 
@@ -90,7 +91,8 @@ function sliderTableBack(tabellaPassata){
         sel.end--;
         applyVisibility(gameRow, sel);
     }
-    localStorage.setItem(tabellaPassata, sel.end);
+
+    localStorage.setItem(tabellaPassata, sel.start);
 }
 
 
