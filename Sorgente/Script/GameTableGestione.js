@@ -50,7 +50,7 @@ function scaleTable(){
         
         const savedStart = parseInt(localStorage.getItem(sel.tabella));
         sel.start = isNaN(savedStart) ? 0 : savedStart;
-        
+
         sel.end = sel.start + visibili - 1;
 
         if(sel.end >= gameRow.cells.length){
@@ -65,34 +65,31 @@ function scaleTable(){
 
 
     
-function sliderTableForward(tabellaPassata){
+function sliderTable(tabellaPassata, service){
     const sel = contenitore.find(t => t.tabella === tabellaPassata);
     const table = document.getElementById(tabellaPassata);
     const gameRow = table.rows[1];
 
-    if(sel.end < gameRow.cells.length - 1){
-        sel.start++;
-        sel.end++;
-        applyVisibility(gameRow, sel);
+    if(service === "forward"){
+
+        if(sel.end < gameRow.cells.length - 1){
+            sel.start++;
+            sel.end++;
+            applyVisibility(gameRow, sel);
+        }
     }
+    else if(service === "back"){
+        if(sel.start > 0){
+            sel.start--;
+            sel.end--;
+            applyVisibility(gameRow, sel);
+        }
+    }
+
+    
 
     localStorage.setItem(tabellaPassata, sel.start);
 
-}
-
-
-function sliderTableBack(tabellaPassata){
-    const sel = contenitore.find(t => t.tabella === tabellaPassata);
-    const table = document.getElementById(tabellaPassata);
-    const gameRow = table.rows[1];
-
-    if(sel.start > 0){
-        sel.start--;
-        sel.end--;
-        applyVisibility(gameRow, sel);
-    }
-
-    localStorage.setItem(tabellaPassata, sel.start);
 }
 
 
