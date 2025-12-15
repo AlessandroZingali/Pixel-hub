@@ -43,6 +43,29 @@ body{
 
 }
 
+.GameSlider{
+    border:yellow solid 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.GameSlider input[type="button"]{
+    margin-top: 180px;
+    border: #005bea solid 2px;
+    background-color: rgba(63, 56, 56, 0.911);
+    box-shadow: 5px 5px 10px #000000;
+    width: 45px;
+    height: 45px;
+    font-family: "font pixeloso", monospace;
+    font-size: 22px;
+    color:white;
+    border-radius: 30%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 #GameTable0 {
     border: lime solid 5px;
     width: 20%;
@@ -62,6 +85,24 @@ body{
 
     }
 
+#GameTable1 {
+    border: lime solid 5px;
+    width: 20%;
+    margin: auto;
+    margin-bottom: 10px;
+    font-family: "font pixeloso", monospace;
+    color: white;
+
+}
+
+#GameTable1 th{
+    
+    justify-content: right;
+    text-align: left;
+    border: red solid 2px;
+    font-size: 20px;
+
+    }
 
 .GameCard{   
   /*  border: yellow solid 2px; */

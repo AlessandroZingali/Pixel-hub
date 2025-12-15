@@ -3,10 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
         <title>Pixel Hub - Home</title>
-        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" />
-                <script type="text/javascript" src="Script/GameTableGestione.js?v=1">  </script>
 
-        <script type="type/javascript" src="Script/tabella.js?v=1"></script>
+        <!-- " ?v=1 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
+        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" /> 
+        <script type="text/javascript" src="Script/GameTableGestione.js?v=1">  </script>
+
     </head>
     <body>
         <div id="container">
@@ -20,6 +21,7 @@
                 <h2>Il tuo shop preferito di videogiochi</h2>
  
             </div>
+
             <div id="navigation">
                 <ul>
                     <li><a href="login.html">Log in </a></li>
@@ -34,52 +36,133 @@
                 </form>
             </div>
             
-            <div id="TablesBoard">
-                <table id="GameTable0">
-                <th>I piu' Popolari</th>
-                    <?php
-                        $xmlString="";
+            <div id="TablesBoard"> <!--tag della della tabella maestra  -->
+                <div class="GameSlider">
+                    
+                    <div>
                         
-                        foreach(file("XML/Giochi.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
+                        <input type="button" value="<" id="scorriindietro" onclick="sliderTableBack('GameTable0')" />
                         
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                    </div>
+                    <div>
+                    
+                        <table id="GameTable0">
                         
-                        if($elem->length<15){
-                            $limite=$elem->length;
-                        } else {
-                            $limite=15;
-                        }
-                        
-                        echo "<tr>";
-                        for($j=0; $j < $limite ; $j++){
-                            $gioco=$elem->item($j);
-                            $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
-                            $valGioco = (float) $valGiocoGrezzo;
-                            if($valGioco>=80){
-                
-                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                echo "<td>";
-                                echo "<div class= \" GameCard \"> 
-                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
-                                    </div> 
-                                    </td>";
+                            <th>I piu' Popolari</th>
+                            
+                                <?php
+                            
+                                    $xmlString="";
                                         
-                                }
-                                    
-                            }   
-                            echo "</tr>";    
-                    ?>
-                </table>
+                                        foreach(file("XML/Giochi.xml") as $node){ 
+                                            $xmlString .= trim($node);
+                                        }
+                                        
+                                        $doc= new DOMDocument();
+                                        $doc->loadXML($xmlString);
+                                        $root=$doc->documentElement;
+                                        $elem=$root->childNodes;
+                                        
+                                        if($elem->length<15){
+                                            $limite=$elem->length;
+                                        } else {
+                                            $limite=15;
+                                        }
+                                        
+                                        echo "<tr>";
+                                            
+                                        for($j=0; $j < $limite ; $j++){
+                                            $gioco=$elem->item($j);
+                                            $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                                            $valGioco = (float) $valGiocoGrezzo;
+                                            if($valGioco>=80){
+                                
+                                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                                echo "<td>";
+                                                echo "<div class= \" GameCard \"> 
+                                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                                    </div> 
+                                                    </td>";
+                                                        
+                                                }
+                                                    
+                                            }   
+                                            echo "</tr>";    
+                                        
+                                ?>   
+                        
+                        </table>
 
-                                <input type="button" value="Scorri indietro" id="scorriindietro" onclick="sliderTableBack('GameTable0')" />
-                    <input type="button" value="Scorri avanti" id="scorriavanti" onclick="sliderTableForward('GameTable0')" />
-    
-                   
+                    </div>
+
+                    <div>
+                        
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable0')" />
+                    
+                    </div>
+                </div>
+                
+                <div class="GameSlider">
+                    <div>
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable1')" />
+                    </div> <!-- < -->
+                    <div>
+                        <table id="GameTable1">
+                    
+                    
+                        
+                            <th>Sparatutto</th>
+                            <?php
+                                $xmlString="";
+                                
+                                foreach(file("XML/Giochi.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+                                
+                                if($elem->length<15){
+                                    $limite=$elem->length;
+                                } else {
+                                    $limite=15;
+                                }
+                                
+                                echo "<tr>";
+                                for($j=0; $j < $limite ; $j++){
+                                    $gioco=$elem->item($j);
+                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+
+                                    if($genereGioco=="Sparatutto"){
+                        
+                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        echo "<td>";
+                                        echo "<div class= \" GameCard \"> 
+                                                <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                            </div> 
+                                            </td>";
+                                                
+                                        }
+                                            
+                                    }   
+                                    echo "</tr>";    
+                                    
+                            ?> 
+                            
+
+                        </table>
+                    </div><!--tab -->
+                    <div>
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTableForward('GameTable1')" />
+                    </div><!-- > -->
+                </div>
+
+
+                  <!--  Pulsante per il debugg
+                <input type="button" value="Reset Lista" onclick="localStorage.clear();"/> 
+                -->
             </div>
             
         </div>
