@@ -30,12 +30,7 @@ body{
     height: auto;
 }
 
-#esito{
-    display: inline;
-    color: rgba(255, 0, 0, 0.811);
-    background-color: rgb(80, 74, 74);  
-    box-shadow: 2px 10px 10px black; 
-}
+
 
 #LoginCard {
     display: flex;
@@ -143,6 +138,24 @@ body{
 #footer ul li a{
     text-decoration: none;
     color: rgb(255, 255, 255);
+}
+
+#esito {
+   
+    display: block;
+    height: 30px;
+    color: rgba(255, 0, 0, 0.811);
+    background-color: rgb(204, 201, 201);  
+    box-shadow: 2px 10px 10px black; 
+    text-align: center;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    
+
+}
+
+#esito p{
+    padding-top: 5px;
 }
 
 

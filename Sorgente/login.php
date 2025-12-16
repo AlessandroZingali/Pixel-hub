@@ -1,6 +1,11 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
 
+if(isset($_SESSION)){
+   session_unset($_SESSION);
+   session_destroy(); 
+}
+
 
 $esitovuoto="I campi sono vuoti";
 $esitoerrore="Email e/o password errati";
@@ -66,18 +71,19 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
                 <div id="logo">
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub">
                 </div>
-                
                 <?php
 
-                if($flag == 2){
-                   echo "<div id=\"esito\"> <p>$esitovuoto</p> </div>"; 
-                }
-                 if($flag == 3){
-                   echo "<div id=\"esito\"> <p>$esitoerrore</p> </div>"; 
-                }
+                    if($flag == 2){
+                    echo "<div id=\"esito\"> <p>$esitovuoto</p> </div>"; 
+                    }
+                    if($flag == 3){
+                    echo "<div id=\"esito\"> <p>$esitoerrore</p> </div>"; 
+                    }
+                    
+                    ?>
                 
-                ?>
                 <form action="login.php" method="post">
+                    
                     <div id="Email">
                         <p>Email or Nickname</p>
                         <input type="text" placeholder="example@mail.com" name="EmailNickname"/>
