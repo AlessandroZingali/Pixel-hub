@@ -1,3 +1,42 @@
+<?php  
+error_reporting(E_ALL &~E_NOTICE);
+
+$db_name = "Database_Pixel_Hub";
+$table_users = "Tabella_Utenti";
+$mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+if (mysqli_connect_errno()){
+
+    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+}
+
+if(isset($_POST['Accedi'])){
+
+    $emailNickname = $_POST['EmailNickname'];
+    $password = $_POST['Password'];
+
+    $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
+
+    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+
+    $num_rows = mysqli_num_rows($resultQ);
+
+    if($num_rows == 1){
+
+        session_start();
+        $_SESSION['userId']
+        $_SESSION['user'] = $emailNickname;
+        header("Location: home.php");
+    }
+    else{
+        echo "Credenziali non valide. Riprova.";
+    }
+}
+?>
+
+
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
