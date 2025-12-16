@@ -2,9 +2,11 @@
 error_reporting(E_ALL &~E_NOTICE);
 
 
-$esito=" ";
+$esitovuoto="I campi sono vuoti";
+$esitoerrore="Email e/o password errati";
+$flag=1;
 setcookie("userConnect", "false");
-if(isset($_POST['Accedi'])){
+if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 
     $db_name = "Database_Pixel_Hub";
     $table_users = "Tabella_Utenti";
@@ -22,7 +24,7 @@ if(isset($_POST['Accedi'])){
     $num = mysqli_num_rows($resultQ);
 
     if($num == 1){
-        
+        $flag=1;
         session_start();
         $row=mysqli_fetch_array($resultQ);
         $_SESSION['userId']  =$row['ID'];
@@ -33,13 +35,17 @@ if(isset($_POST['Accedi'])){
         header("Location: Home.php");
     }
 
-    if($
-
-        $esito="Email o Password errate";
-        session_abort();
+    else if($emailNickname==="" ?? $password ===""){
+         $flag=2;
     }
 
+    else if($num<1){
+        $flag=3;
 }
+    
+
+}
+
 ?>
 
 
@@ -63,8 +69,11 @@ if(isset($_POST['Accedi'])){
                 
                 <?php
 
-                if($esito == "Email o Password errate"){
-                   echo "<div id=\"esito\"> <p>$esito</p> </div>"; 
+                if($flag == 2){
+                   echo "<div id=\"esito\"> <p>$esitovuoto</p> </div>"; 
+                }
+                 if($flag == 3){
+                   echo "<div id=\"esito\"> <p>$esitoerrore</p> </div>"; 
                 }
                 
                 ?>

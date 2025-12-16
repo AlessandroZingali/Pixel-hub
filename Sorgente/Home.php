@@ -11,7 +11,7 @@
     </head>
     <body>
         <div id="container">
-            <div id="header">
+            <div id="heade">
                 <div id="logo">
                 
                     <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
