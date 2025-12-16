@@ -34,14 +34,9 @@
                         <input type="text" placeholder="SuperBazinga666" name="Nickname"/>
                         
                     </div>
-                    <div>
+                    <div id="DataNascita">
                         <p>Data di Nascita</p>
                         <input type="text" placeholder="01-01-1980" name="DataNascita"/>
-                    </div>
-
-                    <div class="recovery">
-                        <p>Hai dimeticato le tue <a href="recuperoCredenziali.php">credenziali</a>?</p>
-                        <p>Sei nuovo? <a href="SignIn.php">Sign In</a></p>
                     </div>
 
                     <div>

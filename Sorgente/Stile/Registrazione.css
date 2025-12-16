@@ -43,8 +43,13 @@ body{
     
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
-    box-shadow: 2px 10px 10px black; 
+    box-shadow: 2px 10px 10px black;
+    animation: FadeIn 1.2s forwards; 
 
+}
+@keyframes FadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 .loginForm form{
@@ -74,7 +79,7 @@ body{
 .loginForm form input[type="submit"]{
     background-color: rgba(63, 56, 56, 0.911);
     color: white;
-    padding: 5px;
+    padding: 10px;
     border: none;
     border-radius: 20px;
     margin-left: 25%;
@@ -92,14 +97,8 @@ body{
     height: 40px;
 }
 
-.recovery a{
-    color: rgb(255, 255, 255);
-    transition: color 0.3s linear;
-    text-underline-offset: 3px;
-}
-
-.recovery a:hover{
-    color: aqua;
+#DataNascita{
+    margin-bottom: 5%;
 }
 
 #footer{
