@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
+}
+
+body{
+    border: solid rgb(168, 182, 41);
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "font pixeloso",monospace;
+    background-position: center;
+    min-height: 100vh;
+}
+
+#logo{
+    border: solid red;
+    padding: 10%;
+}
+
+#logo img{
+    width:100%;
+    height: auto;
+}
+
+#LoginCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 50%;
+    border: solid pink;
+    color: white;
+    margin-top: 10%;
+    margin-left: 30%;
+    background-image: rgb(104, 104, 109);
+    border-radius: 10%;
+
+}
+
+.loginForm form{
+    
+    padding-left:25%;
+    padding-top:2%;
+    
+
+}
+
+#footer{
+    border: pink solid;
+    width: 400px;
+    height: 40px;
+    text-align: center;
+
+    margin-bottom: 10px;
+    font-size: 12px;
+    color: white;
+    }
+
+#footer ul{
+    list-style-type: none;
+    float: left;
+
+    padding: 0;
+    margin: 0;
+}
+
+#footer ul li{
+    display: inline;
+    margin: 4px;
+    font-size: 12px;
+    border-right: solid rgb(46, 42, 42) 2px;
+}
+#footer ul li a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}

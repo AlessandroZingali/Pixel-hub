@@ -24,7 +24,7 @@
 
             <div id="navigation">
                 <ul>
-                    <li><a href="login.html">Log in </a></li>
+                    <li><a href="login.php">Log in </a></li>
                     <li><a href="home.php">Home</a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
