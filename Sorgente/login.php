@@ -1,36 +1,44 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
 
-$db_name = "Database_Pixel_Hub";
-$table_users = "Tabella_Utenti";
-$mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
-if (mysqli_connect_errno()){
-
-    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-}
-
+$esito=" ";
+setcookie("userConnect", "false");
 if(isset($_POST['Accedi'])){
 
+    $db_name = "Database_Pixel_Hub";
+    $table_users = "Tabella_Utenti";
+    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+    if (mysqli_connect_errno()){
+
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
     $emailNickname = $_POST['EmailNickname'];
     $password = $_POST['Password'];
 
     $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
-
     $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+    $num = mysqli_num_rows($resultQ);
 
-    $num_rows = mysqli_num_rows($resultQ);
-
-    if($num_rows == 1){
-
+    if($num == 1){
+        
         session_start();
-        $_SESSION['userId']
+        $row=mysqli_fetch_array($resultQ);
+        $_SESSION['userId']  =$row['ID'];
         $_SESSION['user'] = $emailNickname;
-        header("Location: home.php");
+        $_COOKIE['userConnect'] = "true";
+    
+        
+        header("Location: Home.php");
     }
-    else{
-        echo "Credenziali non valide. Riprova.";
+
+    if($
+
+        $esito="Email o Password errate";
+        session_abort();
     }
+
 }
 ?>
 
@@ -42,7 +50,8 @@ if(isset($_POST['Accedi'])){
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
         <title>Login - PixelHub</title>        
-        <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" />
+        <script type="text/javascript" src="Script/esito.js"></script>
         
     </head>
     <body>
@@ -51,6 +60,14 @@ if(isset($_POST['Accedi'])){
                 <div id="logo">
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub">
                 </div>
+                
+                <?php
+
+                if($esito == "Email o Password errate"){
+                   echo "<div id=\"esito\"> <p>$esito</p> </div>"; 
+                }
+                
+                ?>
                 <form action="login.php" method="post">
                     <div id="Email">
                         <p>Email or Nickname</p>
@@ -67,7 +84,7 @@ if(isset($_POST['Accedi'])){
                     </div>
 
                     <div>
-                        <input type="submit" name="Accedi" value="Accedi" />
+                        <input id="submit" type="submit" name="Accedi" value="Accedi"  />
                     </div>
                     
                    

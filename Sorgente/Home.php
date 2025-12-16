@@ -28,6 +28,7 @@
                     <li><a href="home.php">Home</a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
+                    <li><a href="Creadatabasepixelhub.php">data</a></li>
                 </ul>
 
                 <form action="" id="searchBar">
