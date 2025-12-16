@@ -12,13 +12,13 @@
                 <div id="logo">
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub">
                 </div>
-                <form action="login.php" method="post">
+                <form action="signin.php" method="post">
                     <div id="Nome">
                         <p>Nome</p>
                         <input type="text" placeholder="Mario" name="Nome"/>
                     </div>
                     <div id="Cognome">
-                        <p>Nome</p>
+                        <p>Cognome</p>
                         <input type="text" placeholder="Rossi" name="Cognome"/>
                     </div>
                     <div id="Email">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div>
-                        <input type="submit" name="singin" value="Inscriviti" />
+                        <input type="submit" name="singin" value="Iscriviti" />
                     </div>
                     
                    
