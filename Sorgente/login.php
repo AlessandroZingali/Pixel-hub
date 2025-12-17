@@ -1,6 +1,8 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
 
+if (isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
+
 if(isset($_SESSION)){
    session_unset($_SESSION);
    session_destroy(); 
@@ -34,6 +36,7 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
         $row=mysqli_fetch_array($resultQ);
         $_SESSION['userId']  =$row['ID'];
         $_SESSION['user'] = $emailNickname;
+        $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
         $_COOKIE['userConnect'] = "true";
     
         
@@ -51,6 +54,8 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 
 }
 
+    
+
 ?>
 
 
@@ -62,15 +67,16 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
     <head>
         <title>Login - PixelHub</title>        
         <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" />
-        <script type="text/javascript" src="Script/esito.js"></script>
+        <script type="text/javascript" src="Script/estensioneLink.js"></script>
         
     </head>
     <body>
-        <div id="LoginCard">
-            <div class="loginForm">
-                <div id="logo">
+        <div id="logo">
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub">
                 </div>
+        <div id="LoginCard">
+            <div class="loginForm">
+                
                 <?php
 
                     if($flag == 2){
@@ -95,7 +101,11 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
                     </div>
                     <div class="recovery">
                         <p>Hai dimeticato le tue <a href="recuperoCredenziali.php">credenziali</a>?</p>
-                        <p>Sei nuovo? <a href="signin.php">Sign In</a></p>
+                        <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti!</a></p>
+                        <p>Sei un nuovo    <a href="signin.php?TipoUtente=1">publisher</a>?</p>     
+                        <p>Sei un nuovo    <a href="signin.php?TipoUtente=2">admin</a>?</p>
+
+
                     </div>
 
                     <div>
