@@ -9,6 +9,7 @@ if(isset($_SESSION)){
 
 $tipoSignIn="";
 $service="";
+$jumper=0;
 
 
 if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
@@ -29,11 +30,21 @@ if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
     }
 }
 
+if(isset($_POST['signin']) && isset($_COOKIE['tipoSignIn'])){
+    if($_COOKIE['tipoSignIn'] == 1){
+        if(!(preg_match('/^[0-9]{12}+$/', $_POST['PIVA']))){
+            $service=("Partita Iva non valida!");
+            $jumper=1;
+            $tipoSignIn = 1;
+
+        }
+    }
+}
 
 
-if(isset($_POST['signin']) ){
+
+if(isset($_POST['signin']) && $jumper==0){
     if(preg_match('/^.*@.*$/', $_POST['Email']) &&
- preg_match('/^[0-9]{12}+$/', $_POST['PIVA']) && 
  preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita']) && 
  preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) ){
         $db_name = "Database_Pixel_Hub";
@@ -85,16 +96,13 @@ if(isset($_POST['signin']) ){
                 }
         }  
     }
-    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin'])){
+    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0){
         $service=("Email non valida!");
     }
-    else if(!(preg_match('/^[0-9]{12}+$/', $_POST['PIVA'])) && isset($_POST['signin']) && $_COOKIE['tipoSignIn'] == "1"){
-        $service=("Partita Iva non valida!");
-    }
-    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin'])){
+    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin']) && $jumper==0){
         $service=("Data di Nascita non valida!");
     }
-    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password'])) && isset($_POST['signin'])){
+    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password'])) && isset($_POST['signin']) && $jumper==0){
         $service=("Password non valida! Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri.");
     }
     }
@@ -118,7 +126,7 @@ if(isset($_POST['signin']) ){
                 <form action="signin.php" method="post">
                     <?php
                     if($service != ""){
-                        echo "<div><p id='service'>$service</p></div>";
+                        echo "<div id='service'><p >$service</p></div>";
                     }  
                     ?>
                     <div id="Nome">

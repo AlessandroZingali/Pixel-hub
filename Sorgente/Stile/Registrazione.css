@@ -23,6 +23,15 @@ body{
 
 }
 
+#service{
+    background-color: rgb(243, 203, 231);
+    color: red;
+    border-radius: 40px;
+    font-size: 14px;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
 
 
 #LoginCard {
@@ -47,14 +56,7 @@ body{
     to {opacity: 1;}
 }
 
-/*.loginForm{
-    border: solid blue;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    m
 
-}*/
 
 .loginForm form{
     width: 500px;

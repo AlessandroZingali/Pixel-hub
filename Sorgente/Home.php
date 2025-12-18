@@ -1,3 +1,16 @@
+<?php 
+
+$service = 0;
+$utente = "";
+
+session_start();
+if(isset($_SESSION['userId'])){
+    $utente = $_SESSION['userName'];
+    $service = 1;
+}
+
+?>
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
@@ -24,11 +37,18 @@
 
             <div id="navigation">
                 <ul>
-                    <li><a href="login.php">Log in </a></li>
+                    <?php
+                    if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                    else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                    ?>
+                    
                     <li><a href="home.php">Home</a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
-                    <li><a href="Creadatabasepixelhub.php">data</a></li>
+                   <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                    <?php 
+                    if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                    ?>
                 </ul>
 
                 <form action="" id="searchBar">
@@ -77,11 +97,12 @@
                                             $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
                                             $valGioco = (float) $valGiocoGrezzo;
                                             if($valGioco>=80){
+                                                $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                 
                                                 $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                                 echo "<td>";
                                                 echo "<div class= \" GameCard \"> 
-                                                        <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                                        <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
                                                     </div> 
                                                     </td>";
                                                         
@@ -137,11 +158,70 @@
                                     $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
                                    if($genereGioco=="Sparatutto"){
-                        
+                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                                <img src=\"$immagine\" alt=\"GameImage\"  class=\"productimage\" >
+                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                            </div> 
+                                            </td>";
+                                                
+                                        }
+                                            
+                                    }   
+                                    echo "</tr>";    
+                                    
+                            ?> 
+                            
+
+                        </table>
+                    </div><!--tab -->
+                    <div>
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
+                    </div><!-- > -->
+                </div>
+
+
+                <div class="GameSlider">
+                    <div>
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
+                    </div> <!-- < -->
+                    <div>
+                        <table id="GameTable">
+                    
+                    
+                        
+                            <th>GDR</th>
+                            <?php
+                                $xmlString="";
+                                
+                                foreach(file("XML/Giochi.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+                                
+                                if($elem->length<15){
+                                    $limite=$elem->length;
+                                } else {
+                                    $limite=15;
+                                }
+                                
+                                echo "<tr>";
+                                for($j=0; $j < $limite ; $j++){
+                                    $gioco=$elem->item($j);
+                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+
+                                   if($genereGioco=="RPG"){
+                        
+                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        echo "<td>";
+                                        echo "<div class= \" GameCard \"> 
+                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
                                             </div> 
                                             </td>";
                                                 

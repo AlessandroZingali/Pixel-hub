@@ -36,6 +36,7 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
         $row=mysqli_fetch_array($resultQ);
         $_SESSION['userId']  =$row['ID'];
         $_SESSION['user'] = $emailNickname;
+        $_SESSION['userName']=$row['Username'];
         $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
         $_COOKIE['userConnect'] = "true";
     
