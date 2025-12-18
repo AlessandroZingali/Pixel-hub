@@ -24,7 +24,7 @@ if(isset($_SESSION['userId'])){
     </head>
     <body>
         <div id="container">
-            <div id="heade">
+            <div id="header">
                 <div id="logo">
                 
                     <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
@@ -56,18 +56,77 @@ if(isset($_SESSION['userId'])){
                     <input type="submit" value="Cerca"/>
                 </form>
             </div>
+
+            
             
             <div id="TablesBoard"> <!--tag della della tabella maestra  -->
+                <div class="GameSlider">
+                    <div>
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable0', 'back')" />
+                    </div> <!-- < -->
+                    <div>
+                        <table id="GameTable0">
+                    
+                    
+                        
+                            <th>Ultimi Giochi aggiunti</th>
+                            <?php
+                                $xmlString="";
+                                
+                                foreach(file("XML/Giochi.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+                                
+                                if($elem->length<15){
+                                    $limite=$elem->length;
+                                } else {
+                                    $limite=15;
+                                }
+                                
+                                echo "<tr>";// 12                           0
+                                for($j=$elem->length-1; $j >=0 && $j > ($elem->length-1) - ($limite-1); $j--){
+                                    $gioco=$elem->item($j);
+
+                              
+                        
+                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        echo "<td>";
+                                        echo "<div class= \" GameCard \"> 
+                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                            </div> 
+                                            </td>";
+                                                
+                                    
+                                            
+                                    }   
+                                    echo "</tr>";    
+                                    
+                            ?>
+                             
+                            
+
+                        </table>
+                    </div><!--tab -->
+                    <div>
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable0', 'forward')" />
+                    </div><!-- > -->
+                </div>
                 <div class="GameSlider">
                     
                     <div>
                         
-                        <input type="button" value="<" id="scorriindietro" onclick="sliderTable('GameTable0', 'back')" />
+                        <input type="button" value="<" id="scorriindietro" onclick="sliderTable('GameTable1', 'back')" />
                         
                     </div>
                     <div>
                     
-                        <table id="GameTable0">
+                        <table id="GameTable1">
                         
                             <th>I piu' Popolari</th>
                             
@@ -119,17 +178,74 @@ if(isset($_SESSION['userId'])){
 
                     <div>
                         
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable0', 'forward')" />
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
                     
                     </div>
+                </div>
+
+                 <div class="GameSlider">
+                    <div>
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
+                    </div> <!-- < -->
+                    <div>
+                        <table id="GameTable2">
+                    
+                    
+                        
+                            <th> Hey <?php echo $utente; ?> ! Guarda questi <?php echo $_SESSION['generePreferito']; ?> :  </th>
+                            <?php
+                                $xmlString="";
+                                
+                                foreach(file("XML/Giochi.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+                                
+                                if($elem->length<15){
+                                    $limite=$elem->length;
+                                } else {
+                                    $limite=15;
+                                }
+                                
+                                echo "<tr>";
+                                for($j=0; $j < $limite ; $j++){
+                                    $gioco=$elem->item($j);
+                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+
+                                   if($genereGioco == $_SESSION['generePreferito']){
+                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        echo "<td>";
+                                        echo "<div class= \" GameCard \"> 
+                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                            </div> 
+                                            </td>";
+                                                
+                                        }
+                                            
+                                    }   
+                                    echo "</tr>";    
+                                    
+                            ?> 
+                            
+
+                        </table>
+                    </div><!--tab -->
+                    <div>
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable2', 'forward')" />
+                    </div><!-- > -->
                 </div>
                 
                 <div class="GameSlider">
                     <div>
-                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable1', 'back')" />
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
                     </div> <!-- < -->
                     <div>
-                        <table id="GameTable1">
+                        <table id="GameTable3">
                     
                     
                         
@@ -177,69 +293,12 @@ if(isset($_SESSION['userId'])){
                         </table>
                     </div><!--tab -->
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
+                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable2', 'forward')" />
                     </div><!-- > -->
                 </div>
 
 
-                <div class="GameSlider">
-                    <div>
-                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
-                    </div> <!-- < -->
-                    <div>
-                        <table id="GameTable">
-                    
-                    
-                        
-                            <th>GDR</th>
-                            <?php
-                                $xmlString="";
-                                
-                                foreach(file("XML/Giochi.xml") as $node){ 
-                                    $xmlString .= trim($node);
-                                }
-                                
-                                $doc= new DOMDocument();
-                                $doc->loadXML($xmlString);
-                                $root=$doc->documentElement;
-                                $elem=$root->childNodes;
-                                
-                                if($elem->length<15){
-                                    $limite=$elem->length;
-                                } else {
-                                    $limite=15;
-                                }
-                                
-                                echo "<tr>";
-                                for($j=0; $j < $limite ; $j++){
-                                    $gioco=$elem->item($j);
-                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
-
-                                   if($genereGioco=="RPG"){
-                        
-                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
-                                        echo "<td>";
-                                        echo "<div class= \" GameCard \"> 
-                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
-                                            </div> 
-                                            </td>";
-                                                
-                                        }
-                                            
-                                    }   
-                                    echo "</tr>";    
-                                    
-                            ?> 
-                            
-
-                        </table>
-                    </div><!--tab -->
-                    <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
-                    </div><!-- > -->
-                </div>
-
+                
 
                   <!--  Pulsante per il debugg
                 <input type="button" value="Reset Lista" onclick="localStorage.clear();"/> 

@@ -12,7 +12,6 @@ if(isset($_SESSION)){
 $esitovuoto="I campi sono vuoti";
 $esitoerrore="Email e/o password errati";
 $flag=1;
-setcookie("userConnect", "false");
 if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 
     $db_name = "Database_Pixel_Hub";
@@ -34,11 +33,31 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
         $flag=1;
         session_start();
         $row=mysqli_fetch_array($resultQ);
-        $_SESSION['userId']  =$row['ID'];
+
+        $xmlString="";
+                                
+        foreach(file("XML/utenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        
+        $doc= new DOMDocument();
+        $doc->loadXML($xmlString);
+        $root=$doc->documentElement;
+        $elem=$root->childNodes;
+
+        foreach($elem as $i){
+            if($i->getAttribute('id_user') == $row['ID']){
+                $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                }
+            }
+    
+
+        $_SESSION['userId'] = $row['ID'];
         $_SESSION['user'] = $emailNickname;
         $_SESSION['userName']=$row['Username'];
         $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
-        $_COOKIE['userConnect'] = "true";
+        
+        
     
         
         header("Location: Home.php");
@@ -50,10 +69,11 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 
     else if($num<1){
         $flag=3;
+    }
 }
     
 
-}
+
 
     
 

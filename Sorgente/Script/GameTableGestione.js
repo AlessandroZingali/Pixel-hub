@@ -16,7 +16,7 @@ class selettore{
 
 var base = "GameTable";
 var contenitore = [];
-var numeroTabelle = 2; 
+var numeroTabelle = 4; 
 
 for(let i = 0; i < numeroTabelle; i++){
     contenitore.push(new selettore(base + i));

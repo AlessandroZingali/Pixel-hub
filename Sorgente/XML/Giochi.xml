@@ -25,7 +25,7 @@
     <RequisitiRaccomandati>OS: 64-bit Windows 7, 8.1, or 10; Processor: Intel CPU Core i7 3770 3.4 GHz / AMD CPU AMD FX-8350 4 GHz; Memory: 8 GB RAM; Graphics: NVIDIA GPU GeForce GTX 770 / AMD GPU Radeon R9 290; DirectX: Version 11; Network: Broadband internet connection; Storage: 35 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2015</DataDiUscita>
     <Immagine>ImmaginiGiochi/witcher3_logo.png</Immagine>
-    <Generi>RPG</Generi>
+    <Generi>GDR</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>93.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>81.5</MediaRecensioniUtenti>
@@ -42,7 +42,7 @@
     <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4790 or AMD Ryzen 3 3200G; Memory: 12 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon R9 Fury; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/cyberpunk2077_logo.png</Immagine>
-    <Generi>RPG</Generi>
+    <Generi>GDR</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>78.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>90</MediaRecensioniUtenti>
@@ -204,4 +204,22 @@
       <idGiocoCorrelato>8</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
+  <Gioco id_gioco="13">
+    <Titolo>Spiderman Remastered</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Insomniac Games</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/spiderman_remastered_logo.png</Immagine>
+    <Generi>Avventura</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>5</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+
 </TabellaGiochi>

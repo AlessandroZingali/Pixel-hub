@@ -160,13 +160,13 @@ body{
 }
 
 #GameTable0 th{
-    
+    /*border: red solid 2px;*/
     justify-content: right;
     text-align: left;
-    /*border: red solid 2px;*/
+    
     font-size: 20px;
-
-    }
+    white-space: nowrap;
+}
 
 #GameTable1 {
     /*border: lime solid 5px;*/
@@ -182,8 +182,45 @@ body{
     justify-content: right;
     text-align: left;
     font-size: 20px;
+    white-space: nowrap;
 
     }
+
+#GameTable2 {
+    /*border: lime solid 5px;*/
+    width: 20%;
+    margin: auto;
+    margin-bottom: 10px;
+    color: white;
+
+}
+
+#GameTable2 th{
+    /*border: red solid 2px;*/
+    justify-content: right;
+    text-align: left;
+    
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+#GameTable3 {
+    /*border: lime solid 5px;*/
+    width: 20%;
+    margin: auto;
+    margin-bottom: 10px;
+    color: white;
+
+}
+
+#GameTable3 th{
+    /*border: red solid 2px;*/
+    justify-content: right;
+    text-align: left;
+    
+    font-size: 20px;
+    white-space: nowrap;
+}
 
 .GameCard{   
     /*border: yellow solid 2px; */
