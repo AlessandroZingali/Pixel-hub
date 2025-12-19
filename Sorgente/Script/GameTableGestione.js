@@ -56,7 +56,7 @@ function scaleTable(){
     for(let i = 0; i < contenitore.length; i++){
         const sel = contenitore[i];
         const table = document.getElementById(sel.tabella);
-        const gameRow = table.rows[1];
+        const gameRow = table.rows[0];
         
         const savedStart = parseInt(localStorage.getItem(sel.tabella));
         sel.start = isNaN(savedStart) ? 0 : savedStart;
@@ -78,7 +78,7 @@ function scaleTable(){
 function sliderTable(tabellaPassata, service){
     const sel = contenitore.find(t => t.tabella === tabellaPassata);
     const table = document.getElementById(tabellaPassata);
-    const gameRow = table.rows[1];
+    const gameRow = table.rows[0];
 
     if(service === "forward"){
 
@@ -106,7 +106,7 @@ function sliderTable(tabellaPassata, service){
 
 function styleTableSettings(tabellaPassata){ //Funzione che imposta lo stile iniziale della tabella giochi
     var table = document.getElementById(tabellaPassata);
-    var gameRow = table.rows[1];
+    var gameRow = table.rows[0];
     //alert("funzione richiamata" + gameRow.cells.length);
     for(let i=5; i<gameRow.cells.length; i++){
         //alert("Nel for interazione "+i);

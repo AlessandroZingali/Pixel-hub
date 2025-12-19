@@ -150,6 +150,13 @@ body{
     margin-right: 20px;
 }
 
+.titleTable{
+    color: white;
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
 #GameTable0 {
     /*border: lime solid 5px;*/
 

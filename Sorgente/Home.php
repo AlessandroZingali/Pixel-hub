@@ -71,10 +71,11 @@ if(isset($_SESSION['userId'])){
                         <input type=\"button\" value=\"<\" id=\"scorriavanti\" onclick=\"sliderTable('GameTable0', 'back')\" />
                     </div> <!-- < -->
                     <div>
+                    <p class=\"titleTable\">Hey $utente ! Guarda questi ".$_SESSION['generePreferito']."</p>
                         <table id=\"GameTable0\">
                     
                     
-                        <th> Hey $utente ! Guarda questi ".$_SESSION['generePreferito']."   </th> ";
+                           ";
                         
                                 $xmlString="";
                                 
@@ -132,10 +133,10 @@ if(isset($_SESSION['userId'])){
                         
                     </div>
                     <div>
-                    
+                    <p class="titleTable">I piu' Popolari</p>
                         <table id="GameTable1">
                         
-                            <th>I piu' Popolari</th>
+                            
                             
                                 <?php
                             
@@ -197,11 +198,10 @@ if(isset($_SESSION['userId'])){
                         <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
                     </div> <!-- < -->
                     <div>
+                         <p class="titleTable">Ultimi Giochi aggiunti</p>
                         <table id="GameTable2">
-                    
-                    
                         
-                            <th>Ultimi Giochi aggiunti</th>
+                           
                             <?php
                                 $xmlString="";
                                 
@@ -256,11 +256,12 @@ if(isset($_SESSION['userId'])){
                         <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable', 'back')" />
                     </div> <!-- < -->
                     <div>
+                        <p class="titleTable">Sparatutto</p>
                         <table id="GameTable3">
                     
                     
                         
-                            <th>Sparatutto</th>
+                            
                             <?php
                                 $xmlString="";
                                 
