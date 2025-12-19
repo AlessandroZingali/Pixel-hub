@@ -5,9 +5,11 @@ $utente = "";
 
 session_start();
 if(isset($_SESSION['userId'])){
+    
     $utente = $_SESSION['userName'];
     $service = 1;
 }
+
 
 ?>
 
@@ -23,6 +25,8 @@ if(isset($_SESSION['userId'])){
 
     </head>
     <body>
+        <?php echo "<p>".$_SESSION['userId']."</p>"; ?>
+        
         <div id="container">
             <div id="header">
                 <div id="logo">
@@ -60,17 +64,20 @@ if(isset($_SESSION['userId'])){
             
             
             <div id="TablesBoard"> <!--tag della della tabella maestra  -->
-                <div class="GameSlider">
+
+                <?php 
+                if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito']))
+                {
+                    echo "<div class=\"GameSlider\">
                     <div>
-                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable0', 'back')" />
+                        <input type=\"button\" value=\"<\" id=\"scorriavanti\" onclick=\"sliderTable('GameTable0', 'back')\" />
                     </div> <!-- < -->
                     <div>
-                        <table id="GameTable0">
+                        <table id=\"GameTable0\">
                     
                     
+                        <th> Hey $utente ! Guarda questi".$_SESSION['generePreferito']."   </th> ";
                         
-                            <th>Ultimi Giochi aggiunti</th>
-                            <?php
                                 $xmlString="";
                                 
                                 foreach(file("XML/Giochi.xml") as $node){ 
@@ -88,35 +95,35 @@ if(isset($_SESSION['userId'])){
                                     $limite=15;
                                 }
                                 
-                                echo "<tr>";// 12                           0
-                                for($j=$elem->length-1; $j >=0 && $j > ($elem->length-1) - ($limite-1); $j--){
+                                 echo "<tr>";
+                                for($j=0; $j < $limite ; $j++){
                                     $gioco=$elem->item($j);
+                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
-                              
-                        
-                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                   if($genereGioco == $_SESSION['generePreferito']){
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
                                                 <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
                                             </div> 
                                             </td>";
                                                 
-                                    
+                                        }
                                             
                                     }   
                                     echo "</tr>";    
                                     
-                            ?>
-                             
-                            
-
-                        </table>
+                            echo " </table>
+                       
                     </div><!--tab -->
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable0', 'forward')" />
+                        <input type=\"button\" value=\">\" id=\"scorriavanti\" onclick=\"sliderTable('GameTable0', 'forward')\" />
                     </div><!-- > -->
-                </div>
+                </div>";
+                }
+                ?>
+                
                 <div class="GameSlider">
                     
                     <div>
@@ -192,7 +199,7 @@ if(isset($_SESSION['userId'])){
                     
                     
                         
-                            <th> Hey <?php echo $utente; ?> ! Guarda questi <?php echo $_SESSION['generePreferito']; ?> :  </th>
+                            <th>Ultimi Giochi aggiunti</th>
                             <?php
                                 $xmlString="";
                                 
@@ -211,21 +218,21 @@ if(isset($_SESSION['userId'])){
                                     $limite=15;
                                 }
                                 
-                                echo "<tr>";
-                                for($j=0; $j < $limite ; $j++){
+                                echo "<tr>";// 12                           0
+                                for($j=$elem->length-1; $j >=0 && $j > ($elem->length-1) - ($limite-1); $j--){
                                     $gioco=$elem->item($j);
-                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
-                                   if($genereGioco == $_SESSION['generePreferito']){
-                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                              
+                        
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
                                                 <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
                                             </div> 
                                             </td>";
                                                 
-                                        }
+                                    
                                             
                                     }   
                                     echo "</tr>";    

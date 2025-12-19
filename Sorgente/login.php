@@ -1,9 +1,9 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
 
-if (isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
+if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
 
-if(isset($_SESSION)){
+if(isset($_SESSION['userId'])){
    session_unset($_SESSION);
    session_destroy(); 
 }
@@ -47,7 +47,7 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 
         foreach($elem as $i){
             if($i->getAttribute('id_user') == $row['ID']){
-                $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
                 }
             }
     
@@ -73,10 +73,6 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
 }
     
 
-
-
-    
-
 ?>
 
 
@@ -92,8 +88,9 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
         
     </head>
     <body>
+        <?php echo "<p>".$_SESSION['userId']."</p>"; ?>
         <div id="logo">
-                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub">
+                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" onclick="location.href='Home.php'"/>
                 </div>
         <div id="LoginCard">
             <div class="loginForm">

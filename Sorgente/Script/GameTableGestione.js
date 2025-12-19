@@ -14,11 +14,20 @@ class selettore{
     }
 }
 
-var base = "GameTable";
-var contenitore = [];
+var base = "GameTable"; 
+var is_set_id = 0; 
+var contenitore = []; 
 var numeroTabelle = 4; 
 
-for(let i = 0; i < numeroTabelle; i++){
+
+var is_set_id = parseInt(sessionStorage.getItem('userId'));
+var is_set_prefGen = parseInt(sessionStorage.getItem('generePreferito'));
+var setAnswer = isNaN(is_set_id) ? 0 : 1;
+var setPrefGen = inNaN(is_set_prefGen) ? 0 : 1;
+
+if(setAnswer == 0 && setPrefGen == 0) push=1;
+
+for(let i = 0 + push; i < numeroTabelle; i++){
     contenitore.push(new selettore(base + i));
 }
 
