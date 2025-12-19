@@ -16,7 +16,7 @@ if(isset($_POST['Accedi']) ){
 session_start();
     $db_name = "Database_Pixel_Hub";
     $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "archer", "archer", $db_name);
+    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
     if (mysqli_connect_errno()){
 
