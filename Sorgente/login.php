@@ -1,19 +1,19 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
-
+session_start();
 if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
 
 if(isset($_SESSION['userId'])){
-   session_unset($_SESSION);
-   session_destroy(); 
+    session_unset();
+    session_destroy(); 
 }
 
 
 $esitovuoto="I campi sono vuoti";
 $esitoerrore="Email e/o password errati";
 $flag=1;
-if(isset($_POST['Accedi']) && (!isset($_SESSION))){
-
+if(isset($_POST['Accedi']) ){
+session_start();
     $db_name = "Database_Pixel_Hub";
     $table_users = "Tabella_Utenti";
     $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
@@ -88,7 +88,6 @@ if(isset($_POST['Accedi']) && (!isset($_SESSION))){
         
     </head>
     <body>
-        <?php echo "<p>".$_SESSION['userId']."</p>"; ?>
         <div id="logo">
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" onclick="location.href='Home.php'"/>
                 </div>

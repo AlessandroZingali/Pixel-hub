@@ -24,9 +24,7 @@ if(isset($_SESSION['userId'])){
         <script type="text/javascript" src="Script/GameTableGestione.js?v=1">  </script>
 
     </head>
-    <body>
-        <?php echo "<p>".$_SESSION['userId']."</p>"; ?>
-        
+    <body>    
         <div id="container">
             <div id="header">
                 <div id="logo">
@@ -76,7 +74,7 @@ if(isset($_SESSION['userId'])){
                         <table id=\"GameTable0\">
                     
                     
-                        <th> Hey $utente ! Guarda questi".$_SESSION['generePreferito']."   </th> ";
+                        <th> Hey $utente ! Guarda questi ".$_SESSION['generePreferito']."   </th> ";
                         
                                 $xmlString="";
                                 
