@@ -100,10 +100,12 @@ if(isset($_SESSION['userId'])){
 
                                    if($genereGioco == $_SESSION['generePreferito']){
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >   
+                                             <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                             </div> 
                                             </td>";
                                                 
@@ -162,11 +164,13 @@ if(isset($_SESSION['userId'])){
                                             $valGioco = (float) $valGiocoGrezzo;
                                             if($valGioco>=80){
                                                 $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                                $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                 
                                                 $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                                 echo "<td>";
                                                 echo "<div class= \" GameCard \"> 
-                                                        <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                                      <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >   
+                                                      <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                                     </div> 
                                                     </td>";
                                                         
@@ -223,10 +227,12 @@ if(isset($_SESSION['userId'])){
                               
                         
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                        $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                             <div class=\"prezzo\"><p>  $prezzoGioco € </p></div>
                                             </div> 
                                             </td>";
                                                 
@@ -247,7 +253,7 @@ if(isset($_SESSION['userId'])){
                 
                 <div class="GameSlider">
                     <div>
-                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable2', 'back')" />
+                        <input type="button" value="<" id="scorriavanti" onclick="sliderTable('GameTable', 'back')" />
                     </div> <!-- < -->
                     <div>
                         <table id="GameTable3">
@@ -280,10 +286,12 @@ if(isset($_SESSION['userId'])){
 
                                    if($genereGioco=="Sparatutto"){
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                        $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                                <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                               <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                               <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                             </div> 
                                             </td>";
                                                 

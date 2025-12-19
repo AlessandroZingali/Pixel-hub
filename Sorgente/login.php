@@ -1,4 +1,4 @@
-<?php  
+<?php
 error_reporting(E_ALL &~E_NOTICE);
 session_start();
 if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;

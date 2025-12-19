@@ -152,6 +152,7 @@ body{
 
 #GameTable0 {
     /*border: lime solid 5px;*/
+
     width: 20%;
     margin: auto;
     margin-bottom: 10px;
@@ -179,6 +180,7 @@ body{
 
 #GameTable1 th{
     /*border: red solid 2px;*/
+
     justify-content: right;
     text-align: left;
     font-size: 20px;
@@ -224,6 +226,7 @@ body{
 
 .GameCard{   
     /*border: yellow solid 2px; */
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -232,6 +235,21 @@ body{
     padding: 10px;
     
     }
+
+.prezzo {
+    background-color: rgb(63, 197, 43);
+
+    text-align: right;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    height: 40px;
+    width: 72px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+
+}
     
 .GameCard img{
     /*border : blue solid 2px;*/
@@ -251,6 +269,8 @@ body{
     box-shadow: 0 0 20px 5px #ffffff96;
     
 }
+
+
 
 #footer{
     /*border: pink solid;*/
