@@ -1,0 +1,242 @@
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
+}
+
+body{
+
+   /* border: solid rgb(168, 182, 41);*/
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "font pixeloso",monospace;
+    background-position: center;
+    min-height: 100vh;
+    color:white;
+    
+}
+
+#logo{
+    /*border: solid blue;*/
+    width: 400px;
+    height: 100px;
+    background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 100%);
+    margin:auto;
+    border-radius: 60%;
+    
+}
+
+#logoimg {
+    width: 80%;
+    height: 80%;
+    margin: 2%;
+    margin-left: 7%;
+}
+
+#navigation{
+/* border: solid orange;*/
+    background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 80%);
+    box-shadow: 5px 5px 10px #000000;
+    width: 90%;
+    text-align: center;
+    white-space: nowrap;
+    height: 40px;
+    padding: 10px;
+    
+    border-radius: 80px;
+   
+}
+
+#navigation ul{
+    /*border: solid yellow;*/
+    list-style-type: none;
+    float: left;
+    padding: 0;
+    margin: 0.5%;
+    width: 50%;
+
+    
+}
+
+#navigation ul li{
+
+    display: inline;
+    margin: 20px;
+    font-size: 20px;
+    padding: 1%;
+
+}
+
+#navigation ul li:hover{
+    background-color: rgba(63, 56, 56, 0.911);
+    box-shadow: 2px 2px 5px #000000;
+    border-radius: 80px;
+}
+
+#navigation ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+#searchBar{
+    width: 30%;
+    display: inline-block;
+    float: right;
+   /* border: solid pink;*/
+    padding: 5px;
+}
+
+#searchBar input[type="text"]{
+    width: 80%;
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+}
+
+#searchBar input[type="submit"]{
+    background-color: rgba(63, 56, 56, 0.911);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+}
+
+#container{
+    border: green solid;
+    display: flex;
+    flex-direction: column;
+}
+
+#presentazioneGioco{
+    border: red solid ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#immagineGioco{
+    border: blue solid;
+}
+
+#descrizioneGioco{
+    border: yellow solid;
+}
+
+#descAndSpec{
+    display: flex;
+    flex-direction: row;
+}
+
+#infoGioco{
+    border: purple solid;
+}
+
+#statisticheGioco{
+    border: orange solid;
+}
+#descAndSpec{
+    border: violet solid;
+
+}
+#specGioco{
+    border: olive solid;
+}   
+
+#specGioco th{
+    text-align: left;
+    padding-right: 20px;
+}
+
+#descGioco{
+    border: teal solid;
+    width: 60%;
+    margin-left: 2%;
+}
+#consigliati{
+    border: brown solid;
+}   
+
+#social{
+    border: gray solid;
+    display: flex;
+    flex-direction: row;
+
+}
+
+#commenti{
+    border: pink solid;
+    display: flex;
+    flex-direction: column;
+
+}
+#commentoUtente{
+    border: lime solid;
+}
+
+.likeDislike{
+    border: magenta solid;
+    display: flex;
+    flex-direction: row;
+}
+
+.like{
+    display: flex;
+    flex-direction: row;
+}
+
+.dislike{
+    display: flex;
+    flex-direction: row;
+}
+
+#recensioni{
+    border: cyan solid;
+    float: right;
+}
+
+#footer{
+    /*border: pink solid;*/
+    width: 50%;
+    float: right;
+    margin-right: 1%;
+    margin-bottom: 10px;
+
+
+    color: white;
+    }
+
+#footer ul{
+    list-style-type: none;
+    float: right;
+
+    padding: 0;
+    margin: 0;
+}
+
+#footer ul li{
+    display: inline;
+    margin: 4px;
+    font-size: 12px;
+    border-right: solid rgb(46, 42, 42) 2px;
+}
+#footer ul li a{
+    text-decoration: none;
+    color: rgb(0, 208, 255);
+}
+
+@media (max-height: 720px){
+
+    img#logoimg{
+        width: 60%;
+        height: 60%;
+        padding-left: 12%;
+    }
+
+    .GameCard .productimage {
+        width: 180px;
+        height: 250px; 
+    }
+
+
+
+}

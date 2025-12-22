@@ -1,0 +1,472 @@
+<?php 
+
+$service = 0;
+$utente = "";
+$titoloGioco = "";
+
+session_start();
+if(isset($_SESSION['userId'])){
+    
+    $utente = $_SESSION['userName'];
+    $service = 1;
+}
+
+echo "";
+?>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?php 
+    if(isset($_GET["invioCommento"])){
+
+        $xmlString="";
+                                
+        foreach(file("XML/Commenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+            foreach($elem as $i){
+                if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                    $gioco = $i;
+                    break;
+                }
+            }
+
+        if($gioco->hasChildNodes()){
+            $lastCommento = $gioco->firstChild;
+            $newId = (intval($lastCommento->getAttribute("id_commento")));
+
+            $newId += 1;
+            
+
+           
+        }
+        else $newId = 1;
+
+        $commento = $doc->createElement("Commento");
+
+        $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
+
+        $commento->setAttribute("id_commento", $newId);
+        $commento->setAttribute("id_utente", $_SESSION["userId"]);
+        $commento->setAttribute("data", date("d/m/Y"));
+        $commento->setAttribute("ore", date("H"));
+        $commento->setAttribute("minuti", date("i"));
+        $commento->setAttribute("like", 0);  
+        $commento->setAttribute("dislike", 0);
+
+        $commento->appendChild($testo);
+        $gioco->insertBefore($commento, $lastCommento);
+
+        $doc->save("XML/Commenti.xml");
+        
+    }
+    
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+    <head>
+        <?php echo " 
+        <title> Game Page -".$_GET['titoloGioco']."</title> " ;
+        $titoloGioco = $_GET['titoloGioco'];
+        ?>
+             <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
+    </head>
+    <body>
+        <div id="container">
+            <div id="header">
+                <div id="logo">
+                
+                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
+                
+                </div>
+                
+                <h2>Il tuo shop preferito di videogiochi</h2>
+ 
+            </div>
+
+            <div id="navigation">
+                <ul>
+                    <?php
+                    if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                    else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                    ?>
+                    
+                    <li><a href="home.php">Home</a></li>
+                    <li><a href="carrello.html">Carrello </a></li>
+                    <li><a href="catalogo.html">Catalogo </a></li>
+                   <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                    <?php 
+                    if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                    ?>
+                </ul>
+
+                <form action="" id="searchBar">
+                    <input type="text" placeholder="Search" name="search"/>
+                    <input type="submit" value="Cerca"/>
+                </form>
+            
+            </div>
+
+            <div id="presentazioneGioco">
+                
+                <div id="immagineGioco">
+                    <?php  
+                        $xmlString="";
+
+                        foreach(file("XML/Giochi.xml") as $node){ 
+                            $xmlString .= trim($node);
+                        }
+                            
+                        $doc= new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
+
+                        foreach($elem as $i){
+                            if($i->getAttribute("id_gioco")==$_GET['idGioco']) $imagePath=$i->getElementsByTagName("Immagine")->item(0)->textContent;
+                        }
+
+                        echo "<img src=\"$imagePath\" alt=\"GameImage\" title=\"$titoloGioco\"></img>"
+
+                    ?>
+                    
+                </div>
+                <div id="statGioco">
+                    <?php 
+                        $xmlString="";
+
+                        foreach(file("XML/Giochi.xml") as $node){ 
+                            $xmlString .= trim($node);
+                        }
+                            
+                        $doc= new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
+
+                        foreach($elem as $i){
+                            if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                               $PrezzoGioco = $i->getElementsByTagName('Prezzo')->item(0)->textContent;
+                               $DataUscitaGioco = $i->getElementsByTagName('DataDiUscita')->item(0)->textContent;
+                               $GenereGioco = $i->getElementsByTagName('Generi')->item(0)->textContent;
+                               $PublisherGioco = $i->getElementsByTagName('Publisher')->item(0)->textContent;
+                               $CasaSviluppoGioco = $i->getElementsByTagName('CasaSviluppo')->item(0)->textContent;
+                               $DescrizioneGioco = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
+                            }
+                        }
+                        echo "<table>
+                                <tr>
+                                    <td>Titolo</td>
+                                    <td>$titoloGioco</td>
+                                </tr>
+                                <tr>
+                                    <td>Prezzo</td>
+                                    <td>$PrezzoGioco</td>
+                                </tr>
+                                <tr>
+                                    <td>Generi</td>
+                                    <td>$GenereGioco €</td>
+                                </tr>
+                                <tr>
+                                    <td>DatadiUscita</td>
+                                    <td>$DataUscitaGioco</td>
+                                </tr>
+                                <tr>
+                                    <td>Publisher</td>
+                                    <td>$PublisherGioco</td>
+                                </tr>
+                                <tr>
+                                    <td>Sviluppatore</td>
+                                    <td>$CasaSviluppoGioco</td>
+                                </tr>
+                              </table>";
+                    ?>
+
+                </div>
+                <div id="consigliati">
+
+                            <h3>Potrebbero piacerti anche:</h3>
+
+                        <?php
+                        $xmlString = "";
+                        foreach (file("XML/Giochi.xml") as $node) {
+                            $xmlString .= trim($node);
+                        }
+
+                        $doc = new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root = $doc->documentElement;
+                        $giochi = $root->getElementsByTagName("Gioco");
+                        
+
+                        $idCorrelati = [];
+
+                        /* 1️⃣ Trovo il gioco corrente e leggo i suoi titoli correlati */
+                        foreach ($giochi as $gioco) {
+                            if ($gioco->getAttribute("id_gioco") == $_GET['idGioco']) {
+                                $lista = $gioco->getElementsByTagName("idGiocoCorrelato");
+                                if ($lista) {
+                                    foreach ($lista as $id) {
+                                        $idCorrelati[] = $id->textContent;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+
+                        /* 2️⃣ Stampo i giochi correlati */
+
+
+
+
+                        echo "<ul>";
+                        $len = count($idCorrelati);
+                        
+                            
+                        for ($k=0; $k<$len; $k++) {
+                            $xmlString = "";
+                            foreach (file("XML/Giochi.xml") as $node) {
+                                $xmlString .= trim($node);
+                            }
+
+                            $doc = new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root = $doc->documentElement;
+                            $giochi = $root->getElementsByTagName("Gioco");
+
+                            foreach ($giochi as $gioco) {
+                                
+                                if ($gioco->getAttribute("id_gioco") == $idCorrelati[$k]) {
+
+                                    $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
+                                    echo "<li><a href='Gamepage.php?titoloGioco=$titolo&idGioco=" . $idCorrelati[$k] . "'>" . $titolo . "</a></li>";                          
+                                      }
+                            }
+                        }
+
+                        echo "</ul>";
+                        ?>
+                        </div>
+
+                </div>
+
+            </div>
+            <div id="descAndSpec">
+              <div id="descGioco">
+                    <?php 
+                        echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p>";
+                    ?>
+              </div>
+              <div id="specGioco">
+                <?php 
+
+                $xmlString="";
+
+                foreach(file("XML/Giochi.xml") as $node){ 
+                    $xmlString .= trim($node);
+                }
+                    
+                $doc= new DOMDocument();
+                $doc->loadXML($xmlString);
+                $root=$doc->documentElement;
+                $elem=$root->childNodes;
+                 foreach($elem as $i){
+                        if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                            $interoSpecMin = $i->getElementsByTagName('RequisitiMinimi')->item(0)->textContent;
+                            $interoSpecRac = $i->getElementsByTagName('RequisitiRaccomandati')->item(0)->textContent;
+                        }
+                    }
+
+                $partiSpecMin = array_map('trim', explode(';', $interoSpecMin));
+                $partiSpecRac = array_map('trim', explode(';', $interoSpecRac));
+
+                echo " 
+                
+                <table>
+                <tr>
+                    <th colspan=\"2\">Specifiche Tecniche Minime</th>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[0]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[1]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[2]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[3]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[4]</td>
+                </tr>
+                    <td>$partiSpecMin[5]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[6]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecMin[7]</td>
+                </tr>
+
+
+                </table>
+
+                <table>
+                <tr>
+                    <th colspan=\"2\">Specifiche Tecniche Raccomandate</th>
+                </tr>
+                <tr>
+
+                    <td>$partiSpecRac[0]</td>
+                </tr>
+                <tr>
+
+                    <td>$partiSpecRac[1]</td>
+                </tr>
+                <tr>
+
+                    <td>$partiSpecRac[2]</td>
+                </tr>
+                <tr>
+
+                    <td>$partiSpecRac[3]</td>
+                </tr>
+                <tr>
+                   
+                    <td>$partiSpecRac[4]</td>
+                </tr>
+                <tr>
+                    
+                    <td>$partiSpecRac[5]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecRac[6]</td>
+                </tr>
+                <tr>
+                    <td>$partiSpecRac[7]</td>
+                </tr>
+                </table>
+                
+                "
+                ?>
+                
+              </div>  
+            </div>
+            
+
+            <div id="social">
+                
+            
+                <div id="commenti">
+                    <h3>Commenti degli utenti:</h3> 
+                    <?php 
+
+                    if($service == 0) echo "<p>Devi essere loggato per poter commentare.</p>";
+                    else{
+
+                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=".$_GET['idGioco']."\" method=\"get\" id=\"formCommenti\">
+                                    <textarea name=\"commentoUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
+                                    <br/>
+                                    <input type=\"hidden\" name=\"titoloGioco\" value=\"$titoloGioco\"/>
+                                    <input type=\"hidden\" name=\"idGioco\" value=\" ".$_GET['idGioco']."\"/>
+                                    <input type=\"submit\" name=\"invioCommento\" value=\"Invia Commento\"/> 
+                                </form>"; 
+                                            
+                        }
+         
+    
+                    
+                        echo "<h4>Commenti:</h4>";
+
+                    $xmlString="";
+
+                            foreach(file("XML/Commenti.xml") as $node){ 
+                                $xmlString .= trim($node);
+                            }
+                        
+                            $doc= new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root=$doc->documentElement;
+                            $elem=$root->childNodes;
+                            foreach($elem as $i){
+                                    if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                                        $commentoId = $i->getElementsByTagName("Commento");
+                                        foreach($commentoId as $c){
+
+                                            $idUtenteCommento = $c->getAttribute('id_utente');
+                                            $commentoTesto = $c->getElementsByTagName('text')->item(0)->textContent;
+                                            $dataCommento = $c->getAttribute('data');
+                                            $oraCommento = $c->getAttribute('ore');
+                                            $minutoCommento = $c->getAttribute('minuti');
+                                            $likeCommento = $c->getAttribute('like'); 
+                                            $dislikeCommento = $c->getAttribute('dislike');
+
+                                            $db_name = "Database_Pixel_Hub";
+                                            $table_users = "Tabella_Utenti";
+                                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                                            if (mysqli_connect_errno()){
+
+                                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                                            }
+                                            
+
+                                            $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteCommento'";
+                                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                            $num = mysqli_num_rows($resultQ);
+
+                                            if($num == 1){
+
+                                                            $row=mysqli_fetch_array($resultQ);
+                                                            $nomeUtenteCommento = $row['Username'];
+                                                            echo "<div class=\"commentoUtente\">
+                                                                        <div><h4>$nomeUtenteCommento</h4></div>
+                                                                        <div><p>$commentoTesto</p></div>
+                                                                        <div class=\"likeAndDateContainer\">
+                                                                            <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
+                                                                            <div class=\"likeDislike\">
+                                                                                <div class=\"like\"> <p> $likeCommento  </p> <button type=\"button\">Like</button></div>
+                                                                                <div class=\"dislike\"> <p>  $dislikeCommento   </p> <button type=\"button\">Dislike</button></div>                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                </div>";          
+                                                        }
+
+                                        }
+                                        
+                                    }
+                                }
+                                       
+
+
+                            
+                            
+
+
+               
+                        
+                    
+                    ?>
+               </div>
+            
+               <div id="recensioni">
+                     <h3>Recensioni degli utenti:</h3> 
+                     <p>In fase di sviluppo...</p>
+                </div>
+            </div>
+        </div>
+                <div id="footer">
+            <ul>
+                <li><a href="">Contact Us</a></li>
+                <li><a href="">F.A.Q</a></li>
+                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+            </ul>
+        </div>
+    </body>
+</html>

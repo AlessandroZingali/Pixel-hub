@@ -47,6 +47,7 @@ if(isset($_SESSION['userId'])){
                     <li><a href="home.php">Home</a></li>
                     <li><a href="carrello.html">Carrello </a></li>
                     <li><a href="catalogo.html">Catalogo </a></li>
+                    <li><a href="Gamepage.php"> PaginaGioco </a></li>
                    <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                     <?php 
                     if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
@@ -100,12 +101,13 @@ if(isset($_SESSION['userId'])){
                                     $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
                                    if($genereGioco == $_SESSION['generePreferito']){
+                                        $idGioco = $gioco->getAttribute("id_gioco");
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >   
+                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >   
                                              <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                             </div> 
                                             </td>";
@@ -160,17 +162,20 @@ if(isset($_SESSION['userId'])){
                                         echo "<tr>";
                                             
                                         for($j=0; $j < $limite ; $j++){
+                                           
                                             $gioco=$elem->item($j);
+                                            $idGioco = $gioco->getAttribute("id_gioco");
                                             $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
                                             $valGioco = (float) $valGiocoGrezzo;
                                             if($valGioco>=80){
                                                 $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                                 $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
+                                                
                                 
                                                 $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                                 echo "<td>";
                                                 echo "<div class= \" GameCard \"> 
-                                                      <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >   
+                                                      <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >   
                                                       <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                                     </div> 
                                                     </td>";
@@ -224,14 +229,14 @@ if(isset($_SESSION['userId'])){
                                 for($j=$elem->length-1; $j >=0 && $j > ($elem->length-1) - ($limite-1); $j--){
                                     $gioco=$elem->item($j);
 
-                              
+                                        $idGioco = $gioco->getAttribute("id_gioco");
                         
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" > 
                                              <div class=\"prezzo\"><p>  $prezzoGioco € </p></div>
                                             </div> 
                                             </td>";
@@ -286,12 +291,13 @@ if(isset($_SESSION['userId'])){
                                     $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
                                    if($genereGioco=="Sparatutto"){
+                                        $idGioco = $gioco->getAttribute("id_gioco");
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
-                                               <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" >
+                                              <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" > 
                                                <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
                                             </div> 
                                             </td>";
