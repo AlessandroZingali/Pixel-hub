@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="commenti_XML_schema.xsd">
   <Gioco id_gioco="1">
+    <Commento id_commento="6" id_utente="1" data="23/12/2025" ore="12" minuti="09" like="0" dislike="0">
+      <text>lol</text>
+    </Commento>
     <Commento id_commento="5" id_utente="1" data="22/12/2025" ore="18" minuti="04" like="0" dislike="0">
       <text>lol</text>
     </Commento>
