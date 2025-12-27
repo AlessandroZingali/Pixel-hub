@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
+  <xsd:element name="Associazione_Like_Recensioni">
+  <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="ref_Recensione" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="flagLike" type="xsd:integer" use="implied"/>
+      <xsd:attribute name="flagDislike" type="xsd:integer" use="implied"/>
+      </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ref_Recensione">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Id_utente" minOccurs="1" maxOccurs="1"/>
+        <xsd:element ref="Id_Recensione" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:complexType>
+    </xsd:element>
+  <xsd:element name="Id_utente" type="xsd:integer"/>
+  <xsd:element name="Id_Recensione" type="xsd:integer"/>
+  </xsd:schema>

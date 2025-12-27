@@ -6,6 +6,9 @@ $titoloGioco = "";
 
 session_start();
 if(isset($_SESSION['userId'])){
+
+
+    
     
     $utente = $_SESSION['userName'];
     $service = 1;
@@ -40,28 +43,106 @@ echo "";
             $newId = (intval($lastCommento->getAttribute("id_commento")));
 
             $newId += 1;
-            
+            $commento = $doc->createElement("Commento");
 
-           
+            $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
+
+            $commento->setAttribute("id_commento", $newId);
+            $commento->setAttribute("id_utente", $_SESSION["userId"]);
+            $commento->setAttribute("data", date("d/m/Y"));
+            $commento->setAttribute("ore", date("H"));
+            $commento->setAttribute("minuti", date("i"));
+            $commento->setAttribute("like", 0);  
+            $commento->setAttribute("dislike", 0);
+            $commento->appendChild($testo);
+            $gioco->insertBefore($commento, $lastCommento);
         }
-        else $newId = 1;
+        else { 
+            $newId = 1;
 
-        $commento = $doc->createElement("Commento");
+            $commento = $doc->createElement("Commento");
 
-        $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
+            $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
 
-        $commento->setAttribute("id_commento", $newId);
-        $commento->setAttribute("id_utente", $_SESSION["userId"]);
-        $commento->setAttribute("data", date("d/m/Y"));
-        $commento->setAttribute("ore", date("H"));
-        $commento->setAttribute("minuti", date("i"));
-        $commento->setAttribute("like", 0);  
-        $commento->setAttribute("dislike", 0);
+            $commento->setAttribute("id_commento", $newId);
+            $commento->setAttribute("id_utente", $_SESSION["userId"]);
+            $commento->setAttribute("data", date("d/m/Y"));
+            $commento->setAttribute("ore", date("H"));
+            $commento->setAttribute("minuti", date("i"));
+            $commento->setAttribute("like", 0);  
+            $commento->setAttribute("dislike", 0);
 
-        $commento->appendChild($testo);
-        $gioco->insertBefore($commento, $lastCommento);
+            $commento->appendChild($testo);
+            $gioco->appendChild($commento);
+
+        }
 
         $doc->save("XML/Commenti.xml");
+        
+    }
+
+    if(isset($_GET["invioRecensione"])){
+
+        $xmlString="";
+                                
+        foreach(file("XML/Recensioni.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+            foreach($elem as $i){
+                if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                    $gioco = $i;
+                    break;
+                }
+            }
+
+        if($gioco->hasChildNodes()){
+            $lastRecensione = $gioco->firstChild;
+            $newId = (intval($lastRecensione->getAttribute("id_recensione")));
+
+            $newId += 1;
+            $recensione = $doc->createElement("Recensione");
+
+            $testo = $doc->createElement("text", htmlspecialchars($_GET["recensioneUtente"]));
+
+            $recensione->setAttribute("id_recensione", $newId);
+            $recensione->setAttribute("id_utente", $_SESSION["userId"]);
+            $recensione->setAttribute("data", date("d/m/Y"));
+            $recensione->setAttribute("ore", date("H"));
+            $recensione->setAttribute("minuti", date("i"));
+            $recensione->setAttribute("like", 0);  
+            $recensione->setAttribute("dislike", 0);
+            $recensione->setAttribute("dislike", 0);
+            $recensione->setAttribute("voto", $_GET["votoUtente"]);
+
+            $recensione->appendChild($testo);
+            $gioco->insertBefore($recensione, $lastRecensione);
+        }
+        else{ 
+            $newId = 1;
+
+            $recensione = $doc->createElement("Recensione");
+
+            $testo = $doc->createElement("text", htmlspecialchars($_GET["recensioneUtente"]));
+
+            $recensione->setAttribute("id_recensione", $newId);
+            $recensione->setAttribute("id_utente", $_SESSION["userId"]);
+            $recensione->setAttribute("data", date("d/m/Y"));
+            $recensione->setAttribute("ore", date("H"));
+            $recensione->setAttribute("minuti", date("i"));
+            $recensione->setAttribute("like", 0);  
+            $recensione->setAttribute("dislike", 0);
+            $recensione->setAttribute("dislike", 0);
+            $recensione->setAttribute("voto", $_GET["votoUtente"]);
+
+            $recensione->appendChild($testo);
+            $gioco->appendChild($recensione);
+        }
+        $doc->save("XML/Recensioni.xml");
         
     }
     
@@ -73,7 +154,8 @@ echo "";
         <title> Game Page -".$_GET['titoloGioco']."</title> " ;
         $titoloGioco = $_GET['titoloGioco'];
         ?>
-             <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
+        <script src="Script/Likegestione.js" defer="true"></script>
     </head>
     <body>
         <div id="container">
@@ -375,7 +457,7 @@ echo "";
                                     <br/>
                                     <input type=\"hidden\" name=\"titoloGioco\" value=\"$titoloGioco\"/>
                                     <input type=\"hidden\" name=\"idGioco\" value=\" ".$_GET['idGioco']."\"/>
-                                    <input type=\"submit\" name=\"invioCommento\" value=\"Invia Commento\"/> 
+                                    <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
                                 </form>"; 
                                             
                         }
@@ -400,6 +482,7 @@ echo "";
                                         foreach($commentoId as $c){
 
                                             $idUtenteCommento = $c->getAttribute('id_utente');
+                                            $idCommento = $c->getAttribute('id_commento');
                                             $commentoTesto = $c->getElementsByTagName('text')->item(0)->textContent;
                                             $dataCommento = $c->getAttribute('data');
                                             $oraCommento = $c->getAttribute('ore');
@@ -431,7 +514,7 @@ echo "";
                                                                         <div class=\"likeAndDateContainer\">
                                                                             <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
                                                                             <div class=\"likeDislike\">
-                                                                                <div class=\"like\"> <p> $likeCommento  </p> <button type=\"button\">Like</button></div>
+                                                                                <div class=\"like\"> <p> $likeCommento  </p> <button type=\"button\" id=\"likeButton\" onclick=\"Likegestione(".$_SESSION['userId'].", $idCommento, ".$_GET['idGioco'].")\">Like</button></div>
                                                                                 <div class=\"dislike\"> <p>  $dislikeCommento   </p> <button type=\"button\">Dislike</button></div>                                                                                
                                                                             </div>
                                                                         </div>
@@ -444,20 +527,93 @@ echo "";
                                 }
                                        
 
-
-                            
-                            
-
-
-               
-                        
-                    
                     ?>
                </div>
             
                <div id="recensioni">
                      <h3>Recensioni degli utenti:</h3> 
-                     <p>In fase di sviluppo...</p>
+
+                     <?php 
+
+                    if($service == 0 && $_SESSION['Grado'] < 3) echo "<p>Devi essere di grado 3 per lasciare una recensione  .</p>";
+                    else{
+
+                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=".$_GET['idGioco']."\" method=\"get\" id=\"formRecensioni\">
+                                    <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br/> 
+                                    <input type=\"number\" cols=\"50\"  min=\"0\" max=\"100\" name=\"votoUtente\" placeholder=\" da 0 a 100...\">
+                                    
+                                    <br/>
+                                    <input type=\"hidden\" name=\"titoloGioco\" value=\"$titoloGioco\"/>
+                                    <input type=\"hidden\" name=\"idGioco\" value=\" ".$_GET['idGioco']."\"/>
+                                    <input type=\"submit\" name=\"invioRecensione\" value=\"Invia\"/> 
+                                </form>"; 
+                                            
+                        }
+                      echo "<h3>Recensioni:</h3>";
+
+                        $xmlString="";
+
+                            foreach(file("XML/Recensioni.xml") as $node){ 
+                                $xmlString .= trim($node);
+                            }
+                        
+                            $doc= new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root=$doc->documentElement;
+                            $elem=$root->childNodes;
+                            foreach($elem as $i){
+                                    if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                                        $recensioneId = $i->getElementsByTagName("Recensione");
+                                        foreach($recensioneId as $r){
+
+                                            $idUtenteRecensione = $r->getAttribute('id_utente');
+                                            $recensioneTesto = $r->getElementsByTagName('text')->item(0)->textContent;
+                                            $dataRecensione = $r->getAttribute('data');
+                                            $oraRecensione = $r->getAttribute('ore');
+                                            $minutoRecensione = $r->getAttribute('minuti');
+                                            $likeRecensione = $r->getAttribute('like'); 
+                                            $dislikeRecensione = $r->getAttribute('dislike');
+                                            $db_name = "Database_Pixel_Hub";
+                                            $table_users = "Tabella_Utenti";
+                                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                                            if (mysqli_connect_errno()){
+
+                                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                                            }
+                                            
+
+                                            $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteRecensione'";
+                                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                            $num = mysqli_num_rows($resultQ);
+
+                                            if($num == 1){
+
+                                                            $row=mysqli_fetch_array($resultQ);
+                                                            $nomeUtenteRecensione = $row['Username'];
+                                                            echo "<div class=\"recensioneUtente\">
+                                                                        <div><h4>$nomeUtenteRecensione</h4></div>
+                                                                        <div><p>$recensioneTesto</p></div>
+                                                                        <div class=\"votoRecensione\"><p> Voto: ".$r->getAttribute('voto')."/100 </p></div>
+                                                                        <div class=\"likeAndDateContainer\">
+                                                                            <div class=\"dataRecensione\"> <p>Data: $dataRecensione - $oraRecensione : $minutoRecensione </p> </div>
+                                                                            <div class=\"likeDislike\">
+                                                                                <div class=\"like\"> <p> $likeRecensione  </p> <button id=\"likeButton\" type=\"button\">Like</button></div>
+                                                                                <div class=\"dislike\"> <p>  $dislikeRecensione   </p> <button id=\"dislikeButton\" type=\"button\">Dislike</button></div>                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                </div>";          
+                                                        }
+
+                                        }
+                                        
+                                    }
+                                }
+         
+    
+                    
+            
+                    ?>
                 </div>
             </div>
         </div>

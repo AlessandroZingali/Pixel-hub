@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Like_Commenti_schema.xsd">
+<Associazione_Like_Commenti >
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_utente>1</Id_utente>
+    <Id_Commento>2</Id_Commento>
+  </ref_Commento>
+</Associazione_Like_Commenti>

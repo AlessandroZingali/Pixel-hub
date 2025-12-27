@@ -1,28 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:noNamespaceSchemaLocation="recensioni_XML_schema.xsd">  
- <Gioco id_gioco="1"40>  
-   <Recensione> 
-      <text>Sto gioco è na droga</text>
-      <id_utente>1</id_utente>
-      <voto>5</voto>
-      <data>10/12/2023</data>
-      <ore>11</ore>
-      <minuti>23</minuti>
-      <like>20</like>
-      <dislike>23</dislike>
-   </Recensione>  
-  </Gioco>  
-  <Gioco id_gioco="3">  
-      <Recensione> 
-      <text>Ho odiato le musiche</text> 
-      <id_utente>1</id_utente>  
-      <voto>2</voto> 
-      <data>10/12/2023</data> 
-      <ore>12</ore> 
-      <minuti>00</minuti> 
-      <like>0</like> 
-      <dislike>30</dislike> 
-    </Recensione>  
-   </Gioco>  
+<?xml version="1.0" encoding="UTF-8"?>
+<listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Recensioni_XML_schema.xsd">
+  <Gioco id_gioco="1">
+    <Recensione id_recensione="3" id_utente="1" data="27/12/2025" ore="13" minuti="23" like="0" dislike="0" voto="20">
+      <text>boh</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="1" data="27/12/2025" ore="11" minuti="50" like="0" dislike="0" voto="0">
+      <text>askifo</text>
+    </Recensione>
+    <Recensione id_recensione="1" id_utente="1" data="27/12/2025" ore="11" minuti="45" like="0" dislike="0" voto="0">
+      <text>bello</text>
+    </Recensione>
+  </Gioco>
 </listaRecensioni>

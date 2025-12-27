@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" > 
+  <xsd:element name="listaRecensioni"> 
+    <xsd:complexType> 
+      <xsd:sequence>
+        <xsd:element ref="Gioco" minOccurs="0" maxOccurs="unbounded"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+
+  <xsd:element name="Gioco"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element  ref="Recensione" minOccurs="0" maxOccurs="unbounded"/> 
+      </xsd:sequence> 
+        <xsd:attribute name="id_gioco" type="xsd:integer" use="required"/> 
+    </xsd:complexType> 
+  </xsd:element> 
+
+  <xsd:element name="Recensione"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element nome="text" type="xsd:string" minOccurs="1" maxOccurs="1"/> 
+      </xsd:sequence> 
+      <xsd:attribute name="id_utente" type="xsd:integer" use="required"/> 
+      <xsd:attribute name="data" type="xsd:string" use="required"/> 
+      <xsd:attribute name="ora" type="xsd:time" use="required"/> 
+      <xsd:attribute name="like" type="xsd:integer" use="required"/> 
+      <xsd:attribute name="dislike" type="xsd:integer" use="required"/> 
+      <xsd:attribute name="voto" type="xsd:integer" use="required"/> 
+      
+ 
+    </xsd:complexType> 
+  </xsd:element> 
+    <xsd:element nome="text" type="xsd:string" />
+</xsd:schema>

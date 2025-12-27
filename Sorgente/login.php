@@ -56,6 +56,7 @@ session_start();
         $_SESSION['user'] = $emailNickname;
         $_SESSION['userName']=$row['Username'];
         $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
+        $_SESSION['Grado']=$row['Grado'];
         
         
     

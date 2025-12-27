@@ -34,5 +34,6 @@
   </xsd:element>
 
   <xsd:element nome="text" type="xsd:string" />
+  </xsd:element>
   
 </xsd:schema>
