@@ -13,11 +13,13 @@
   <xsd:element name="ref_Commento">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element ref="Id_utente" minOccurs="1" maxOccurs="1"/>
+        <xsd:element ref="Id_Utente" minOccurs="1" maxOccurs="1"/>
         <xsd:element ref="Id_Commento" minOccurs="1" maxOccurs="1"/>
+        <xsd:element ref="Id_Gioco" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
     </xsd:complexType>
     </xsd:element>
-  <xsd:element name="Id_utente" type="xsd:integer"/>
+  <xsd:element name="Id_Utente" type="xsd:integer"/>
   <xsd:element name="Id_Commento" type="xsd:integer"/>
+  <xsd:element name="Id_Gioco" type="xsd:integer"/>
   </xsd:schema>

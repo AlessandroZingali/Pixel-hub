@@ -1,25 +1,26 @@
 <?php 
-
 $service = 0;
 $utente = "";
 $titoloGioco = "";
 
+if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
+    header("Location: home.php");
+}
+
+$titoloGioco = $_GET['titoloGioco'];
+$idGioco = $_GET['idGioco'];
+
 session_start();
 if(isset($_SESSION['userId'])){
-
-
-    
-    
     $utente = $_SESSION['userName'];
     $service = 1;
 }
-
 echo "";
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
 <?php 
-    if(isset($_GET["invioCommento"])){
+    if(isset($_POST["invioCommento"])){
 
         $xmlString="";
                                 
@@ -32,7 +33,7 @@ echo "";
         $root = $doc->documentElement;
         $elem = $root->childNodes;
             foreach($elem as $i){
-                if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                if($i->getAttribute("id_gioco")==$idGioco){
                     $gioco = $i;
                     break;
                 }
@@ -45,7 +46,7 @@ echo "";
             $newId += 1;
             $commento = $doc->createElement("Commento");
 
-            $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
+            $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
 
             $commento->setAttribute("id_commento", $newId);
             $commento->setAttribute("id_utente", $_SESSION["userId"]);
@@ -62,7 +63,7 @@ echo "";
 
             $commento = $doc->createElement("Commento");
 
-            $testo = $doc->createElement("text", htmlspecialchars($_GET["commentoUtente"]));
+            $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
 
             $commento->setAttribute("id_commento", $newId);
             $commento->setAttribute("id_utente", $_SESSION["userId"]);
@@ -76,12 +77,11 @@ echo "";
             $gioco->appendChild($commento);
 
         }
-
         $doc->save("XML/Commenti.xml");
-        
+        header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
     }
 
-    if(isset($_GET["invioRecensione"])){
+    if(isset($_POST["invioRecensione"])){
 
         $xmlString="";
                                 
@@ -94,7 +94,7 @@ echo "";
         $root = $doc->documentElement;
         $elem = $root->childNodes;
             foreach($elem as $i){
-                if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                if($i->getAttribute("id_gioco")==$idGioco){
                     $gioco = $i;
                     break;
                 }
@@ -107,7 +107,7 @@ echo "";
             $newId += 1;
             $recensione = $doc->createElement("Recensione");
 
-            $testo = $doc->createElement("text", htmlspecialchars($_GET["recensioneUtente"]));
+            $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
 
             $recensione->setAttribute("id_recensione", $newId);
             $recensione->setAttribute("id_utente", $_SESSION["userId"]);
@@ -117,7 +117,7 @@ echo "";
             $recensione->setAttribute("like", 0);  
             $recensione->setAttribute("dislike", 0);
             $recensione->setAttribute("dislike", 0);
-            $recensione->setAttribute("voto", $_GET["votoUtente"]);
+            $recensione->setAttribute("voto", $_POST["votoUtente"]);
 
             $recensione->appendChild($testo);
             $gioco->insertBefore($recensione, $lastRecensione);
@@ -127,7 +127,7 @@ echo "";
 
             $recensione = $doc->createElement("Recensione");
 
-            $testo = $doc->createElement("text", htmlspecialchars($_GET["recensioneUtente"]));
+            $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
 
             $recensione->setAttribute("id_recensione", $newId);
             $recensione->setAttribute("id_utente", $_SESSION["userId"]);
@@ -136,13 +136,13 @@ echo "";
             $recensione->setAttribute("minuti", date("i"));
             $recensione->setAttribute("like", 0);  
             $recensione->setAttribute("dislike", 0);
-            $recensione->setAttribute("dislike", 0);
-            $recensione->setAttribute("voto", $_GET["votoUtente"]);
+            $recensione->setAttribute("voto", $_POST["votoUtente"]);
 
             $recensione->appendChild($testo);
             $gioco->appendChild($recensione);
         }
         $doc->save("XML/Recensioni.xml");
+        header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
         
     }
     
@@ -152,10 +152,11 @@ echo "";
     <head>
         <?php echo " 
         <title> Game Page -".$_GET['titoloGioco']."</title> " ;
-        $titoloGioco = $_GET['titoloGioco'];
+      
+        
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
-        <script src="Script/Likegestione.js" defer="true"></script>
+        <script src="Script/likeAndDislikeGestione.js" defer="true"></script>
     </head>
     <body>
         <div id="container">
@@ -209,7 +210,7 @@ echo "";
                         $elem=$root->childNodes;
 
                         foreach($elem as $i){
-                            if($i->getAttribute("id_gioco")==$_GET['idGioco']) $imagePath=$i->getElementsByTagName("Immagine")->item(0)->textContent;
+                            if($i->getAttribute("id_gioco")==$idGioco) $imagePath=$i->getElementsByTagName("Immagine")->item(0)->textContent;
                         }
 
                         echo "<img src=\"$imagePath\" alt=\"GameImage\" title=\"$titoloGioco\"></img>"
@@ -231,7 +232,7 @@ echo "";
                         $elem=$root->childNodes;
 
                         foreach($elem as $i){
-                            if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                            if($i->getAttribute("id_gioco")==$idGioco){
                                $PrezzoGioco = $i->getElementsByTagName('Prezzo')->item(0)->textContent;
                                $DataUscitaGioco = $i->getElementsByTagName('DataDiUscita')->item(0)->textContent;
                                $GenereGioco = $i->getElementsByTagName('Generi')->item(0)->textContent;
@@ -241,6 +242,10 @@ echo "";
                             }
                         }
                         echo "<table>
+                                <tr>
+                                    <td> ID Gioco</td>
+                                    <td>$idGioco</td>
+                                </tr>
                                 <tr>
                                     <td>Titolo</td>
                                     <td>$titoloGioco</td>
@@ -287,9 +292,9 @@ echo "";
 
                         $idCorrelati = [];
 
-                        /* 1️⃣ Trovo il gioco corrente e leggo i suoi titoli correlati */
+                        
                         foreach ($giochi as $gioco) {
-                            if ($gioco->getAttribute("id_gioco") == $_GET['idGioco']) {
+                            if ($gioco->getAttribute("id_gioco") ==$idGioco) {
                                 $lista = $gioco->getElementsByTagName("idGiocoCorrelato");
                                 if ($lista) {
                                     foreach ($lista as $id) {
@@ -300,7 +305,7 @@ echo "";
                             }
                         }
 
-                        /* 2️⃣ Stampo i giochi correlati */
+                        
 
 
 
@@ -357,7 +362,7 @@ echo "";
                 $root=$doc->documentElement;
                 $elem=$root->childNodes;
                  foreach($elem as $i){
-                        if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                        if($i->getAttribute("id_gioco")==$idGioco){
                             $interoSpecMin = $i->getElementsByTagName('RequisitiMinimi')->item(0)->textContent;
                             $interoSpecRac = $i->getElementsByTagName('RequisitiRaccomandati')->item(0)->textContent;
                         }
@@ -387,6 +392,7 @@ echo "";
                 <tr>
                     <td>$partiSpecMin[4]</td>
                 </tr>
+                <tr>
                     <td>$partiSpecMin[5]</td>
                 </tr>
                 <tr>
@@ -452,11 +458,9 @@ echo "";
                     if($service == 0) echo "<p>Devi essere loggato per poter commentare.</p>";
                     else{
 
-                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=".$_GET['idGioco']."\" method=\"get\" id=\"formCommenti\">
+                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
                                     <textarea name=\"commentoUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
                                     <br/>
-                                    <input type=\"hidden\" name=\"titoloGioco\" value=\"$titoloGioco\"/>
-                                    <input type=\"hidden\" name=\"idGioco\" value=\" ".$_GET['idGioco']."\"/>
                                     <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
                                 </form>"; 
                                             
@@ -477,7 +481,7 @@ echo "";
                             $root=$doc->documentElement;
                             $elem=$root->childNodes;
                             foreach($elem as $i){
-                                    if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                                    if($i->getAttribute("id_gioco")==$idGioco){
                                         $commentoId = $i->getElementsByTagName("Commento");
                                         foreach($commentoId as $c){
 
@@ -514,8 +518,14 @@ echo "";
                                                                         <div class=\"likeAndDateContainer\">
                                                                             <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
                                                                             <div class=\"likeDislike\">
-                                                                                <div class=\"like\"> <p> $likeCommento  </p> <button type=\"button\" id=\"likeButton\" onclick=\"Likegestione(".$_SESSION['userId'].", $idCommento, ".$_GET['idGioco'].")\">Like</button></div>
-                                                                                <div class=\"dislike\"> <p>  $dislikeCommento   </p> <button type=\"button\">Dislike</button></div>                                                                                
+                                                                                <div class=\"like\">
+                                                                                     <p id=\"likeButtonText$idCommento\"> $likeCommento  </p> 
+                                                                                     <button type=\"button\" id=\"likeButton$idCommento\"  onclick=\"LikeGestione(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\">
+                                                                                     Like
+                                                                                     </button>
+                                                                                     </div>
+                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonText$idCommento\">  $dislikeCommento   </p> 
+                                                                                <button id=\"dislikeButton$idCommento\"type=\"button\" onclick=\"LikeGestione(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\">Dislike</button></div>                                                                                
                                                                             </div>
                                                                         </div>
                                                                 </div>";          
@@ -538,13 +548,11 @@ echo "";
                     if($service == 0 && $_SESSION['Grado'] < 3) echo "<p>Devi essere di grado 3 per lasciare una recensione  .</p>";
                     else{
 
-                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=".$_GET['idGioco']."\" method=\"get\" id=\"formRecensioni\">
+                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formRecensioni\">
                                     <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br/> 
                                     <input type=\"number\" cols=\"50\"  min=\"0\" max=\"100\" name=\"votoUtente\" placeholder=\" da 0 a 100...\">
                                     
                                     <br/>
-                                    <input type=\"hidden\" name=\"titoloGioco\" value=\"$titoloGioco\"/>
-                                    <input type=\"hidden\" name=\"idGioco\" value=\" ".$_GET['idGioco']."\"/>
                                     <input type=\"submit\" name=\"invioRecensione\" value=\"Invia\"/> 
                                 </form>"; 
                                             
@@ -562,7 +570,7 @@ echo "";
                             $root=$doc->documentElement;
                             $elem=$root->childNodes;
                             foreach($elem as $i){
-                                    if($i->getAttribute("id_gioco")==$_GET['idGioco']){
+                                    if($i->getAttribute("id_gioco")==$idGioco){
                                         $recensioneId = $i->getElementsByTagName("Recensione");
                                         foreach($recensioneId as $r){
 

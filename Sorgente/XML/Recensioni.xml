@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Recensioni_XML_schema.xsd">
   <Gioco id_gioco="1">
+    <Recensione id_recensione="5" id_utente="1" data="28/12/2025" ore="15" minuti="27" like="0" dislike="0" voto="33">
+      <text>belandis</text>
+    </Recensione>
+    <Recensione id_recensione="4" id_utente="1" data="28/12/2025" ore="15" minuti="26" like="0" dislike="0" voto="22">
+      <text>belogioco</text>
+    </Recensione>
     <Recensione id_recensione="3" id_utente="1" data="27/12/2025" ore="13" minuti="23" like="0" dislike="0" voto="20">
       <text>boh</text>
     </Recensione>

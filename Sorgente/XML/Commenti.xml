@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Recensioni_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Commento id_commento="5" id_utente="1" data="27/12/2025" ore="13" minuti="24" like="0" dislike="0">
-      <text>bellissimo</text>
-    </Commento>
-    <Commento id_commento="4" id_utente="1" data="27/12/2025" ore="13" minuti="24" like="0" dislike="0">
-      <text>bellissimo</text>
-    </Commento>
-    <Commento id_commento="3" id_utente="1" data="27/12/2025" ore="12" minuti="02" like="0" dislike="0">
-      <text>lol</text>
-    </Commento>
-    <Commento id_commento="2" id_utente="1" data="27/12/2025" ore="12" minuti="02" like="0" dislike="0">
-      <text>bello</text>
-    </Commento>
+
     <Commento id_commento="1" id_utente="1" data="27/12/2025" ore="11" minuti="56" like="0" dislike="0">
       <text>bello</text>
     </Commento>
