@@ -156,7 +156,7 @@ echo "";
         
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
-        <script src="Script/likeAndDislikeGestione.js" defer="true"></script>
+        <script src="likeAndDislikeGestione.js" defer="true"></script>
     </head>
     <body>
         <div id="container">

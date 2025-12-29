@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Associazione_Like_Commenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Like_Commenti_schema.xsd">
+<Associazione_Like_Commenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Commenti_schema.xsd">
   <ref_Commento flagLike="1" flagDislike="0">
-    <Id_Utente>1</Id_utente>
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_utente>1</Id_utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_utente>1</Id_utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_utente>1</Id_utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_utente>1</Id_utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_utente>1</Id_utente>
     <Id_Commento>1</Id_Commento>
     <Id_Gioco>1</Id_Gioco>
   </ref_Commento>

@@ -1,7 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <?php 
+$xmlString="";
+$route="0";
+foreach(file("XML/LikeCommenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $rc){
+           $utente= $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
+           $commento= $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
+           $gioco= $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+           if ($utente == $_POST['idUtente'] && $commento == $_POST['idCommento'] && $gioco == $_POST['idGioco']) {
+               $flagLike = $rc->getAttribute("flagLike");
+               $flagDislike = $rc->getAttribute("flagDislike");
+               if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
+               
+               else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
+               
+               else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
+               
+                else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
+                }
+               
+            else $route = "0"; // non ha messo né like né dislike
+                
+        }
+
+
 if ($_POST['tipo'] = "like") {
-    if ($_POST['route'] == "0"){
+    if ($route == "0"){
         $xmlString="";
                                         
         foreach(file("XML/Commenti.xml") as $node){ 
@@ -15,7 +46,7 @@ if ($_POST['tipo'] = "like") {
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $commento){
                 if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
-                    $like = commento->getAttribute("like");
+                    $like = $commento->getAttribute("like");
                     $like = $like + 1;
                     $commento->setAttribute("like", $like);
                     $doc->save("XML/Commenti.xml");
@@ -41,10 +72,11 @@ if ($_POST['tipo'] = "like") {
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeCommenti.xml");
+        echo 'like';
     
     }
     
-    if ($_POST['route'] == "1"){
+    if ($route == "1"){
         $xmlString="";
                                         
         foreach(file("XML/Commenti.xml") as $node){ 
@@ -58,8 +90,8 @@ if ($_POST['tipo'] = "like") {
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $commento){
                 if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
-                    $like = commento->getAttribute("like");
-                    $dislike = commento->getAttribute("dislike");
+                    $like = $commento->getAttribute("like");
+                    $dislike = $commento->getAttribute("dislike");
                     $dislike = $dislike - 1;
                     $like = $like + 1;
                     $commento->setAttribute("like", $like);
@@ -68,6 +100,8 @@ if ($_POST['tipo'] = "like") {
                 }
             }
         }
+
+        $xmlString="";
         foreach(file("XML/LikeCommenti.xml") as $node){ 
             $xmlString .= trim($node);
         }
@@ -86,12 +120,59 @@ if ($_POST['tipo'] = "like") {
                 $doc->save("XML/LikeCommenti.xml");
             }
         }
+        echo 'cambioDislikeLike';
+    }
+
+    if ($route == "3"){
+        $xmlString="";
+                                        
+        foreach(file("XML/Commenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $gioco){
+            foreach($gioco->childNodes as $commento){
+                if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                    $like = $commento->getAttribute("like");
+                    $like = $like - 1;
+                    $commento->setAttribute("like", $like);
+                    $doc->save("XML/Commenti.xml");
+                }
+            }
+        }
+        
+        $xmlString="";
+        foreach(file("XML/LikeCommenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $rc){
+            $idUtente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
+            $idCommento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
+            $idGioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+            if ($idUtente == $_POST['idUtente'] && $idCommento == $_POST['idCommento'] && $idGioco == $_POST['idGioco']) {
+                $parent = $rc->parentNode;
+                $parent->removeChild($rc);
+                $doc->save("XML/LikeCommenti.xml");
+        }
+    }
+
+    echo 'rimozioneLike';
     }
 }
 
+
 if ($_POST['tipo'] = "dislike") {
     
-    if ($_POST['route'] == "0"){
+    if ($route == "0"){
         // incremento dislike del commento in Commenti.xml se non ha ancora messo like o dislike
         $xmlString="";
                                         
@@ -106,7 +187,7 @@ if ($_POST['tipo'] = "dislike") {
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $commento){
                 if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
-                    $dislike = commento->getAttribute("dislike");
+                    $dislike = $commento->getAttribute("dislike");
                     $dislike = $dislike + 1;
                     $commento->setAttribute("dislike", $dislike);
                     $doc->save("XML/Commenti.xml");
@@ -132,8 +213,10 @@ if ($_POST['tipo'] = "dislike") {
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeCommenti.xml");
+
+        echo 'dislike';
     }
-    else if ($_POST['route'] == "2"){
+    else if ($route == "2"){
         // cambio da like a dislike
         $xmlString="";
                                         
@@ -148,9 +231,9 @@ if ($_POST['tipo'] = "dislike") {
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $commento){
                 if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
-                    $dislike = commento->getAttribute("dislike");
+                    $dislike = $commento->getAttribute("dislike");
                     $dislike = $dislike + 1;
-                    $like = commento->getAttribute("like");
+                    $like = $commento->getAttribute("like");
                     $like = $like - 1;
                     $commento->setAttribute("like", $like);
                     $commento->setAttribute("dislike", $dislike);
@@ -158,6 +241,8 @@ if ($_POST['tipo'] = "dislike") {
                 }
             }
         }
+
+        $xmlString="";
         foreach(file("XML/LikeCommenti.xml") as $node){ 
             $xmlString .= trim($node);
         }
@@ -176,6 +261,56 @@ if ($_POST['tipo'] = "dislike") {
                 $doc->save("XML/LikeCommenti.xml");
             }
         }
+        echo 'cambioLikeDislike';
     }
+
+    else if($route == "4"){
+       
+        // toglie dislike
+        $xmlString="";
+                                        
+        foreach(file("XML/Commenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $gioco){
+            foreach($gioco->childNodes as $commento){
+                if ($commento->getAttribute("id_commento") == $_POST['idCommento'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                    $dislike = $commento->getAttribute("dislike");
+                    $dislike = $dislike - 1;
+                    $commento->setAttribute("dislike", $dislike);
+                    $doc->save("XML/Commenti.xml");
+                }
+            }
+        }
+        
+
+        $xmlString="";
+        foreach(file("XML/LikeCommenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $rc){
+            $idUtente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
+            $idCommento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
+            $idGioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+            if ($idUtente == $_POST['idUtente'] && $idCommento == $_POST['idCommento'] && $idGioco == $_POST['idGioco']) {
+                $parent = $rc->parentNode;
+                $parent->removeChild($rc);
+                $doc->save("XML/LikeCommenti.xml");
+            }
+        }
+        echo 'rimozioneDislike';
+    }
+    
 }
+
 ?>

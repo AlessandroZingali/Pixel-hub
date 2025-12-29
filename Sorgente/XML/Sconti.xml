@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<listaSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Sconti_XML_schema.xsd">
+<listaSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Sconti_XML_schema.xsd">
    <Sconto id_tipoSconto="1">
      <Gioco valoreSconto="20">2</Gioco>
      <Gioco valoreSconto="10">4</Gioco>
