@@ -156,7 +156,7 @@ echo "";
         
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
-        <script src="likeAndDislikeGestione.js" defer="true"></script>
+        <script src="Script/likeAndDislikeGestione.js" defer="true"></script>
     </head>
     <body>
         <div id="container">
@@ -573,7 +573,7 @@ echo "";
                                     if($i->getAttribute("id_gioco")==$idGioco){
                                         $recensioneId = $i->getElementsByTagName("Recensione");
                                         foreach($recensioneId as $r){
-
+                                            $idRecensione = $r->getAttribute('id_recensione');
                                             $idUtenteRecensione = $r->getAttribute('id_utente');
                                             $recensioneTesto = $r->getElementsByTagName('text')->item(0)->textContent;
                                             $dataRecensione = $r->getAttribute('data');
@@ -606,8 +606,14 @@ echo "";
                                                                         <div class=\"likeAndDateContainer\">
                                                                             <div class=\"dataRecensione\"> <p>Data: $dataRecensione - $oraRecensione : $minutoRecensione </p> </div>
                                                                             <div class=\"likeDislike\">
-                                                                                <div class=\"like\"> <p> $likeRecensione  </p> <button id=\"likeButton\" type=\"button\">Like</button></div>
-                                                                                <div class=\"dislike\"> <p>  $dislikeRecensione   </p> <button id=\"dislikeButton\" type=\"button\">Dislike</button></div>                                                                                
+                                                                                                                                                                <div class=\"like\">
+                                                                                     <p id=\"likeButtonText$idRecensione\"> $likeRecensione  </p> 
+                                                                                     <button type=\"button\" id=\"likeButton$idRecensione\"  onclick=\"LikeGestione(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\">
+                                                                                     Like
+                                                                                     </button>
+                                                                                     </div>
+                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonText$idRecensione\">  $dislikeRecensione   </p> 
+                                                                                <button id=\"dislikeButton$idRecensione\"type=\"button\" onclick=\"LikeGestione(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\">Dislike</button></div>                                                                             
                                                                             </div>
                                                                         </div>
                                                                 </div>";          

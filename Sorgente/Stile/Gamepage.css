@@ -189,6 +189,17 @@ body{
     flex-direction: row;
 }
 
+.likeAttivo {
+    background-color: green;
+    color: white;
+}
+
+.dislikeAttivo {
+    background-color: red;
+    color: white;
+}
+
+
 #recensioni{
     border: cyan solid;
     float: right;

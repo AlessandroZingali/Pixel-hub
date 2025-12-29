@@ -1,7 +1,7 @@
-
-<?php 
+<?php
 $xmlString="";
 $route="0";
+
 foreach(file("XML/LikeCommenti.xml") as $node){ 
             $xmlString .= trim($node);
         }
@@ -9,29 +9,24 @@ foreach(file("XML/LikeCommenti.xml") as $node){
         $doc->loadXML($xmlString);
         $doc->formatOutput = true;
         $root = $doc->documentElement;
-        $elem = $root->childNodes;
-        foreach($elem as $rc){
-           $utente= $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
-           $commento= $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
-           $gioco= $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-           if ($utente == $_POST['idUtente'] && $commento == $_POST['idCommento'] && $gioco == $_POST['idGioco']) {
-               $flagLike = $rc->getAttribute("flagLike");
-               $flagDislike = $rc->getAttribute("flagDislike");
-               if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
-               
-               else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
-               
-               else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
-               
-                else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
-                }
-               
-            else $route = "0"; // non ha messo né like né dislike
-                
+        if($root->hasChildNodes()){
+            $elem = $root->childNodes;
+            foreach($elem as $rc){
+                $utente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
+                $commento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
+                $gioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+                if ($utente == $_POST['idUtente'] && $commento == $_POST['idCommento'] && $gioco == $_POST['idGioco']) {
+                    $flagLike = $rc->getAttribute("flagLike");
+                    $flagDislike = $rc->getAttribute("flagDislike");
+                    if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
+                    else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
+                    else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
+                    else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
+                    }
+                }   
         }
 
-
-if ($_POST['tipo'] = "like") {
+if ($_POST['tipo'] == "like") {
     if ($route == "0"){
         $xmlString="";
                                         
@@ -170,7 +165,7 @@ if ($_POST['tipo'] = "like") {
 }
 
 
-if ($_POST['tipo'] = "dislike") {
+if ($_POST['tipo'] == "dislike") {
     
     if ($route == "0"){
         // incremento dislike del commento in Commenti.xml se non ha ancora messo like o dislike
@@ -208,7 +203,7 @@ if ($_POST['tipo'] = "dislike") {
         $nuovoLike = $doc->createElement("ref_Commento");
         $nuovoLike->setAttribute("flagLike", "0");
         $nuovoLike->setAttribute("flagDislike", "1");
-        $nuovoLike->appendChild($doc->createElement("Id_utente", $_POST['idUtente']));
+        $nuovoLike->appendChild($doc->createElement("Id_Utente", $_POST['idUtente']));
         $nuovoLike->appendChild($doc->createElement("Id_Commento", $_POST['idCommento']));
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
