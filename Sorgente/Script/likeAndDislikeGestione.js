@@ -1,20 +1,24 @@
-window.addEventListener("load",loadColorLikeDislike);
+window.addEventListener("load",loadColorLikeDislikeCommenti);
+window.addEventListener("load",loadColorLikeDislikeRecensioni);
 
-function loadColorLikeDislike() {
+function loadColorLikeDislikeCommenti() {
+
     var xmlHttp = new XMLHttpRequest();
     const params = new URLSearchParams(window.location.search);
+
     xmlHttp.onreadystatechange = function() {    
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+        console.log("Risposta ricevuta: " + xmlHttp.responseText);
         if (xmlHttp.responseText !== "") {
-            var tuple = JSON.parse(xmlHttp.responseText);
-            console.log(tuple);
-            for (var i = 0; i < tuple.length; i++) {
-                var idCommento = tuple[i].idCommento;
+            var tupleCom = JSON.parse(xmlHttp.responseText);
+            console.log(tupleCom);
+            for (var i = 0; i < tupleCom.length; i++) {
+                var idCommento = tupleCom[i].idCommento;
                 console.log("idCommento: " + idCommento);
-                var flagLike = tuple[i].flagLike;
-                var flagDislike = tuple[i].flagDislike;
-                if (flagLike == 1) document.getElementById("likeButton"+idCommento).style.backgroundColor = "green";
-                else if (flagDislike == 1) document.getElementById("dislikeButton"+idCommento).style.backgroundColor = "red";
+                var flagLike = tupleCom[i].flagLike;
+                var flagDislike = tupleCom[i].flagDislike;
+                if (flagLike == 1) document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "green";
+                else if (flagDislike == 1) document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "red";
             }
         }    
     };
@@ -28,66 +32,154 @@ function loadColorLikeDislike() {
 }
 
 
-function LikeGestione(idUtente, idCommento, idGioco, tipo) {
-    var xmlHttp = new XMLHttpRequest();
-    console.log('Entry: '+tipo);
+function LikeGestioneCommenti(idUtente, idCommento, idGioco, tipo) {
 
+    var xmlHttp = new XMLHttpRequest();
 
     xmlHttp.onreadystatechange = function() {    
-   console.log(xmlHttp.status);
-    console.log(xmlHttp.responseText);
-    console.log(xmlHttp.responseXML);
-        
+    
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+
             var response = xmlHttp.responseText;
-            console.log('In status: '+ tipo);
-            console.log("Response: " + response);
+
          if(response === "like" ) {
                     
-                    var likeText = document.getElementById("likeButtonText"+idCommento);
+                    var likeText = document.getElementById("likeButtonTextCom"+idCommento);
                     likeText.innerHTML = parseInt(likeText.innerHTML) + 1;
-                    document.getElementById("likeButton"+idCommento).style.backgroundColor = "green";
+                    document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "green";
                
                 }
                 else if(response === "dislike") {
                 
-                    var dislikeText = document.getElementById("dislikeButtonText"+idCommento);
+                    var dislikeText = document.getElementById("dislikeButtonTextCom"+idCommento);
                     dislikeText.innerHTML = parseInt(dislikeText.innerHTML) + 1;
-                    document.getElementById("dislikeButton"+idCommento).style.backgroundColor = "red";
+                    document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "red";
                 
                 }
                 else if(response === "cambioLikeDislike") {
-                    var likeText = document.getElementById("likeButtonText"+idCommento);
-                    var dislikeText = document.getElementById("dislikeButtonText"+idCommento);
+                    var likeText = document.getElementById("likeButtonTextCom"+idCommento);
+                    var dislikeText = document.getElementById("dislikeButtonTextCom"+idCommento);
                     likeText.innerHTML = parseInt(likeText.innerHTML) - 1;
                     dislikeText.innerHTML = parseInt(dislikeText.innerHTML) + 1;
-                    document.getElementById("likeButton"+idCommento).style.backgroundColor = "";
-                    document.getElementById("dislikeButton"+idCommento).style.backgroundColor = "red";
+                    document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "";
+                    document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "red";
                 }
                 else if(response === "cambioDislikeLike") {
-                    var likeText = document.getElementById("likeButtonText"+idCommento);
-                    var dislikeText = document.getElementById("dislikeButtonText"+idCommento);
+                    var likeText = document.getElementById("likeButtonTextCom"+idCommento);
+                    var dislikeText = document.getElementById("dislikeButtonTextCom"+idCommento);
                     likeText.innerHTML = parseInt(likeText.innerHTML) + 1;
                     dislikeText.innerHTML = parseInt(dislikeText.innerHTML) - 1;
-                    document.getElementById("likeButton"+idCommento).style.backgroundColor = "green";
-                    document.getElementById("dislikeButton"+idCommento).style.backgroundColor = "";
+                    document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "green";
+                    document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "";
                 }
                 else if (response === "rimozioneLike") {
-                    var likeText = document.getElementById("likeButtonText"+idCommento);
+                    var likeText = document.getElementById("likeButtonTextCom"+idCommento);
                     likeText.innerHTML = parseInt(likeText.innerHTML) - 1;
-                    document.getElementById("likeButton"+idCommento).style.backgroundColor = "";
+                    document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "";
                 }
                 else if (response === "rimozioneDislike") {
-                    var dislikeText = document.getElementById("dislikeButtonText"+idCommento);
+                    var dislikeText = document.getElementById("dislikeButtonTextCom"+idCommento);
                     dislikeText.innerHTML = parseInt(dislikeText.innerHTML) - 1;
-                    document.getElementById("dislikeButton"+idCommento).style.backgroundColor = "";
+                    document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "";
                 }
                 
    
     }
             
         };
+
     xmlHttp.open("POST", "aggiornamentoLikeCommenti.php", true);
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlHttp.send("idUtente=" + idUtente + "&idCommento=" + idCommento + "&idGioco=" + idGioco + "&tipo=" + tipo);
+}
+
+function loadColorLikeDislikeRecensioni() {
+
+    var xmlHttp = new XMLHttpRequest();
+    const params = new URLSearchParams(window.location.search);
+    
+    xmlHttp.onreadystatechange = function() {    
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+        if (xmlHttp.responseText !== "") {
+            var tupleRec = JSON.parse(xmlHttp.responseText);
+            console.log(tupleRec);
+            for (var i = 0; i < tupleRec.length; i++) {
+                var idRecensione = tupleRec[i].idRecensione;
+                var flagLike = tupleRec[i].flagLike;
+                var flagDislike = tupleRec[i].flagDislike;
+                if (flagLike == 1) document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "green";
+                else if (flagDislike == 1) document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "red";
+            }
+        }    
+    };
+}
+
+
+
+    xmlHttp.open("POST", "coloreLoadLikeDislikeRecensioni.php", true);
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlHttp.send("idGioco=" + params.get('idGioco'));
+}
+
+
+function LikeGestioneRecensioni(idUtente, idRecensione, idGioco, tipo) {
+    console.log("Entrato in LikeGestioneRecensioni");
+    var xmlHttp = new XMLHttpRequest();
+
+    xmlHttp.onreadystatechange = function() {    
+        
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+        console.log("idRecensione: " + idRecensione);
+        console.log("Risposta ricevuta: " + xmlHttp.responseText);
+            var response = xmlHttp.responseText;
+
+         if(response === "like" ) {
+                    
+                    var likeText = document.getElementById("likeButtonTextRec"+idRecensione);
+                    likeText.innerHTML = parseInt(likeText.innerHTML) + 1;
+                    document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "green";
+               
+                }
+                else if(response === "dislike") {
+                
+                    var dislikeText = document.getElementById("dislikeButtonTextRec"+idRecensione);
+                    dislikeText.innerHTML = parseInt(dislikeText.innerHTML) + 1;
+                    document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "red";
+                
+                }
+                else if(response === "cambioLikeDislike") {
+                    var likeText = document.getElementById("likeButtonTextRec"+idRecensione);
+                    var dislikeText = document.getElementById("dislikeButtonTextRec"+idRecensione);
+                    likeText.innerHTML = parseInt(likeText.innerHTML) - 1;
+                    dislikeText.innerHTML = parseInt(dislikeText.innerHTML) + 1;
+                    document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "";
+                    document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "red";
+                }
+                else if(response === "cambioDislikeLike") {
+                    var likeText = document.getElementById("likeButtonTextRec"+idRecensione);
+                    var dislikeText = document.getElementById("dislikeButtonTextRec"+idRecensione);
+                    likeText.innerHTML = parseInt(likeText.innerHTML) + 1;
+                    dislikeText.innerHTML = parseInt(dislikeText.innerHTML) - 1;
+                    document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "green";
+                    document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "";
+                }
+                else if (response === "rimozioneLike") {
+                    var likeText = document.getElementById("likeButtonTextRec"+idRecensione);
+                    likeText.innerHTML = parseInt(likeText.innerHTML) - 1;
+                    document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "";
+                }
+                else if (response === "rimozioneDislike") {
+                    var dislikeText = document.getElementById("dislikeButtonTextRec"+idRecensione);
+                    dislikeText.innerHTML = parseInt(dislikeText.innerHTML) - 1;
+                    document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "";
+                }
+                
+   
+    }
+            
+        };
+
+    xmlHttp.open("POST", "aggiornamentoLikeRecensioni.php", true);
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlHttp.send("idUtente=" + idUtente + "&idRecensione=" + idRecensione + "&idGioco=" + idGioco + "&tipo=" + tipo);
 }

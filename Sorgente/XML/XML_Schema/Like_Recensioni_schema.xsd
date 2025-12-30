@@ -13,11 +13,11 @@
   <xsd:element name="ref_Recensione">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element ref="Id_utente" minOccurs="1" maxOccurs="1"/>
+        <xsd:element ref="Id_Utente" minOccurs="1" maxOccurs="1"/>
         <xsd:element ref="Id_Recensione" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
     </xsd:complexType>
     </xsd:element>
-  <xsd:element name="Id_utente" type="xsd:integer"/>
+  <xsd:element name="Id_Utente" type="xsd:integer"/>
   <xsd:element name="Id_Recensione" type="xsd:integer"/>
   </xsd:schema>

@@ -13,15 +13,15 @@ foreach(file("XML/LikeRecensioni.xml") as $node){
             $elem = $root->childNodes;
             foreach($elem as $rr){
                 $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                $recensione = $rr->getElementsByTagName("id_recensione")->item(0)->textContent;
+                $recensione = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
                 $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-                if ($utente == $_POST['idUtente'] && $recensione == $_POST['idrecensione'] && $gioco == $_POST['idGioco']) {
+                if ($utente == $_POST['idUtente'] && $recensione == $_POST['idRecensione'] && $gioco == $_POST['idGioco']) {
                     $flagLike = $rr->getAttribute("flagLike");
                     $flagDislike = $rr->getAttribute("flagDislike");
                     if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
                     else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
-                    else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
-                    else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
+                    else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like, lo sta togliendo
+                    else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike, lo sta togliendo
                     }
                 }   
         }
@@ -40,7 +40,7 @@ if ($_POST['tipo'] == "like") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $like = $recensioni->getAttribute("like");
                     $like = $like + 1;
                     $recensioni->setAttribute("like", $like);
@@ -59,11 +59,11 @@ if ($_POST['tipo'] == "like") {
         $doc->formatOutput = true;
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        $nuovoLike = $doc->createElement("ref_recensioni$recensioni");
+        $nuovoLike = $doc->createElement("ref_Recensioni");
         $nuovoLike->setAttribute("flagLike", "1");
         $nuovoLike->setAttribute("flagDislike", "0");
         $nuovoLike->appendChild($doc->createElement("Id_Utente", $_POST['idUtente']));
-        $nuovoLike->appendChild($doc->createElement("Id_recensioni$recensioni", $_POST['idrecensioni$recensioni']));
+        $nuovoLike->appendChild($doc->createElement("Id_Recensioni", $_POST['idRecensione']));
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeRecensioni.xml");
@@ -84,7 +84,7 @@ if ($_POST['tipo'] == "like") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $like = $recensioni->getAttribute("like");
                     $dislike = $recensioni->getAttribute("dislike");
                     $dislike = $dislike - 1;
@@ -107,9 +107,9 @@ if ($_POST['tipo'] == "like") {
         $elem = $root->childNodes;
         foreach($elem as $rr){
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idrecensioni = $rr->getElementsByTagName("Id_recensioni$recensioni")->item(0)->textContent;
+            $idRecensioni = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idrecensioni == $_POST['idrecensioni$recensioni'] && $idGioco == $_POST['idGioco']) {
+            if ($idUtente == $_POST['idUtente'] && $idRecensioni == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
                 $rr->setAttribute("flagLike", "1");
                 $rr->setAttribute("flagDislike", "0");
                 $doc->save("XML/LikeRecensioni.xml");
@@ -131,7 +131,7 @@ if ($_POST['tipo'] == "like") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $like = $recensioni->getAttribute("like");
                     $like = $like - 1;
                     $recensioni->setAttribute("like", $like);
@@ -151,9 +151,9 @@ if ($_POST['tipo'] == "like") {
         $elem = $root->childNodes;
         foreach($elem as $rr){
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idrecensioni= $rr->getElementsByTagName("Id_recensioni$recensioni")->item(0)->textContent;
+            $idRecensioni= $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idrecensioni == $_POST['idrecensioni$recensioni'] && $idGioco == $_POST['idGioco']) {
+            if ($idUtente == $_POST['idUtente'] && $idRecensioni == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
                 $parent = $rr->parentNode;
                 $parent->removeChild($rr);
                 $doc->save("XML/LikeRecensioni.xml");
@@ -181,7 +181,7 @@ if ($_POST['tipo'] == "dislike") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $dislike = $recensioni->getAttribute("dislike");
                     $dislike = $dislike + 1;
                     $recensioni->setAttribute("dislike", $dislike);
@@ -200,11 +200,11 @@ if ($_POST['tipo'] == "dislike") {
         $doc->formatOutput = true;
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        $nuovoLike = $doc->createElement("ref_recensioni$recensioni");
+        $nuovoLike = $doc->createElement("ref_Recensioni");
         $nuovoLike->setAttribute("flagLike", "0");
         $nuovoLike->setAttribute("flagDislike", "1");
         $nuovoLike->appendChild($doc->createElement("Id_Utente", $_POST['idUtente']));
-        $nuovoLike->appendChild($doc->createElement("Id_recensioni$recensioni", $_POST['idrecensioni$recensioni']));
+        $nuovoLike->appendChild($doc->createElement("Id_Recensioni", $_POST['idRecensione']));
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeRecensioni.xml");
@@ -225,10 +225,10 @@ if ($_POST['tipo'] == "dislike") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $dislike = $recensioni->getAttribute("dislike");
-                    $dislike = $dislike + 1;
                     $like = $recensioni->getAttribute("like");
+                    $dislike = $dislike + 1;
                     $like = $like - 1;
                     $recensioni->setAttribute("like", $like);
                     $recensioni->setAttribute("dislike", $dislike);
@@ -248,9 +248,9 @@ if ($_POST['tipo'] == "dislike") {
         $elem = $root->childNodes;
         foreach($elem as $rr){
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idrecensioni= $rr->getElementsByTagName("Id_recensioni$recensioni")->item(0)->textContent;
+            $idRecensioni= $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idrecensioni == $_POST['idrecensioni$recensioni'] && $idGioco == $_POST['idGioco']) {
+            if ($idUtente == $_POST['idUtente'] && $idRecensioni == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
                 $rr->setAttribute("flagLike", "0");
                 $rr->setAttribute("flagDislike", "1");
                 $doc->save("XML/LikeRecensioni.xml");
@@ -274,7 +274,7 @@ if ($_POST['tipo'] == "dislike") {
         $elem = $root->childNodes;
         foreach($elem as $gioco){
             foreach($gioco->childNodes as $recensioni){
-                if ($recensioni->getAttribute("id_recensioni$recensioni") == $_POST['idrecensioni$recensioni'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+                if ($recensioni->getAttribute("id_recensioni") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
                     $dislike = $recensioni->getAttribute("dislike");
                     $dislike = $dislike - 1;
                     $recensioni->setAttribute("dislike", $dislike);
@@ -295,9 +295,9 @@ if ($_POST['tipo'] == "dislike") {
         $elem = $root->childNodes;
         foreach($elem as $rr){
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idrecensioni = $rr->getElementsByTagName("Id_recensioni$recensioni")->item(0)->textContent;
+            $idRecensioni = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idrecensioni == $_POST['idrecensioni$recensioni'] && $idGioco == $_POST['idGioco']) {
+            if ($idUtente == $_POST['idUtente'] && $idRecensioni == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
                 $parent = $rr->parentNode;
                 $parent->removeChild($rr);
                 $doc->save("XML/LikeRecensioni.xml");

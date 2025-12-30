@@ -2,10 +2,11 @@
 session_start();
 header('Content-Type: application/json');
 $found = false;
-$tupleCom = [];
+$tupleRec = [];
+
 $xmlString="";
 
-foreach(file("XML/LikeCommenti.xml") as $node){ 
+foreach(file("XML/LikeRecensioni.xml") as $node){ 
             $xmlString .= trim($node);
         }
         $doc = new DOMDocument();
@@ -14,23 +15,23 @@ foreach(file("XML/LikeCommenti.xml") as $node){
         $root = $doc->documentElement;
         if($root->hasChildNodes()){
             $elem = $root->childNodes;
-            foreach($elem as $rc){
-                $utente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                $commento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
-                $gioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+            foreach($elem as $rr){
+                $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
+                $Recensioni = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
+                $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
                 if ($utente == $_SESSION['userId']  && $gioco == $_POST['idGioco']) {
-                    $flagLike = $rc->getAttribute("flagLike");
-                    $flagDislike = $rc->getAttribute("flagDislike");
+                    $flagLike = $rr->getAttribute("flagLike");
+                    $flagDislike = $rr->getAttribute("flagDislike");
                     $found = true;
-                    $tupleCom[] = [
-                        'idCommento' => $commento,
+                    $tupleRec[] = [
+                        'idRecensione' => $Recensioni,
                         'flagLike' => $flagLike,
                         'flagDislike' => $flagDislike
                     ];
                     }
                     
                 } 
-                if ($found) echo json_encode($tupleCom);  
+                if ($found) json_encode($tupleRec);  
                 else echo "";
         }
 ?>

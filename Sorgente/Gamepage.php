@@ -2,6 +2,7 @@
 $service = 0;
 $utente = "";
 $titoloGioco = "";
+$gioco = 0;
 
 if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
     header("Location: home.php");
@@ -34,33 +35,15 @@ echo "";
         $elem = $root->childNodes;
             foreach($elem as $i){
                 if($i->getAttribute("id_gioco")==$idGioco){
-                    $gioco = $i;
+                    $gioco = (int)$i->getAttribute("id_gioco");
                     break;
                 }
             }
-
-        if($gioco->hasChildNodes()){
-            $lastCommento = $gioco->firstChild;
-            $newId = (intval($lastCommento->getAttribute("id_commento")));
-
-            $newId += 1;
-            $commento = $doc->createElement("Commento");
-
-            $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
-
-            $commento->setAttribute("id_commento", $newId);
-            $commento->setAttribute("id_utente", $_SESSION["userId"]);
-            $commento->setAttribute("data", date("d/m/Y"));
-            $commento->setAttribute("ore", date("H"));
-            $commento->setAttribute("minuti", date("i"));
-            $commento->setAttribute("like", 0);  
-            $commento->setAttribute("dislike", 0);
-            $commento->appendChild($testo);
-            $gioco->insertBefore($commento, $lastCommento);
-        }
-        else { 
+        if($gioco == 0){
             $newId = 1;
 
+            $gioco=$doc->createElement("Gioco");
+            $gioco->setAttribute("id_gioco", $idGioco);
             $commento = $doc->createElement("Commento");
 
             $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
@@ -75,8 +58,51 @@ echo "";
 
             $commento->appendChild($testo);
             $gioco->appendChild($commento);
-
+            $root->appendChild($gioco);
         }
+        else{
+            
+            if($gioco->hasChildNodes()){
+                
+                $lastCommento = $gioco->firstChild;
+                $newId = (intval($lastCommento->getAttribute("id_commento")));
+
+                $newId += 1;
+                $commento = $doc->createElement("Commento");
+
+                $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
+
+                $commento->setAttribute("id_commento", $newId);
+                $commento->setAttribute("id_utente", $_SESSION["userId"]);
+                $commento->setAttribute("data", date("d/m/Y"));
+                $commento->setAttribute("ore", date("H"));
+                $commento->setAttribute("minuti", date("i"));
+                $commento->setAttribute("like", 0);  
+                $commento->setAttribute("dislike", 0);
+                $commento->appendChild($testo);
+                $gioco->insertBefore($commento, $lastCommento);
+           }
+            else { 
+                $newId = 1;
+
+                $commento = $doc->createElement("Commento");
+
+                $testo = $doc->createElement("text", htmlspecialchars($_POST["commentoUtente"]));
+
+                $commento->setAttribute("id_commento", $newId);
+                $commento->setAttribute("id_utente", $_SESSION["userId"]);
+                $commento->setAttribute("data", date("d/m/Y"));
+                $commento->setAttribute("ore", date("H"));
+                $commento->setAttribute("minuti", date("i"));
+                $commento->setAttribute("like", 0);  
+                $commento->setAttribute("dislike", 0);
+
+                $commento->appendChild($testo);
+                $gioco->appendChild($commento);
+
+            }
+        }
+        
         $doc->save("XML/Commenti.xml");
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
     }
@@ -99,32 +125,11 @@ echo "";
                     break;
                 }
             }
-
-        if($gioco->hasChildNodes()){
-            $lastRecensione = $gioco->firstChild;
-            $newId = (intval($lastRecensione->getAttribute("id_recensione")));
-
-            $newId += 1;
-            $recensione = $doc->createElement("Recensione");
-
-            $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
-
-            $recensione->setAttribute("id_recensione", $newId);
-            $recensione->setAttribute("id_utente", $_SESSION["userId"]);
-            $recensione->setAttribute("data", date("d/m/Y"));
-            $recensione->setAttribute("ore", date("H"));
-            $recensione->setAttribute("minuti", date("i"));
-            $recensione->setAttribute("like", 0);  
-            $recensione->setAttribute("dislike", 0);
-            $recensione->setAttribute("dislike", 0);
-            $recensione->setAttribute("voto", $_POST["votoUtente"]);
-
-            $recensione->appendChild($testo);
-            $gioco->insertBefore($recensione, $lastRecensione);
-        }
-        else{ 
+        if($gioco == 0){
             $newId = 1;
 
+            $gioco=$doc->createElement("Gioco");
+            $gioco->setAttribute("id_gioco", $idGioco);
             $recensione = $doc->createElement("Recensione");
 
             $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
@@ -140,7 +145,53 @@ echo "";
 
             $recensione->appendChild($testo);
             $gioco->appendChild($recensione);
+            $root->appendChild($gioco);
         }
+        else{
+           if($gioco->hasChildNodes()){
+                $lastRecensione = $gioco->firstChild;
+                $newId = (intval($lastRecensione->getAttribute("id_recensione")));
+
+                $newId += 1;
+                $recensione = $doc->createElement("Recensione");
+
+                $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
+
+                $recensione->setAttribute("id_recensione", $newId);
+                $recensione->setAttribute("id_utente", $_SESSION["userId"]);
+                $recensione->setAttribute("data", date("d/m/Y"));
+                $recensione->setAttribute("ore", date("H"));
+                $recensione->setAttribute("minuti", date("i"));
+                $recensione->setAttribute("like", 0);  
+                $recensione->setAttribute("dislike", 0);
+                $recensione->setAttribute("dislike", 0);
+                $recensione->setAttribute("voto", $_POST["votoUtente"]);
+
+                $recensione->appendChild($testo);
+                $gioco->insertBefore($recensione, $lastRecensione);
+            }
+            else{ 
+                $newId = 1;
+
+                $recensione = $doc->createElement("Recensione");
+
+                $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
+
+                $recensione->setAttribute("id_recensione", $newId);
+                $recensione->setAttribute("id_utente", $_SESSION["userId"]);
+                $recensione->setAttribute("data", date("d/m/Y"));
+                $recensione->setAttribute("ore", date("H"));
+                $recensione->setAttribute("minuti", date("i"));
+                $recensione->setAttribute("like", 0);  
+                $recensione->setAttribute("dislike", 0);
+                $recensione->setAttribute("voto", $_POST["votoUtente"]);
+
+                $recensione->appendChild($testo);
+                $gioco->appendChild($recensione);
+            }
+        }
+
+        
         $doc->save("XML/Recensioni.xml");
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
         
@@ -519,13 +570,13 @@ echo "";
                                                                             <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
                                                                             <div class=\"likeDislike\">
                                                                                 <div class=\"like\">
-                                                                                     <p id=\"likeButtonText$idCommento\"> $likeCommento  </p> 
-                                                                                     <button type=\"button\" id=\"likeButton$idCommento\"  onclick=\"LikeGestione(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\">
+                                                                                     <p id=\"likeButtonTextCom$idCommento\"> $likeCommento  </p> 
+                                                                                     <button type=\"button\" id=\"likeButtonCom$idCommento\"  onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\">
                                                                                      Like
                                                                                      </button>
                                                                                      </div>
-                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonText$idCommento\">  $dislikeCommento   </p> 
-                                                                                <button id=\"dislikeButton$idCommento\"type=\"button\" onclick=\"LikeGestione(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\">Dislike</button></div>                                                                                
+                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
+                                                                                <button id=\"dislikeButtonCom$idCommento\"type=\"button\" onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\">Dislike</button></div>                                                                                
                                                                             </div>
                                                                         </div>
                                                                 </div>";          
@@ -607,13 +658,13 @@ echo "";
                                                                             <div class=\"dataRecensione\"> <p>Data: $dataRecensione - $oraRecensione : $minutoRecensione </p> </div>
                                                                             <div class=\"likeDislike\">
                                                                                                                                                                 <div class=\"like\">
-                                                                                     <p id=\"likeButtonText$idRecensione\"> $likeRecensione  </p> 
-                                                                                     <button type=\"button\" id=\"likeButton$idRecensione\"  onclick=\"LikeGestione(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\">
+                                                                                     <p id=\"likeButtonTextRec$idRecensione\"> $likeRecensione  </p> 
+                                                                                     <button type=\"button\" id=\"likeButtonRec$idRecensione\"  onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\">
                                                                                      Like
                                                                                      </button>
                                                                                      </div>
-                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonText$idRecensione\">  $dislikeRecensione   </p> 
-                                                                                <button id=\"dislikeButton$idRecensione\"type=\"button\" onclick=\"LikeGestione(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\">Dislike</button></div>                                                                             
+                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonTextRec$idRecensione\">  $dislikeRecensione   </p> 
+                                                                                <button id=\"dislikeButtonRec$idRecensione\"type=\"button\" onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\">Dislike</button></div>                                                                             
                                                                             </div>
                                                                         </div>
                                                                 </div>";          

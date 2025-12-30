@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recensioni_XML_schema.xsd">
   <Gioco id_gioco="1">
+    <Recensione id_recensione="5" id_utente="5" data="30/12/2025" ore="12" minuti="04" like="0" dislike="0" voto="69">
+      <text>BESUGHIS</text>
+    </Recensione>
+    <Recensione id_recensione="4" id_utente="1" data="30/12/2025" ore="11" minuti="47" like="0" dislike="0" voto="1">
+      <text>rere</text>
+    </Recensione>
+    <Recensione id_recensione="3" id_utente="1" data="30/12/2025" ore="11" minuti="44" like="0" dislike="0" voto="100">
+      <text>belloh</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="1" data="30/12/2025" ore="11" minuti="43" like="0" dislike="0" voto="1">
+      <text>sto gioco fa cagare</text>
+    </Recensione>
     <Recensione id_recensione="1" id_utente="1" data="29/12/2025" ore="18" minuti="00" like="0" dislike="0" voto="40">
       <text>Bel gioco</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="2">
+    <Recensione id_recensione="1" id_utente="5" data="30/12/2025" ore="12" minuti="22" like="0" dislike="0" voto="1">
+      <text>lol</text>
     </Recensione>
   </Gioco>
 </listaRecensioni>
