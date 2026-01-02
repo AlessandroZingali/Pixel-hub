@@ -270,7 +270,8 @@ echo "";
                     
                 </div>
                 <div id="statGioco">
-                    <?php 
+                    <div>
+                        <?php 
                         $xmlString="";
 
                         foreach(file("XML/Giochi.xml") as $node){ 
@@ -303,11 +304,11 @@ echo "";
                                 </tr>
                                 <tr>
                                     <td>Prezzo</td>
-                                    <td>$PrezzoGioco</td>
+                                    <td>$PrezzoGioco €</td>
                                 </tr>
                                 <tr>
                                     <td>Generi</td>
-                                    <td>$GenereGioco €</td>
+                                    <td>$GenereGioco </td>
                                 </tr>
                                 <tr>
                                     <td>DatadiUscita</td>
@@ -322,10 +323,9 @@ echo "";
                                     <td>$CasaSviluppoGioco</td>
                                 </tr>
                               </table>";
-                    ?>
-
-                </div>
-                <div id="consigliati">
+                     ?>
+                    </div>
+                    <div id="consigliati">
 
                             <h3>Potrebbero piacerti anche:</h3>
 
@@ -388,114 +388,123 @@ echo "";
 
                         echo "</ul>";
                         ?>
-                        </div>
+                    </div>
+                    
 
                 </div>
 
+                <div id="specGioco">
+                    <?php 
+
+                    $xmlString="";
+
+                    foreach(file("XML/Giochi.xml") as $node){ 
+                        $xmlString .= trim($node);
+                    }
+                        
+                    $doc= new DOMDocument();
+                    $doc->loadXML($xmlString);
+                    $root=$doc->documentElement;
+                    $elem=$root->childNodes;
+                    foreach($elem as $i){
+                            if($i->getAttribute("id_gioco")==$idGioco){
+                                $interoSpecMin = $i->getElementsByTagName('RequisitiMinimi')->item(0)->textContent;
+                                $interoSpecRac = $i->getElementsByTagName('RequisitiRaccomandati')->item(0)->textContent;
+                            }
+                        }
+
+                    $partiSpecMin = array_map('trim', explode(';', $interoSpecMin));
+                    $partiSpecRac = array_map('trim', explode(';', $interoSpecRac));
+
+                    echo " 
+                    
+                    <table>
+                    <tr>
+                        <th colspan=\"2\">Specifiche Tecniche Minime</th>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[0]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[1]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[2]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[3]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[4]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[5]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[6]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecMin[7]</td>
+                    </tr>
+
+
+                    </table>
+
+                    <table>
+                    <tr>
+                        <th colspan=\"2\">Specifiche Tecniche Raccomandate</th>
+                    </tr>
+                    <tr>
+
+                        <td>$partiSpecRac[0]</td>
+                    </tr>
+                    <tr>
+
+                        <td>$partiSpecRac[1]</td>
+                    </tr>
+                    <tr>
+
+                        <td>$partiSpecRac[2]</td>
+                    </tr>
+                    <tr>
+
+                        <td>$partiSpecRac[3]</td>
+                    </tr>
+                    <tr>
+                    
+                        <td>$partiSpecRac[4]</td>
+                    </tr>
+                    <tr>
+                        
+                        <td>$partiSpecRac[5]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecRac[6]</td>
+                    </tr>
+                    <tr>
+                        <td>$partiSpecRac[7]</td>
+                    </tr>
+                    </table>
+                    
+                    "
+                    ?>
+            
+                </div>
+
             </div>
-            <div id="descAndSpec">
+            
+            <div id="descAndBuy">
               <div id="descGioco">
                     <?php 
                         echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p>";
                     ?>
               </div>
-              <div id="specGioco">
-                <?php 
+              <div id ="Acquisto">
+                    <p>halo</p>
+                    <!-- qui ci va il button di acquisto-->
 
-                $xmlString="";
-
-                foreach(file("XML/Giochi.xml") as $node){ 
-                    $xmlString .= trim($node);
-                }
-                    
-                $doc= new DOMDocument();
-                $doc->loadXML($xmlString);
-                $root=$doc->documentElement;
-                $elem=$root->childNodes;
-                 foreach($elem as $i){
-                        if($i->getAttribute("id_gioco")==$idGioco){
-                            $interoSpecMin = $i->getElementsByTagName('RequisitiMinimi')->item(0)->textContent;
-                            $interoSpecRac = $i->getElementsByTagName('RequisitiRaccomandati')->item(0)->textContent;
-                        }
-                    }
-
-                $partiSpecMin = array_map('trim', explode(';', $interoSpecMin));
-                $partiSpecRac = array_map('trim', explode(';', $interoSpecRac));
-
-                echo " 
-                
-                <table>
-                <tr>
-                    <th colspan=\"2\">Specifiche Tecniche Minime</th>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[0]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[1]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[2]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[3]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[4]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[5]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[6]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecMin[7]</td>
-                </tr>
-
-
-                </table>
-
-                <table>
-                <tr>
-                    <th colspan=\"2\">Specifiche Tecniche Raccomandate</th>
-                </tr>
-                <tr>
-
-                    <td>$partiSpecRac[0]</td>
-                </tr>
-                <tr>
-
-                    <td>$partiSpecRac[1]</td>
-                </tr>
-                <tr>
-
-                    <td>$partiSpecRac[2]</td>
-                </tr>
-                <tr>
-
-                    <td>$partiSpecRac[3]</td>
-                </tr>
-                <tr>
-                   
-                    <td>$partiSpecRac[4]</td>
-                </tr>
-                <tr>
-                    
-                    <td>$partiSpecRac[5]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecRac[6]</td>
-                </tr>
-                <tr>
-                    <td>$partiSpecRac[7]</td>
-                </tr>
-                </table>
-                
-                "
-                ?>
-                
-              </div>  
+              </div>
+               
             </div>
             
 
@@ -682,7 +691,7 @@ echo "";
                 </div>
             </div>
         </div>
-                <div id="footer">
+        <div id="footer">
             <ul>
                 <li><a href="">Contact Us</a></li>
                 <li><a href="">F.A.Q</a></li>
