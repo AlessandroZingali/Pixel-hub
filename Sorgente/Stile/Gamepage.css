@@ -16,7 +16,7 @@ body{
     
 }
 #header{
-   border: solid red;
+   /*border: solid red;*/
     width: 100%;
     height: 160px;
     display: flex;
@@ -45,7 +45,7 @@ body{
 }
 
 #navigation{
- border: solid orange;
+/* border: solid orange;*/
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 80%);
     box-shadow: 5px 5px 10px #000000;
     width: 90%;
@@ -53,7 +53,7 @@ body{
     white-space: nowrap;
     height: 40px;
     padding: 10px;
-    margin left: 5;
+    margin-left: 5;
     
     border-radius: 80px;
    
@@ -114,7 +114,7 @@ body{
 }
 
 #container{
-    border: green solid;
+   /* border: green solid;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -122,7 +122,8 @@ body{
 }
 
 #presentazioneGioco{
-    border: red solid ;
+   /* border: red solid ;*/
+    margin-top: 2%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -131,46 +132,62 @@ body{
 #immagineGioco img{
     width: 400px;
     height: 600px;
-    border: blue solid ;
+    /*border: blue solid ;*/
     border-radius: 20px;
     
 }
 
 #statGioco{
-    border: yellow solid;
-    padding: 10px;
-    table{font-size: 20px; border:orange solid; 
-    td{ padding:10px; } }
-}
-
-
-
-#consigliati{
+    /*border: yellow solid;*/
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4%;
+    table{
+  
+         padding: 20px;
+        font-size: 18px; 
+        /*border:orange solid; */
+     
+        background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+        border-radius:15%;
+        td{ 
+            padding-left:10px;
+            
+        }
+        
+    }
     
-    border: skyblue solid ;
+    
 }
+
+
+
 
 #descAndBuy{
+    margin-top: 1%;
     display: flex;
     flex-direction: row;
 
 }
 
 #infoGioco{
-    border: purple solid;
+   /* border: purple solid;*/
 }
 
-#statisticheGioco{
-    border: orange solid;
-}
+
 #descAndSpec{
-    border: violet solid;
+    /*border: violet solid;*/
 
 }
 #specGioco{
-    padding: 10px;
-    border: olive solid;
-        th{
+
+background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+border-radius: 10%;
+
+    padding: 20px;
+    /*border: olive solid;*/
+    th{
         text-align: left;
         padding-right: 20px;
     }
@@ -184,47 +201,84 @@ body{
 
 
 #descGioco{
-    border: teal solid;
-    padding:10px;
+    /*border: teal solid;*/
+    padding:30px;
     width: 60%;
-    margin-left: 2%;
+    
+   
+    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+    border-radius: 100px / 200px;
+
+     
 }
 
 #Acquisto{
     border:white solid;
 }
 #consigliati{
-    padding: 10px;
-    border: brown solid;
+    margin-top: 10px;
+    padding: 20px;
+    /*border: brown solid;*/
     h3{ padding:10px; }
-    li a{text-decoration: none; color:white; }   
+    li a{text-decoration: none; color:white; 
+    }   
+   
+    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+    border-radius: 100px / 200px;
+
 }
 
 
 #social{
+
     width: 100%;
-    border: rgb(0, 4, 128) solid;
+   /* border: rgb(0, 4, 128) solid;*/
     display: flex;
     gap: 10%;
     flex-direction: row;
     justify-content: center;
+    padding-top: 2%;
+    margin-bottom: 20px;
 
 }
 
 #commenti{
-
-    border: pink solid;
+     border-radius: 5%;
+    background-color: rgb(53, 49, 49);  
+    box-shadow: 2px 10px 10px black;
+    padding-left: 150px;
+    padding-top: 2%;
+    /*border: pink solid;*/
     display: flex;
     width: 40%;
     flex-direction: column;
-
+  
 }
-#commentoUtente{
-    border: lime solid;
+.commentoUtente{
+    padding-left: 5%;
+    margin-bottom: 3%;
+   /*border: lime solid;*/
+    width: 500px;
+    height: 200px;
+    border-radius: 5%;
+    background-color: rgb(80, 75, 75, 0.35);
 }
 
+#commenti input[type="submit"]{
+    background-color: rgba(88, 83, 83, 0.322);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+}
+#commenti textarea{
+    background-color: beige;
+    border-radius: 10px;
+    padding: 10px;
+}
 .likeDislike{
-    border: magenta solid;
+
+    
     display: flex;
     flex-direction: row;
 }
@@ -232,20 +286,137 @@ body{
 .like{
     display: flex;
     flex-direction: row;
+    padding-left: 10px;
+ p{
+        padding-right: 10px;
+    }
+    padding-top: 10px;
+    border: none;
 }
-
 .dislike{
+    p{
+        padding-right: 10px;
+    }
     display: flex;
     flex-direction: row;
+    padding-left: 20px;
+    
+    padding-top: 10px;
+    border: none;
 }
+[id^="likeButtonC"]{
+    border: none;
+padding-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+ 
+}
+
+[id^="dislikeButtonC"]{
+    border: none;
+    padding-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+[id^="likeButtonC"]:hover{
+    
+    background-color: rgba(255, 255, 255, 0.25);
+ 
+}
+
+[id^="dislikeButtonC"]:hover{
+   
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+[id^="likeButtonR"]{
+    border: none;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+ 
+}
+
+[id^="dislikeButtonR"]{
+    border: none;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+[id^="likeButtonR"]:hover{
+    
+    background-color: rgba(255, 255, 255, 0.25);
+ 
+}
+
+[id^="dislikeButtonR"]:hover{
+   
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+
 
 
 
 #recensioni{
+    padding-top: 2%;
+    
+    border-radius: 5%;
+    background-color: rgb(53, 49, 49);  
+    box-shadow: 2px 10px 10px black;
+    padding-left: 150px;
     width: 40%;
-    border: cyan solid;
-    float: right;
+   /* border: cyan solid;*/
+    float: right; 
+    textarea{
+    padding: 10px;
+    background-color: beige;
+    border-radius: 10px;
+    }
+    input[type="submit"]{
+    background-color: rgba(88, 83, 83, 0.322);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    }
+
 }
+#formRecensioni input[type="number"] {
+    background-color: beige;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 6px 10px;
+    width: 120px;
+}
+
+#votoUtente{
+    background-color: bisque;
+}
+
+    
+
+.recensioneUtente{
+    margin-bottom: 3%;
+    padding: 4%;
+;   /*border: lime solid;*/
+    width: 500px;
+    height: 200px;
+    border-radius: 5%;
+    background-color: rgb(80, 75, 75, 0.35);
+
+}
+
 
 #footer{
     /*border: pink solid;*/

@@ -31,6 +31,11 @@ function loadColorLikeDislikeCommenti() {
     xmlHttp.send("idGioco=" + params.get('idGioco'));
 }
 
+function userAlert(gradoUtente){
+    if(gradoUtente == 2) alert("Oops, c'è stato un problema! Controlla se il tuo grado e' maggiore di 2");
+    else if(gradoUtente == 1) alert ("Oops, c'è stato un problema! Controlla se il tuo grado e' maggiore di 1");
+    else if(gradoUtente == 0) alert ("Oops, c'è stato un problema! Devi essere loggato!")
+}
 
 function LikeGestioneCommenti(idUtente, idCommento, idGioco, tipo) {
 

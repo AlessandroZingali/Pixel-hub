@@ -311,7 +311,7 @@ echo "";
                                     <td>$GenereGioco </td>
                                 </tr>
                                 <tr>
-                                    <td>DatadiUscita</td>
+                                    <td>Data di Uscita</td>
                                     <td>$DataUscitaGioco</td>
                                 </tr>
                                 <tr>
@@ -515,7 +515,8 @@ echo "";
                     <h3>Commenti degli utenti:</h3> 
                     <?php 
 
-                    if($service == 0) echo "<p>Devi essere loggato per poter commentare.</p>";
+                    if($service == 0) echo "<p>Devi essere loggato per poter lasciare un commento .</p>";
+                    else if($_SESSION['Grado']<=1) echo "<p>Devi essere di grado 2 o superiore per lasciare un commento.</p>";
                     else{
 
                             echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
@@ -570,25 +571,41 @@ echo "";
 
                                             if($num == 1){
 
-                                                            $row=mysqli_fetch_array($resultQ);
-                                                            $nomeUtenteCommento = $row['Username'];
-                                                            echo "<div class=\"commentoUtente\">
-                                                                        <div><h4>$nomeUtenteCommento</h4></div>
-                                                                        <div><p>$commentoTesto</p></div>
-                                                                        <div class=\"likeAndDateContainer\">
-                                                                            <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
-                                                                            <div class=\"likeDislike\">
-                                                                                <div class=\"like\">
-                                                                                     <p id=\"likeButtonTextCom$idCommento\"> $likeCommento  </p> 
-                                                                                     <button type=\"button\" id=\"likeButtonCom$idCommento\"  onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\">
-                                                                                     Like
-                                                                                     </button>
-                                                                                     </div>
-                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
-                                                                                <button id=\"dislikeButtonCom$idCommento\"type=\"button\" onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\">Dislike</button></div>                                                                                
-                                                                            </div>
-                                                                        </div>
-                                                                </div>";          
+                                                $row=mysqli_fetch_array($resultQ);
+                                                $nomeUtenteCommento = $row['Username'];
+                                                echo "<div class=\"commentoUtente\">
+                                                        <div><h4>$nomeUtenteCommento</h4></div>
+                                                        <div><p>$commentoTesto</p></div>
+                                                        <div class=\"likeAndDateContainer\">
+                                                            <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
+                                                            <div class=\"likeDislike\">
+                                                                <div class=\"like\">
+                                                                        <p id=\"likeButtonTextCom$idCommento\"> $likeCommento  </p> 
+                                                                        <button type=\"button\" id=\"likeButtonCom$idCommento\" ";
+
+                                                if($service != 0){
+                                                    if($_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\"";
+                                                    else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
+                                                }
+                                                else echo "onclick=\"userAlert(0)\"";
+                                                echo ">&#128077;
+                                                    </button>
+                                                    </div>
+                                                        <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
+                                                            <button id=\"dislikeButtonCom$idCommento\"type=\"button\" ";
+
+                                                if($service != 0){ 
+                                                    
+                                                        if( $_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\"";
+                                                        else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
+                                                }
+                                                    
+                                                else echo "onclick=\"userAlert(0)\"";
+
+                                                echo">&#128078;</button></div>                                                                                
+                                                        </div>
+                                                            </div>
+                                                    </div>";          
                                                         }
 
                                         }
@@ -605,7 +622,8 @@ echo "";
 
                      <?php 
 
-                    if($service == 0 && $_SESSION['Grado'] < 3) echo "<p>Devi essere di grado 3 per lasciare una recensione  .</p>";
+                    if($service == 0)echo "<p>Devi essere loggato per poter lasciare una recensione .</p>";
+                    else if($_SESSION['Grado']<=2) echo "<p>Devi essere di grado 3 per lasciare una recensione.</p>";
                     else{
 
                             echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formRecensioni\">
@@ -617,7 +635,7 @@ echo "";
                                 </form>"; 
                                             
                         }
-                      echo "<h3>Recensioni:</h3>";
+                      echo "<h4>Recensioni:</h4 >";
 
                         $xmlString="";
 
@@ -657,27 +675,39 @@ echo "";
 
                                             if($num == 1){
 
-                                                            $row=mysqli_fetch_array($resultQ);
-                                                            $nomeUtenteRecensione = $row['Username'];
-                                                            echo "<div class=\"recensioneUtente\">
-                                                                        <div><h4>$nomeUtenteRecensione</h4></div>
-                                                                        <div><p>$recensioneTesto</p></div>
-                                                                        <div class=\"votoRecensione\"><p> Voto: ".$r->getAttribute('voto')."/100 </p></div>
-                                                                        <div class=\"likeAndDateContainer\">
-                                                                            <div class=\"dataRecensione\"> <p>Data: $dataRecensione - $oraRecensione : $minutoRecensione </p> </div>
-                                                                            <div class=\"likeDislike\">
-                                                                                                                                                                <div class=\"like\">
-                                                                                     <p id=\"likeButtonTextRec$idRecensione\"> $likeRecensione  </p> 
-                                                                                     <button type=\"button\" id=\"likeButtonRec$idRecensione\"  onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\">
-                                                                                     Like
-                                                                                     </button>
-                                                                                     </div>
-                                                                                <div class=\"dislike\"> <p id=\"dislikeButtonTextRec$idRecensione\">  $dislikeRecensione   </p> 
-                                                                                <button id=\"dislikeButtonRec$idRecensione\"type=\"button\" onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\">Dislike</button></div>                                                                             
-                                                                            </div>
-                                                                        </div>
-                                                                </div>";          
-                                                        }
+                                                $row=mysqli_fetch_array($resultQ);
+                                                $nomeUtenteRecensione = $row['Username'];
+                                                echo "<div class=\"recensioneUtente\">
+                                                        <div><h4>$nomeUtenteRecensione</h4></div>
+                                                        <div><p>$recensioneTesto</p></div>
+                                                        <div class=\"votoRecensione\"><p> Voto: ".$r->getAttribute('voto')."/100 </p></div>
+                                                        <div class=\"likeAndDateContainer\">
+                                                            <div class=\"dataRecensione\"> <p>Data: $dataRecensione - $oraRecensione : $minutoRecensione </p> </div>
+                                                            <div class=\"likeDislike\">
+                                                                <div class=\"like\">
+                                                                    <p id=\"likeButtonTextRec$idRecensione\"> $likeRecensione  </p> 
+                                                                    <button type=\"button\" id=\"likeButtonRec$idRecensione\" ";
+
+                                                if($service != 0){
+                                                if($_SESSION['Grado']>2) echo "onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\"";
+                                                else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\""; 
+                                                }
+                                                else echo "onclick=\"userAlert(0)\"";
+                                                echo ">&#128077;
+                                                        </button>
+                                                        </div>
+                                                        <div class=\"dislike\"> <p id=\"dislikeButtonTextRec$idRecensione\">  $dislikeRecensione   </p> 
+                                                        <button id=\"dislikeButtonRec$idRecensione\"type=\"button\" ";
+                                                if($service != 0){
+                                                        if($_SESSION['Grado']>2) echo "onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\"";
+                                                        else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
+                                                    }
+                                                    else echo "onclick=\"userAlert(0)\"";
+                                                    echo ">&#128078;</button></div>                                                                             
+                                                                </div>
+                                                             </div>
+                                                         </div>";          
+                                            }
 
                                         }
                                         
