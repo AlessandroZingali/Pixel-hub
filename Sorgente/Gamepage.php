@@ -223,20 +223,24 @@ echo "";
             </div>
 
             <div id="navigation">
-                <ul>
-                    <?php
-                    if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                    else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                    ?>
-                    
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="carrello.html">Carrello </a></li>
-                    <li><a href="catalogo.html">Catalogo </a></li>
-                   <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
-                    <?php 
-                    if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
-                    ?>
-                </ul>
+                <div class="dropMenu">
+                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <ul class ="submenu">
+                        <?php
+                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                        else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        ?>
+                        
+                        <li><a href="home.php">Home</a></li>
+                        <li><a href="carrello.html">Carrello </a></li>
+                        <li><a href="catalogo.html">Catalogo </a></li>
+                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                        <?php 
+                        if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                        ?>
+                    </ul>
+                </div>
+                
 
                 <form action="" id="searchBar">
                     <input type="text" placeholder="Search" name="search"/>
@@ -520,7 +524,7 @@ echo "";
                     else{
 
                             echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
-                                    <textarea name=\"commentoUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
+                                    <textarea name=\"commentoUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
                                     <br/>
                                     <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
                                 </form>"; 
@@ -594,17 +598,18 @@ echo "";
                                                         <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
                                                             <button id=\"dislikeButtonCom$idCommento\"type=\"button\" ";
 
-                                                if($service != 0){ 
+                                                        if($service != 0){ 
                                                     
                                                         if( $_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\"";
                                                         else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
-                                                }
+                                                         }
                                                     
-                                                else echo "onclick=\"userAlert(0)\"";
+                                                        else echo "onclick=\"userAlert(0)\"";
 
-                                                echo">&#128078;</button></div>                                                                                
+                                                        echo">&#128078;</button>
+                                                          </div>                                                                                
                                                         </div>
-                                                            </div>
+                                                     </div>
                                                     </div>";          
                                                         }
 
@@ -627,8 +632,8 @@ echo "";
                     else{
 
                             echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formRecensioni\">
-                                    <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"50\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br/> 
-                                    <input type=\"number\" cols=\"50\"  min=\"0\" max=\"100\" name=\"votoUtente\" placeholder=\" da 0 a 100...\">
+                                    <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br/> 
+                                    <input type=\"number\" cols=\"10\"  min=\"0\" max=\"100\" name=\"votoUtente\" placeholder=\" Voto da 0 a 100...\">
                                     
                                     <br/>
                                     <input type=\"submit\" name=\"invioRecensione\" value=\"Invia\"/> 

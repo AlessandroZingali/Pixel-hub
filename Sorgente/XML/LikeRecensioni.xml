@@ -40,4 +40,9 @@
     <Id_Recensioni>3</Id_Recensioni>
     <Id_Gioco>1</Id_Gioco>
   </ref_Recensioni>
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Recensioni>6</Id_Recensioni>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Recensioni>
 </Associazione_Like_Recensioni>

@@ -13,6 +13,7 @@ body{
     background-position: center;
     min-height: 100vh;
     color:white;
+    padding: 2% ;
     
 }
 #header{
@@ -53,13 +54,13 @@ body{
     white-space: nowrap;
     height: 40px;
     padding: 10px;
-    margin-left: 5;
+    margin-left: 5px;
     
     border-radius: 80px;
    
 }
 
-#navigation ul{
+.dropMenu ul{
     /*border: solid yellow;*/
     list-style-type: none;
     float: left;
@@ -70,7 +71,7 @@ body{
     
 }
 
-#navigation ul li{
+.dropMenu ul li{
 
     display: inline;
     margin: 20px;
@@ -78,21 +79,22 @@ body{
     padding: 1%;
 
 }
-
-#navigation ul li:hover{
+.botMenu{
+    display: none;
+}
+.dropMenu ul li:hover{
     background-color: rgba(63, 56, 56, 0.911);
     box-shadow: 2px 2px 5px #000000;
     border-radius: 80px;
 }
-
-#navigation ul li a{
+.dropMenu ul li a{
     text-decoration: none;
     color: white;
 }
 
 #searchBar{
     width: 30%;
-    display: inline-block;
+   
     float: right;
    /* border: solid pink;*/
     padding: 5px;
@@ -138,19 +140,20 @@ body{
 }
 
 #statGioco{
+    
     /*border: yellow solid;*/
     padding: 20px;
     display: flex;
     flex-direction: column;
     row-gap: 4%;
     table{
-  
+  border-radius:15px;
          padding: 20px;
         font-size: 18px; 
         /*border:orange solid; */
      
         background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
-        border-radius:15%;
+        
         td{ 
             padding-left:10px;
             
@@ -171,15 +174,7 @@ body{
 
 }
 
-#infoGioco{
-   /* border: purple solid;*/
-}
 
-
-#descAndSpec{
-    /*border: violet solid;*/
-
-}
 #specGioco{
 
 background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
@@ -207,7 +202,7 @@ border-radius: 10%;
     
    
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
-    border-radius: 100px / 200px;
+    border-radius: 10px;
 
      
 }
@@ -224,7 +219,7 @@ border-radius: 10%;
     }   
    
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
-    border-radius: 100px / 200px;
+    border-radius: 10px;
 
 }
 
@@ -243,39 +238,45 @@ border-radius: 10%;
 }
 
 #commenti{
-     border-radius: 5%;
+     border-radius: 15px;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
-    padding-left: 150px;
     padding-top: 2%;
-    /*border: pink solid;*/
+    border: pink solid;
     display: flex;
     width: 40%;
     flex-direction: column;
+    align-items: center;
+
+    textarea{
+        background-color: beige;
+    border-radius: 10px;
+    padding: 10px;
+    
+    }
+
+    input[type="submit"]{
+        background-color: rgba(88, 83, 83, 0.322);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        width: 100%;
+        margin-top: 1%;
+    }
   
 }
 .commentoUtente{
-    padding-left: 5%;
+    padding-left: 3%;
     margin-bottom: 3%;
-   /*border: lime solid;*/
-    width: 500px;
+    /*border: lime solid;*/
+    width: 70%;
     height: 200px;
     border-radius: 5%;
     background-color: rgb(80, 75, 75, 0.35);
 }
 
-#commenti input[type="submit"]{
-    background-color: rgba(88, 83, 83, 0.322);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-}
-#commenti textarea{
-    background-color: beige;
-    border-radius: 10px;
-    padding: 10px;
-}
+
 .likeDislike{
 
     
@@ -369,35 +370,46 @@ padding-right: 10px;
 
 
 #recensioni{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     padding-top: 2%;
     
-    border-radius: 5%;
+    border-radius: 15px;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
-    padding-left: 150px;
     width: 40%;
-   /* border: cyan solid;*/
+    border: cyan solid;
     float: right; 
+
     textarea{
-    padding: 10px;
+    padding: 1%;
     background-color: beige;
     border-radius: 10px;
+    
+    align-items: center;
     }
+
     input[type="submit"]{
     background-color: rgba(88, 83, 83, 0.322);
     color: white;
+    margin-top: 3%;
     padding: 10px;
     border: none;
     border-radius: 20px;
+    width: 100%;
+    
     }
-
 }
 #formRecensioni input[type="number"] {
     background-color: beige;
     border: 1px solid #aaa;
     border-radius: 10px;
     padding: 6px 10px;
-    width: 120px;
+    width: 25%;
+
+    
 }
 
 #votoUtente{
@@ -408,9 +420,9 @@ padding-right: 10px;
 
 .recensioneUtente{
     margin-bottom: 3%;
-    padding: 4%;
-;   /*border: lime solid;*/
-    width: 500px;
+    padding: 2% 4% 7%;
+;   /*border: pink solid;*/
+    width: 70%;
     height: 200px;
     border-radius: 5%;
     background-color: rgb(80, 75, 75, 0.35);
@@ -452,15 +464,83 @@ padding-right: 10px;
 
     img#logoimg{
         width: 60%;
-        height: 60%;
+        height: 70%;
         padding-left: 12%;
     }
 
-    .GameCard .productimage {
-        width: 180px;
-        height: 250px; 
+    #immagineGioco img{
+    width: 80%;
+    height: 80%;
+    padding-left: 10%;
+    
+}
+
+    #specGioco{
+        display: none;
+    }
+    
+    #descGioco{
+        margin-left: 10%;
+    }
+    #social{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+        column-gap: 5%;
+    }
+    #commenti{
+        margin-bottom: 5%;
+        width: 80%;
+        
+    }
+    #recensioni{
+        
+        width: 81%;
     }
 
+.botMenu{
+    border: none;
+    border-radius: 15px;
+    
+    display: block;
+    flex-direction: row;
+    background-color:  rgba(255, 255, 255, 0);
+}
+.botMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
+.dropMenu {
+    position: relative;
+
+   
+    cursor: pointer;
+}
+
+
+.dropMenu .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #222;
+}
+
+
+.dropMenu .submenu li {
+    padding: 10px;
+    color: white;
+}
+
+
+.dropMenu:hover .submenu {
+     display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
 
 }
+
