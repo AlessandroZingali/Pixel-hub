@@ -21,14 +21,20 @@ var numeroTabelle = 4;
 
 let push = 0;
 
-var is_set_id = parseInt(sessionStorage.getItem('userId'));
-var is_set_prefGen = parseInt(sessionStorage.getItem('generePreferito'));
+var is_set_id = parseInt(sessionStorage.getItem('idUser'));
+if(sessionStorage.getItem('genPref') != null) var is_set_prefGen = 1;
+
 var setAnswer = isNaN(is_set_id) ? 0 : 1;
 var setPrefGen = isNaN(is_set_prefGen) ? 0 : 1;
 
-if(setAnswer == 0 && setPrefGen == 0) push=1;
 
-for(let i = 0 + push; i < numeroTabelle; i++){
+
+if(setAnswer == 0 && setPrefGen == 0){
+   push=1; 
+   console.log("Funzione base");
+} 
+
+for(var i = 0 + push; i < numeroTabelle; i++){
     contenitore.push(new selettore(base + i));
 }
 
@@ -45,20 +51,23 @@ window.addEventListener("resize", scaleTable);
 
 //Resize automatico della tabella giochi in base alla larghezza della finestra
 function scaleTable(){
-    const width = window.innerWidth;
+    console.log("Funzione load");
+    var width = window.innerWidth;
 
-    let visibili = 5;
+    var visibili = 5;
 
     if (width <= 1000) visibili = 2;
     else if (width <= 1200) visibili = 3;
     else if (width <= 1500) visibili = 4;
 
-    for(let i = 0; i < contenitore.length; i++){
-        const sel = contenitore[i];
-        const table = document.getElementById(sel.tabella);
-        const gameRow = table.rows[0];
+    for(var i = 0; i < contenitore.length; i++){
+        var sel = contenitore[i];
+        var table = document.getElementById(sel.tabella);
+        var gameRow = table.rows[0];
+
+        console.log(contenitore[i].tabella);
         
-        const savedStart = parseInt(localStorage.getItem(sel.tabella));
+        var savedStart = parseInt(localStorage.getItem(sel.tabella));
         sel.start = isNaN(savedStart) ? 0 : savedStart;
 
         sel.end = sel.start + visibili - 1;

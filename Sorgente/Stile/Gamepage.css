@@ -46,6 +46,9 @@ body{
 }
 
 #navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 /* border: solid orange;*/
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 80%);
     box-shadow: 5px 5px 10px #000000;
@@ -94,6 +97,7 @@ body{
 
 #searchBar{
     width: 30%;
+    display: inline;
    
     float: right;
    /* border: solid pink;*/
@@ -469,9 +473,9 @@ padding-right: 10px;
     }
 
     #immagineGioco img{
-    width: 80%;
-    height: 80%;
-    padding-left: 10%;
+    width: 90%;
+    height: auto;
+    margin: 10%;
     
 }
 
@@ -527,12 +531,22 @@ padding-right: 10px;
     top: 100%;
     left: 0;
     background: #222;
+    border-radius: 15px;
+    width: 200px;
+
+   
 }
 
 
 .dropMenu .submenu li {
-    padding: 10px;
+    padding: 4px;
+    white-space: normal;
     color: white;
+    font-size: 15px;
+    text-align: center;
+    overflow-wrap:anywhere;
+    
+    
 }
 
 
@@ -540,6 +554,11 @@ padding-right: 10px;
      display: flex;
     flex-direction: column;
     justify-content: left;
+}
+
+#searchBar{
+
+width: 60%;
 }
 
 }

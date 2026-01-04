@@ -5,7 +5,7 @@ $titoloGioco = "";
 $gioco = 0;
 
 if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
-    header("Location: home.php");
+    header("Location: Homepage.php");
 }
 
 $titoloGioco = $_GET['titoloGioco'];
@@ -206,8 +206,8 @@ echo "";
       
         
         ?>
-        <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=1" /> 
-        <script src="Script/likeAndDislikeGestione.js" defer="true"></script>
+        <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=3" /> 
+        <script src="Script/likeAndDislikeGestione.js?v=3" defer="true"></script>
     </head>
     <body>
         <div id="container">
@@ -228,12 +228,18 @@ echo "";
                     <ul class ="submenu">
                         <?php
                         if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 1){
+                            echo "<script>";
+                            echo "sessionStorage.removeItem(\"idUser\");";
+                            echo "sessionStorage.removeItem(\"genPref\");";
+                            echo "</script>";
+                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        }
                         ?>
                         
-                        <li><a href="home.php">Home</a></li>
+                        <li><a href="Homepage.php">Home</a></li>
                         <li><a href="carrello.html">Carrello </a></li>
-                        <li><a href="catalogo.html">Catalogo </a></li>
+                        <li><a href="catalogo.php">Catalogo </a></li>
                         <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 
                         if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
@@ -243,7 +249,7 @@ echo "";
                 
 
                 <form action="" id="searchBar">
-                    <input type="text" placeholder="Search" name="search"/>
+                    <input type="text" placeholder="Cerca un titolo..." name="search"/>
                     <input type="submit" value="Cerca"/>
                 </form>
             

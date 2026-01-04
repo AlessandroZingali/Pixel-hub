@@ -19,10 +19,18 @@ if(isset($_SESSION['userId'])){
     <head>
         <title>Pixel Hub - Home</title>
 
-        <!-- " ?v=1 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
-        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=1" /> 
-        <script type="text/javascript" src="Script/GameTableGestione.js?v=1">  </script>
-
+        <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
+        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=3" /> 
+        <script>
+            <?php  
+            if($service == 1 && isset($_SESSION['generePreferito'])){
+                echo "sessionStorage.setItem(\"idUser\", \"".$_SESSION['userId']."\");";
+                echo "sessionStorage.setItem(\"genPref\", \"".$_SESSION['generePreferito']."\");";
+            }
+            ?>
+            
+        </script>
+        <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
     </head>
     <body>    
         <div id="container">
@@ -38,21 +46,29 @@ if(isset($_SESSION['userId'])){
             </div>
 
             <div id="navigation">
-                <ul>
-                    <?php
-                    if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                    else if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                    ?>
-                    
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="carrello.html">Carrello </a></li>
-                    <li><a href="catalogo.html">Catalogo </a></li>
-                    <li><a href="Gamepage.php"> PaginaGioco </a></li>
-                   <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
-                    <?php 
-                    if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
-                    ?>
-                </ul>
+                <div class="dropMenu">
+                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <ul class ="submenu">
+                        <?php
+                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                        else if($service == 1){
+                            echo "<script>";
+                            echo "sessionStorage.removeItem(\"idUser\");";
+                            echo "sessionStorage.removeItem(\"genPref\");";
+                            echo "</script>";
+                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        }
+                        ?>
+                        
+                        <li><a href="Homepage.php">Home</a></li>
+                        <li><a href="carrello.html">Carrello </a></li>
+                        <li><a href="catalogo.php">Catalogo </a></li>
+                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                        <?php 
+                        if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                        ?>
+                    </ul>
+                </div>
 
                 <form action="" id="searchBar">
                     <input type="text" placeholder="Search" name="search"/>

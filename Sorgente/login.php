@@ -61,7 +61,7 @@ session_start();
         
     
         
-        header("Location: Home.php");
+        header("Location: Homepage.php");
     }
 
     else if($emailNickname==="" ?? $password ===""){
@@ -90,7 +90,7 @@ session_start();
     </head>
     <body>
         <div id="logo">
-                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" onclick="location.href='Home.php'"/>
+                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" onclick="location.href='Homepage.php'"/>
                 </div>
         <div id="LoginCard">
             <div class="loginForm">

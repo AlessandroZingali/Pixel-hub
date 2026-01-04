@@ -6,7 +6,7 @@ $table_users = "Tabella_Utenti";
 
 
 $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi");
-
+//$mysqliConnection= new mysqli("localhost","archer","archer");
 
 if (mysqli_connect_errno()){
 
@@ -40,7 +40,7 @@ else{
         $mysqliConnection->close();
 
         $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
+//        $mysqliConnection = new mysqli("localhost","archer","archer",$db_name);
         if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)){
 
             printf("Ho creato la tabella Utenti ...\n");
