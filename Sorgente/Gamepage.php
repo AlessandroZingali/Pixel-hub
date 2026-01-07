@@ -250,7 +250,7 @@ echo "";
 
                 <form action="" id="searchBar">
                     <input type="text" placeholder="Cerca un titolo..." name="search"/>
-                    <input type="submit" value="Cerca"/>
+                    <input type="submit" value="Cerca" />
                 </form>
             
             </div>
