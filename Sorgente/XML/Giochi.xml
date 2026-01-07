@@ -225,5 +225,90 @@
       <idGiocoCorrelato>5</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
+  <Gioco id_gioco="14">
+    <Titolo>Dark Souls Remastered</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bandai Namco</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/dark_souls.png</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>5</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+    <Gioco id_gioco="15">
+    <Titolo>Dark Souls 2</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bandai Namco</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/dark_souls2.png</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>3</idGiocoCorrelato>
+      <idGiocoCorrelato>14</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+      <Gioco id_gioco="16">
+    <Titolo>Dark Souls 3</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bandai Namco</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/dark_souls3.png</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>5</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+        <Gioco id_gioco="17">
+    <Titolo>Sekiro</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bandai Namco</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/sekiro.png</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>14</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+    <Gioco id_gioco="18">
+    <Titolo>Mortal Kombat 11</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bandai Namco</CasaSviluppo> 
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <DataDiUscita>2020</DataDiUscita>
+    <Immagine>ImmaginiGiochi/mortal_kombat11.png</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>90.0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
+      <idGiocoCorrelato>14</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
 
 </TabellaGiochi>

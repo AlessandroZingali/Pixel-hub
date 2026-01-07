@@ -11,13 +11,13 @@ body{
    /* border: solid rgb(168, 182, 41);*/
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
     
 }
-#header{
+header{
    /*border: solid red;*/
     width: 100%;
     height: 160px;
@@ -117,7 +117,7 @@ body{
 }
 
 #searchBar{
-    width: 30%;
+    width: 450px;
     display: inline-block;
     float: right;
    /* border: solid pink;*/
@@ -361,7 +361,8 @@ body{
     color: rgb(0, 208, 255);
 }
 
-@media (max-height: 720px){
+@media (max-width: 1620px){
+    
 
     img#logoimg{
         width: 60%;
@@ -424,12 +425,14 @@ body{
         display: flex;
         flex-direction: column;
         justify-content: left;
+        z-index: 1;
     }
 
     #searchBar{
 
-    width: 60%;
+    width: 350px;
     }
+
 
 
 

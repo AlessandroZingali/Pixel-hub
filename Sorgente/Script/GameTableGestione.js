@@ -48,19 +48,26 @@ window.addEventListener("resize", scaleTable);
 
 
 
-
 //Resize automatico della tabella giochi in base alla larghezza della finestra
 function scaleTable(){
     console.log("Funzione load");
-    var width = window.innerWidth;
-
-    var visibili = 5;
-
-    if (width <= 1000) visibili = 2;
-    else if (width <= 1200) visibili = 3;
-    else if (width <= 1500) visibili = 4;
+   
 
     for(var i = 0; i < contenitore.length; i++){
+        var width = window.innerWidth;
+
+     var visibili = 5;
+
+     if (width <= 720) visibili = 1;
+
+     else if (width <= 1000) visibili = 2;
+
+
+       else if (width <= 1200) visibili = 3;
+       else if (width <= 1500) visibili = 4;
+                    
+
+        sessionStorage.setItem("NumCol",visibili);
         var sel = contenitore[i];
         var table = document.getElementById(sel.tabella);
         var gameRow = table.rows[0];
@@ -77,8 +84,10 @@ function scaleTable(){
 
             sel.start = Math.max(0, sel.end - visibili + 1);
         }
+    for (let r = 0; r < table.rows.length; r++) {
+        applyVisibility(table.rows[r], sel);
+    }
 
-        applyVisibility(gameRow, sel);
     }
 }
 

@@ -8,7 +8,7 @@ body{
    /* border: solid rgb(168, 182, 41);*/
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
@@ -464,7 +464,7 @@ padding-right: 10px;
     color: rgb(0, 208, 255);
 }
 
-@media (max-height: 720px){
+@media (max-width: 1620px){
 
     img#logoimg{
         width: 60%;

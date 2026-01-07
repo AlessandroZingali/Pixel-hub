@@ -5,19 +5,19 @@
 
 body{
 
-   /* border: solid rgb(168, 182, 41);*/
+    /*border: solid rgb(168, 182, 41);*/
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
     color:white;
-    padding: 2% ;
+
     
 }
-#header{
-   /*border: solid red;*/
+header{
+    /*border: solid red;*/
     width: 100%;
     height: 160px;
     display: flex;
@@ -27,18 +27,35 @@ body{
     
 }
 
+#container{
+    /*border: solid red;*/
+    margin: 20px;
+    padding: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    h2{
+        font-size: 22px;
+        color: white;
+    }
+}
+
 #logo{
     /*border: solid blue;*/
     width: 400px;
     height: 100px;
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 100%);
-    margin:auto;
-    margin-top: 20px;
     border-radius: 60%;
-    
+    margin: auto;
+
 }
 
 #logoimg {
+    /*border: purple solid;*/
     width: 80%;
     height: 80%;
     margin: 2%;
@@ -46,10 +63,10 @@ body{
 }
 
 #navigation{
+    /*border: solid orange;*/
     display: flex;
     align-items: center;
     justify-content: space-between;
-/* border: solid orange;*/
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 80%);
     box-shadow: 5px 5px 10px #000000;
     width: 90%;
@@ -57,7 +74,6 @@ body{
     white-space: nowrap;
     height: 40px;
     padding: 10px;
-    margin-left: 5px;
     
     border-radius: 80px;
    
@@ -96,15 +112,15 @@ body{
 }
 
 #searchBar{
-    width: 30%;
-    display: inline;
-   
-    float: right;
    /* border: solid pink;*/
+    width: 450px;
+    display: inline;
+    float: right;
     padding: 5px;
 }
 
 #searchBar input[type="text"]{
+   /* border: solid blueviolet;*/
     width: 80%;
     padding: 5px;
     border: none;
@@ -118,160 +134,108 @@ body{
     border: none;
     border-radius: 20px;
 }
-#TablesBoard{
-   /* border: rgb(255, 0, 162) solid 5px; */
-    margin-top: 2%;
-
-}
-
-.GameSlider{
-   /* border:yellow solid 5px; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-}
-
-.GameSlider input[type="button"]{
-    margin-top: 180px;
-    border: #005bea solid 2px;
-    background-color: rgba(63, 56, 56, 0.911);
-    box-shadow: 5px 5px 10px #000000;
-    width: 45px;
-    height: 45px;
-    font-size: 22px;
-    color:white;
-    border-radius: 30%;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.titleTable{
-    color: white;
-    font-size: 24px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-#GameTable0 {
-    /*border: lime solid 5px;*/
-
-    width: 20%;
-    margin: auto;
-    margin-bottom: 10px;
-    color: white;
-
-}
-
-#GameTable0 th{
-    /*border: red solid 2px;*/
-    justify-content: right;
-    text-align: left;
-    
-    font-size: 20px;
-    white-space: nowrap;
-}
-
-#GameTable1 {
-  /*  border: lime solid 5px;*/
-    width: 20%;
-    margin: auto;
-    margin-bottom: 10px;
-    color: white;
-
-}
-
-#GameTable1 th{
-    /*border: red solid 2px;*/
-
-    justify-content: right;
-    text-align: left;
-    font-size: 20px;
-    white-space: nowrap;
-
-    }
-
-#GameTable2 {
-    /*border: lime solid 5px;*/
-    width: 20%;
-    margin: auto;
-    margin-bottom: 10px;
-    color: white;
-
-}
-
-#GameTable2 th{
-    /*border: red solid 2px;*/
-    justify-content: right;
-    text-align: left;
-    
-    font-size: 20px;
-    white-space: nowrap;
-}
-
-#GameTable3 {
-    /*border: lime solid 5px;*/
-    width: 20%;
-    margin: auto;
-    margin-bottom: 10px;
-    color: white;
-
-}
-
-#GameTable3 th{
-    /*border: red solid 2px;*/
-    justify-content: right;
-    text-align: left;
-    
-    font-size: 20px;
-    white-space: nowrap;
-}
-
-.GameCard{   
-    /*border: yellow solid 2px; */
-    position: relative;
+#wrapper{
+    /*border: lightcoral solid;*/
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin: 8px;
-    padding: 10px;
-    
-    }
-
-.prezzo {
-    background-color: rgb(63, 197, 43);
-
-    text-align: right;
-    position: absolute;
-    bottom: 20px;
-    right: 15px;
-    height: 40px;
-    width: 72px;
-    padding-bottom: 5px;
-    padding-right: 5px;
-    border-radius: 10px;
-
+  
 }
+#catalogoContainer{
+    /*border: solid lightgreen 2px;*/
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+   
+    padding-left: 0;
+    margin: 0;
+
+    h1{
+        width: 25%;
+        /*border: solid white 3px;*/
+        margin-left: 38%;
+    }
     
-.GameCard img{
+
+    
+    
+    h2{
+        
+        text-align: center;
+    }
+}
+
+
+
+
+.GameCardCat{   
+    /*border: yellow solid 2px; */
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 8px;
+    padding-left: 20px;
+    column-gap: 2%;
+
+ img{
     /*border : blue solid 2px;*/
-    width: 230px;
-    height: 340px;
+    width: 120px;
+    height: 165px;
     background-color: rgba(63, 56, 56, 0.911);
     box-shadow: 5px 5px 10px #000000;
     border-radius: 15px;
     object-fit: cover;
+    flex-direction:row;
+
     transition: width 0.5s ease, height 0.5s ease;
+  
   
     }
     
-.GameCard img:hover{
-    width:  280px;
-    height: 410px;
+}
+
+    
+.GameCardCat img:hover{
+    width:  210px;
+    height: 300px;
     box-shadow: 0 0 20px 5px #ffffff96;
     
 }
+.infoBox{
+    width: 80%;
+    /*border: blue solid 2px;*/
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    padding-left: 1%;
+    p{ 
+        
+        margin-left: 10%;
+        font-size: 30px;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.prezzo{
+    text-align: ;
+    width: 14%;
+    background-color: rgb(63, 197, 43);
+    border-radius: 10px;
+    padding: 6px;
+    
+    
+}
+
+
+    
+
 
 
 #footer{
@@ -304,13 +268,9 @@ body{
     color: rgb(0, 208, 255);
 }
 
-@media (max-height: 720px){
+@media (max-width: 1620px){
 
-    img#logoimg{
-        width: 60%;
-        height: 70%;
-        padding-left: 12%;
-    }
+
 
     
 
@@ -369,8 +329,31 @@ body{
 
     #searchBar{
 
-    width: 60%;
+    width: 350px;
     }
 
+
+    #catalogoContainer{
+    
+     padding-left: 0%;
+
+        
+    h1{
+        margin-left: 20%;
+        width: 80%;
+    }
+    
+    h2{
+        text-align: center;
+        white-space: nowrap;
+    }
+}
+.infoBox p{
+    font-size: 100%;
+}
+
+.prezzo{
+    width: 30%;
+}
 }
 

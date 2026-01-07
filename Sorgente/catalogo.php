@@ -1,5 +1,26 @@
 <?php 
 
+class Game {
+    public $idGioco;
+    public $titolo;
+    public $immagine;
+    public $prezzo;
+
+    public function __construct($idGioco, $titolo, $immagine, $prezzo)
+    {
+        $this->idGioco = $idGioco;
+        $this->titolo = $titolo;
+        $this->immagine = $immagine;
+        $this->prezzo = $prezzo;        
+   
+    }
+}
+
+
+
+
+
+
 $service = 0;
 $utente = "";
 
@@ -17,20 +38,11 @@ if(isset($_SESSION['userId'])){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
-        <title>Pixel Hub - Home</title>
+        <title>Pixel Hub - Catalogo</title>
 
         <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
         <link rel="stylesheet" type="text/css" href="Stile/catalogo.css?v=3" /> 
-        <script>
-            <?php  
-            if($service == 1 && isset($_SESSION['generePreferito'])){
-                echo "sessionStorage.setItem(\"idUser\", \"".$_SESSION['userId']."\");";
-                echo "sessionStorage.setItem(\"genPref\", \"".$_SESSION['generePreferito']."\");";
-            }
-            ?>
-            
-        </script>
-        <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
+
       
     </head>
     <body>    
@@ -53,17 +65,14 @@ if(isset($_SESSION['userId'])){
                         <?php
                         if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
                         else if($service == 1){
-                            echo "<script>";
-                            echo "sessionStorage.removeItem(\"idUser\");";
-                            echo "sessionStorage.removeItem(\"genPref\");";
-                            echo "</script>";
+
                             echo "<li><a href=\"login.php\">Log out </a></li>";
                         }
                         ?>
                         
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="carrello.html">Carrello </a></li>
-                        <li><a href="catalogo.html">Catalogo </a></li>
+                        <li><a href="catalogo.php">Catalogo </a></li>
                         <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 
                         if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
@@ -76,74 +85,72 @@ if(isset($_SESSION['userId'])){
                     <input type="submit" value="Cerca"/>
                 </form>
             </div>
+            <div id="wrapper">
+                <div id="catalogoContainer">
+                
+                
+                    <h1>Tutti i giochi:</h1>       
+                    <?php
 
-            <div class="GameSlider">
-                    
-                    <div>
+                        $catalogo = [];
+                        $titolo = "";
+                        $xmlString="";
                         
-                        <input type="button" value="<" id="scorriindietro" onclick="sliderTable('GameTable1', 'back')" />
+                        foreach(file("XML/Giochi.xml") as $node){ 
+                            $xmlString .= trim($node);
+                        }
                         
-                    </div>
-                    <div>
-                    <p class="titleTable">I piu' Popolari</p>
-                        <table id="GameTable1">
+                        $doc= new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
+
+                        for($i=0; $i<$elem->length; $i++){
+                            $gioco = $elem->item($i);
+                            $idGioco = $gioco->getAttribute("id_gioco");
+                            $immagine = $gioco->getElementsByTagName("Immagine")->item(0)->textContent;
+                            $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                            $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
+                            $ref = new Game($idGioco, $titolo, $immagine, $prezzo);
+                            array_push($catalogo, $ref);
+                        }
                         
-                            
-                            
-                                <?php
-                            
-                                    $xmlString="";
-                                        
-                                        foreach(file("XML/Giochi.xml") as $node){ 
-                                            $xmlString .= trim($node);
-                                        }
-                                        
-                                        $doc= new DOMDocument();
-                                        $doc->loadXML($xmlString);
-                                        $root=$doc->documentElement;
-                                        $elem=$root->childNodes;
-                                        
-                                        
-                                        
-                                        echo "<tr>";
-                                            
-                                        for($j=0; $j < $elem->length ; $j++){
-                                           
-                                            $gioco=$elem->item($j);
-                                            $idGioco = $gioco->getAttribute("id_gioco");
-                                            $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
-                                            $valGioco = (float) $valGiocoGrezzo;
-                                            if(true){
-                                                $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
-                                                $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
-                                                
+                        usort($catalogo, function($rA, $rB){ return $rA->titolo <=> $rB->titolo;});
+                        
+
+                        foreach($catalogo as $c){
+                        if($titolo[0] !== $c->titolo[0]){
+                            $titolo=$c->titolo;
+                            echo "<div><h2>".strtoupper($titolo[0])."</h2><hr><pre>                                                          <pre></hr></div>";
+                        }
+                        
+                        
+                        
+                        echo "
+                        
+                            <div class='GameCardCat'>
+                                <div> <img src='$c->immagine' title='$c->titolo'onclick=\"location.href='Gamepage.php?titoloGioco=$c->titolo&idGioco=$c->idGioco'\"></div>
+                                <div class=\"infoBox\">
+                                    <div>
+                                    <p>
+                                    <a href=\"Gamepage.php?titoloGioco=$c->titolo&idGioco=$c->idGioco\">$c->titolo</a> </p><p class=\"prezzo\">$c->prezzo € </p></div>
+                                </div>
+                            </div>";
+
+                        }
+
                                 
-                                                $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                                echo "<td>";
-                                                echo "<div class= \" GameCard \"> 
-                                                      <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >   
-                                                      <div class=\"prezzo\"><p> $prezzoGioco €</p></div>
-                                                    </div> 
-                                                    </td>";
-                                                        
-                                                }
-                                                    
-                                            }   
-                                            echo "</tr>";    
-                                        
-                                ?>   
-                        
-                        </table>
-
-                    </div>
-
-                    <div>
-                        
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
+                            
+                    ?> 
+                
+            </div>
+            </div>
+            
+            
                     
-                    </div>
-        
-    
+                            
+
+        </div>
         <div id="footer">
             <ul>
                 <li><a href="">Contact Us</a></li>
