@@ -208,6 +208,7 @@ echo "";
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=3" /> 
         <script src="Script/likeAndDislikeGestione.js?v=3" defer="true"></script>
+        <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
     </head>
     <body>
         <div id="container">
@@ -247,11 +248,10 @@ echo "";
                     </ul>
                 </div>
                 
-
-                <form action="" id="searchBar">
-                    <input type="text" placeholder="Cerca un titolo..." name="search"/>
-                    <input type="submit" value="Cerca" />
-                </form>
+                        <form id="searchBar" onsubmit="return false;">
+                            <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                            <div id="livesearch"></div>
+                        </form>
             
             </div>
 

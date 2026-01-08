@@ -80,10 +80,10 @@ if(isset($_SESSION['userId'])){
                     </ul>
                 </div>
 
-                <form action="" id="searchBar">
-                    <input type="text" placeholder="Search" name="search"/>
-                    <input type="submit" value="Cerca"/>
-                </form>
+                    <form id="searchBar" onsubmit="return false;">
+                        <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                        <div id="livesearch"></div>
+                    </form>
             </div>
             <div id="wrapper">
                 <div id="catalogoContainer">

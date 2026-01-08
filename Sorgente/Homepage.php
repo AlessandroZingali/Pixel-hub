@@ -31,6 +31,7 @@ if(isset($_SESSION['userId'])){
             
         </script>
         <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
+        <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
     </head>
     <body>    
         <div id="container">
@@ -71,10 +72,11 @@ if(isset($_SESSION['userId'])){
                     </ul>
                 </div>
 
-                <form action="" id="searchBar">
-                    <input type="text" placeholder="Search" name="search"/>
-                    <input type="submit" value="Cerca"/>
-                </form>
+        <form id="searchBar" onsubmit="return false;">
+            <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+            <div id="livesearch"></div>
+        </form>
+
             </div>
 
             
