@@ -31,7 +31,8 @@ else{
         Data_di_Nascita  VARCHAR(50), 
         Nome  VARCHAR  (50), 
         Cognome VARCHAR (50), 
-        Tipologia_utente INT,  
+        Tipologia_utente INT,
+        imgProfiloPath VARCHAR(250),  
         PIVA  VARCHAR (12), 
         PRIMARY  KEY  (ID, Email),
         UNIQUE  KEY  Email_UNIQUE  (Email) 

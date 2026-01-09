@@ -3,21 +3,22 @@
     src: url('PixelatedElegance.ttf');
 }
 
+
+
+
 body{
 
-    /*border: solid rgb(168, 182, 41);*/
+   /* border: solid rgb(168, 182, 41);*/
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
     background-size: auto;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
-    color:white;
-
     
 }
 header{
-    /*border: solid red;*/
+   /*border: solid red;*/
     width: 100%;
     height: 160px;
     display: flex;
@@ -26,9 +27,8 @@ header{
     justify-content: center;
     
 }
-
 #container{
-    /*border: solid red;*/
+/*    border: solid red;*/
     margin: 20px;
     padding: 10px;
     padding-bottom: 10px;
@@ -37,25 +37,27 @@ header{
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-
-    h2{
-        font-size: 22px;
-        color: white;
-    }
 }
+
+
+
+#container h2{
+    font-size: 22px;
+    color: white;
+}
+
 
 #logo{
     /*border: solid blue;*/
     width: 400px;
     height: 100px;
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 100%);
+    margin:auto;
     border-radius: 60%;
-    margin: auto;
-
+    
 }
 
 #logoimg {
-    /*border: purple solid;*/
     width: 80%;
     height: 80%;
     margin: 2%;
@@ -63,8 +65,8 @@ header{
 }
 
 #navigation{
-    /*border: solid orange;*/
-    display: flex;
+/* border: solid orange;*/
+        display: flex;
     align-items: center;
     justify-content: space-between;
     background-image: linear-gradient(to top, #76d5f0 0%, rgb(82, 113, 255) 80%);
@@ -78,6 +80,66 @@ header{
     border-radius: 80px;
    
 }
+
+.dropMenu ul{
+    /*border: solid yellow;*/
+    list-style-type: none;
+    float: left;
+    padding:10px;
+    margin: 0.5%;
+    width: 50%;
+
+    
+}
+
+.dropMenu ul li{
+
+    display: inline;
+    margin: 20px;
+    font-size: 20px;
+    padding: 1%;
+
+}
+
+.botMenu{
+    display: none;
+}
+
+.dropMenu ul li:hover{
+    background-color: rgba(63, 56, 56, 0.911);
+    box-shadow: 2px 2px 5px #000000;
+    border-radius: 80px;
+}
+
+.dropMenu ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+#searchBar{
+    width: 450px;
+    display: inline-block;
+    
+    position: relative;
+   /* border: solid pink;*/
+    padding: 5px;
+}
+
+#searchBar input[type="text"]{
+    width: 80%;
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+}
+
+#searchBar input[type="submit"]{
+    background-color: rgba(63, 56, 56, 0.911);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+}
+
 
 .dropMenu ul{
     /*border: solid yellow;*/
@@ -110,64 +172,30 @@ header{
     text-decoration: none;
     color: white;
 }
-
-#searchBar{
-    width: 450px;
-    display: inline-block;
-    position: relative;
-   /* border: solid pink;*/
-    padding: 5px;
-}
-
-#searchBar input[type="text"]{
-   /* border: solid blueviolet;*/
-    width: 80%;
-    padding: 5px;
-    border: none;
-    border-radius: 20px;
-}
-
-#searchBar input[type="submit"]{
-    background-color: rgba(63, 56, 56, 0.911);
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-}
-#wrapper{
-    /*border: lightcoral solid;*/
-    width: 100%;
+.baseProfilo{
+   color: white;
+    border:white solid 2px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-}
-#catalogoContainer{
-    /*border: solid lightgreen 2px;*/
-    width: 80%;
-    display: flex;
-    flex-direction: column;
 
+    .info{
+        border:blue solid 2px;
+        flex-direction: column;
+
+        padding: 20px;
+        tr{padding-right: 10px;
+        }
+            td{ 
+            border-radius: 10px;
+        }   
+    }
+
+    .propic img{
+        border: solid rgb(172, 0, 0) 10px;
+        width: 200px;
+        height: 200px;
+    }
    
-    padding-left: 0;
-    margin: 0;
-
-    h1{
-        width: 25%;
-        /*border: solid white 3px;*/
-        margin-left: 38%;
-    }
-    
-
-    
-    
-    h2{
-        
-        text-align: center;
-    }
 }
-
 
 #livesearch {
     position: absolute;
@@ -205,72 +233,6 @@ header{
 
 
 
-.GameCardCat{   
-    /*border: yellow solid 2px; */
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    margin: 8px;
-    padding-left: 20px;
-    column-gap: 2%;
-
- img{
-    /*border : blue solid 2px;*/
-    width: 120px;
-    height: 165px;
-    background-color: rgba(63, 56, 56, 0.911);
-    box-shadow: 5px 5px 10px #000000;
-    border-radius: 15px;
-    object-fit: cover;
-    flex-direction:row;
-
-    transition: width 0.5s ease, height 0.5s ease;
-  
-  
-    }
-    
-}
-
-    
-.GameCardCat img:hover{
-    width:  210px;
-    height: 300px;
-    box-shadow: 0 0 20px 5px #ffffff96;
-    
-}
-.infoBox{
-    width: 80%;
-    /*border: blue solid 2px;*/
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-direction: row;
-    padding-left: 1%;
-    p{ 
-        
-        margin-left: 10%;
-        font-size: 30px;
-    }
-    a{
-        text-decoration: none;
-        color: white;
-    }
-}
-
-.prezzo{
-    text-align: center;
-    width: 140px;
-    background-color: rgb(63, 197, 43);
-    border-radius: 10px;
-    padding: 6px;
-    
-    
-}
-
-
-    
-
-
 
 #footer{
     /*border: pink solid;*/
@@ -303,10 +265,18 @@ header{
 }
 
 @media (max-width: 1620px){
-
-
-
     
+
+    img#logoimg{
+        width: 60%;
+        height: 60%;
+        padding-left: 12%;
+    }
+
+    .GameCard .productimage{
+        width: 180px;
+        height: 250px; 
+    }
 
     .botMenu{
         border: none;
@@ -316,13 +286,13 @@ header{
         flex-direction: row;
         background-color:  rgba(255, 255, 255, 0);
     }
-    .botMenu ul {
+    .botMenu ul{
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .dropMenu {
+    .dropMenu{
         position: relative;
 
     
@@ -330,35 +300,35 @@ header{
     }
 
 
-    .dropMenu .submenu {
+    .dropMenu .submenu{
         display: none;
         position: absolute;
         top: 100%;
-        left: 0;
+    
         background: #222;
         border-radius: 15px;
         width: 200px;
-
+        z-index: 1;
     
     }
 
 
-    .dropMenu .submenu li {
+    .dropMenu .submenu li{
         padding: 4px;
         white-space: normal;
         color: white;
         font-size: 15px;
-        text-align: center;
+        text-align: left;
         overflow-wrap:anywhere;
-        
         
     }
 
 
-    .dropMenu:hover .submenu {
+    .dropMenu:hover .submenu{
         display: flex;
         flex-direction: column;
         justify-content: left;
+        z-index: 1;
     }
 
     #searchBar{
@@ -367,27 +337,8 @@ header{
     }
 
 
-    #catalogoContainer{
-    
-     padding-left: 0%;
 
-        
-    h1{
-        margin-left: 20%;
-        width: 80%;
-    }
-    
-    h2{
-        text-align: center;
-        white-space: nowrap;
-    }
-}
-.infoBox p{
-    font-size: 100%;
-}
 
-.prezzo{
-    width: 100px;
-}
-}
 
+
+}

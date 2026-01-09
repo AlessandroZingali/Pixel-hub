@@ -9,18 +9,18 @@ function loadColorLikeDislikeCommenti() {
     xmlHttp.onreadystatechange = function() {    
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
         console.log("Risposta ricevuta: " + xmlHttp.responseText);
-        if (xmlHttp.responseText !== "") {
-            var tupleCom = JSON.parse(xmlHttp.responseText);
-            console.log(tupleCom);
-            for (var i = 0; i < tupleCom.length; i++) {
-                var idCommento = tupleCom[i].idCommento;
-                console.log("idCommento: " + idCommento);
-                var flagLike = tupleCom[i].flagLike;
-                var flagDislike = tupleCom[i].flagDislike;
-                if (flagLike == 1) document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "green";
-                else if (flagDislike == 1) document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "red";
-            }
-        }    
+        
+        var tupleCom = JSON.parse(xmlHttp.responseText);
+        console.log(tupleCom);
+        for (var i = 0; i < tupleCom.length; i++) {
+            var idCommento = tupleCom[i].idCommento;
+            console.log("idCommento: " + idCommento);
+            var flagLike = tupleCom[i].flagLike;
+            var flagDislike = tupleCom[i].flagDislike;
+            if (flagLike == 1) document.getElementById("likeButtonCom"+idCommento).style.backgroundColor = "green";
+            else if (flagDislike == 1) document.getElementById("dislikeButtonCom"+idCommento).style.backgroundColor = "red";
+        }
+            
     };
 }
 
@@ -105,17 +105,17 @@ function loadColorLikeDislikeRecensioni() {
     
     xmlHttp.onreadystatechange = function() {    
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-        if (xmlHttp.responseText !== "") {
-            var tupleRec = JSON.parse(xmlHttp.responseText);
-            console.log(tupleRec);
-            for (var i = 0; i < tupleRec.length; i++) {
-                var idRecensione = tupleRec[i].idRecensione;
-                var flagLike = tupleRec[i].flagLike;
-                var flagDislike = tupleRec[i].flagDislike;
-                if (flagLike == 1) document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "green";
-                else if (flagDislike == 1) document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "red";
-            }
-        }    
+
+        var tupleRec = JSON.parse(xmlHttp.responseText);
+        console.log(tupleRec);
+        for (var i = 0; i < tupleRec.length; i++) {
+            var idRecensione = tupleRec[i].idRecensione;
+            var flagLike = tupleRec[i].flagLike;
+            var flagDislike = tupleRec[i].flagDislike;
+            if (flagLike == 1) document.getElementById("likeButtonRec"+idRecensione).style.backgroundColor = "green";
+            else if (flagDislike == 1) document.getElementById("dislikeButtonRec"+idRecensione).style.backgroundColor = "red";
+        }
+            
     };
 }
 

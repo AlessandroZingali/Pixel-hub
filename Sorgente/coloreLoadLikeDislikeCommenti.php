@@ -1,9 +1,9 @@
 <?php
 session_start();
+$tupleCom = [];
 if(isset($_SESSION['tipoUtente'])){
     header('Content-Type: application/json');
     $found = false;
-    $tupleCom = [];
     $xmlString="";
 
     foreach(file("XML/LikeCommenti.xml") as $node){ 
@@ -34,8 +34,9 @@ if(isset($_SESSION['tipoUtente'])){
                     if ($found) echo json_encode($tupleCom);  
                     else echo "";
             }
+            else echo json_encode($tupleCom);
     }
-    else echo "";
+    else echo json_encode($tupleCom);    
     
 
 ?>

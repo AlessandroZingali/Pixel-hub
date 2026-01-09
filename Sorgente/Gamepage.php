@@ -249,7 +249,7 @@ echo "";
                 </div>
                 
                         <form id="searchBar" onsubmit="return false;">
-                            <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                            <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
                             <div id="livesearch"></div>
                         </form>
             

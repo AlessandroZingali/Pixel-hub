@@ -1,18 +1,26 @@
 <?php
+ $xmlString="";
+                                
+        foreach(file("XML/Giochi.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
 $xml = new DOMDocument();
-$xml->load("XML/Giochi.xml");
+$xml->loadXML($xmlString);
+$xml->formatOutput = true;
+$root = $xml->documentElement;
+$giochi = $root->childNodes;
 
 $giochi = $xml->getElementsByTagName("Gioco");
-$q = $_GET["q"] ?? "";
+$game = $_GET["game"] ?? "";
 
 $output = "";
 
-if (strlen($q) > 0) {
+if (strlen($game) > 0) {
     foreach ($giochi as $gioco) {
         $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
         $id = $gioco->getAttribute("id_gioco");
 
-        if (stripos($titolo, $q) !== false) {
+        if (stripos($titolo, $game) !== false) {
             $output .= "
             <div class='risultato'>
                 

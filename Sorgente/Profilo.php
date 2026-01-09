@@ -17,10 +17,10 @@ if(isset($_SESSION['userId'])){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
-        <title>Pixel Hub - Home</title>
+        <title>Pixel Hub - Il mio profilo</title>
 
         <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
-        <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=3" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/Profilo.css?v=3" /> 
         <script>
             <?php  
             if($service == 1 && isset($_SESSION['generePreferito'])){
@@ -67,21 +67,24 @@ if(isset($_SESSION['userId'])){
                         
                         <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 
-                        if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                        if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
                         ?>
                     </ul>
                 </div>
-
                     <form id="searchBar" onsubmit="return false;">
-                        <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                        <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
                         <div id="livesearch"></div>
                     </form>
-
             </div>
+
             
-            <div id="baseProfilo">
-                
+            <div class="baseProfilo">
+            <div class="propic">
+                <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
+            </div>
                 <?php
+
+                    
 
                     $db_name = "Database_Pixel_Hub";
                     $table_users = "Tabella_Utenti";
@@ -122,7 +125,15 @@ if(isset($_SESSION['userId'])){
                                 }
                             }
                         }
-                        echo "<table>
+                        echo "<table class=\"info\">
+
+                                <tr>
+                                    <td>UserName: $utente </td>
+                                </tr>
+                                <tr>
+                                    <td>Email: ".$row['Email']."</td>
+                                </tr>
+
 
                                 <tr>
                                     <td>Il mio genere preferito: $GenerePref</td>
@@ -130,7 +141,7 @@ if(isset($_SESSION['userId'])){
                                  <tr>
                                     <td>Mi sono iscritto in data: $DataIsc</td>
                                 </tr>
-                                                                 <tr>
+                                <tr>
                                     <td>I miei contatti: $Contatti</td>
                                 </tr>
                                 <tr>
