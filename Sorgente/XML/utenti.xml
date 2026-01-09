@@ -5,5 +5,8 @@
       <DataIscrizione>18/02/2016</DataIscrizione>
       <CasaDiSviluppoPreferita>Insomniac</CasaDiSviluppoPreferita>
       <GenerePreferito>Sparatutto</GenerePreferito>
+      <listaGiochi>
+         <idGiocoPosseduto>1</idGiocoPosseduto>
+      </listaGiochi>
    </Utente>
 </listaUtenti>

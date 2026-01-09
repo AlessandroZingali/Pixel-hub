@@ -77,11 +77,21 @@ if(isset($_SESSION['userId'])){
                     </form>
             </div>
 
+            <div class="cardProfilo">
+                <div class="lastGames">
+                    <?php
+                    $xmlString = "";
+                    
+                    ?>
+                </div>
+            </div>
             
             <div class="baseProfilo">
+                
             <div class="propic">
                 <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
             </div>
+            <div id="infoBox">
                 <?php
 
                     
@@ -119,16 +129,20 @@ if(isset($_SESSION['userId'])){
                         foreach($elem as $i){
                             if($i->getAttribute('id_user') == $row['ID']){
                                 if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                                else $GenerePref = "nessuno";
                                 if($i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent != '') $CasaSvilPref = $i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent;
+                                else $CasaSvilPref = "nessuna";
                                 if($i->getElementsByTagName('DataIscrizione')->item(0)->textContent != '') $DataIsc= $i->getElementsByTagName('DataIscrizione')->item(0)->textContent;
+                                else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
                                 if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
+                                else $Contatti = "nessuno";
                                 }
                             }
                         }
                         echo "<table class=\"info\">
 
                                 <tr>
-                                    <td>UserName: $utente </td>
+                                    <td>Username: $utente </td>
                                 </tr>
                                 <tr>
                                     <td>Email: ".$row['Email']."</td>
@@ -139,7 +153,7 @@ if(isset($_SESSION['userId'])){
                                     <td>Il mio genere preferito: $GenerePref</td>
                                 </tr>
                                  <tr>
-                                    <td>Mi sono iscritto in data: $DataIsc</td>
+                                    <td>Data Iscrizione: $DataIsc</td>
                                 </tr>
                                 <tr>
                                     <td>I miei contatti: $Contatti</td>
@@ -151,6 +165,11 @@ if(isset($_SESSION['userId'])){
                                 
                               </table>";
             ?>
+            </div>
+            <div id="settings">
+                <button><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+            </div>
+                
             
 
             </div>
