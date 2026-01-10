@@ -7,6 +7,11 @@
       <GenerePreferito>Sparatutto</GenerePreferito>
       <listaGiochi>
          <idGiocoPosseduto>1</idGiocoPosseduto>
+         <idGiocoPosseduto>4</idGiocoPosseduto>
+         <idGiocoPosseduto>6</idGiocoPosseduto>
+         <idGiocoPosseduto>7</idGiocoPosseduto>
+         <idGiocoPosseduto>9</idGiocoPosseduto>
+         <idGiocoPosseduto>11</idGiocoPosseduto>
       </listaGiochi>
    </Utente>
 </listaUtenti>

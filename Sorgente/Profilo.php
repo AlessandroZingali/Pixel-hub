@@ -78,101 +78,185 @@ if(isset($_SESSION['userId'])){
             </div>
 
             <div class="cardProfilo">
+                <div class="baseProfilo">
+                
+                    <div class="propic">
+                        <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
+                    </div>
+                    <div id="infoBox">
+                        <?php
+
+                            
+
+                            $db_name = "Database_Pixel_Hub";
+                            $table_users = "Tabella_Utenti";
+                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                            if (mysqli_connect_errno()){
+
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                            }
+                            $emailNickname = $_SESSION['user'];
+
+                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                            $num = mysqli_num_rows($resultQ);
+
+                        
+
+                            if($num == 1){
+                                $flag=1;
+                                
+                                $row=mysqli_fetch_array($resultQ);
+
+                                $xmlString="";
+                                                        
+                                foreach(file("XML/utenti.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+
+                                foreach($elem as $i){
+                                    if($i->getAttribute('id_user') == $row['ID']){
+                                        if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                                        else $GenerePref = "nessuno";
+                                        if($i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent != '') $CasaSvilPref = $i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent;
+                                        else $CasaSvilPref = "nessuna";
+                                        if($i->getElementsByTagName('DataIscrizione')->item(0)->textContent != '') $DataIsc= $i->getElementsByTagName('DataIscrizione')->item(0)->textContent;
+                                        else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
+                                        if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
+                                        else $Contatti = "nessuno";
+                                        }
+                                    }
+                                }
+                                echo "<table class=\"info\">
+
+                                        <tr>
+                                            <td>Username:</td> <td> $utente </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email: </td><td> ".$row['Email']."</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Nome: </td><td> ".$row['Nome']."</td>
+                                        </tr>
+                                                                        <tr>
+                                            <td>Cognome: </td><td> ".$row['Cognome']."</td>
+                                        </tr>
+
+                                        <tr>
+                                        <td>Numero di Pixel in possesso:</td> 
+                                        <td> ".$row['Pixels']."</td>
+                                        </tr>
+
+                                        <tr>
+                                        <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Data di Nascita: </td>
+                                            <td> ".$row['Data_di_Nascita']."</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Password: </td>
+                                             <td>".$row['Data_di_Nascita']."</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Il mio genere preferito:</td><td> $GenerePref</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Data Iscrizione:</td> <td>$DataIsc</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>I miei contatti:</td> <td>$Contatti</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
+                                        </tr>
+            
+                                    </table>";
+                    ?>
+                    </div>
+                    <div class="settings">
+                        <button><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+                    </div>
+                    <div class="shop">
+                        <button><img src="Stile/shopicon.png" alt="shopbutton" ></button>
+                    </div>
+                </div>
+
+                 <h3 id="lastTitle">Ultimi Acquisti</h3>
                 <div class="lastGames">
+                   
                     <?php
                     $xmlString = "";
+                    foreach(file("XML/utenti.xml") as $node){
+                        $xmlString.=trim($node);
+                    }
+                    $doc = new DOMDocument();
+                    $doc->loadXML($xmlString);
+                    $root = $doc->documentElement;
+                    $utente = $root->childNodes;
+
+                    foreach($utente as $u){
+                        if($u->getAttribute('id_user') == $_SESSION['userId']){
+                            $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
+                            //print_r($gameList);
+                            $idContainer = [];
+
+                            foreach($gameList as $id){
+                    
+                                $idContainer[] =  $id->textContent;
+                                }
+                           
+                            rsort($idContainer);
+                            //print_r($idContainer);
+                            
+                            $xmlString = "";
+                            foreach(file("XML/Giochi.xml") as $node){
+                                $xmlString.=trim($node);
+                            }
+                            $doc = new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root = $doc->documentElement;
+                            $giochi = $root->childNodes;
+                            //print_r($giochi);
+                            $count = 0;
+
+                            
+                                foreach($idContainer as $i){
+                                    for($j = ($giochi->length)-1 ; $j>=0; $j--){
+                                    $g=$giochi->item($j);
+                                    //echo "Container: ".$i." id: ".$g->getAttribute("id_gioco");
+                                    if($i == $g->getAttribute("id_gioco") && $count < 4){
+                                        
+                                        echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\"  alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
+                                        $count++;
+                                    }
+                                    }
+
+                                    
+                                }
+                            
+                            }
+                    }
+
                     
                     ?>
                 </div>
             </div>
             
-            <div class="baseProfilo">
-                
-            <div class="propic">
-                <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
-            </div>
-            <div id="infoBox">
-                <?php
-
-                    
-
-                    $db_name = "Database_Pixel_Hub";
-                    $table_users = "Tabella_Utenti";
-                    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-                    if (mysqli_connect_errno()){
-
-                        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-                    }
-                    $emailNickname = $_SESSION['user'];
-
-                    $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
-                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
-                    $num = mysqli_num_rows($resultQ);
-
-                    if($num == 1){
-                        $flag=1;
-                        
-                        $row=mysqli_fetch_array($resultQ);
-
-                        $xmlString="";
-                                                
-                        foreach(file("XML/utenti.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                        
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
-
-                        foreach($elem as $i){
-                            if($i->getAttribute('id_user') == $row['ID']){
-                                if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
-                                else $GenerePref = "nessuno";
-                                if($i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent != '') $CasaSvilPref = $i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent;
-                                else $CasaSvilPref = "nessuna";
-                                if($i->getElementsByTagName('DataIscrizione')->item(0)->textContent != '') $DataIsc= $i->getElementsByTagName('DataIscrizione')->item(0)->textContent;
-                                else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
-                                if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
-                                else $Contatti = "nessuno";
-                                }
-                            }
-                        }
-                        echo "<table class=\"info\">
-
-                                <tr>
-                                    <td>Username: $utente </td>
-                                </tr>
-                                <tr>
-                                    <td>Email: ".$row['Email']."</td>
-                                </tr>
-
-
-                                <tr>
-                                    <td>Il mio genere preferito: $GenerePref</td>
-                                </tr>
-                                 <tr>
-                                    <td>Data Iscrizione: $DataIsc</td>
-                                </tr>
-                                <tr>
-                                    <td>I miei contatti: $Contatti</td>
-                                </tr>
-                                <tr>
-                                    <td>La mia casa di sviluppo preferita:$CasaSvilPref</td>
-                                </tr>
-
-                                
-                              </table>";
-            ?>
-            </div>
-            <div id="settings">
-                <button><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
-            </div>
-                
             
-
-            </div>
 
         <div id="footer">
             <ul>
