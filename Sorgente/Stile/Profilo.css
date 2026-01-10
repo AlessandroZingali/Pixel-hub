@@ -6,6 +6,7 @@
 
 
 
+
 body{
 
    /* border: solid rgb(168, 182, 41);*/
@@ -174,18 +175,42 @@ header{
 }
 
 .cardProfilo{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
     width:80%;
     height: 80%;
     border: solid rgb(241, 196, 204);
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
+    transition: none;
 }
+.cardSettings{
+    color: white;
+    display:contents;
+    transition: none;
+    table{
+         background-image: linear-gradient(to right, #434343 0%, black 100%);
+        background-repeat: no-repeat;
+        background-size: auto;
+        border-radius: 15px;
+        border: white 2px solid;
+        padding: 5px;
+
+        input,select{
+            width: 200px;
+        }
+
+    }
+}
+
 .baseProfilo{
    color: white;
-    border:white solid 2px;
+    border-bottom:white solid 2px;
     display: flex;
     justify-content: center;
+    margin-top: 2%;
 
     .info{
 
@@ -195,10 +220,20 @@ header{
         padding: 20px;
 
             td{ 
-            border-radius: 10px;
+            padding-left:10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            background-color: #414141;
+            border-radius: 15px;
+            
+            a{
+                text-decoration: none;
+                color: white;
+            }
         }   
 
     }
+    .propic{padding: 50px;}
         .propic img{
         border: solid rgb(172, 0, 0) 10px;
         width: 200px;
@@ -210,17 +245,29 @@ header{
    
 }
 
-#lastTitle{color: rgb(255, 255, 255);}
-
+#lastTitle{
+    padding: 10px;
+    color: rgb(255, 255, 255);
+}
+.flexGridGames{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2%;
+    align-items: center;
+    
+}
 .lastGames{
     display: flex;
     flex-direction: row;
-    column-gap: 5%;
+    column-gap: 3%;
+    padding: 10px;
+    justify-content: center;
     
 
     img{
     width: 200px;
-    height: 200px;
+    height: 260px;
+    border-radius: 15px;
     }
 
 }
@@ -259,13 +306,30 @@ header{
     border-radius: 15px;
 }
 
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
 .settings button{
     background-color:rgba(63, 56, 56, 0);
     border: none;
 }
 
-.settings button:hover{
+.settings img:hover{
+    animation: rotate 1s linear 1;
+    transform-origin: center center;
     
+}
+
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(180deg);
+    }
 }
 
 .shop button{
@@ -307,6 +371,12 @@ header{
 }
 
 @media (max-width: 1620px){
+
+    .cardProfilo{
+        width: 85%;
+        height: 85%;
+    }
+    
     
 
     img#logoimg{
@@ -382,5 +452,43 @@ header{
 
 
 
+
+}
+
+@media (max-width: 1450px){
+
+    .buttons{
+    flex-direction: column;
+    height: 10%;
+    width: 10%;
+    }
+    
+
+    .lastGames{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    
+
+
+    
+
+ 
+}
+
+@media (max-width: 1350px){
+
+    .baseProfilo{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 10%;   
+    }
+
+    .buttons{
+        flex-direction: row;
+    }
+}
 
 }

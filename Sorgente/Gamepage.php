@@ -243,7 +243,7 @@ echo "";
                         <li><a href="catalogo.php">Catalogo </a></li>
                         <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 
-                        if($service == 1) echo "<li><a href=\"profilo.php\">Profilo di $utente </a></li>";
+                        if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
                         ?>
                     </ul>
                 </div>

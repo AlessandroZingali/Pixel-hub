@@ -6,6 +6,7 @@
 
 
 
+
 body{
 
    /* border: solid rgb(168, 182, 41);*/
@@ -272,7 +273,7 @@ header{
     width: 20%;
     margin: auto;
     margin-bottom: 10px;
-    color: white;
+    color: rgb(255, 255, 255);
 
 }
 

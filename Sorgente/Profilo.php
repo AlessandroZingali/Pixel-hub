@@ -30,8 +30,8 @@ if(isset($_SESSION['userId'])){
             ?>
             
         </script>
-        <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
-        <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
+
+        <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
     </head>
     <body>    
         <div id="container">
@@ -142,12 +142,7 @@ if(isset($_SESSION['userId'])){
                                             <td>Email: </td><td> ".$row['Email']."</td>
                                         </tr>
                                         
-                                        <tr>
-                                            <td>Nome: </td><td> ".$row['Nome']."</td>
-                                        </tr>
-                                                                        <tr>
-                                            <td>Cognome: </td><td> ".$row['Cognome']."</td>
-                                        </tr>
+                                        
 
                                         <tr>
                                         <td>Numero di Pixel in possesso:</td> 
@@ -158,15 +153,9 @@ if(isset($_SESSION['userId'])){
                                         <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
                                         </tr>
 
-                                        <tr>
-                                            <td>Data di Nascita: </td>
-                                            <td> ".$row['Data_di_Nascita']."</td>
-                                        </tr>
+                                        
 
-                                        <tr>
-                                            <td>Password: </td>
-                                             <td>".$row['Data_di_Nascita']."</td>
-                                        </tr>
+                                       
 
                                         <tr>
                                             <td>Il mio genere preferito:</td><td> $GenerePref</td>
@@ -177,7 +166,7 @@ if(isset($_SESSION['userId'])){
                                         </tr>
                                         
                                         <tr>
-                                            <td>I miei contatti:</td> <td>$Contatti</td>
+                                            <td>I miei contatti:</td> <td><a href=\"$Contatti\"> Link social </a></td>
                                         </tr>
                                         
                                         <tr>
@@ -187,73 +176,141 @@ if(isset($_SESSION['userId'])){
                                     </table>";
                     ?>
                     </div>
-                    <div class="settings">
-                        <button><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+                    <div class="buttons">
+                         <div class="settings">
+                            <button onclick="swapperIn()"><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+                        </div>
+                        <div class="shop">
+                            <button><img src="Stile/shopicon.png" alt="shopbutton" ></button>
+                        </div>
                     </div>
-                    <div class="shop">
-                        <button><img src="Stile/shopicon.png" alt="shopbutton" ></button>
-                    </div>
-                </div>
-
-                 <h3 id="lastTitle">Ultimi Acquisti</h3>
-                <div class="lastGames">
                    
-                    <?php
-                    $xmlString = "";
-                    foreach(file("XML/utenti.xml") as $node){
-                        $xmlString.=trim($node);
-                    }
-                    $doc = new DOMDocument();
-                    $doc->loadXML($xmlString);
-                    $root = $doc->documentElement;
-                    $utente = $root->childNodes;
-
-                    foreach($utente as $u){
-                        if($u->getAttribute('id_user') == $_SESSION['userId']){
-                            $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
-                            //print_r($gameList);
-                            $idContainer = [];
-
-                            foreach($gameList as $id){
-                    
-                                $idContainer[] =  $id->textContent;
-                                }
-                           
-                            rsort($idContainer);
-                            //print_r($idContainer);
-                            
-                            $xmlString = "";
-                            foreach(file("XML/Giochi.xml") as $node){
-                                $xmlString.=trim($node);
-                            }
-                            $doc = new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root = $doc->documentElement;
-                            $giochi = $root->childNodes;
-                            //print_r($giochi);
-                            $count = 0;
-
-                            
-                                foreach($idContainer as $i){
-                                    for($j = ($giochi->length)-1 ; $j>=0; $j--){
-                                    $g=$giochi->item($j);
-                                    //echo "Container: ".$i." id: ".$g->getAttribute("id_gioco");
-                                    if($i == $g->getAttribute("id_gioco") && $count < 4){
-                                        
-                                        echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\"  alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
-                                        $count++;
-                                    }
-                                    }
-
-                                    
-                                }
-                            
-                            }
-                    }
-
-                    
-                    ?>
                 </div>
+
+
+                 
+                <div class="flexGridGames">
+                    <div><h3 id="lastTitle">Ultimi Acquisti</h3></div>
+                    <div class="lastGames">
+                        <?php
+                        $xmlString = "";
+                        foreach(file("XML/utenti.xml") as $node){
+                            $xmlString.=trim($node);
+                        }
+                        $doc = new DOMDocument();
+                        $doc->loadXML($xmlString);
+                        $root = $doc->documentElement;
+                        $utente = $root->childNodes;
+
+                        foreach($utente as $u){
+                            if($u->getAttribute('id_user') == $_SESSION['userId']){
+                                $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
+                                //print_r($gameList);
+                                $idContainer = [];
+
+                                foreach($gameList as $id){
+                        
+                                    $idContainer[] =  $id->textContent;
+                                    }
+                            
+                                rsort($idContainer);
+                                //print_r($idContainer);
+                                
+                                $xmlString = "";
+                                foreach(file("XML/Giochi.xml") as $node){
+                                    $xmlString.=trim($node);
+                                }
+                                $doc = new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root = $doc->documentElement;
+                                $giochi = $root->childNodes;
+                                //print_r($giochi);
+                                $count = 0;
+
+                                
+                                    foreach($idContainer as $i){
+                                        for($j = ($giochi->length)-1 ; $j>=0; $j--){
+                                        $g=$giochi->item($j);
+                                        //echo "Container: ".$i." id: ".$g->getAttribute("id_gioco");
+                                        if($i == $g->getAttribute("id_gioco") && $count < 4){
+                                            $titolo=$g->getElementsByTagName('Titolo')->item(0)->textContent;
+                                            $idGioco=$g->getAttribute("id_gioco");
+                                            
+                                            echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\" onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\" alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
+                                            $count++;
+                                        }
+                                        }
+
+                                        
+                                    }
+                                
+                                }
+                        }
+
+                        
+                        ?>
+                        </div>
+                   
+                    
+                </div>
+            </div>
+
+            <div class="cardSettings">
+            
+                <table>
+                     <tr>
+                        <td>Modifica Username</td> 
+                        <td><form><input type="text" placeholder="Inserisci l'username nuovo..." name="newUsername" ></input></form></td> 
+                        <td><input type="submit" name="cambiaUsername" value="Modifica l'username"/></td>
+                    </tr> 
+                    <tr>
+                        <td>Modifica Email</td>
+                        <td><form><input type="text" placeholder="Inserisci l'email nuova..." name="newEmail" ></input>    </form></td>
+                        <td><input type="submit" name="cambiaEmail" value="Modifica l'email"/></td>
+                    </tr>  
+                    <tr>
+                        <td>Modifica Genere Preferito</td>
+                       
+                            <form> 
+                                <td>
+                                <select name="Generi" id="GeneriScelta">
+                                    <option value="FPS">Sparatutto in prima persona</option> 
+                                    <option value="GDR">Gioco di Ruolo</option>
+                                    <option value="Action">Azione</option>
+                                    <option value="Souls-like">Souls</option>
+                                    <option value="Strategia">Strategia</option>
+                                </select>  
+                            
+                        </td> 
+                        <td><input type="submit" name="cambiaGenere" value="Modifica il mio genere preferito"/></td> 
+                        </form> 
+                    </tr>
+                        <tr>
+                        <td>Modifica Casa di sviluppo preferita</td>
+                        <td>
+                            <form>
+                                <input type="text" placeholder="Inserisci la tua casa di sviluppo preferita" name="newCasa" >
+                                </input>    
+                            </form>
+                        </td>
+                        <td>
+                            <input type="submit" name="cambiaCasa" value="Modifica la tua casa di sviluppo preferita"/>
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td>Modifica Password</td>
+                        <td>
+                            <form>
+                                <input type="text" placeholder="Inserisci la tua nuova password" name="newPass" >
+                                </input>    
+                            </form>
+                        </td>
+                        <td>
+                            <input type="submit" name="cambiaPassword" value="Modifica la tua password"/>
+                        </td>
+                    <tr>
+                </table>
+                
             </div>
             
             
