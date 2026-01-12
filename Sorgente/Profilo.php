@@ -3,6 +3,7 @@
 
     $service = 0;
     $utente = "";
+    $invalidFlag=0;
 
     session_start();
     if(isset($_SESSION['userId'])){
@@ -15,7 +16,7 @@
 
 if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
 
-    echo"helo";
+
     $db_name = "Database_Pixel_Hub";
     $table_users = "Tabella_Utenti";
     $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
@@ -25,22 +26,117 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
-    $newUsername = mysqli_real_escape_string($mysqliConnection, $_POST["newUsername"]);
+    $new = mysqli_real_escape_string($mysqliConnection, $_POST["newUsername"]);
 
     $sql = "
         UPDATE $table_users
-        SET Username = '$newUsername'
+        SET Username = '$new'
         WHERE ID = ".(int)$_SESSION['userId']."
     ";
 
     if (mysqli_query($mysqliConnection, $sql)) {
         
-        echo "mod";
         header("Location:login.php");
     } else {
-        echo "err";
+         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
+
+if (isset($_POST["cambiaEmail"]) && !empty($_POST["newEmail"])) {
+
+    if(preg_match('/^.*@.*$/', $_POST['newEmail'])){
+        $db_name = "Database_Pixel_Hub";
+        $table_users = "Tabella_Utenti";
+        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+        if (mysqli_connect_errno()){
+
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newEmail"]);
+
+        $sql = "
+            UPDATE $table_users
+            SET Email = '$new'
+            WHERE ID = ".(int)$_SESSION['userId']."
+        ";
+
+        if (mysqli_query($mysqliConnection, $sql)) header("Location:login.php");
+        else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        
+    }
+    else $invalidFlag = 1;
+
+    
+}
+
+if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
+
+    if(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['newPass'])){
+            $db_name = "Database_Pixel_Hub";
+            $table_users = "Tabella_Utenti";
+            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+            if (mysqli_connect_errno()){
+
+                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            }
+
+            $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPass"]);
+
+            $sql = "
+                UPDATE $table_users
+                SET  = '$new'
+                WHERE ID = ".(int)$_SESSION['userId']."
+            ";
+
+            if (mysqli_query($mysqliConnection, $sql)) header("Location:login.php");
+            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));    
+    }
+    else $invalidFlag = 2; 
+}
+
+if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
+ 
+    $idUtente=$_SESSION["userId"];
+
+    $xmlString="";
+                                                            
+    foreach(file("XML/utenti.xml") as $node){ 
+        $xmlString .= trim($node);
+    }
+    
+    $doc= new DOMDocument();
+    $doc->loadXML($xmlString);
+    $root=$doc->documentElement;
+    $elem=$root->childNodes;
+    foreach($elem as $userNode){
+        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('GenerePreferito')->item(0)->textContent=$_POST["Genere"];
+    }
+    $doc->save("XML/utenti.xml");
+}
+
+if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
+
+    $idUtente=$_SESSION["userId"];
+
+    $xmlString="";
+                                                            
+    foreach(file("XML/utenti.xml") as $node){ 
+        $xmlString .= trim($node);
+    }
+    
+    $doc= new DOMDocument();
+    $doc->loadXML($xmlString);
+    $root=$doc->documentElement;
+    $elem=$root->childNodes;
+    foreach($elem as $userNode){
+        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent=$_POST["newCasa"];
+    }
+    $doc->save("XML/utenti.xml");
+}
+
 
 
 ?>
@@ -62,8 +158,8 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
             ?>
             
         </script>
-
         <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
+        
     </head>
     <body>    
         <div id="container">
@@ -304,7 +400,7 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                                     <td><input type="submit" name="cambiaUsername" value="Modifica l'username"/></td>
                                 </form>
                             </tr> 
-                            <tr><form>
+                            <tr><form method="post" action="Profilo.php">
                                 <td>Modifica Email</td>
                                 <td><input type="text" placeholder="Inserisci l'email nuova..." name="newEmail" ></input>    </td>
                                 <td><input type="submit" name="cambiaEmail" value="Modifica l'email"/></td></form>
@@ -312,9 +408,9 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                             <tr>
                                 <td>Modifica Genere Preferito</td>
                             
-                                    <form> 
+                                    <form method="post" action="Profilo.php"> 
                                         <td>
-                                        <select name="Generi" id="GeneriScelta">
+                                        <select name="Genere" id="GeneriScelta">
                                             <option value="FPS">Sparatutto in prima persona</option> 
                                             <option value="GDR">Gioco di Ruolo</option>
                                             <option value="Action">Azione</option>
@@ -327,7 +423,7 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                                 </form> 
                             </tr>
                                 <tr>
-                                <form>    
+                                <form method="post" action="Profilo.php">    
                                     <td>Modifica Casa di sviluppo preferita</td>
                                     <td>
                                     
@@ -341,7 +437,7 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                                 </form>
                             </tr>
                             <tr> 
-                                <form>
+                                <form method="post" action="Profilo.php">
                                     <td>Modifica Password</td>
                                     <td>
                                         
@@ -350,7 +446,7 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                                         
                                     </td>
                                     <td>
-                                        <input type="submit" name="cambiaPassword" value="Modifica la tua password"/>
+                                        <input type="submit" name="cambiaPass" value="Modifica la tua password"/>
                                     
                                     </td>
                                 </form>
@@ -362,7 +458,7 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
                 
                     </div>
             </div>
-
+            
             
 
            
@@ -378,5 +474,16 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
         </div>
         
     </body>
+    <?php
+        if($invalidFlag != 0){
+            echo "<script>
+                swapperIn();";
+            if($invalidFlag == 1) echo "alert(\"La nuova email non è valida \");";
+            else if($invalidFlag == 2) echo "alert(\"La nuova Password non è valida (Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri)\");";
+            echo "</script>";
+        }  
+    
+    ?>
+
 </html> 
         

@@ -201,11 +201,18 @@ header{
         border-radius: 15px;
         border: white 2px solid;
         padding: 5px;
+        border-spacing: 10px 30px;
+    }
 
-        input,select{
-            width: 200px;
-        }
+    table input[type='submit']{
+        font-family: "font pixeloso",monospace;
+        background-color:#414141;
+        border-radius: 30px;
+        color:white
 
+    }
+    table input[type='submit']:hover{
+        background-color:#5f5f5f;
     }
 }
 
