@@ -31,7 +31,7 @@ else{
         Data_di_Nascita  VARCHAR(50), 
         Nome  VARCHAR  (50), 
         Cognome VARCHAR (50), 
-        Tipologia_utente INT,
+        Tipologia_utente INT, /* 1=admin 2=admin 3=publisher*/
         imgProfiloPath VARCHAR(250),  
         PIVA  VARCHAR (12), 
         PRIMARY  KEY  (ID, Email),
@@ -50,7 +50,8 @@ else{
             (Email, Password, Username, Grado, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, PIVA) 
             VALUES 
             (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", 1, 1000, 50.0, \"15/04/1990\", \"Marco\", \"Rossi\", 1, \"231231240\"),
-            (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20/06/1985\", \"Gabriele\", \"Bianchi\", 2, \"12345678901\");
+            (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20/06/1985\", \"Gabriele\", \"Bianchi\", 2, \"12345678901\"),
+            (\"lucabianchi@gmail.com\", \"luke4316\", \"Lucagame\", 3, 5000, 200.0, \"30/02/1995\", \"Luca\", \"Bianchi\", 2, \"12345678901\");
             ";
 
             if ($resultQ=mysqli_query($mysqliConnection, $sqlQuery)){
