@@ -346,8 +346,8 @@ if(isset($_SESSION['userId'])){
         
         <div id="footer">
             <ul>
-                <li><a href="">Contact Us</a></li>
-                <li><a href="">F.A.Q</a></li>
+                <li><a href="Contact.php">Contact Us</a></li>
+                <li><a href="Faq.php">F.A.Q</a></li>
                 <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
