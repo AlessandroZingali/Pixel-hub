@@ -82,11 +82,10 @@ if(isset($_SESSION['userId'])){
             <div id="TablesBoard"> <!--tag della della tabella maestra  -->
 
                 <?php 
-                if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito']))
-                {
+                if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
                     echo "<div class=\"GameSlider\">
                     <div>
-                        <input type=\"button\" value=\"<\" id=\"scorrindietro\" onclick=\"sliderTable('GameTable0', 'back')\" />
+                        <input type=\"button\" value=\"<\" id=\"scorrindietro0\" onclick=\"sliderTable('GameTable0', 'back')\" />
                     </div> <!-- < -->
                     <div>
                     <p class=\"titleTable\">Hey $utente ! Guarda questi ".$_SESSION['generePreferito']."</p>
@@ -138,7 +137,7 @@ if(isset($_SESSION['userId'])){
                        
                     </div><!--tab -->
                     <div>
-                        <input type=\"button\" value=\">\" id=\"scorriavanti\" onclick=\"sliderTable('GameTable0', 'forward')\" />
+                        <input type=\"button\" value=\">\" id=\"scorriavanti0\" onclick=\"sliderTable('GameTable0', 'forward')\" />
                     </div><!-- > -->
                 </div>";
                 }
@@ -148,7 +147,7 @@ if(isset($_SESSION['userId'])){
                     
                     <div>
                         
-                        <input type="button" value="<" id="scorrindietro" onclick="sliderTable('GameTable1', 'back')" />
+                        <input type="button" value="<" id="scorrindietro1" onclick="sliderTable('GameTable1', 'back')" />
                         
                     </div>
                     <div>
@@ -210,14 +209,14 @@ if(isset($_SESSION['userId'])){
 
                     <div>
                         
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable1', 'forward')" />
+                        <input type="button" value=">" id="scorriavanti1" onclick="sliderTable('GameTable1', 'forward')" />
                     
                     </div>
                 </div>
 
                  <div class="GameSlider">
                     <div>
-                        <input type="button" value="<" id="scorrindietro" onclick="sliderTable('GameTable2', 'back')" />
+                        <input type="button" value="<" id="scorrindietro2" onclick="sliderTable('GameTable2', 'back')" />
                     </div> <!-- < -->
                     <div>
                          <p class="titleTable">Ultimi Giochi aggiunti</p>
@@ -269,13 +268,13 @@ if(isset($_SESSION['userId'])){
                         </table>
                     </div><!--tab -->
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable2', 'forward')" />
+                        <input type="button" value=">" id="scorriavanti2" onclick="sliderTable('GameTable2', 'forward')" />
                     </div><!-- > -->
                 </div>
                 
                 <div class="GameSlider">
                     <div>
-                        <input type="button" value="<" id="scorrindietro" onclick="sliderTable('GameTable3', 'back')" />
+                        <input type="button" value="<" id="scorrindietro3" onclick="sliderTable('GameTable3', 'back')" />
                     </div> <!-- < -->
                     <div>
                         <p class="titleTable">Sparatutto</p>
@@ -330,7 +329,7 @@ if(isset($_SESSION['userId'])){
                         </table>
                     </div><!--tab -->
                     <div>
-                        <input type="button" value=">" id="scorriavanti" onclick="sliderTable('GameTable3', 'forward')" />
+                        <input type="button" value=">" id="scorriavanti3" onclick="sliderTable('GameTable3', 'forward')" />
                     </div><!-- > -->
                 </div>
 

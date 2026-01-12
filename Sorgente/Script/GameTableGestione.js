@@ -72,7 +72,6 @@ function scaleTable(){
         var table = document.getElementById(sel.tabella);
         var gameRow = table.rows[0];
 
-        console.log(contenitore[i].tabella);
         
         var savedStart = parseInt(localStorage.getItem(sel.tabella));
         sel.start = isNaN(savedStart) ? 0 : savedStart;
@@ -84,9 +83,9 @@ function scaleTable(){
 
             sel.start = Math.max(0, sel.end - visibili + 1);
         }
-    for (let r = 0; r < table.rows.length; r++) {
-        applyVisibility(table.rows[r], sel);
-    }
+   
+    applyVisibility(gameRow, sel);
+    
 
     }
 }
@@ -105,6 +104,7 @@ function sliderTable(tabellaPassata, service){
             sel.end++;
             applyVisibility(gameRow, sel);
         }
+      //  else boundControl(sel, gameRow);
     }
     else if(service === "back"){
         if(sel.start > 0){
@@ -112,6 +112,7 @@ function sliderTable(tabellaPassata, service){
             sel.end--;
             applyVisibility(gameRow, sel);
         }
+       // else boundControl(sel, gameRow);
     }
 
     
@@ -134,9 +135,35 @@ function styleTableSettings(tabellaPassata){ //Funzione che imposta lo stile ini
 }
 
 function applyVisibility(gameRow, sel){
+    
     for(let i = 0; i < gameRow.cells.length; i++){
         gameRow.cells[i].style.display =
             (i >= sel.start && i <= sel.end) ? "table-cell" : "none";
     }
+    boundControl(sel, gameRow);
 }
 
+function boundControl(sel, gameRow){
+    baseInput="scorri";
+    numInput = sel.tabella.charAt(9);
+    console.log(numInput);
+    console.log("start: "+sel.start+" end: "+sel.end);
+    if (sel.start == 0){
+        input = document.querySelector('.GameSlider #'+baseInput+"ndietro"+numInput);
+        input.style.opacity="0.5";
+    }
+    else if(sel.start > 0){
+        input = document.querySelector('.GameSlider #'+baseInput+"ndietro"+numInput);
+        input.style.opacity="1";
+    }
+
+    if(sel.end == gameRow.cells.length - 1){
+        input = document.querySelector('.GameSlider #'+baseInput+"avanti"+numInput);
+        input.style.opacity="0.5";
+    }
+    else if(sel.end < gameRow.cells.length - 1){
+        input = document.querySelector('.GameSlider #'+baseInput+"avanti"+numInput);
+        input.style.opacity="1";
+    }
+    
+}
