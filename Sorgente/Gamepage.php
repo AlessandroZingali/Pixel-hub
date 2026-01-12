@@ -239,7 +239,7 @@ echo "";
                         ?>
                         
                         <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="carrello.html">Carrello </a></li>
+                        <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
                         <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 

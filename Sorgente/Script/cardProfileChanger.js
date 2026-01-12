@@ -1,9 +1,8 @@
 function swapperIn(){
-    var cardProfilo = document.getElementsById("card1");
+    var cardProfilo = document.getElementById("card1");
     console.log("Ris: "+cardProfilo);
-    var cardSettings = document.getElementsById("card2");
+    var cardSettings = document.getElementById("card2");
     
-    cardProfilo.style.display = "none";
-    cardSettings.style.display = "flex";
-    
+    cardProfilo.classList.toggle("hideCard");
+    cardSettings.classList.toggle("hideCard");
 }
