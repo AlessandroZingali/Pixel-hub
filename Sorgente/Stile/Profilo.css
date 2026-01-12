@@ -184,12 +184,15 @@ header{
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
-    transition: none;
+    opacity: 1;
+    transition: opcity 0.2s ease;
 }
 .cardSettings{
     color: white;
     display:contents;
     transition: none;
+    opacity: 1;
+    transition: opcity 0.2s ease;
     table{
          background-image: linear-gradient(to right, #434343 0%, black 100%);
         background-repeat: no-repeat;
@@ -203,6 +206,10 @@ header{
         }
 
     }
+}
+
+.hideCard{
+    opacity: 0;
 }
 
 .baseProfilo{

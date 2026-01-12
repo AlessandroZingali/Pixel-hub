@@ -78,7 +78,7 @@ if(isset($_SESSION['userId'])){
             </div>
 
             <div class="cardProfilo">
-                <div class="baseProfilo">
+                <div class="baseProfilo" id="card1">
                 
                     <div class="propic">
                         <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
@@ -255,7 +255,7 @@ if(isset($_SESSION['userId'])){
                 </div>
             </div>
 
-            <div class="cardSettings">
+            <div class="cardSettings" id="card2">
             
                 <table>
                      <tr>
