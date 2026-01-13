@@ -215,6 +215,25 @@ header{
         background-color:#5f5f5f;
     }
 }
+.cardPicStore{
+    margin-top: 2%;
+    background-color: rgb(39, 31, 31);  
+    background-repeat: no-repeat;
+    background-size: auto;
+    border: white 2px solid;
+    border-radius: 15px;
+}
+
+.gridPicStore form{
+    display: grid;
+    /*border: #76d5f0 solid;*/
+    grid-template-columns: repeat( 4, minmax(220px, 1fr));
+    grid-template-rows: auto;
+    width: 100%;
+    box-sizing: border-box;
+    gap: 16px;
+  
+}
 
 .hideCard{
     display: none;
@@ -287,11 +306,17 @@ header{
 
 }
 
-.sceltaprofilo{
+.sceltaPic{
+    display: flex;
+    flex-direction: column;
     color:white;
+    width: 100%;
+    box-sizing: border-box;
+    /*border: red solid;*/
 
     img{
-        width: 200px;
+        width: 250px;
+        height: 250px;
     }
 }
 

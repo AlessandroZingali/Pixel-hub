@@ -109,6 +109,7 @@ if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
     
     $doc= new DOMDocument();
     $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
     $root=$doc->documentElement;
     $elem=$root->childNodes;
     foreach($elem as $userNode){
@@ -132,6 +133,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     
     $doc= new DOMDocument();
     $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
     $root=$doc->documentElement;
     $elem=$root->childNodes;
     foreach($elem as $userNode){
@@ -140,7 +142,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     $doc->save("XML/utenti.xml");
 }
 
-if (isset($_POST["AcquistoPic"])) {
+if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
 
 
@@ -175,11 +177,11 @@ if (isset($_POST["AcquistoPic"])) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
-
+    echo $newPath;
 
     $sql = "
         UPDATE $table_users
-        SET  Pixels = Pixels - $prezzo, imgProfiloPath = $newPath
+        SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
         WHERE ID = ".(int)$_SESSION['userId'].";
     ";
 
@@ -192,6 +194,7 @@ if (isset($_POST["AcquistoPic"])) {
         
         $doc= new DOMDocument();
         $doc->loadXML($xmlString);
+        $doc->formatOutput = true;
         $root=$doc->documentElement;
         $elem=$root->childNodes;
         foreach($elem as $userNode){
@@ -199,7 +202,8 @@ if (isset($_POST["AcquistoPic"])) {
             if($userNode->getAttribute('id_user') == $idUtente){
                 $nuovaPic = $doc->createElement("idPropic");
                 $nuovaPic->textContent=$idpicscelto;
-                $userNode->getElementsByTagName("listaPropic")->appendChild($nuovaPic);
+                $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
+                $picRoot->appendChild($nuovaPic);
             }
 
 
@@ -281,109 +285,113 @@ if (isset($_POST["AcquistoPic"])) {
             <div class="wrapper">
                 <div class="cardProfilo" id="card1">
                     <div class="baseProfilo" >
+                
                     
-                        <div class="propic">
-                            <img src='Loghi/propicblank.jpg' alt="Immagine di Default"/>
-                        </div>
-                        <div id="infoBox">
-                            <?php
+                        <?php 
+                            
+                            $db_name = "Database_Pixel_Hub";
+                            $table_users = "Tabella_Utenti";
+                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
+                            if (mysqli_connect_errno()){
+
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                            }
+                            $emailNickname = $_SESSION['user'];
+
+                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                            $num = mysqli_num_rows($resultQ); 
+                            if($num == 1){
+                                $flag=1;
                                 
+                                $row=mysqli_fetch_array($resultQ);
+                                echo "<div class=\"propic\"> 
+                                <img src=\"".$row['imgProfiloPath']."\" alt=\"Immagine di Default\"/>
+                                </div>";  
 
-                                $db_name = "Database_Pixel_Hub";
-                                $table_users = "Tabella_Utenti";
-                                $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                                echo "<div id=\"infoBox\">";
 
-                                if (mysqli_connect_errno()){
 
-                                    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-                                }
-                                $emailNickname = $_SESSION['user'];
-
-                                $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
-                                $resultQ = mysqli_query($mysqliConnection, $queryLogin);
-                                $num = mysqli_num_rows($resultQ);
+                        
 
                             
+                                
 
-                                if($num == 1){
-                                    $flag=1;
-                                    
-                                    $row=mysqli_fetch_array($resultQ);
+                                $xmlString="";
+                                                        
+                                foreach(file("XML/utenti.xml") as $node){ 
+                                    $xmlString .= trim($node);
+                                }
+                                
+                                $doc= new DOMDocument();
+                                $doc->loadXML($xmlString);
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
 
-                                    $xmlString="";
-                                                            
-                                    foreach(file("XML/utenti.xml") as $node){ 
-                                        $xmlString .= trim($node);
-                                    }
-                                    
-                                    $doc= new DOMDocument();
-                                    $doc->loadXML($xmlString);
-                                    $root=$doc->documentElement;
-                                    $elem=$root->childNodes;
-
-                                    foreach($elem as $i){
-                                        if($i->getAttribute('id_user') == $row['ID']){
-                                            if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
-                                            else $GenerePref = "nessuno";
-                                            if($i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent != '') $CasaSvilPref = $i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent;
-                                            else $CasaSvilPref = "nessuna";
-                                            if($i->getElementsByTagName('DataIscrizione')->item(0)->textContent != '') $DataIsc= $i->getElementsByTagName('DataIscrizione')->item(0)->textContent;
-                                            else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
-                                            if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
-                                            else $Contatti = "nessuno";
-                                            }
+                                foreach($elem as $i){
+                                    if($i->getAttribute('id_user') == $row['ID']){
+                                        if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                                        else $GenerePref = "nessuno";
+                                        if($i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent != '') $CasaSvilPref = $i->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent;
+                                        else $CasaSvilPref = "nessuna";
+                                        if($i->getElementsByTagName('DataIscrizione')->item(0)->textContent != '') $DataIsc= $i->getElementsByTagName('DataIscrizione')->item(0)->textContent;
+                                        else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
+                                        if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
+                                        else $Contatti = "nessuno";
                                         }
                                     }
-                                    echo "<table class=\"info\">
+                                }
+                                echo "<table class=\"info\">
 
-                                            <tr>
-                                                <td>Username:</td> <td> $utente </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email: </td><td> ".$row['Email']."</td>
-                                            </tr>
-                                            
-                                            
+                                        <tr>
+                                            <td>Username:</td> <td> $utente </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email: </td><td> ".$row['Email']."</td>
+                                        </tr>
+                                        
+                                        
 
-                                            <tr>
-                                            <td>Numero di Pixel in possesso:</td> 
-                                            <td> ".$row['Pixels']."</td>
-                                            </tr>
+                                        <tr>
+                                        <td>Numero di Pixel in possesso:</td> 
+                                        <td> ".$row['Pixels']."</td>
+                                        </tr>
 
-                                            <tr>
-                                            <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
-                                            </tr>
-
-                                            
+                                        <tr>
+                                        <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
+                                        </tr>
 
                                         
 
-                                            <tr>
-                                                <td>Il mio genere preferito:</td><td> $GenerePref</td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td>Data Iscrizione:</td> <td>$DataIsc</td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td>I miei contatti:</td> <td><a href=\"$Contatti\"> Link social </a></td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
-                                            </tr>
-                
-                                        </table>";
-                            ?>
-                        </div>
+                                    
+
+                                        <tr>
+                                            <td>Il mio genere preferito:</td><td> $GenerePref</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Data Iscrizione:</td> <td>$DataIsc</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>I miei contatti:</td> <td><a href=\"$Contatti\"> Link social </a></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
+                                        </tr>
+            
+                                    </table>
+                            </div>";
+                        ?>
+                        
                         <div class="buttons">
                             <div class="settings">
-                                <button onclick="swapperIn()"><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+                                <button onclick="swapperInSettings()"><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
                             </div>
                             <div class="shop">
-                                <button><img src="Stile/shopicon.png" alt="shopbutton" ></button>
+                                <button onclick="swapperInStore()"><img src="Stile/shopicon.png" alt="shopbutton" ></button>
                             </div>
                         </div>
                     
@@ -459,7 +467,7 @@ if (isset($_POST["AcquistoPic"])) {
                 <div class="cardSettings hideCard" id="card2">
                     <div class="buttons">
                         <div class="backarrow">
-                            <button onclick="swapperIn()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
+                            <button onclick="swapperInSettings()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
 
                     </div>
@@ -542,11 +550,14 @@ if (isset($_POST["AcquistoPic"])) {
                             <tr>
                         </table>
                     </div>
-                </div>     </form>
+                </div>     
                 </div>
-                <div>
+                <div class="cardPicStore hideCard" id="card3">
+                    <div class="backarrow">
+                            <button onclick="swapperInStore()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
+                        </div>
                     <div><h2>Store immagini profilo</h2></div>
-                    <div>
+                    <div class="gridPicStore">
                         <?php 
                        
                             $xmlString = "";
@@ -559,11 +570,11 @@ if (isset($_POST["AcquistoPic"])) {
                             $elem = $root->childNodes;
                             echo "<form method=\"post\" action=\"Profilo.php\">";
                             foreach($elem as $pic){
-                                echo "<div class=\"sceltaprofilo\">";
+                                echo "<div class=\"sceltaPic\">";
                                 echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('nome')->item(0)->textContent."</p></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('prezzo')->item(0)->textContent." Pixels</p></div>";
-                                echo "<div> <input type=\"checkbox\" name=\"scelta" . $pic->getAttribute('id_pic') . "\" /></div>";
+                                echo "<div> <input type=\"checkbox\" name=\"scelta\" value=\"". $pic->getAttribute('id_pic') . "\" /></div>";
                                 echo "</div>";
                             }
                             echo "<div><input type=\"submit\" name=\"AcquistoPic\" value=\"Acquista\"/></div>";
@@ -592,7 +603,7 @@ if (isset($_POST["AcquistoPic"])) {
     <?php
         if($invalidFlag != 0){
             echo "<script>
-                swapperIn();";
+                swapperInSettings();";
             if($invalidFlag == 1) echo "alert(\"La nuova email non è valida \");";
             else if($invalidFlag == 2) echo "alert(\"La nuova Password non è valida (Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri)\");";
             echo "</script>";

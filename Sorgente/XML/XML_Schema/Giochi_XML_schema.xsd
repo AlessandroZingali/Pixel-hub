@@ -17,6 +17,7 @@
         <xsd:element  ref="Prezzo"  minOccurs="1"  maxOccurs="1" /> 
         <xsd:element  ref="CasaSviluppo"  minOccurs="1" maxOccurs="unbounded"/>
         <xsd:element  ref="Publisher" minOccurs="1" maxOccurs="1" /> 
+        <xsd:element ref="Descrizione" minOccurs="1" maxOccurs="1"/>
         <xsd:element  ref="RequisitiMinimi"   minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="RequisitiRaccomandati" minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="DataDiUscita"  minOccurs="1" maxOccurs="1"/> 
@@ -35,6 +36,7 @@
   <xsd:element  name="Prezzo"  type="xsd:float" />
   <xsd:element  name="CasaSviluppo"  type="xsd:string" />
   <xsd:element  name="Publisher" type="xsd:string" />  
+  <xsd:element  name="Descrizione" type="xsd:string" />
   <xsd:element  name="RequisitiMinimi"  type="xsd:string" /> 
   <xsd:element  name="RequisitiRaccomandati"  type="xsd:string"/> 
   <xsd:element  name="DataDiUscita" type="xsd:string"/> 
