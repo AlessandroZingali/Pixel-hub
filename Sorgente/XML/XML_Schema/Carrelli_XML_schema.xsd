@@ -12,9 +12,9 @@
   <xsd:element name="carrello">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element  ref="gioco"  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  ref="gioco" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_user" typer="xsd:interger" use="required"/>
+        <xsd:attribute name="id_user" type="xsd:integer" use="required"/>
     </xsd:complexType>
   </xsd:element>
   
@@ -24,7 +24,7 @@
         <xsd:element  ref="Titolo"  minOccurs="1" maxOccurs="1"/>
         <xsd:element  ref="prezzo"  minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_gioco" typer="xsd:interger" use="required"/>
+        <xsd:attribute name="id_gioco" type="xsd:integer" use="required"/>
     </xsd:complexType>
   </xsd:element>
   

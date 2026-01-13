@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listaPic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Profile_Pic_XML_Schema.xsd">
+    <Pic id_pic="1">
+        <nome>Shadow</nome>
+        <prezzo>100</prezzo>
+        <path>ProfilePic/Shadow.png</path>
+    </Pic>
+    <Pic id_pic="2">
+        <nome>SpiderMan</nome>
+        <prezzo>120</prezzo>
+        <path>ProfilePic/Spiderman.png</path>
+    </Pic>
+    <Pic id_pic="3">
+        <nome>SpongeBob Matrix</nome>
+        <prezzo>120</prezzo>
+        <path>ProfilePic/SpongebobMatrix.png</path>
+    </Pic>
+    <Pic id_pic="4">
+        <nome>Sorcer Yoshi</nome>
+        <prezzo>200</prezzo>
+        <path>ProfilePic/Yoshi.png</path>
+    </Pic>
+
+</listaPic>

@@ -4,20 +4,22 @@
   <xsd:element name="Associazione_Like_Recensioni">
   <xsd:complexType>
       <xsd:sequence>
-        <xsd:element ref="ref_Recensione" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="ref_Recensioni" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="flagLike" type="xsd:integer" use="implied"/>
-      <xsd:attribute name="flagDislike" type="xsd:integer" use="implied"/>
       </xsd:complexType>
   </xsd:element>
-  <xsd:element name="ref_Recensione">
+  <xsd:element name="ref_Recensioni">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element ref="Id_Utente" minOccurs="1" maxOccurs="1"/>
         <xsd:element ref="Id_Recensione" minOccurs="1" maxOccurs="1"/>
+        <xsd:element ref="Id_Gioco" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
+      <xsd:attribute name="flagLike" type="xsd:integer" use="required"/>
+      <xsd:attribute name="flagDislike" type="xsd:integer" use="required"/>
     </xsd:complexType>
     </xsd:element>
   <xsd:element name="Id_Utente" type="xsd:integer"/>
   <xsd:element name="Id_Recensione" type="xsd:integer"/>
+  <xsd:element name="Id_Gioco" type="xsd:integer"/>
   </xsd:schema>

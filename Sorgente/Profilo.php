@@ -112,7 +112,10 @@ if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
     $root=$doc->documentElement;
     $elem=$root->childNodes;
     foreach($elem as $userNode){
-        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('GenerePreferito')->item(0)->textContent=$_POST["Genere"];
+        if($userNode->getAttribute('id_user') == $idUtente){ 
+            $userNode->getElementsByTagName('GenerePreferito')->item(0)->textContent=$_POST["Genere"];
+            $_SESSION['generePreferito'] = $_POST['Genere'];
+            }
     }
     $doc->save("XML/utenti.xml");
 }
@@ -383,13 +386,13 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                         
                     </div>
                 </div>
-                 <div class="cardSettings hideCard" id="card2">
+                <div class="cardSettings hideCard" id="card2">
                     <div class="buttons">
-                            <div class="backarrow">
-                                <button onclick="swapperIn()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
-                            </div>
-
+                        <div class="backarrow">
+                            <button onclick="swapperIn()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
+
+                    </div>
                     <div>
 
                         <table>
@@ -411,10 +414,10 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                     <form method="post" action="Profilo.php"> 
                                         <td>
                                         <select name="Genere" id="GeneriScelta">
-                                            <option value="FPS">Sparatutto in prima persona</option> 
-                                            <option value="GDR">Gioco di Ruolo</option>
-                                            <option value="Action">Azione</option>
-                                            <option value="Souls-like">Souls</option>
+                                            <option value="Sparatutto">Sparatutto</option> 
+                                            <option value="RPG">RPG</option>
+                                            <option value="Avventura">Avventura</option>
+                                            <option value="Souls-like">Souls-like</option>
                                             <option value="Strategia">Strategia</option>
                                         </select>  
                                     
@@ -452,12 +455,34 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                 </form>
                             <tr>
                         </table>
-                        
                     </div>
-                        
-                
+                </div>     
+                </div>
+                <div>
+                    <div><h2>Store immagini profilo</h2></div>
+                    <div>
+                        <?php 
+                       
+                            $xmlString = "";
+                            foreach(file("XML/ProfilePic.xml") as $node){
+                                $xmlString.=trim($node);
+                            }
+                            $doc = new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root = $doc->documentElement;
+                            $elem = $root->childNodes;
+                            foreach($elem as $pic){
+                                echo "<div>";
+                                echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";
+                                echo "<div><p>".$pic->getElementsbyTagName('nome')->item(0)->textContent."</p></div>";
+                                echo "<div><p>".$pic->getElementsbyTagName('prezzo')->item(0)->textContent." Pixels</p></div>";
+                                echo "</div>";
+                            }
+                        ?>
                     </div>
+                </div> 
             </div>
+        </div>
             
             
 

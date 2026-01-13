@@ -37,7 +37,7 @@
   <xsd:element  name="Publisher" type="xsd:string" />  
   <xsd:element  name="RequisitiMinimi"  type="xsd:string" /> 
   <xsd:element  name="RequisitiRaccomandati"  type="xsd:string"/> 
-  <xsd:element  name="DataDiUscita"  type="xsd:integer" /> 
+  <xsd:element  name="DataDiUscita" type="xsd:string"/> 
   <xsd:element  name="Immagine"  type="xsd:string"/> 
   <xsd:element  name="Generi"  type="xsd:string" /> 
   <xsd:element  name="Disponibile"  type="xsd:integer" /> 
@@ -47,9 +47,11 @@
   <xsd:element name="TitoliCorrelati" > 
   <xsd:complexType> 
       <xsd:sequence> 
-        <xsd:element name="idGiocoCorrelato" type=”xsd:integer” minOccurs="1"  maxOccurs="unbounded"/> 
+        <xsd:element ref="idGiocoCorrelato"  minOccurs="1"  maxOccurs="unbounded"/> 
       </xsd:sequence> 
     </xsd:complexType> 
   </xsd:element>
+
+  <xsd:element name="idGiocoCorrelato" type="xsd:integer" />
    
 </xsd:schema>

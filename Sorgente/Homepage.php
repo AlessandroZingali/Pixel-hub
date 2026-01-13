@@ -105,10 +105,10 @@ if(isset($_SESSION['userId'])){
                                 $root=$doc->documentElement;
                                 $elem=$root->childNodes;
                                 
-                                if($elem->length<15){
+                                if($elem->length<20){
                                     $limite=$elem->length;
                                 } else {
-                                    $limite=15;
+                                    $limite=20;
                                 }
                                 
                                  echo "<tr>";
@@ -141,6 +141,7 @@ if(isset($_SESSION['userId'])){
                     </div><!-- > -->
                 </div>";
                 }
+                
                 ?>
                 
                 <div class="GameSlider">
