@@ -509,11 +509,45 @@ echo "";
                         echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p>";
                     ?>
               </div>
-              <div id ="Acquisto">
-                    <p>halo</p>
-                    <!-- qui ci va il button di acquisto-->
+              <?php
+                
+                    $xmlString = "";
+                        foreach (file("XML/utenti.xml") as $node) {
+                            $xmlString .= trim($node);
+                        }
 
-              </div>
+                        $doc = new DOMDocument();
+                        $doc->loadXML($xmlString);
+
+                        $utenti = $doc->getElementsByTagName("Utente");
+
+                        foreach ($utenti as $utente) {
+
+                            $idUtente = $utente->getAttribute("id_user");
+
+                            $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+
+                            $possiedeGioco = false;
+
+                            foreach ($giochi as $gioco) {
+                                $idGiocoP = $gioco->textContent;
+
+                                if ($idGiocoP == $idGioco) {
+                                    $possiedeGioco = true;
+                                    break;
+                                }
+                            }
+
+                            if (!$possiedeGioco) {
+                                echo '
+                                <div id="Acquisto">
+                                    <input type="button" id="buttonAcquista" value="Acquista">
+                                </div>';
+                            }
+                        }
+                   
+
+              ?>
                
             </div>
             

@@ -140,6 +140,76 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     $doc->save("XML/utenti.xml");
 }
 
+if (isset($_POST["AcquistoPic"])) {
+
+
+
+
+    $idpicscelto=$_POST["scelta"];
+
+    $idUtente=$_SESSION["userId"];
+
+        $xmlString="";
+                                                            
+    foreach(file("XML/ProfilePic.xml") as $node){ 
+        $xmlString .= trim($node);
+    }
+    
+    $doc= new DOMDocument();
+    $doc->loadXML($xmlString);
+    $root=$doc->documentElement;
+    $elem=$root->childNodes;
+    foreach($elem as $pics){
+        if($pics->getAttribute('id_pic') == $idpicscelto){
+            $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
+            $newPath = $pics->getElementsByTagName('path')->item(0)->textContent;
+        }
+    }
+
+    $db_name = "Database_Pixel_Hub";
+    $table_users = "Tabella_Utenti";
+    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+    if (mysqli_connect_errno()){
+
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
+
+
+
+    $sql = "
+        UPDATE $table_users
+        SET  Pixels = Pixels - $prezzo, imgProfiloPath = $newPath
+        WHERE ID = ".(int)$_SESSION['userId'].";
+    ";
+
+    if (mysqli_query($mysqliConnection, $sql)) {
+        $xmlString="";
+                                                            
+        foreach(file("XML/utenti.xml") as $node){ 
+            $xmlString .= trim($node);
+        }
+        
+        $doc= new DOMDocument();
+        $doc->loadXML($xmlString);
+        $root=$doc->documentElement;
+        $elem=$root->childNodes;
+        foreach($elem as $userNode){
+            
+            if($userNode->getAttribute('id_user') == $idUtente){
+                $nuovaPic = $doc->createElement("idPropic");
+                $nuovaPic->textContent=$idpicscelto;
+                $userNode->getElementsByTagName("listaPropic")->appendChild($nuovaPic);
+            }
+
+
+        }
+        $doc->save("XML/utenti.xml");
+        header("Location:Profilo.php");
+    }
+    else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+}
+
 
 
 ?>
@@ -419,6 +489,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                             <option value="Avventura">Avventura</option>
                                             <option value="Souls-like">Souls-like</option>
                                             <option value="Strategia">Strategia</option>
+                                            <option value="Rouge-like">Rouge-like</option>
                                         </select>  
                                     
                                 </td> 
@@ -454,9 +525,24 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                     </td>
                                 </form>
                             <tr>
+                                                        <tr> 
+                                <form method="post" action="Profilo.php">
+                                    <td>Modifica Immagine Profilo</td>
+                                    <td>
+                                        
+                                        <input type="text" placeholder="Seleziona l'immagine profilo" name="newPropic" />
+                                       
+                                        
+                                    </td>
+                                    <td>
+                                        <input type="submit" name="cambiaImmagine" value="Modifica la tua immagine profilo"/>
+                                    
+                                    </td>
+                                </form>
+                            <tr>
                         </table>
                     </div>
-                </div>     
+                </div>     </form>
                 </div>
                 <div>
                     <div><h2>Store immagini profilo</h2></div>
@@ -471,15 +557,19 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                             $doc->loadXML($xmlString);
                             $root = $doc->documentElement;
                             $elem = $root->childNodes;
+                            echo "<form method=\"post\" action=\"Profilo.php\">";
                             foreach($elem as $pic){
-                                echo "<div>";
+                                echo "<div class=\"sceltaprofilo\">";
                                 echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('nome')->item(0)->textContent."</p></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('prezzo')->item(0)->textContent." Pixels</p></div>";
+                                echo "<div> <input type=\"checkbox\" name=\"scelta" . $pic->getAttribute('id_pic') . "\" /></div>";
                                 echo "</div>";
                             }
+                            echo "<div><input type=\"submit\" name=\"AcquistoPic\" value=\"Acquista\"/></div>";
+                            echo "</form>"
                         ?>
-                    </div>
+                    </div> 
                 </div> 
             </div>
         </div>

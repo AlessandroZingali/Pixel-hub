@@ -287,6 +287,14 @@ header{
 
 }
 
+.sceltaprofilo{
+    color:white;
+
+    img{
+        width: 200px;
+    }
+}
+
 
 #livesearch {
     position: absolute;

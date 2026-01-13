@@ -17,6 +17,7 @@
         <xsd:element  ref="CasaDiSviluppoPreferita"   minOccurs="0"  maxOccurs="1"/> 
         <xsd:element  ref="GenerePreferito"   minOccurs="0" maxOccurs="1"/> 
         <xsd:element ref="listaGiochi" minOccurs ="0" maxOccurs="1" />
+        <xsd:element ref="listaPropic" minOccurs ="0" maxOccurs="1" />
       </xsd:sequence> 
         <xsd:attribute name="id_user" type="xsd:integer" use="required" /> 
     </xsd:complexType> 
@@ -36,5 +37,15 @@
   </xsd:element>
 
   <xsd:element name="idGiocoPosseduto" type="xsd:integer" />
+
+    <xsd:element name="listaPropic">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="idPropic" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="idPropic" type="xsd:integer" />
 
 </xsd:schema> 
