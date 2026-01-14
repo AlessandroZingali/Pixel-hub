@@ -144,14 +144,32 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
 
 if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
-
-
-
-   $idpicscelto=$_POST["scelta"];
+    $idpicscelto=$_POST["scelta"];
 
     $idUtente=$_SESSION["userId"];
 
-        $xmlString="";
+    $xmlString="";
+                                                            
+    foreach(file("XML/utenti.xml") as $node){ 
+        $xmlString .= trim($node);
+    }
+    
+    $doc= new DOMDocument();
+    $doc->loadXML($xmlString);
+    $root=$doc->documentElement;
+    $elem=$root->childNodes;
+    foreach($elem as $userNode){
+        if($userNode->getAttribute('id_user') == $_SESSION['userId']){
+            if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
+                $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+                foreach($pics as $pic){ 
+                    if($pic->textContet == $idpicscelto) $invalidFlag = 4;
+                }
+            }
+        }
+    }
+
+    $xmlString="";
                                                             
     foreach(file("XML/ProfilePic.xml") as $node){ 
         $xmlString .= trim($node);
@@ -274,17 +292,17 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
         </script>
         <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
         <?php
-        if($invalidFlag > 0){
-            echo "<script>
-                swapperInSettings();";
-            echo "localStorage.setItem(invalidFlag, $invalidFlag);";
+        echo $invalidFlag;
+        if($invalidFlag > 0){ 
+            echo "<script>";
+            echo "localStorage.setItem(\"invalidFlag\", $invalidFlag);";
             echo "</script>";
         }  
     
     ?>
         
     </head>
-    <body>    
+    <body>
         <div id="container">
             <div id="header">
                 <div id="logo">

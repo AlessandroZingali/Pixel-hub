@@ -250,7 +250,6 @@ header{
     border: white 2px solid;
     border-radius: 15px;
     width: 100%;
-    padding: 5%;
 }
 
 .gridPicStore form{
@@ -260,7 +259,9 @@ header{
     grid-template-rows: auto;
     width: 100%;
     box-sizing: border-box;
-    gap: 16px;
+    gap: 20px;
+
+    padding-left: 8%;
   
 }
 
@@ -532,7 +533,9 @@ header{
     }
 
 
-
+    .gridPicStore form{
+        grid-template-columns: repeat( 3, minmax(220px, 1fr));
+    }
 
 
 
@@ -551,14 +554,12 @@ header{
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
-    
-
+    }
 
     
-
- 
-}
+    .gridPicStore form{
+        grid-template-columns: repeat( 2, minmax(220px, 1fr));
+    }
 
 @media (max-width: 1350px){
 
@@ -572,6 +573,14 @@ header{
     .buttons{
         flex-direction: row;
     }
+
+    .sceltaPic{
+
+    img{
+        width: 140px;
+        height: 140px;
+    }
+}
 }
 
 }

@@ -18,10 +18,15 @@ function swapperInStore(){
 }
 
 function invalidation(){
-    $flag = isNaN(localStorage.getItem(invalidFlag)) ? 0 : localStorage.getItem(invalidFlag);
-
+    console.log(localStorage.getItem("invalidFlag"));
+    $flag = isNaN(localStorage.getItem("invalidFlag")) ? 0 : localStorage.getItem("invalidFlag");
+    console.log($flag);
     if($flag == 1) alert('Password Errata');
     else if($flag == 2) alert('Email Errata');
-    else if($flag == 3) alert('fondi insufficenti');
+    else if($flag == 3){ 
+        swapperInStore();
+        alert('fondi insufficenti');
+        localStorage.removeItem("invalidFlag");
+    }
 
 }
