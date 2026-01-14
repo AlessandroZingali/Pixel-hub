@@ -131,6 +131,7 @@ if(isset($_POST['signin']) && $jumper==0){
 
                     
                     echo("Registrazione effettuata!");
+                    exit();
                     header("Location: login.php");
                     
                 }
