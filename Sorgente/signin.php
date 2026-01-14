@@ -139,6 +139,13 @@ if(isset($_POST['signin']) && $jumper==0){
                             $root->appendChild($utente);
                             $doc->save("XML/utenti.xml");
 
+                    
+                    echo("Registrazione effettuata!");
+                    exit();
+                    header("Location: login.php");
+                    
+                }
+        }  
                             
                             echo("Registrazione effettuata!");
                             header("Location: login.php");

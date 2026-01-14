@@ -42,6 +42,8 @@
     <Titolo>Cyberpunk 2077</Titolo>
     <Prezzo>59.99</Prezzo>
     <CasaSviluppo>CD Projekt Red</CasaSviluppo>
+    <Publisher>Cd Projekt</Publisher>
+    <Descrizione>Night City è una fittizia città americana della California, controllata da numerose corporazioni. Vede il conflitto tra le dilaganti guerre tra bande contendendosi il dominio. La città fa affidamento alla robotica per aspetti quotidiani come la raccolta dei rifiuti, la manutenzione e il trasporto pubblico. I senzatetto abbondano, ma non gli viene preclusa la modifica cibernetica, dando luogo a dipendenza cosmetica e conseguente estrema violenza. Queste minacce vengono affrontate dalle forze armate note come Max Tac. Viene invece impiegato il Trauma Team per i servizi medici rapidi. A causa delle costanti minacce e la criminalità dilagante, tutti i cittadini possono equipaggiarsi con armi da fuoco. Il progresso tecnologico rispetto alla nostra epoca è assai evidente. Praticamente tutti gli elementi del corpo umano (escludendo il cervello) sono ora rimpiazzabili da controparti meccaniche e rinnovabili. Questo aspetto, unito ai progressi medici e scientifici, ha consentito un notevole aumento dell’aspettativa di vita. Non è raro incontrare persone che noi definiremmo molto anziane in quanto a età, che però non dimostrano più di 30 o 40 anni. Vi è poi la possibilità di interfacciarsi ai dispositivi elettronici tramite il proprio cervello, utilizzando uno speciale cavo che fuoriesce da un polso. Le armi sono tecnologicamente avanzate. Un’opzione permette persino di installare lame retrattili e letali negli avambracci.</Descrizione>
     <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-3570K or AMD FX-8310; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 780 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4790 or AMD Ryzen 3 3200G; Memory: 12 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon R9 Fury; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
@@ -59,6 +61,10 @@
     <Titolo>Hades</Titolo>
     <Prezzo>24.99</Prezzo>
     <CasaSviluppo>Supergiant Games</CasaSviluppo>
+    <Publisher>Supergiant Games</Publisher>
+    <Descrizione>Hades è un videogioco roguelike d'azione sviluppato e pubblicato da Supergiant Games, disponibile per Microsoft Windows, macOS e Nintendo Switch dal 17 settembre 2020. Le versioni per PlayStation 4, PlayStation 5, Xbox One e Xbox Series X/S sono disponibili dal 13 agosto 2021. Dal 19 marzo 2024 è stata rilasciata la versione iOS tramite il servizio Netflix Games.
+    Prima della pubblicazione, nel settembre 2018, gli sviluppatori resero pubblica una versione accesso anticipato.
+    Il giocatore veste i panni di Zagreus mentre cerca di fuggire dagli inferi e dai mostri che ci abitano. Durante l'avventura il protagonista incontra diversi personaggi della mitologia greca i quali lo aiutano nella sua impresa tramite dei doni.</Descrizione>
     <RequisitiMinimi>OS: Windows 7 SP1; Processor: Intel Core 2 Duo E8400; Memory: 4 GB RAM; Graphics: NVIDIA GeForce 8800 GT; DirectX: Version 10; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5-2300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
