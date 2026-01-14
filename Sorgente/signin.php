@@ -64,22 +64,22 @@ if(isset($_POST['signin']) && $jumper==0){
             $service=("Utente già registrato!");
         }
         else{
-            if($_COOKIE['tipoSignIn'] == "0"){
-                $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente)
+            if($_COOKIE['tipoSignIn'] == "0"){ //Tipo utente normale
+                $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                 VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 0)";
+                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 0,'ProfilePic/propicblank.png')";
                 setcookie('tipoSignIn', "", time() - 3600);
                 }
-                else if($_COOKIE['tipoSignIn'] == "1"){
-                    $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, PIVA)
+                else if($_COOKIE['tipoSignIn'] == "1"){//tipo utente publisher che possiede una partita iva
+                    $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath, PIVA)
                 VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 1,'{$_POST['PIVA']}')";
+                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 1,'ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                 setcookie('tipoSignIn', "", time() - 3600);
                 }
-                else if($_COOKIE['tipoSignIn'] == "2"){
-                    $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente)
+                else if($_COOKIE['tipoSignIn'] == "2"){//Tipo utente admin
+                    $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                 VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2)";
+                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2,'ProfilePic/propicblank.png')";
                 setcookie('tipoSignIn', "", time() - 3600);
                 }
                 
@@ -88,6 +88,46 @@ if(isset($_POST['signin']) && $jumper==0){
                 exit();
                 }
                 else {
+
+                $db_name = "Database_Pixel_Hub";
+                $table_users = "Tabella_Utenti";
+                $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                if (mysqli_connect_errno()){
+
+                    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                }
+                $nickname = mysqli_real_escape_string($mysqliConnection, $_POST['Nickname']);
+                $sql = "SELECT ID FROM $table_users WHERE username = '$nickname'";
+
+                $resultQ = mysqli_query($mysqliConnection, $sql);
+
+                if ($resultQ){
+                    $row = mysqli_fetch_array($resultQ);
+                }
+                    $idUtente=$row;
+
+                    $xmlString="";
+                                                                            
+                    foreach(file("XML/utenti.xml") as $node){ 
+                        $xmlString .= trim($node);
+                    }
+                    
+                    $doc= new DOMDocument();
+                    $doc->loadXML($xmlString);
+                    $root=$doc->documentElement;
+                    $elem=$root->childNodes;
+                    $utente = $doc->createElement("Utente");
+                    $utente->setAttribute("id_user", $idUtente); 
+                    $utente->appendChild($doc->createElement("linkEsterno", ""));
+                    $utente->appendChild($doc->createElement("DataIscrizione", date("d/m/Y")));
+                    $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", ""));
+                    $utente->appendChild($doc->createElement("GenerePreferito", ""));
+                    $utente->appendChild($doc->createElement("listaGiochi"));
+                    $utente->appendChild($doc->createElement("listaPropic"));
+
+                    $root->appendChild($utente);
+                    $doc->save("XML/utenti.xml");
 
                     
                     echo("Registrazione effettuata!");

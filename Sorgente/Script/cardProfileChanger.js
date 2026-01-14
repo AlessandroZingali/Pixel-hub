@@ -18,14 +18,40 @@ function swapperInStore(){
 }
 
 function invalidation(){
-    console.log(localStorage.getItem("invalidFlag"));
+
     $flag = isNaN(localStorage.getItem("invalidFlag")) ? 0 : localStorage.getItem("invalidFlag");
-    console.log($flag);
-    if($flag == 1) alert('Password Errata');
-    else if($flag == 2) alert('Email Errata');
+
+    if($flag == 1){ 
+        swapperInSettings();
+
+        setTimeout(function () {
+         alert('Email Errata'); }, 500);
+        
+        localStorage.removeItem("invalidFlag");
+
+    } 
+    else if($flag == 2){
+        swapperInSettings();
+
+        setTimeout(function () {
+         alert('Password Errata'); }, 500);
+        
+        localStorage.removeItem("invalidFlag");
+    } 
     else if($flag == 3){ 
         swapperInStore();
-        alert('fondi insufficenti');
+
+        setTimeout(function () {
+        alert('fondi insufficenti'); }, 500);
+        
+        localStorage.removeItem("invalidFlag");
+    }
+    else if($flag == 4){
+        swapperInStore();
+    
+        setTimeout(function () {
+        alert('Immagine profilo gia acquistata!'); }, 500);
+        
         localStorage.removeItem("invalidFlag");
     }
 

@@ -251,7 +251,20 @@ border-radius: 10%;
 
 #Acquisto{
     border:white solid;
+    padding: 4%;
+    border-radius: 15px;
+    
 }
+
+
+#buttonAcquista{
+    background-color: rgba(63, 56, 56, 0.911);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+}
+
 #consigliati{
     margin-top: 10px;
     padding: 20px;

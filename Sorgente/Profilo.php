@@ -163,83 +163,85 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
             if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
                 $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
                 foreach($pics as $pic){ 
-                    if($pic->textContet == $idpicscelto) $invalidFlag = 4;
+                    if($pic->textContent == $idpicscelto) $invalidFlag = 4;
                 }
             }
         }
     }
-
-    $xmlString="";
-                                                            
-    foreach(file("XML/ProfilePic.xml") as $node){ 
-        $xmlString .= trim($node);
-    }
-    
-    $doc= new DOMDocument();
-    $doc->loadXML($xmlString);
-    $root=$doc->documentElement;
-    $elem=$root->childNodes; 
-    foreach($elem as $pics){
-        if($pics->getAttribute('id_pic') == $idpicscelto){
-            $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
-            $newPath = $pics->getElementsByTagName('path')->item(0)->textContent;
-        }
-    }
-
-    $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-    if (mysqli_connect_errno()){
-
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-
-    $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
-    $resultQ = mysqli_query($mysqliConnection, $sql);
-    
-    if ($resultQ){
-        $row = mysqli_fetch_array($resultQ);
-        if($row['Pixels']<$prezzo) $invalidFlag=3;
-    }
-    
     if($invalidFlag == 0){
-
-        $sql = "
-        UPDATE $table_users
-        SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
-        WHERE ID = ".(int)$_SESSION['userId'].";
-        ";
-
-        if (mysqli_query($mysqliConnection, $sql)) {
-            $xmlString="";
-                                                                
-            foreach(file("XML/utenti.xml") as $node){ 
-                $xmlString .= trim($node);
-            }
-            
-            $doc= new DOMDocument();
-            $doc->loadXML($xmlString);
-            $doc->formatOutput = true;
-            $root=$doc->documentElement;
-            $elem=$root->childNodes;
-            foreach($elem as $userNode){
-                
-                if($userNode->getAttribute('id_user') == $idUtente){
-                    $nuovaPic = $doc->createElement("idPropic");
-                    $nuovaPic->textContent=$idpicscelto;
-                    $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
-                    $picRoot->appendChild($nuovaPic);
-                }
-
-
-            }
-            $doc->save("XML/utenti.xml");
-            /*header("Location:Profilo.php");*/
+        $xmlString="";
+                                                            
+        foreach(file("XML/ProfilePic.xml") as $node){ 
+            $xmlString .= trim($node);
         }
-        else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    
+        
+        $doc= new DOMDocument();
+        $doc->loadXML($xmlString);
+        $root=$doc->documentElement;
+        $elem=$root->childNodes; 
+        foreach($elem as $pics){
+            if($pics->getAttribute('id_pic') == $idpicscelto){
+                $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
+                $newPath = $pics->getElementsByTagName('path')->item(0)->textContent;
+            }
+        }
+
+        $db_name = "Database_Pixel_Hub";
+        $table_users = "Tabella_Utenti";
+        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+        if (mysqli_connect_errno()){
+
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+        $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
+        $resultQ = mysqli_query($mysqliConnection, $sql);
+        
+        if ($resultQ){
+            $row = mysqli_fetch_array($resultQ);
+            if($row['Pixels']<$prezzo) $invalidFlag=3;
+        }
+        
+        if($invalidFlag == 0){
+
+            $sql = "
+            UPDATE $table_users
+            SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
+            WHERE ID = ".(int)$_SESSION['userId'].";
+            ";
+
+            if (mysqli_query($mysqliConnection, $sql)) {
+                $xmlString="";
+                                                                    
+                foreach(file("XML/utenti.xml") as $node){ 
+                    $xmlString .= trim($node);
+                }
+                
+                $doc= new DOMDocument();
+                $doc->loadXML($xmlString);
+                $doc->formatOutput = true;
+                $root=$doc->documentElement;
+                $elem=$root->childNodes;
+                foreach($elem as $userNode){
+                    
+                    if($userNode->getAttribute('id_user') == $idUtente){
+                        $nuovaPic = $doc->createElement("idPropic");
+                        $nuovaPic->textContent=$idpicscelto;
+                        $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
+                        $picRoot->appendChild($nuovaPic);
+                    }
+
+
+                }
+                $doc->save("XML/utenti.xml");
+                /*header("Location:Profilo.php");*/
+            }
+            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        
+        }
     }
+    
    
 }
 
@@ -650,7 +652,7 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
                         </table>
                     </div>
                 </div>     
-                </div>
+                
                 <div class="cardPicStore hideCard" id="card3">
                     <div class="backarrow">
                             <button onclick="swapperInStore()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
@@ -668,19 +670,24 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
                             $root = $doc->documentElement;
                             $elem = $root->childNodes;
                             echo "<form method=\"post\" action=\"Profilo.php\">";
+                            echo "<div class=\"gridPicStoreForm\">";
                             foreach($elem as $pic){
+                                
                                 echo "<div class=\"sceltaPic\">";
                                 echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('nome')->item(0)->textContent."</p></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('prezzo')->item(0)->textContent." Pixels</p></div>";
-                                echo "<div> <input type=\"checkbox\" name=\"scelta\" value=\"". $pic->getAttribute('id_pic') . "\" /></div>";
+                                echo "<div> <input type=\"radio\" name=\"scelta\" value=\"". $pic->getAttribute('id_pic') . "\" /></div>";
                                 echo "</div>";
                             }
+                            
+                            echo "</div>";
                             echo "<div><input type=\"submit\" name=\"AcquistoPic\" value=\"Acquista\"/></div>";
                             echo "</form>"
                         ?>
                     </div> 
                 </div> 
+                </div>
             </div>
         </div>
             

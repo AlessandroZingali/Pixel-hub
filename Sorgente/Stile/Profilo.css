@@ -192,11 +192,13 @@ header{
 }
 .cardSettings{
     margin-top: 2%;
+    
   
     width: 100%;
     color: white;
     /*display:contents;*/
     table{
+        
         border:white solid 4px;
          background-image: linear-gradient(to right, #434343 0%, black 100%);
         background-repeat: no-repeat;
@@ -211,14 +213,15 @@ header{
     table input[type='text']
  {
         padding: 5%;
-        margin-right: 10%;
+        border-spacing: 100px;
         background-color: beige;
         border-radius: 10px;
         align-items: center;
     }
     table select
     {
-                padding: 5%;
+        padding: 5%;
+        width: 100%;
         margin-right: 10%;
         background-color: beige;
         border-radius: 10px;
@@ -233,7 +236,9 @@ header{
         border-radius: 30px;
         color:white;
         padding-left: 10px;
+        margin-left: 30px;
         width: 80%;
+        height: 30px;
         white-space: nowrap;
         
 
@@ -243,6 +248,7 @@ header{
     }
 }
 .cardPicStore{
+    padding:3%;
     margin-top: 2%;
     background-color: rgb(39, 31, 31);  
     background-repeat: no-repeat;
@@ -252,14 +258,19 @@ header{
     width: 100%;
 }
 
-.gridPicStore form{
+.gridPicStore{
+    display: flex;
+    flex-direction: column;
+}
+
+.gridPicStoreForm{
     display: grid;
     /*border: #76d5f0 solid;*/
     grid-template-columns: repeat( 4, minmax(220px, 1fr));
     grid-template-rows: auto;
     width: 100%;
     box-sizing: border-box;
-    gap: 20px;
+    gap: 10px;
 
     padding-left: 8%;
   
@@ -533,7 +544,7 @@ header{
     }
 
 
-    .gridPicStore form{
+    .gridPicStoreForm{
         grid-template-columns: repeat( 3, minmax(220px, 1fr));
     }
 
@@ -557,7 +568,7 @@ header{
     }
 
     
-    .gridPicStore form{
+    .gridPicStoreForm{
         grid-template-columns: repeat( 2, minmax(220px, 1fr));
     }
 

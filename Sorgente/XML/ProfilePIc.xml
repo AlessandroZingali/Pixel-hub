@@ -20,5 +20,16 @@
         <prezzo>200</prezzo>
         <path>ProfilePic/Yoshi.png</path>
     </Pic>
+    <Pic id_pic="5">
+        <nome>White Monster Hollow Knight</nome>
+        <prezzo>200</prezzo>
+        <path>ProfilePic/White_Monster_hollow_knight.png</path>
+    </Pic>
+    <Pic id_pic="6">
+        <nome>Nah Spiderman</nome>
+        <prezzo>250</prezzo>
+        <path>ProfilePic/Nah_ah_Spiderman.png</path>
+    </Pic>
+
 
 </listaPic>

@@ -17,6 +17,24 @@
       <idPropic>1</idPropic>
       <idPropic>2</idPropic>
       <idPropic>3</idPropic>
+      <idPropic>4</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="3">
+    <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
+    <DataIscrizione>18/02/2016</DataIscrizione>
+    <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi>
+      <idGiocoPosseduto>1</idGiocoPosseduto>
+      <idGiocoPosseduto>4</idGiocoPosseduto>
+      <idGiocoPosseduto>6</idGiocoPosseduto>
+      <idGiocoPosseduto>7</idGiocoPosseduto>
+      <idGiocoPosseduto>9</idGiocoPosseduto>
+      <idGiocoPosseduto>11</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>1</idPropic>
     </listaPropic>
   </Utente>
 </listaUtenti>
