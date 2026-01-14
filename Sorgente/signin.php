@@ -10,6 +10,8 @@ if(isset($_SESSION)){
 $tipoSignIn="";
 $service="";
 $jumper=0;
+$accessKey="1999";
+$unlock = 0;
 
 
 if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
@@ -24,10 +26,11 @@ if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
         setcookie('tipoSignIn', "1");
     }
     else if($_GET['TipoUtente'] == "2"){
-             //   echo "<p>sono il tipo utente 2</p>";
+            echo "sono il tipo utente 2";
         $tipoSignIn = 2;
         setcookie('tipoSignIn', "2");
     }
+   
 }
 
 if(isset($_POST['signin']) && isset($_COOKIE['tipoSignIn'])){
@@ -40,8 +43,11 @@ if(isset($_POST['signin']) && isset($_COOKIE['tipoSignIn'])){
         }
     }
 }
+if(isset($_POST['accessKey'])){
+    if($_POST['accessKey'] == $accessKey) $unlock = 1;
+}
 
-
+ print_r ($_COOKIE);
 
 if(isset($_POST['signin']) && $jumper==0){
     if(preg_match('/^.*@.*$/', $_POST['Email']) &&
@@ -56,93 +62,99 @@ if(isset($_POST['signin']) && $jumper==0){
             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
+        $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
         $resultQ = mysqli_query($mysqliConnection, $queryLogin);
         $num = mysqli_num_rows($resultQ);
 
         if($num > 0){
             $service=("Utente già registrato!");
         }
+       
         else{
-            if($_COOKIE['tipoSignIn'] == "0"){ //Tipo utente normale
-                $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
-                VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 0,'ProfilePic/propicblank.png')";
-                setcookie('tipoSignIn', "", time() - 3600);
-                }
-                else if($_COOKIE['tipoSignIn'] == "1"){//tipo utente publisher che possiede una partita iva
-                    $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath, PIVA)
-                VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 1,'ProfilePic/propicblank.png','{$_POST['PIVA']}')";
-                setcookie('tipoSignIn', "", time() - 3600);
-                }
-                else if($_COOKIE['tipoSignIn'] == "2"){//Tipo utente admin
+                if($_COOKIE['tipoSignIn'] == "2" && $unlock == 0) $service="Chiave di registrazione errata! Contattare la segreteria al numero +3906061225587";
+                else{
+                    if($_COOKIE['tipoSignIn'] == "0"){ //Tipo utente normale
                     $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
-                VALUES
-                ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2,'ProfilePic/propicblank.png')";
-                setcookie('tipoSignIn', "", time() - 3600);
+                    VALUES
+                    ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 0,'ProfilePic/propicblank.png')";
+                    setcookie('tipoSignIn', "", time() - 3600);
+                    }
+                    else if($_COOKIE['tipoSignIn'] == "1"){//tipo utente publisher che possiede una partita iva
+                        $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath, PIVA)
+                    VALUES
+                    ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 1,'ProfilePic/propicblank.png','{$_POST['PIVA']}')";
+                    setcookie('tipoSignIn', "", time() - 3600);
+                    }
+                    else if($_COOKIE['tipoSignIn'] == "2"){//Tipo utente admin
+                        $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
+                    VALUES
+                    ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2,'ProfilePic/propicblank.png')";
+                    setcookie('tipoSignIn', "", time() - 3600);
+                    }
+
+                    
+                    if (!$resultQ = mysqli_query($mysqliConnection, $sql)) {
+                    echo("Query non partita! \n");
+                    exit();
+                    }
+                    else {
+
+                        $db_name = "Database_Pixel_Hub";
+                        $table_users = "Tabella_Utenti";
+                        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                        if (mysqli_connect_errno()){
+
+                            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                        }
+                        $nickname = mysqli_real_escape_string($mysqliConnection, $_POST['Nickname']);
+                        $sql = "SELECT ID FROM $table_users WHERE username = '$nickname'";
+
+                        $resultQ = mysqli_query($mysqliConnection, $sql);
+
+                        if ($resultQ){
+                            $row = mysqli_fetch_array($resultQ);
+                        }
+                            $idUtente=$row['ID'];
+
+                            $xmlString="";
+                                                                                    
+                            foreach(file("XML/utenti.xml") as $node){ 
+                                $xmlString .= trim($node);
+                            }
+                            
+                            $doc= new DOMDocument();
+                            $doc->loadXML($xmlString);
+                            $root=$doc->documentElement;
+                            $elem=$root->childNodes;
+                            $utente = $doc->createElement("Utente");
+                            $utente->setAttribute("id_user", $idUtente); 
+                            $utente->appendChild($doc->createElement("linkEsterno", ""));
+                            $utente->appendChild($doc->createElement("DataIscrizione", date("d/m/Y")));
+                            $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", ""));
+                            $utente->appendChild($doc->createElement("GenerePreferito", ""));
+                            $utente->appendChild($doc->createElement("listaGiochi"));
+                            $utente->appendChild($doc->createElement("listaPropic"));
+
+                            $root->appendChild($utente);
+                            $doc->save("XML/utenti.xml");
+
+                            
+                            echo("Registrazione effettuata!");
+                            header("Location: login.php");
+                        
+                    }
                 }
                 
-                if (!$resultQ = mysqli_query($mysqliConnection, $sql)) {
-                echo("Query non partita! \n");
-                exit();
-                }
-                else {
-
-                $db_name = "Database_Pixel_Hub";
-                $table_users = "Tabella_Utenti";
-                $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-                if (mysqli_connect_errno()){
-
-                    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-                }
-                $nickname = mysqli_real_escape_string($mysqliConnection, $_POST['Nickname']);
-                $sql = "SELECT ID FROM $table_users WHERE username = '$nickname'";
-
-                $resultQ = mysqli_query($mysqliConnection, $sql);
-
-                if ($resultQ){
-                    $row = mysqli_fetch_array($resultQ);
-                }
-                    $idUtente=$row;
-
-                    $xmlString="";
-                                                                            
-                    foreach(file("XML/utenti.xml") as $node){ 
-                        $xmlString .= trim($node);
-                    }
-                    
-                    $doc= new DOMDocument();
-                    $doc->loadXML($xmlString);
-                    $root=$doc->documentElement;
-                    $elem=$root->childNodes;
-                    $utente = $doc->createElement("Utente");
-                    $utente->setAttribute("id_user", $idUtente); 
-                    $utente->appendChild($doc->createElement("linkEsterno", ""));
-                    $utente->appendChild($doc->createElement("DataIscrizione", date("d/m/Y")));
-                    $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", ""));
-                    $utente->appendChild($doc->createElement("GenerePreferito", ""));
-                    $utente->appendChild($doc->createElement("listaGiochi"));
-                    $utente->appendChild($doc->createElement("listaPropic"));
-
-                    $root->appendChild($utente);
-                    $doc->save("XML/utenti.xml");
-
-                    
-                    echo("Registrazione effettuata!");
-                    header("Location: login.php");
-                    
-                }
-        }  
+            }  
     }
-    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0){
+    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
         $service=("Email non valida!");
     }
-    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin']) && $jumper==0){
+    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
         $service=("Data di Nascita non valida!");
     }
-    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password'])) && isset($_POST['signin']) && $jumper==0){
+    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
         $service=("Password non valida! Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri.");
     }
     }
@@ -197,8 +209,14 @@ if(isset($_POST['signin']) && $jumper==0){
                     </div>
 
                     <?php
-                    if($tipoSignIn == 1){
+                    if($tipoSignIn == 1 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "1")){
                         echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\"/></div>";
+                    }
+                    ?>
+
+                    <?php
+                    if($tipoSignIn == 2 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "2")){
+                        echo "<div id=\"Partitaiva\"> <p>Chiave di registrazione</p> <input type=\"text\" placeholder=\"&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;\" name=\"accessKey\" /></div>";
                     }
                     ?>
 

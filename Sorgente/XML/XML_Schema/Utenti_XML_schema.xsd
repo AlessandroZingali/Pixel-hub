@@ -16,8 +16,8 @@
         <xsd:element  ref="DataIscrizione"   minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="CasaDiSviluppoPreferita"   minOccurs="0"  maxOccurs="1"/> 
         <xsd:element  ref="GenerePreferito"   minOccurs="0" maxOccurs="1"/> 
-        <xsd:element ref="listaGiochi" minOccurs ="0" maxOccurs="1" />
-        <xsd:element ref="listaPropic" minOccurs ="0" maxOccurs="1" />
+        <xsd:element ref="listaGiochi" minOccurs ="1" maxOccurs="1" />
+        <xsd:element ref="listaPropic" minOccurs ="1" maxOccurs="1" />
       </xsd:sequence> 
         <xsd:attribute name="id_user" type="xsd:integer" use="required" /> 
     </xsd:complexType> 

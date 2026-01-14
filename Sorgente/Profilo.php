@@ -294,7 +294,6 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
         </script>
         <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
         <?php
-        echo $invalidFlag;
         if($invalidFlag > 0){ 
             echo "<script>";
             echo "localStorage.setItem(\"invalidFlag\", $invalidFlag);";
