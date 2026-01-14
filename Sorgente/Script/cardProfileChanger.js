@@ -1,3 +1,4 @@
+window.addEventListener("load", invalidation);
 function swapperInSettings(){
     var cardProfilo = document.getElementById("card1");
     console.log("Ris: "+cardProfilo);
@@ -14,4 +15,13 @@ function swapperInStore(){
     
     cardProfilo.classList.toggle("hideCard");
     cardStore.classList.toggle("hideCard");
+}
+
+function invalidation(){
+    $flag = isNaN(localStorage.getItem(invalidFlag)) ? 0 : localStorage.getItem(invalidFlag);
+
+    if($flag == 1) alert('Password Errata');
+    else if($flag == 2) alert('Email Errata');
+    else if($flag == 3) alert('fondi insufficenti');
+
 }

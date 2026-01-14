@@ -147,7 +147,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
 
 
-    $idpicscelto=$_POST["scelta"];
+   $idpicscelto=$_POST["scelta"];
 
     $idUtente=$_SESSION["userId"];
 
@@ -160,7 +160,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
     $doc= new DOMDocument();
     $doc->loadXML($xmlString);
     $root=$doc->documentElement;
-    $elem=$root->childNodes;
+    $elem=$root->childNodes; 
     foreach($elem as $pics){
         if($pics->getAttribute('id_pic') == $idpicscelto){
             $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
@@ -177,45 +177,82 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
-    echo $newPath;
+    $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
+    $resultQ = mysqli_query($mysqliConnection, $sql);
+    
+    if ($resultQ){
+        $row = mysqli_fetch_array($resultQ);
+        if($row['Pixels']<$prezzo) $invalidFlag=3;
+    }
+    
+    if($invalidFlag == 0){
 
-    $sql = "
+        $sql = "
         UPDATE $table_users
         SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
         WHERE ID = ".(int)$_SESSION['userId'].";
-    ";
+        ";
 
-    if (mysqli_query($mysqliConnection, $sql)) {
-        $xmlString="";
-                                                            
-        foreach(file("XML/utenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        
-        $doc= new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root=$doc->documentElement;
-        $elem=$root->childNodes;
-        foreach($elem as $userNode){
-            
-            if($userNode->getAttribute('id_user') == $idUtente){
-                $nuovaPic = $doc->createElement("idPropic");
-                $nuovaPic->textContent=$idpicscelto;
-                $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
-                $picRoot->appendChild($nuovaPic);
+        if (mysqli_query($mysqliConnection, $sql)) {
+            $xmlString="";
+                                                                
+            foreach(file("XML/utenti.xml") as $node){ 
+                $xmlString .= trim($node);
             }
+            
+            $doc= new DOMDocument();
+            $doc->loadXML($xmlString);
+            $doc->formatOutput = true;
+            $root=$doc->documentElement;
+            $elem=$root->childNodes;
+            foreach($elem as $userNode){
+                
+                if($userNode->getAttribute('id_user') == $idUtente){
+                    $nuovaPic = $doc->createElement("idPropic");
+                    $nuovaPic->textContent=$idpicscelto;
+                    $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
+                    $picRoot->appendChild($nuovaPic);
+                }
 
 
+            }
+            $doc->save("XML/utenti.xml");
+            /*header("Location:Profilo.php");*/
         }
-        $doc->save("XML/utenti.xml");
-        header("Location:Profilo.php");
+        else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    
     }
-    else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+   
 }
 
+if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
 
 
+    $newPath = $_POST['newPropic'];
+                    
+
+    $db_name = "Database_Pixel_Hub";
+    $table_users = "Tabella_Utenti";
+    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+    if (mysqli_connect_errno()){
+
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
+
+    $sql="UPDATE $table_users SET imgProfiloPath = \"$newPath\"
+    WHERE ID = ".(int)$_SESSION['userId'].";
+        ";
+    
+
+    if(!(mysqli_query($mysqliConnection, $sql))) printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    else header('Location: Profilo.php');
+}
+                    
+               
+        
+                
+            
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -236,6 +273,15 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
             
         </script>
         <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
+        <?php
+        if($invalidFlag > 0){
+            echo "<script>
+                swapperInSettings();";
+            echo "localStorage.setItem(invalidFlag, $invalidFlag);";
+            echo "</script>";
+        }  
+    
+    ?>
         
     </head>
     <body>    
@@ -538,7 +584,42 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     <td>Modifica Immagine Profilo</td>
                                     <td>
                                         
-                                        <input type="text" placeholder="Seleziona l'immagine profilo" name="newPropic" />
+                                        <select name="newPropic">
+                                        <?php  
+                                            $xmlString="";
+                                            foreach(file("XML/utenti.xml") as $node){ 
+                                                $xmlString .= trim($node);
+                                            }
+                                            
+                                            $doc= new DOMDocument();
+                                            $doc->loadXML($xmlString);
+                                            $root=$doc->documentElement;
+                                            $elem=$root->childNodes; 
+                                            foreach($elem as $userNode){
+                                                if($userNode->getAttribute('id_user') == $_SESSION['userId']){
+                                                    if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
+                                                        $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+                                                        foreach($pics as $pic){
+                                                            $xmlString="";
+                                                            foreach(file("XML/ProfilePic.xml") as $node){ 
+                                                                $xmlString .= trim($node);
+                                                            }
+                                                
+                                                            $doc2= new DOMDocument();
+                                                            $doc2->loadXML($xmlString);
+                                                            $root2=$doc2->documentElement;
+                                                            $imgs=$root2->childNodes; 
+                                                            foreach($imgs as $img){ 
+                                                                if($pic->textContent == $img->getAttribute('id_pic')) echo "<option value=\"".$img->getElementsByTagName('path')->item(0)->textContent."\">".$img->getElementsByTagName('nome')->item(0)->textContent."</option>";
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        ?>
+                                        </select>
+                                            
                                        
                                         
                                     </td>
@@ -600,16 +681,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
         </div>
         
     </body>
-    <?php
-        if($invalidFlag != 0){
-            echo "<script>
-                swapperInSettings();";
-            if($invalidFlag == 1) echo "alert(\"La nuova email non è valida \");";
-            else if($invalidFlag == 2) echo "alert(\"La nuova Password non è valida (Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri)\");";
-            echo "</script>";
-        }  
     
-    ?>
 
 </html> 
         

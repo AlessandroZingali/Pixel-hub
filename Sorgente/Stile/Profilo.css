@@ -192,9 +192,12 @@ header{
 }
 .cardSettings{
     margin-top: 2%;
+  
+    width: 100%;
     color: white;
     /*display:contents;*/
     table{
+        border:white solid 4px;
          background-image: linear-gradient(to right, #434343 0%, black 100%);
         background-repeat: no-repeat;
         background-size: auto;
@@ -202,13 +205,37 @@ header{
         border: white 2px solid;
         padding: 5px;
         border-spacing: 10px 30px;
+        
     }
 
+    table input[type='text']
+ {
+        padding: 5%;
+        margin-right: 10%;
+        background-color: beige;
+        border-radius: 10px;
+        align-items: center;
+    }
+    table select
+    {
+                padding: 5%;
+        margin-right: 10%;
+        background-color: beige;
+        border-radius: 10px;
+        align-items: center;
+
+
+    }
+    
     table input[type='submit']{
         font-family: "font pixeloso",monospace;
         background-color:#414141;
         border-radius: 30px;
-        color:white
+        color:white;
+        padding-left: 10px;
+        width: 80%;
+        white-space: nowrap;
+        
 
     }
     table input[type='submit']:hover{
@@ -222,6 +249,8 @@ header{
     background-size: auto;
     border: white 2px solid;
     border-radius: 15px;
+    width: 100%;
+    padding: 5%;
 }
 
 .gridPicStore form{
@@ -248,7 +277,7 @@ header{
 
     .info{
 
-        border:blue solid 2px;
+        /*border:blue solid 2px;*/
         flex-direction: column;
 
         padding: 20px;
