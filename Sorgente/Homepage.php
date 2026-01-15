@@ -23,9 +23,16 @@ if(isset($_SESSION['userId'])){
 
         <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
         <!--Set dei vari file css -->
+        <!--Set dei vari file css -->
         <link rel="stylesheet" type="text/css" href="Stile/Home.css?v=3" /> 
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script>
+            <?php
+            //Passo a javascript l'id dell'utente loggato e il suo genere preferito, 
+            //per mostrare oppure no la tebella personalizzata per l'utente in base al suo genere preferito.
+            //Si può vedere come una fleg molto elaborata per far comunicare php e javascript, in modo da contare nella gestione
+            //degli slider una tabella in più se l'utente è loggato.  
             <?php
             //Passo a javascript l'id dell'utente loggato e il suo genere preferito, 
             //per mostrare oppure no la tebella personalizzata per l'utente in base al suo genere preferito.
@@ -39,10 +46,15 @@ if(isset($_SESSION['userId'])){
             
         </script>
         <!--Set dei vari file js, per la gestione del comportamento dei vari Slider e per la barra di ricerca dei giochi -->
+        <!--Set dei vari file js, per la gestione del comportamento dei vari Slider e per la barra di ricerca dei giochi -->
         <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
     </head>
     <body>    
+        <div id="container"><!--contenitore principale, interno al body -->
+
+            <div id="header"><!--header della pagina -->
+                <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
         <div id="container"><!--contenitore principale, interno al body -->
 
             <div id="header"><!--header della pagina -->
@@ -102,6 +114,7 @@ if(isset($_SESSION['userId'])){
                         <input type=\"button\" value=\"<\" id=\"scorrindietro0\" onclick=\"sliderTable('GameTable0', 'back')\" />
                     </div> <!-- < -->
                     <div>
+                    <p class=\"titleTable\">Hey $utente guarda questi ".$_SESSION['generePreferito'].":</p>
                     <p class=\"titleTable\">Hey $utente guarda questi ".$_SESSION['generePreferito'].":</p>
                         <table id=\"GameTable0\">
                     
@@ -172,6 +185,7 @@ if(isset($_SESSION['userId'])){
                 }
                 
                 ?>
+                <!-- Slider dei giochi più popolari, ogni slider avrà un caratteristica -->
                 <!-- Slider dei giochi più popolari, ogni slider avrà un caratteristica -->
                 <div class="GameSlider">
                     
@@ -253,6 +267,8 @@ if(isset($_SESSION['userId'])){
                  <div class="GameSlider">
                     <div>
                         <input type="button" value="<" id="scorrindietro2" onclick="sliderTable('GameTable2', 'back')" />
+                    </div> <!-- Questo gameslider va a mostrare gli ulimi giochi aggiunti al sito, seguendo l'ordine di grandezza degli id
+                     (il primo gioco aggiunto in assoluto ha un id uguale a 1 -->
                     </div>
                     <div>
                          <p class="titleTable">Ultimi Giochi aggiunti</p>
@@ -314,8 +330,10 @@ if(isset($_SESSION['userId'])){
 
                         </table>
                     </div>
+                    </div>
                     <div>
                         <input type="button" value=">" id="scorriavanti2" onclick="sliderTable('GameTable2', 'forward')" />
+                    </div>
                     </div>
                 </div>
 
@@ -323,6 +341,8 @@ if(isset($_SESSION['userId'])){
                 <div class="GameSlider">
                     <div>
                         <input type="button" value="<" id="scorrindietro3" onclick="sliderTable('GameTable3', 'back')" />
+                    </div> <!-- l'ultimo gameslider presenta una raccolta di giochi che hanno in comune un genere
+                    in questo caso gli Sparatutto -->
                     </div> 
                     <div>
                         <p class="titleTable">Sparatutto</p>
