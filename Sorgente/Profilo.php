@@ -121,6 +121,27 @@ if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
     $doc->save("XML/utenti.xml");
 }
 
+if (isset($_POST["cambiaSocial"]) && !empty($_POST["newSocial"])) {
+
+    $idUtente=$_SESSION["userId"];
+
+    $xmlString="";
+                                                            
+    foreach(file("XML/utenti.xml") as $node){ 
+        $xmlString .= trim($node);
+    }
+    
+    $doc= new DOMDocument();
+    $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
+    $root=$doc->documentElement;
+    $elem=$root->childNodes;
+    foreach($elem as $userNode){
+        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('linkEsterno')->item(0)->textContent=$_POST["newSocial"];
+    }
+    $doc->save("XML/utenti.xml");
+}
+
 if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
 
     $idUtente=$_SESSION["userId"];
@@ -282,7 +303,8 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
         <title>Pixel Hub - Il mio profilo</title>
 
         <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
-        <link rel="stylesheet" type="text/css" href="Stile/Profilo.css?v=3" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/Profilo.css?v=3" />
+        <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" />  
         <script>
             <?php  
             if($service == 1 && isset($_SESSION['generePreferito'])){
@@ -594,6 +616,22 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
                                     </td>
                                     <td>
                                         <input type="submit" name="cambiaPass" value="Modifica la tua password"/>
+                                    
+                                    </td>
+                                </form>
+                            <tr>
+
+                            <tr> 
+                                <form method="post" action="Profilo.php">
+                                    <td>Modifica Link Social</td>
+                                    <td>
+                                        
+                                        <input type="text" placeholder="Inserisci il tuo social link" name="newSocial" />
+                                       
+                                        
+                                    </td>
+                                    <td>
+                                        <input type="submit" name="cambiaSocial" value="Modifica il tuo social link"/>
                                     
                                     </td>
                                 </form>

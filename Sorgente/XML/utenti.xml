@@ -7,11 +7,11 @@
     <GenerePreferito>RPG</GenerePreferito>
     <listaGiochi>
       <idGiocoPosseduto>1</idGiocoPosseduto>
-      <idGiocoPosseduto>4</idGiocoPosseduto>
+      <idGiocoPosseduto>2</idGiocoPosseduto>
       <idGiocoPosseduto>6</idGiocoPosseduto>
       <idGiocoPosseduto>7</idGiocoPosseduto>
       <idGiocoPosseduto>9</idGiocoPosseduto>
-      <idGiocoPosseduto>11</idGiocoPosseduto>
+      <idGiocoPosseduto>18</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
@@ -37,21 +37,17 @@
       <idPropic>1</idPropic>
     </listaPropic>
   </Utente>
-  <Utente id_user="6">
+  <Utente id_user="11">
     <linkEsterno/>
-    <DataIscrizione>14/01/2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
+    <DataIscrizione>15/01/2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
     <listaGiochi/>
-    <listaPropic>
-      <idPropic>5</idPropic>
-      <idPropic>3</idPropic>
-      <idPropic>6</idPropic>
-    </listaPropic>
+    <listaPropic/>
   </Utente>
-  <Utente id_user="7">
-    <linkEsterno/>
-    <DataIscrizione>14/01/2026</DataIscrizione>
+  <Utente id_user="12">
+    <linkEsterno>belelele</linkEsterno>
+    <DataIscrizione>15/01/2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
     <GenerePreferito/>
     <listaGiochi/>

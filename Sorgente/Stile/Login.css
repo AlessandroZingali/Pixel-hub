@@ -8,6 +8,9 @@
 body{
     /*border: solid rgb(168, 182, 41);*/
    /* background-image: linear-gradient(to right, #434343 0%, black 100%);*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-image: url('pixelbg1.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,9 +21,8 @@ body{
 
 #logo{
     /*border: solid red;*/
-    width: 27%;
     height: 60%;
-    margin-left: 36.5%;
+
 
 }
 
@@ -28,6 +30,7 @@ body{
 
 
 #LoginCard {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,9 +40,6 @@ body{
     border: solid rgb(241, 196, 204);
     color: white;
     margin-top: 1%;
-    margin-left: 33%;
-    padding-top: 1%;
-    
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
@@ -52,29 +52,45 @@ body{
     to {opacity: 1;}
 }
 
+.loginForm{
+    /*border: solid blue;*/
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    
+}
 
 .loginForm form{
    /* border: solid yellow;*/
-    padding-left:18%;
-    padding-top:2%;
-    margin-bottom: 5%;
+    width: 90%;
+    height: 100%;
+    margin-bottom: 1%;
+    /*padding: 30px;*/
     border-radius: 5%;
-    background-color: rgb(80, 74, 74);  
-    box-shadow: 2px 10px 10px black; 
+    background-color: rgb(80, 74, 74);
+    box-shadow: 2px 10px 10px black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 17px;
 
 }
 
 .loginForm input[type="text"]{
-    width: 80%;
-    padding: 5px;
+     width: 300px;
+    height: 25px;
     border: none;
-    border-radius: 20px;
-    margin-bottom: 5%;
+    border-radius: 20px;;
 }
 .loginForm input[type="password"]{
-    width: 80%;
-    padding: 5px;
+    width: 300px;
+    height: 25px;
     border: none;
     border-radius: 20px;
 }
@@ -85,7 +101,6 @@ body{
     padding: 5px;
     border: none;
     border-radius: 20px;
-    margin-left: 25%;
     width: 80px;
     height: 35px;
     margin-bottom: 10px;
@@ -98,6 +113,14 @@ body{
     background-color: rgb(82, 113, 255);
     width: 85px;
     height: 40px;
+}
+
+.recovery{
+    margin-top: 2%;
+    display: flex ;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 14px;
 }
 
 
@@ -119,7 +142,7 @@ body{
     text-align: center;
     background-color: steelblue;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-top: 1%;
     font-size: 12px;
     padding:5px;
     color: white;

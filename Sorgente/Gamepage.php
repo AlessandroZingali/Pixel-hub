@@ -207,6 +207,7 @@ echo "";
         
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=3" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script src="Script/likeAndDislikeGestione.js?v=3" defer="true"></script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
     </head>
@@ -510,42 +511,54 @@ echo "";
                     ?>
               </div>
               <?php
-                
-                    $xmlString = "";
+                if($service){                    
+                    
+                $xmlString = "";
                         foreach (file("XML/utenti.xml") as $node) {
                             $xmlString .= trim($node);
                         }
 
                         $doc = new DOMDocument();
                         $doc->loadXML($xmlString);
+                        $root=$doc->documentElement;
+                        $elem=$root->childNodes;
 
-                        $utenti = $doc->getElementsByTagName("Utente");
+                            
 
-                        foreach ($utenti as $utente) {
+                        foreach ($elem as $utente) {
 
                             $idUtente = $utente->getAttribute("id_user");
 
-                            $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                            if ($idUtente == $_SESSION['userId']) {
+                                $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                $possiedeGioco = false;
 
-                            $possiedeGioco = false;
+                                foreach ($giochi as $gioco) {
+                                    $idGiocoP = $gioco->textContent;
 
-                            foreach ($giochi as $gioco) {
-                                $idGiocoP = $gioco->textContent;
-
-                                if ($idGiocoP == $idGioco) {
-                                    $possiedeGioco = true;
-                                    break;
+                                    if ($idGiocoP == $idGioco) {
+                                        $possiedeGioco = true;
+                                        break;
+                                    }
                                 }
-                            }
+                                if (!$possiedeGioco) {
+                                    echo '
+                                    <div id="Acquisto">
+                                        <input type="button" id="buttonAcquista" value="Acquista">
+                                    </div>';
+                                }
 
-                            if (!$possiedeGioco && $service==1) {
-                                echo '
-                                <div id="Acquisto">
-                                    <input type="button" id="buttonAcquista" value="Acquista">
-                                </div>';
+                                else{
+                                 echo '
+                                    <div id="Acquisto">
+                                        <p>Presente nella libreria.</p>
+                                    </div>';
+
+                                }
                             }
                         }
                    
+}
 
               ?>
                

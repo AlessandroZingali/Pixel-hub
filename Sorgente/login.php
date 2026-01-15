@@ -90,7 +90,9 @@ session_start();
     </head>
     <body>
         <div id="logo">
-                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" onclick="location.href='Homepage.php'"/>
+                    <a href="Homepage.php">
+                    <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" />
+                    </a>
                 </div>
         <div id="LoginCard">
             <div class="loginForm">
@@ -119,7 +121,7 @@ session_start();
                     </div>
                     <div class="recovery">
                         <p>Hai dimeticato le tue <a href="recuperoCredenziali.php">credenziali</a>?</p>
-                        <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti!</a></p>
+                        <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti</a>!</p>
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=1">publisher</a>?</p>     
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=2">admin</a>?</p>
 
@@ -133,13 +135,14 @@ session_start();
                    
                 </form>
             </div>
-            <div id="footer">
-                <ul>
-                    <li><a href="contact.php">Contact Us</a></li>
-                    <li><a href="Faq.php">F.A.Q</a></li><br>
-                    <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
-                 </ul>
-            </div>
+            
+        </div>
+        <div id="footer">
+            <ul>
+                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="Faq.php">F.A.Q</a></li><br>
+                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                </ul>
         </div>
     </body>
 </html>
