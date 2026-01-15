@@ -42,6 +42,7 @@ if(isset($_SESSION['userId'])){
 
         <!-- " ?v=3 " serve a evitare che nel refresh della pagina vengano usate le vecchie versioni di queste regole -->
         <link rel="stylesheet" type="text/css" href="Stile/catalogo.css?v=3" />
+        <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
 
       

@@ -8,18 +8,20 @@
 body{
     /*border: solid rgb(168, 182, 41);*/
    /* background-image: linear-gradient(to right, #434343 0%, black 100%);*/
+   display: flex;
+   flex-direction: column;
     background-image: url('pixelbg2.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
+    align-items: center;
 }
 
 #logo{
-    
-    width: 27%;
-    margin-left: 34%;
+   
+    justify-content: center;
 
 }
 
@@ -35,17 +37,18 @@ body{
 
 
 
-#LoginCard {
+#SigninCard {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 35%;
-    height: 50%;
+    height: 100%;
     border: solid rgb(241, 196, 204);
     color: white;
     padding-top: 2%;
-    margin-left: 30%;
+    padding-bottom: 2%;
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
@@ -57,11 +60,21 @@ body{
     to {opacity: 1;}
 }
 
+.SigninForm{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
 
 
-.loginForm form{
-    width: 500px;
-    margin-bottom: 5%;
+.SigninForm form{
+    width: 80%;
+    height: 100%;
+    margin-bottom: 1%;
     /*padding: 30px;*/
     border-radius: 5%;
     background-color: rgb(80, 74, 74);
@@ -75,20 +88,26 @@ body{
 
 }
 
-.loginForm input[type="text"]{
+.SigninForm input[type="text"]{
     width: 300px;
     height: 25px;
     border: none;
     border-radius: 20px;
 }
-.loginForm input[type="password"]{
+.SigninForm input[type="password"]{
+    width: 300px;
+    height: 25px;
+    border: none;
+    border-radius: 20px;
+}
+.SigninForm select{
     width: 300px;
     height: 25px;
     border: none;
     border-radius: 20px;
 }
 
-.loginForm form input[type="submit"]{
+.SigninForm form input[type="submit"]{
     background-color: rgba(63, 56, 56, 0.911);
     color: white;
     padding: 10px;
@@ -96,22 +115,23 @@ body{
     border-radius: 20px;
     width: 100px;
     height: 35px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 20%;
+    margin-bottom: 20%;
     font-family: "font pixeloso",monospace;
     font-size: 12px;
     transition: background-color 0.6s ease, width 0.8s ease, height 0.8s ease;
 }
 
-.loginForm form input[type="submit"]:hover{
+.SigninForm form input[type="submit"]:hover{
     background-color: rgb(35, 193, 74);
     width: 105px;
+    margin-bottom: 4%;
     height: 40px;
 }
 
-#DataNascita{
-    margin-bottom: 5%;
-}
+
+
+
 
 
 
@@ -122,10 +142,12 @@ body{
     text-align: center;
     background-color: steelblue;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-top: 1%;
     font-size: 12px;
     padding:5px;
     color: white;
+
+    
     }
 
 #footer ul{
@@ -146,18 +168,18 @@ body{
 
 @media (max-width: 1750px){
 
-    #LoginCard{
+    #SigninCard{
         width: 50%;
         height: auto;
-        margin-left: 25%;
+        
     }
 
-    .loginForm form{
+    .SigninForm form{
         width: 400px;
     }
     #logo{
         width: 45%;
-        margin-left: 26.5%;
+        
     }
     #logo img{
         width: 100%;
@@ -170,21 +192,18 @@ body{
 
 @media (max-width: 950px){
 
-    #logo img{
-        width: 100%;
-        height: auto;
-      
-    }
+
 
     #footer{
+        margin-top: 2%;
         width: 150px;
         height: 60px;
     }
 
-    #LoginCard{
+    #SigninCard{
         width: 80%;
         height: auto;
-        margin-left: 10%;
+      
     }
         
 
@@ -192,7 +211,7 @@ body{
         width: 40px;
         font-size: 10px;
     }
-    .loginForm form{
+    .SigninForm form{
         width: 350px;
     }
 
