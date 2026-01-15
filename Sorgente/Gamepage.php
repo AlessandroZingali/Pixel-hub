@@ -1,44 +1,49 @@
 <?php 
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso,
+
 $service = 0;
 $utente = "";
 $titoloGioco = "";
 $gioco = 0;
 
-if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
+//Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
+if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
+    $titoloGioco = $_GET['titoloGioco'];
+    $idGioco = $_GET['idGioco'];
+}
+else if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
     header("Location: Homepage.php");
 }
 
-$titoloGioco = $_GET['titoloGioco'];
-$idGioco = $_GET['idGioco'];
 
 session_start();
+//Verifica se l'utente è loggato
 if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
-    $service = 1;
+    $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
 }
 echo "";
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
-<?php 
-    if(isset($_POST["invioCommento"])){
+<?php //Inizio della logica per le API della pagina gioco, ovvero l'invio di commenti e recensioni
 
-        $xmlString="";
-                                
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
-        $elem = $root->childNodes;
-            foreach($elem as $i){
-                if($i->getAttribute("id_gioco")==$idGioco){
-                    $gioco = (int)$i->getAttribute("id_gioco");
-                    break;
-                }
+    if(isset($_POST["invioCommento"])){ //Gestione Commenti
+
+        $elem = xmlPointer("XML/Commenti.xml");
+
+        //Ricordiamo che per la gestione dei commenti, e anche delle recensioni, ogni commento avra un suo id univoco SOLO in relazione al gioco
+        //a cui appartiene, quindi ogni gioco avra commenti con id che partono da 1 e cosi via. Di conseguenza se vogliamo il commento con id X,
+        //dobbiamo specificare anche a quale gioco appartiene, referezinadone l'apposito id gioco.
+        foreach($elem as $i){//Cerchiamo l'id del gioco, a cui recensioni e commenti apparterranno
+            if($i->getAttribute("id_gioco")==$idGioco){
+                $gioco = (int)$i->getAttribute("id_gioco");
+                break;
             }
+        }
+        //Se il gioco non ha commenti, e ce ne è arrivato uno, creiamo un nuovo nodo apposito. Essendo che gli id partiranno da 1, se non c'è nessuno nodo dei commenti
+        //con quel id gioco, la variabile $gioco rimarrà 0.
         if($gioco == 0){
             $newId = 1;
 
@@ -60,7 +65,7 @@ echo "";
             $gioco->appendChild($commento);
             $root->appendChild($gioco);
         }
-        else{
+        else{ //Se il gioco ha gia commenti, aggiungiamo il nuovo commento
             
             if($gioco->hasChildNodes()){
                 
@@ -82,7 +87,7 @@ echo "";
                 $commento->appendChild($testo);
                 $gioco->insertBefore($commento, $lastCommento);
            }
-            else { 
+            else { //Questa ripetizione sembra dubbia, ma è funzionale. Può capitare che il gioco abbia un nodo ma non abbia commenti al suo interno. Cosi gestiamo il caso
                 $newId = 1;
 
                 $commento = $doc->createElement("Commento");
@@ -107,25 +112,16 @@ echo "";
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
     }
 
-    if(isset($_POST["invioRecensione"])){
+    if(isset($_POST["invioRecensione"])){ //Gestione Recensioni
 
-        $xmlString="";
-                                
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
-        $elem = $root->childNodes;
+        $elem = xmlPointer("XML/Recensioni.xml");
             foreach($elem as $i){
                 if($i->getAttribute("id_gioco")==$idGioco){
                     $gioco = $i;
                     break;
                 }
             }
-        if($gioco == 0){
+        if($gioco == 0){ //Se il gioco non ha recensioni, e ce ne è arrivata una, creiamo un nuovo nodo apposito
             $newId = 1;
 
             $gioco=$doc->createElement("Gioco");
@@ -148,7 +144,7 @@ echo "";
             $root->appendChild($gioco);
         }
         else{
-           if($gioco->hasChildNodes()){
+           if($gioco->hasChildNodes()){ //Se il gioco ha gia recensioni, aggiungiamo la nuova recensione
                 $lastRecensione = $gioco->firstChild;
                 $newId = (intval($lastRecensione->getAttribute("id_recensione")));
 
@@ -170,7 +166,7 @@ echo "";
                 $recensione->appendChild($testo);
                 $gioco->insertBefore($recensione, $lastRecensione);
             }
-            else{ 
+            else{ //Questa ripetizione sembra dubbia, ma è funzionale. Può capitare che il gioco abbia un nodo ma non abbia recensioni al suo interno. Cosi gestiamo il caso
                 $newId = 1;
 
                 $recensione = $doc->createElement("Recensione");
@@ -201,10 +197,8 @@ echo "";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
-        <?php echo " 
-        <title> Game Page -".$_GET['titoloGioco']."</title> " ;
-      
-        
+        <?php //Gestiamo il titolo della pagina in maniera dinamica in base al gioco selezionato
+        echo "<title> Game Page -".$_GET['titoloGioco']."</title> " ;
         ?>
         <link rel="stylesheet" type="text/css" href="Stile/Gamepage.css?v=3" /> 
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
@@ -214,14 +208,10 @@ echo "";
     <body>
         <div id="container">
             <div id="header">
-                <div id="logo">
-                
-                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
-                
-                </div>
-                
+
+                <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
                 <h2>Il tuo shop preferito di videogiochi</h2>
- 
+                
             </div>
 
             <div id="navigation">
@@ -229,26 +219,29 @@ echo "";
                     <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
+                        //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
+                        // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
+                        //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
                             echo "<script>";
                             echo "sessionStorage.removeItem(\"idUser\");";
                             echo "sessionStorage.removeItem(\"genPref\");";
                             echo "</script>";
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                        <!--Per Debug: <li><a href="Creadatabasepixelhub.php">data</a></li>-->
                         <?php 
                         if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
                         ?>
                     </ul>
                 </div>
-                
+                <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
                         <form id="searchBar" onsubmit="return false;">
                             <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
                             <div id="livesearch"></div>

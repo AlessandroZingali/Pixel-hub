@@ -1,16 +1,6 @@
 <?php 
-require 'xmlPointer.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
-
-//Imposto un limite massimo di giochi da mostrare in ogni slider
-function setLimiteSlider($elem){
-    if($elem->length<20){
-        $limite=$elem->length;
-    } else {
-        $limite=20;
-    }
-    return $limite;
-}
-
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso,
+//e che imposta il limite dello slider a un massimo di 20 giochi.
 
 $service = 0; //0 = guest, 1 = logged in
 $utente = "";//nome utente loggato
@@ -61,17 +51,21 @@ if(isset($_SESSION['userId'])){
             </div>
 
             <div id="navigation">
+                <!--Menu a tendina per la navigazione tra le pagine principali del sito, si mostrera in tal maniera solo al restigimento della pagina-->
+                <!--e il cambio sarà gestito tramite media query-->
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
+                        //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
+                        // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
                             echo "<script>";
                             echo "sessionStorage.removeItem(\"idUser\");";
                             echo "sessionStorage.removeItem(\"genPref\");";
                             echo "</script>";
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -85,6 +79,7 @@ if(isset($_SESSION['userId'])){
                         ?>
                     </ul>
                 </div>
+                <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
                     <form id="searchBar" onsubmit="return false;">
                         <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
                         <div id="livesearch"></div>
@@ -94,12 +89,14 @@ if(isset($_SESSION['userId'])){
             
             
             <div id="TablesBoard"> <!--tag della della tabella maestra, contenente tutti i game slider. Abbiamo scelto di usare le tabelle come sostegno-->
+                <?php //Essendo che ogni Slider è uguale ma cambiano solo i filtri di selezione dei giochi, abbiamo deciso di replicare lo stesso codice per ogni slider, cambiando solo i filtri.
+                //Di conseguenza il primo slider sarà quello dove mostreremop il funzionamento generale, nel resto abbiamo evidenziato sopratutto filtri e/o differenze.
 
-                <?php 
                 //Se l'utente è loggato e ha un genere preferito, mostro la tabella personalizzata
                 if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
 
                     //Il gameSlider sarà strutturato in questo modo: Un input button per scorrere indietro, una tabella con i giochi che sarà scorrevole, un input button per scorrere avanti.
+                    //Come si può notare i pulsanti e la tabella hanno degli id univoci, in modo da poter essere gestiti singolarmente tramite javascript (ex GameTable0, scorrindietro0, scorriavanti0)
                     echo "<div class=\"GameSlider\">
                     <div>
                         <input type=\"button\" value=\"<\" id=\"scorrindietro0\" onclick=\"sliderTable('GameTable0', 'back')\" />
@@ -110,70 +107,68 @@ if(isset($_SESSION['userId'])){
                     
                     
                            ";
-                                $elem = xmlPointer("XML/Giochi.xml");
-                                //Inserisco un limite di 20 giochi da mostrare nella tabella personalizzata
-                                $limite = setLimiteSlider($elem);
-                                 echo "<tr>";
-                                 //Stampiamo tutti i giochi che corrispondono al genere preferito dell'utente, ricavandono le informazioni dal file XML. 
-                                 //Da notare come lo slider è un "camuflage" di una lunghissima riga di celle di tabella, che vengono fatte scorrere orizzontalmente 
-                                 //tramite javascript, in modo da mostrare solo alcune celle alla volta.
-                                for($j=0; $j < $limite ; $j++){
-                                    $gioco=$elem->item($j);
-                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                    $elem = xmlPointer("XML/Giochi.xml");
+                    //Inserisco un limite di 20 giochi da mostrare nella tabella personalizzata
+                    $limite = setLimiteSlider($elem);
+                        echo "<tr>";
+                        //Stampiamo tutti i giochi che corrispondono al genere preferito dell'utente, ricavandono le informazioni dal file XML. 
+                        //Da notare come lo slider è un "camuflage" di una lunghissima riga di celle di tabella, che vengono fatte scorrere orizzontalmente 
+                        //tramite javascript, in modo da mostrare solo alcune celle alla volta.
+                    for($j=0; $j < $limite ; $j++){
+                        $gioco=$elem->item($j);
+                        $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
 
-                                   if($genereGioco == $_SESSION['generePreferito']){
-                                        $idGioco = $gioco->getAttribute("id_gioco");
-                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
-                                        $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
-                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                        //Le game card sono le singole celle della tabella che contengono l'immagine del gioco, il prezzo e il link alla pagina del gioco.
-                                        echo "<td>";
-                                        echo "<div class= \" GameCard \"> 
-                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" > ";
-                                             if($service){
-                                               
-                                        $elem2=xmlPointer("XML/utenti.xml");
-                                        foreach ($elem2 as $utente) {
-
-                                            $idUtente = $utente->getAttribute("id_user");
-                                            //Verifico se l'utente loggato possiede già il gioco, in modo da mostrare il prezzo o la dicitura "Acquistato!"
-                                            if ($idUtente == $_SESSION['userId']) {
-                                                $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
-                                                $possiedeGioco = false;
-
-                                                foreach ($giochi as $g) {
-                                                    
-                                                    $idGiocoP = $g->textContent;
-                                                    
-                                                    if ($idGiocoP == $idGioco) {
-                                                        $possiedeGioco = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
-                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
-                                                
-                                            }
-                                        }
-
-                                             }
-                                               
-                                            echo"
-                                            </div> 
-                                            </td>";
-                                                
-                                        }
-                                            
-                                    }   
-                                    echo "</tr>";    
+                        if($genereGioco == $_SESSION['generePreferito']){
+                            $idGioco = $gioco->getAttribute("id_gioco");
+                            $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                            $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
+                            $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                            //Le game card sono le singole celle della tabella che contengono l'immagine del gioco, il prezzo e il link alla pagina del gioco.
+                            echo "<td>";
+                            echo "<div class= \" GameCard \"> 
+                                    <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" > ";
+                                    if($service){
                                     
-                            echo " </table>
-                       
-                    </div><!--tab -->
-                    <div>
+                            $elem2=xmlPointer("XML/utenti.xml");
+                            foreach ($elem2 as $utente) {
+
+                                $idUtente = $utente->getAttribute("id_user");
+                                //Verifico se l'utente loggato possiede già il gioco, in modo da mostrare il prezzo o la dicitura "Acquistato!"
+                                if ($idUtente == $_SESSION['userId']) {
+                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                    $possiedeGioco = false;
+
+                                    foreach ($giochi as $g) {
+                                        
+                                        $idGiocoP = $g->textContent;
+                                        
+                                        if ($idGiocoP == $idGioco) {
+                                            $possiedeGioco = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
+                                    else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
+                                    
+                                }
+                            }
+
+                                    }
+                                    
+                                echo"
+                                </div> 
+                                </td>";
+                                    
+                            }
+                                
+                    }   
+                    echo "</tr>";    
+                    echo " </table>
+                        </div><!--tab -->
+                        <div>
                         <input type=\"button\" value=\">\" id=\"scorriavanti0\" onclick=\"sliderTable('GameTable0', 'forward')\" />
-                    </div><!-- > -->
-                </div>";
+                        </div><!-- > -->
+                        </div>";
                 }
                 
                 ?>
@@ -188,9 +183,6 @@ if(isset($_SESSION['userId'])){
                     <div>
                     <p class="titleTable">I piu' Popolari</p>
                         <table id="GameTable1">
-                        
-                            
-                            
                             <?php
                                 $elem=xmlPointer("XML/Giochi.xml");
                                 
@@ -209,15 +201,13 @@ if(isset($_SESSION['userId'])){
                                     if($valGioco>=80){
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
-                                        
-                        
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
                                                 <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >";
                                         if($service){                    
 
-                                        $elem2=xmlPointer("XML/utenti.xml");
+                                            $elem2=xmlPointer("XML/utenti.xml");
 
                                             foreach ($elem2 as $utente) {
 
@@ -259,60 +249,37 @@ if(isset($_SESSION['userId'])){
                     
                     </div>
                 </div>
-
+                <!-- Slider dei giochi più recenti, basato sull'ordine di inserimento nel database (id_gioco) -->
                  <div class="GameSlider">
                     <div>
                         <input type="button" value="<" id="scorrindietro2" onclick="sliderTable('GameTable2', 'back')" />
-                    </div> <!-- Questo gameslider va a mostrare gli ulimi giochi aggiunti al sito, seguendo l'ordine di grandezza degli id
-                     (il primo gioco aggiunto in assoluto ha un id uguale a 1 -->
+                    </div>
                     <div>
                          <p class="titleTable">Ultimi Giochi aggiunti</p>
                         <table id="GameTable2">
-                        
-                           
+ 
                             <?php
-                                $xmlString="";
+                                $elem=xmlPointer("XML/Giochi.xml");
                                 
-                                foreach(file("XML/Giochi.xml") as $node){ 
-                                    $xmlString .= trim($node);
-                                }
-                                
-                                $doc= new DOMDocument();
-                                $doc->loadXML($xmlString);
-                                $root=$doc->documentElement;
-                                $elem=$root->childNodes;
-                                
-                                if($elem->length<20){
-                                    $limite=$elem->length;
-                                } else {
-                                    $limite=20;
-                                }
+                                $limite = setLimiteSlider($elem);
                                 
                                 echo "<tr>";
+                                //Stampo i giochi in ordine decrescente di id_gioco, in modo da mostrare i giochi più recenti
+                                //Abbiamo usato un for decrescente per scorrere l'elenco dei giochi dal più recente al meno recente
                                 for($j=$elem->length-1; $j >=0 && $j > ($elem->length-1) - ($limite-1); $j--){
                                     $gioco=$elem->item($j);
 
-                                        $idGioco = $gioco->getAttribute("id_gioco");
+                                    $idGioco = $gioco->getAttribute("id_gioco");
                         
-                                        $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
-                                        $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
-                                        $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
-                                        echo "<td>";
-                                        echo "<div class= \" GameCard \"> 
-                                             <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >";
-                                            if($service){                    
+                                    $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+                                    $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
+                                    $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
+                                    echo "<td>";
+                                    echo "<div class= \" GameCard \"> 
+                                            <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >";
+                                    if($service){                    
     
-                                        $xmlString = "";
-                                        foreach (file("XML/utenti.xml") as $node) {
-                                            $xmlString .= trim($node);
-                                        }
-
-                                        $doc2 = new DOMDocument();
-                                        $doc2->loadXML($xmlString);
-                                        $root2=$doc2->documentElement;
-                                        $elem2=$root2->childNodes;
-
-                                            
+                                        $elem2=xmlPointer("XML/utenti.xml");
 
                                         foreach ($elem2 as $utente) {
 
@@ -336,11 +303,11 @@ if(isset($_SESSION['userId'])){
                                                 
                                             }
                                         }
-                                        }
+                                    }
                                     echo"  </div> 
                                             </td>";
-                                    }   
-                                    echo "</tr>";    
+                                }   
+                                echo "</tr>";    
                                     
                             ?> 
                             
@@ -351,42 +318,27 @@ if(isset($_SESSION['userId'])){
                         <input type="button" value=">" id="scorriavanti2" onclick="sliderTable('GameTable2', 'forward')" />
                     </div>
                 </div>
-                
+
+                <!-- Ultimo gameslider che presenta una raccolta di giochi che hanno in comune un genere in questo caso gli Sparatutto -->
                 <div class="GameSlider">
                     <div>
                         <input type="button" value="<" id="scorrindietro3" onclick="sliderTable('GameTable3', 'back')" />
-                    </div> <!-- l'ultimo gameslider presenta una raccolta di giochi che hanno in comune un genere
-                    in questo caso gli Sparatutto -->
+                    </div> 
                     <div>
                         <p class="titleTable">Sparatutto</p>
                         <table id="GameTable3">
-                    
-                    
-                        
-                            
+
                             <?php
-                                $xmlString="";
+                                $elem=xmlPointer("XML/Giochi.xml");
                                 
-                                foreach(file("XML/Giochi.xml") as $node){ 
-                                    $xmlString .= trim($node);
-                                }
-                                
-                                $doc= new DOMDocument();
-                                $doc->loadXML($xmlString);
-                                $root=$doc->documentElement;
-                                $elem=$root->childNodes;
-                                
-                                if($elem->length<15){
-                                    $limite=$elem->length;
-                                } else {
-                                    $limite=15;
-                                }
+                                $limite = setLimiteSlider($elem);
                                 
                                 echo "<tr>";
                                 for($j=0; $j < $limite ; $j++){
                                     $gioco=$elem->item($j);
                                     $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
-
+                                    
+                                    //Filtro per mostrare solo giochi del genere Sparatutto
                                    if($genereGioco=="Sparatutto"){
                                         $idGioco = $gioco->getAttribute("id_gioco");
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
@@ -395,54 +347,43 @@ if(isset($_SESSION['userId'])){
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
                                               <img src=\"$immagine\" alt=\"GameImage\" title=\"$titoloGioco\" class=\"productimage\" onclick=\"location.href='Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco'\" >";
-                                              if($service){$xmlString = "";
-                                        foreach (file("XML/utenti.xml") as $node) {
-                                            $xmlString .= trim($node);
-                                        }
-
-                                        $doc2 = new DOMDocument();
-                                        $doc2->loadXML($xmlString);
-                                        $root2=$doc2->documentElement;
-                                        $elem2=$root2->childNodes;
+                                        if($service){
+                                            $elem2=xmlPointer("XML/utenti.xml");
 
                                             
 
-                                        foreach ($elem2 as $utente) {
+                                            foreach ($elem2 as $utente) {
 
-                                            $idUtente = $utente->getAttribute("id_user");
+                                                $idUtente = $utente->getAttribute("id_user");
 
-                                            if ($idUtente == $_SESSION['userId']) {
-                                                $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
-                                                $possiedeGioco = false;
+                                                if ($idUtente == $_SESSION['userId']) {
+                                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                                    $possiedeGioco = false;
 
-                                                foreach ($giochi as $g) {
-                                                    
-                                                    $idGiocoP = $g->textContent;
-                                                    
-                                                    if ($idGiocoP == $idGioco) {
-                                                        $possiedeGioco = true;
-                                                        break;
+                                                    foreach ($giochi as $g) {
+                                                        
+                                                        $idGiocoP = $g->textContent;
+                                                        
+                                                        if ($idGiocoP == $idGioco) {
+                                                            $possiedeGioco = true;
+                                                            break;
+                                                        }
                                                     }
+                                                    if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
+                                                    else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
+                                                    
                                                 }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
-                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
-                                                
                                             }
-                                        }
 
-                                              }
-                                              
-                                               echo"
-                                            </div> 
-                                            </td>";
-                                                
                                         }
+                                              
+                                        echo"</div></td>"; 
+                                    }
                                             
-                                    }   
-                                    echo "</tr>";    
+                                }   
+                                echo "</tr>";    
                                     
                             ?> 
-                            
 
                         </table>
                     </div><!--tab -->
@@ -451,9 +392,6 @@ if(isset($_SESSION['userId'])){
                     </div><!-- > -->
                 </div>
 
-
-                
-
                   <!--  Pulsante per il debugg se si vuole reimpostare tutti gli slider alla posizione iniziale
                 <input type="button" value="Reset Lista" onclick="localStorage.clear();"/> 
                 -->
@@ -461,7 +399,7 @@ if(isset($_SESSION['userId'])){
             
         </div>
         
-        <div id="footer">
+        <div id="footer"><!--footer della pagina -->
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
