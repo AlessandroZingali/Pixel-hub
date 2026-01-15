@@ -33,11 +33,8 @@ if(isset($_SESSION['userId'])){
             //per mostrare oppure no la tebella personalizzata per l'utente in base al suo genere preferito.
             //Si può vedere come una fleg molto elaborata per far comunicare php e javascript, in modo da contare nella gestione
             //degli slider una tabella in più se l'utente è loggato.  
-            <?php
-            //Passo a javascript l'id dell'utente loggato e il suo genere preferito, 
-            //per mostrare oppure no la tebella personalizzata per l'utente in base al suo genere preferito.
-            //Si può vedere come una fleg molto elaborata per far comunicare php e javascript, in modo da contare nella gestione
-            //degli slider una tabella in più se l'utente è loggato.  
+           
+          
             if($service == 1 && isset($_SESSION['generePreferito'])){
                 echo "sessionStorage.setItem(\"idUser\", \"".$_SESSION['userId']."\");";
                 echo "sessionStorage.setItem(\"genPref\", \"".$_SESSION['generePreferito']."\");";
@@ -45,7 +42,6 @@ if(isset($_SESSION['userId'])){
             ?>
             
         </script>
-        <!--Set dei vari file js, per la gestione del comportamento dei vari Slider e per la barra di ricerca dei giochi -->
         <!--Set dei vari file js, per la gestione del comportamento dei vari Slider e per la barra di ricerca dei giochi -->
         <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
