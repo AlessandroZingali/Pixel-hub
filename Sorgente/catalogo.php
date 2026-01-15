@@ -65,15 +65,10 @@ if(isset($_SESSION['userId'])){
                     <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
-                        // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
-                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                        else if($service == 0){
-                            echo "<script>";
-                            echo "sessionStorage.removeItem(\"idUser\");";
-                            echo "sessionStorage.removeItem(\"genPref\");";
-                            echo "</script>";
-                            echo "<li><a href=\"login.php\">Log in </a></li>";
+                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                        else if($service == 1){
+
+                            echo "<li><a href=\"login.php\">Log out </a></li>";
                         }
                         ?>
                         

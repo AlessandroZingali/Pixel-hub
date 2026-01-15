@@ -86,10 +86,6 @@ session_start();
         <title>Login - PixelHub</title>        
         <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" />
         <script type="text/javascript" src="Script/estensioneLink.js"></script>
-        <script>
-            sessionStorage.removeItem("idUser");
-            sessionStorage.removeItem("genPref");
-        </script>
         
     </head>
     <body>

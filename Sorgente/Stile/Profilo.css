@@ -22,7 +22,6 @@
     width: 100%;
     color: white;
     /*display:contents;*/
-    
     table{
         
         border:white solid 4px;
@@ -36,7 +35,8 @@
         
     }
 
-    table input[type='text']{
+    table input[type='text']
+ {
         padding: 5%;
         border-spacing: 100px;
         background-color: beige;
@@ -283,24 +283,13 @@
         flex-direction: row;
     }
 
-    
-
     .sceltaPic{
 
-        img{
-            width: 140px;
-            height: 140px;
-        }
+    img{
+        width: 140px;
+        height: 140px;
     }
-
-
+}
 }
 
-
-}
-@media (max-width: 1200px){
-
-    .gridPicStoreForm{
-        grid-template-columns: repeat( 1, minmax(220px, 1fr));
-    }
 }
