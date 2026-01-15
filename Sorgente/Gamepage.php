@@ -538,7 +538,7 @@ echo "";
                                 }
                             }
 
-                            if (!$possiedeGioco && isset($_SESSION['userId']) ) {
+                            if (!$possiedeGioco && $service==1) {
                                 echo '
                                 <div id="Acquisto">
                                     <input type="button" id="buttonAcquista" value="Acquista">

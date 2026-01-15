@@ -131,8 +131,8 @@ if(isset($_POST['signin']) && $jumper==0){
                             $utente->setAttribute("id_user", $idUtente); 
                             $utente->appendChild($doc->createElement("linkEsterno", ""));
                             $utente->appendChild($doc->createElement("DataIscrizione", date("d/m/Y")));
-                            $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", ""));
-                            $utente->appendChild($doc->createElement("GenerePreferito", ""));
+                            $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
+                            $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
                             $utente->appendChild($doc->createElement("listaGiochi"));
                             $utente->appendChild($doc->createElement("listaPropic"));
 
@@ -224,6 +224,23 @@ if(isset($_POST['signin']) && $jumper==0){
                         echo "<div id=\"Partitaiva\"> <p>Chiave di registrazione</p> <input type=\"text\" placeholder=\"&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;\" name=\"accessKey\" /></div>";
                     }
                     ?>
+
+                    <div>
+                        <p>Scrivi la tua casa di sviluppo preferita</p>
+                        <input type="text" placeholder="DICE" name="CasaDiSviluppo" maxlength="50"/>
+                    </div>
+
+                    <div>
+                        <p>Scrivi il tuo genere preferito</p>
+                        <select name="Genere">
+                            <option value="Sparatutto">Sparatutto</option> 
+                            <option value="RPG">RPG</option>
+                            <option value="Avventura">Avventura</option>
+                            <option value="Souls-like">Souls-like</option>
+                            <option value="Strategia">Strategia</option>
+                            <option value="Rouge-like">Rouge-like</option>
+                        </select>
+                    </div>
 
                     <div>
                         <input type="submit" name="signin" value="Iscriviti" />
