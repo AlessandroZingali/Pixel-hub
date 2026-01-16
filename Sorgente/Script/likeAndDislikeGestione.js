@@ -1,3 +1,8 @@
+/* Questo file js gestisce l'inserimento e il deinserimento di un like o dislike da un relativo commento. 
+Inoltre colora tutti i pulsanti delle recensioni e commenti su un relativo gioco, premuti in precedenza da un relativo utente. 
+Questo codice gestisce la visulizzazione lato client mentre delle API (Script) in PHP gestiscono la modifica dei relativi file XML che tengono traccia
+del commento testuale e dei mi piace o non mi piace inseriti dal relativo utente che ha loggato*/
+
 window.addEventListener("load",loadColorLikeDislikeCommenti); //Gestione evento inziale per colorare i bottoni like e dislike commenti
 window.addEventListener("load",loadColorLikeDislikeRecensioni); //Gestione evento inziale per colorare i bottoni like e dislike recensioni
 
