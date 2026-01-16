@@ -327,15 +327,9 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
     </head>
     <body>
         <div id="container">
-            <div id="header">
-                <div id="logo">
-                
-                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
-                
-                </div>
-                
+             <div id="header"><!--header della pagina -->
+                <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
                 <h2>Il tuo shop preferito di videogiochi</h2>
- 
             </div>
 
             <div id="navigation">
@@ -719,7 +713,7 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
                             }
                             
                             echo "</div>";
-                            echo "<div><input type=\"submit\" name=\"AcquistoPic\" value=\"Acquista\"/></div>";
+                            echo "<div id=\"buttonAcquistoPic\"><input type=\"submit\" name=\"AcquistoPic\" value=\"Acquista\"/></div>";
                             echo "</form>"
                         ?>
                     </div> 

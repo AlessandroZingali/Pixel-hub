@@ -1,10 +1,12 @@
 <?php
+require 'serverUtility.php'; // Includo il file di utilità per ricavare gli elemneti dei file XML (tramite DOMDocument)
 $xmlString="";
-$route="0";
+$route="0"; // F
 
 foreach(file("XML/LikeCommenti.xml") as $node){ 
             $xmlString .= trim($node);
         }
+        
         $doc = new DOMDocument();
         $doc->loadXML($xmlString);
         $doc->formatOutput = true;

@@ -96,12 +96,35 @@
 
 .prezzo{
     text-align: center;
-    width: 140px;
+    width: 170px;
+    /* height: 40px; */
     background-color: rgb(63, 197, 43);
     border-radius: 10px;
-    padding: 6px;
+    margin-left: 10%;
+    p{  font-size:95%;
+        padding: 10px;
+    }
+   
     
     
+}
+.acquistato {
+    
+    background-color: rgb(40, 50, 85);
+
+    text-align: center;
+        p{
+            font-size: 90%;
+        padding: 10px;
+    }
+    /* height: 40px; */
+    width: 300px;
+    margin-left: 10%;
+ 
+    border-radius: 10px;
+   
+    
+
 }
 
 
@@ -130,6 +153,16 @@
 
 .prezzo{
     width: 100px;
+}
+
+.acquistato {
+
+
+    width: 200px;
+
+   
+    
+
 }
 }
 

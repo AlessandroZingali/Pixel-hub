@@ -225,6 +225,19 @@
     border: none;
 }
 
+#buttonAcquistoPic input[type='submit']{
+        font-family: "font pixeloso",monospace;
+        background-color:#414141;
+        border-radius: 30px;
+        color:white;
+        padding-left: 10px;
+        margin-left: 30%;
+        width: 50%;
+        height: 60px;
+        white-space: nowrap;
+        
+
+    }
 
 @media (max-width: 1620px){
 
@@ -269,7 +282,7 @@
     .gridPicStoreForm{
         grid-template-columns: repeat( 2, minmax(220px, 1fr));
     }
-
+}
 @media (max-width: 1350px){
 
     .baseProfilo{
@@ -290,6 +303,39 @@
         height: 140px;
     }
 }
+
+.cardSettings{
+    margin-top: 2%;
+    
+  
+    
+    color: white;
+    /*display:contents;*/
+   table, tr, td {
+        display: block;
+        width: 100%;
+    }
+
+    tr {
+        margin-bottom: 15px;
+    }
+
+    td {
+        text-align: left;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        margin-top: 8px;
+    }
 }
 
 }
+

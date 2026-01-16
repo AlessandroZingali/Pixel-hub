@@ -214,11 +214,15 @@ body{
 }
 
 @media (max-width: 1620px){
+
+    #header h2{
+        white-space: nowrap;
+    }
     
     img#logoimg{
-        width: 60%;
-        height: 60%;
-        padding-left: 12%;
+        width: 50%;
+        height: 70%;
+        padding-left:22%;
     }
 
     .botMenu{

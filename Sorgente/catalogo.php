@@ -1,5 +1,5 @@
 <?php 
-
+require 'serverUtility.php'; 
 class Game {
     public $idGioco;
     public $titolo;
@@ -135,7 +135,47 @@ if(isset($_SESSION['userId'])){
                                 <div class=\"infoBox\">
                                     <div>
                                     <p>
-                                    <a href=\"Gamepage.php?titoloGioco=$c->titolo&idGioco=$c->idGioco\">$c->titolo</a> </p><p class=\"prezzo\">$c->prezzo € </p></div>
+                                    <a href=\"Gamepage.php?titoloGioco=$c->titolo&idGioco=$c->idGioco\">$c->titolo</a>
+                                     </p>";
+
+                                      if($service){                    
+    
+                                        $xmlString = "";
+                                        foreach (file("XML/utenti.xml") as $node) {
+                                            $xmlString .= trim($node);
+                                        }
+
+                                        $doc2 = new DOMDocument();
+                                        $doc2->loadXML($xmlString);
+                                        $root2=$doc2->documentElement;
+                                        $elem2=$root2->childNodes;
+
+                                            
+
+                                        foreach ($elem2 as $utente) {
+                                      $idUtente = $utente->getAttribute("id_user");
+                                            //Verifico se l'utente loggato possiede già il gioco, in modo da mostrare il prezzo o la dicitura "Acquistato!"
+                                            if ($idUtente == $_SESSION['userId']) {
+                                                $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                                $possiedeGioco = false;
+
+                                                foreach ($giochi as $g) {
+                                                    
+                                                    $idGiocoP = $g->textContent;
+                                                    
+                                                    if ($idGiocoP == $c->idGioco) {
+                                                        $possiedeGioco = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> ";
+                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
+                                                
+                                            }
+                                        }
+                                      }else echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> ";
+
+                                     echo "</div>
                                 </div>
                             </div>";
 

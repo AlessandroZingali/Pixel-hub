@@ -49,9 +49,9 @@ else{
             $sqlQuery = "INSERT INTO $table_users 
             (Email, Password, Username, Grado, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath, PIVA) 
             VALUES 
-            (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", "."1, 1000, 50.0, \"15/04/1990\", \"Marco\", \"Rossi\", 1, \"ProfilePic"."/"."propicblank.png\", \"231231240\"),
-            (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20/06/1985\", \"Gabriele\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\"),
-            (\"lucabianchi@gmail.com\", \"luke4316\", \"Lucagame\", 3, 5000, 200.0, \"30/02/1995\", \"Luca\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\");
+            (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", "."1, 1000, 50.0, \"15-04-1990\", \"Marco\", \"Rossi\", 1, \"ProfilePic"."/"."propicblank.png\", \"231231240\"),
+            (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20-06-1985\", \"Gabriele\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\"),
+            (\"lucabianchi@gmail.com\", \"luke4316\", \"Lucagame\", 3, 5000, 200.0, \"30-02-1995\", \"Luca\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\");
             ";
 
             if ($resultQ=mysqli_query($mysqliConnection, $sqlQuery)){

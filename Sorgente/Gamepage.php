@@ -1,44 +1,50 @@
 <?php 
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso,
 $service = 0;
 $utente = "";
 $titoloGioco = "";
 $gioco = 0;
 
-if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
-    header("Location: Homepage.php");
+//Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
+if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
+    $titoloGioco = $_GET['titoloGioco'];
+    $idGioco = $_GET['idGioco'];
+}
+else if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
+ header("Location: Homepage.php");
 }
 
 $titoloGioco = $_GET['titoloGioco'];
 $idGioco = $_GET['idGioco'];
 
 session_start();
+//Verifica se l'utente è loggato (servizio di autenticazione)
 if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
-    $service = 1;
+    $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
 }
 echo "";
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
-<?php 
-    if(isset($_POST["invioCommento"])){
+<?php //Inizio della logica per le API della pagina gioco, ovvero l'invio di commenti e recensioni
 
-        $xmlString="";
-                                
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
-        $elem = $root->childNodes;
-            foreach($elem as $i){
-                if($i->getAttribute("id_gioco")==$idGioco){
-                    $gioco = (int)$i->getAttribute("id_gioco");
-                    break;
-                }
+    if(isset($_POST["invioCommento"])){ //Gestione Commenti
+
+        $elem = xmlPointer("XML/Commenti.xml");
+
+        //Ricordiamo che per la gestione dei commenti, e anche delle recensioni, ogni commento avra un suo id univoco SOLO in relazione al gioco
+        //a cui appartiene, quindi ogni gioco avra commenti con id che partono da 1 e cosi via. Di conseguenza se vogliamo il commento con id X,
+        //dobbiamo specificare anche a quale gioco appartiene, referezinadone l'apposito id gioco.
+        foreach($elem as $i){//Cerchiamo l'id del gioco, a cui recensioni e commenti apparterranno
+            if($i->getAttribute("id_gioco")==$idGioco){
+                $gioco = (int)$i->getAttribute("id_gioco");
+                break;
             }
+        }
+        //Se il gioco non ha commenti, e ce ne è arrivato uno, creiamo un nuovo nodo apposito. Essendo che gli id partiranno da 1, se non c'è nessuno nodo dei commenti
+        //con quel id gioco, la variabile $gioco rimarrà 0.
         if($gioco == 0){
             $newId = 1;
 
@@ -60,7 +66,7 @@ echo "";
             $gioco->appendChild($commento);
             $root->appendChild($gioco);
         }
-        else{
+        else{//Se il gioco ha gia commenti, aggiungiamo il nuovo commento
             
             if($gioco->hasChildNodes()){
                 
@@ -82,7 +88,7 @@ echo "";
                 $commento->appendChild($testo);
                 $gioco->insertBefore($commento, $lastCommento);
            }
-            else { 
+            else { //Questa ripetizione sembra dubbia, ma è funzionale. Può capitare che il gioco abbia un nodo ma non abbia commenti al suo interno. Cosi gestiamo il caso
                 $newId = 1;
 
                 $commento = $doc->createElement("Commento");
@@ -107,7 +113,7 @@ echo "";
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
     }
 
-    if(isset($_POST["invioRecensione"])){
+    if(isset($_POST["invioRecensione"])){//Gestione Recensioni
 
         $xmlString="";
                                 
@@ -125,7 +131,7 @@ echo "";
                     break;
                 }
             }
-        if($gioco == 0){
+        if($gioco == 0){//Se il gioco non ha recensioni, e ce ne è arrivata una, creiamo un nuovo nodo apposito
             $newId = 1;
 
             $gioco=$doc->createElement("Gioco");
@@ -148,7 +154,7 @@ echo "";
             $root->appendChild($gioco);
         }
         else{
-           if($gioco->hasChildNodes()){
+           if($gioco->hasChildNodes()){//Se il gioco ha gia recensioni, aggiungiamo la nuova recensione
                 $lastRecensione = $gioco->firstChild;
                 $newId = (intval($lastRecensione->getAttribute("id_recensione")));
 
@@ -170,7 +176,7 @@ echo "";
                 $recensione->appendChild($testo);
                 $gioco->insertBefore($recensione, $lastRecensione);
             }
-            else{ 
+            else{ //Questa ripetizione sembra dubbia, ma è funzionale. Può capitare che il gioco abbia un nodo ma non abbia recensioni al suo interno. Cosi gestiamo il caso
                 $newId = 1;
 
                 $recensione = $doc->createElement("Recensione");
@@ -201,8 +207,8 @@ echo "";
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
-        <?php echo " 
-        <title> Game Page -".$_GET['titoloGioco']."</title> " ;
+        <?php //Gestiamo il titolo della pagina in maniera dinamica in base al gioco selezionato
+        echo "<title> Game Page -".$_GET['titoloGioco']."</title> " ;
       
         
         ?>
@@ -228,8 +234,10 @@ echo "";
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
-                        <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
+                        <?php //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
+                        // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
+                        //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php
+                        if ($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
                         else if($service == 1){
                             echo "<script>";
                             echo "sessionStorage.removeItem(\"idUser\");";
@@ -242,12 +250,12 @@ echo "";
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
+                        <!--Per Debug: <li><a href="Creadatabasepixelhub.php">data</a></li>-->
                         <?php 
                         if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
                         ?>
                     </ul>
-                </div>
+                </div> <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
                 
                         <form id="searchBar" onsubmit="return false;">
                             <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
@@ -255,21 +263,14 @@ echo "";
                         </form>
             
             </div>
-
+<!-- La presentazione del gioco si stuttura su una serie di div che ne compone l'ossatura, possiamo vedere un riga iniziale formata da presentazione gioco, che ne mostra le caratteristiche,
+ suddivisa a sua volta in 4 aree, per immagine, informazioni base, giochi correlati e specifiche tecniche -->
             <div id="presentazioneGioco">
                 
                 <div id="immagineGioco">
-                    <?php  
-                        $xmlString="";
-
-                        foreach(file("XML/Giochi.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                            
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                    <?php 
+                    //Carichiamo l'immagine del gioco in modo dinamico in base all'id del gioco selezionato 
+                        $elem = xmlPointer("XML/Giochi.xml");
 
                         foreach($elem as $i){
                             if($i->getAttribute("id_gioco")==$idGioco) $imagePath=$i->getElementsByTagName("Immagine")->item(0)->textContent;
@@ -280,19 +281,11 @@ echo "";
                     ?>
                     
                 </div>
+                <!-- Recuperiamo e mostriamo le informazioni base del gioco, come il titolo, il prezzo, la data di uscita ecc... -->
                 <div id="statGioco">
                     <div>
                         <?php 
-                        $xmlString="";
-
-                        foreach(file("XML/Giochi.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                            
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                        $elem = xmlPointer("XML/Giochi.xml");
 
                         foreach($elem as $i){
                             if($i->getAttribute("id_gioco")==$idGioco){
@@ -305,10 +298,10 @@ echo "";
                             }
                         }
                         echo "<table>
-                                <tr>
+                                <!--Debug: <tr>
                                     <td> ID Gioco</td>
                                     <td>$idGioco</td>
-                                </tr>
+                                </tr>-->
                                 <tr>
                                     <td>Titolo</td>
                                     <td>$titoloGioco</td>
@@ -336,25 +329,17 @@ echo "";
                               </table>";
                      ?>
                     </div>
+
+                    <!-- Diamo anche la possibilta di accedere a diversi giochi correlati a quest'ultimo, basati sul genere, affinita, o stesso publisher o casa di sviluppo -->
                     <div id="consigliati">
 
                             <h3>Potrebbero piacerti anche:</h3>
 
                         <?php
-                        $xmlString = "";
-                        foreach (file("XML/Giochi.xml") as $node) {
-                            $xmlString .= trim($node);
-                        }
-
-                        $doc = new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root = $doc->documentElement;
-                        $giochi = $root->getElementsByTagName("Gioco");
+                        $giochi = xmlPointer("XML/Giochi.xml");
                         
-
                         $idCorrelati = [];
-
-                        
+                    //Cerchiamo i giochi correlati a quello attuale, salvandone gli id in un array
                         foreach ($giochi as $gioco) {
                             if ($gioco->getAttribute("id_gioco") ==$idGioco) {
                                 $lista = $gioco->getElementsByTagName("idGiocoCorrelato");
@@ -367,25 +352,13 @@ echo "";
                             }
                         }
 
-                        
-
-
-
-
                         echo "<ul>";
+                        //Calcoliamo la lunghezza dell'array e cicliamo per mostrarne i titoli, cercando le informazioni di titolo e id in XML/Giochi.xml
+                        //da passare poi come parametri GET alla pagina Gamepage.php
                         $len = count($idCorrelati);
-                        
-                            
+                          
                         for ($k=0; $k<$len; $k++) {
-                            $xmlString = "";
-                            foreach (file("XML/Giochi.xml") as $node) {
-                                $xmlString .= trim($node);
-                            }
-
-                            $doc = new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root = $doc->documentElement;
-                            $giochi = $root->getElementsByTagName("Gioco");
+                            $giochi = xmlPointer("XML/Giochi.xml");
 
                             foreach ($giochi as $gioco) {
                                 
@@ -404,29 +377,22 @@ echo "";
 
                 </div>
 
+                <!-- Recuperiamo le infomazioni sul le specifiche tecniche del gioco -->
                 <div id="specGioco">
                     <?php 
 
-                    $xmlString="";
-
-                    foreach(file("XML/Giochi.xml") as $node){ 
-                        $xmlString .= trim($node);
-                    }
-                        
-                    $doc= new DOMDocument();
-                    $doc->loadXML($xmlString);
-                    $root=$doc->documentElement;
-                    $elem=$root->childNodes;
+                    $elem = xmlPointer("XML/Giochi.xml");
                     foreach($elem as $i){
                             if($i->getAttribute("id_gioco")==$idGioco){
                                 $interoSpecMin = $i->getElementsByTagName('RequisitiMinimi')->item(0)->textContent;
                                 $interoSpecRac = $i->getElementsByTagName('RequisitiRaccomandati')->item(0)->textContent;
                             }
                         }
-
+                    // Le specifiche nel file XML sono divise fa un carattere ';'. Quindie andiamo a splittare le specifiche tecniche in base al quel simobolo, per poi mostrarle in tabella
                     $partiSpecMin = array_map('trim', explode(';', $interoSpecMin));
                     $partiSpecRac = array_map('trim', explode(';', $interoSpecRac));
-
+                    
+                    //Dividiamo le specifiche in due tabelle, una per le specifiche minime e una per quelle raccomandate
                     echo " 
                     
                     <table>
@@ -504,182 +470,175 @@ echo "";
 
             </div>
             
+            <!-- Sezione per la descrizione e l'acquisto del gioco -->
             <div id="descAndBuy">
               <div id="descGioco">
                     <?php 
-                        echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p>";
-                    ?>
-              </div>
-              <?php
-                if($service){                    
+                        echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p> </div>";
+                        //Ovviamente il pulsante di acquisto sarà visibile solo se l'utente è loggato e non possiede già il gioco
+                        if($service){                    
                     
-                $xmlString = "";
-                        foreach (file("XML/utenti.xml") as $node) {
-                            $xmlString .= trim($node);
-                        }
+                            $elem = xmlPointer("XML/utenti.xml");
 
-                        $doc = new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                            //Verifichiamo se l'utente loggato possiede già il gioco
+                            foreach ($elem as $utente) {
 
-                            
+                                $idUtente = $utente->getAttribute("id_user");
 
-                        foreach ($elem as $utente) {
+                                if ($idUtente == $_SESSION['userId']) {
 
-                            $idUtente = $utente->getAttribute("id_user");
+                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                    $possiedeGioco = false;
 
-                            if ($idUtente == $_SESSION['userId']) {
-                                $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
-                                $possiedeGioco = false;
+                                    foreach ($giochi as $gioco) {
+                                        $idGiocoP = $gioco->textContent;
 
-                                foreach ($giochi as $gioco) {
-                                    $idGiocoP = $gioco->textContent;
-
-                                    if ($idGiocoP == $idGioco) {
-                                        $possiedeGioco = true;
-                                        break;
+                                        if ($idGiocoP == $idGioco) {
+                                            $possiedeGioco = true;
+                                            break;
+                                        }
                                     }
-                                }
-                                if (!$possiedeGioco) {
-                                    echo '
-                                    <div id="Acquisto">
-                                        <input type="button" id="buttonAcquista" value="Acquista">
-                                    </div>';
-                                }
-
-                                else{
-                                 echo '
-                                    <div id="Acquisto">
-                                        <p>Presente nella libreria.</p>
-                                    </div>';
-
-                                }
+                                
+                                    if (!$possiedeGioco) {
+                                        echo '
+                                        <div id="Acquisto">
+                                            <input type="button" id="buttonAcquista" value="Acquista">
+                                        </div>';
+                                    }
+                                    else{
+                                        echo '
+                                        <div id="Acquisto">
+                                            <p>Presente nella libreria.</p>
+                                        </div>';
+                                    }
+                                }    
                             }
                         }
-                   
-}
+
+                        //Se l'utente non è loggato, e di conseguenza possiedeGioco non è impostato, mostriamo un messaggio che lo invita a farlo per poter acquistare il gioco    
+                        if($service==0 && !(isset($possiedeGioco))){
+                                echo '
+                                <div id="Acquisto">
+                                    <p>Devi essere loggato per poter acquistare il gioco.</p>
+                                </div>';
+
+                            }
 
               ?>
                
             </div>
             
-
+            <!-- In social raggruppiamo i commenti e le recensioni -->
             <div id="social">
-                
-            
                 <div id="commenti">
+                
+                    <!-- Prima i commmenti che varranno gestiti nella lettura attraverso sempre xmlPointer (DOM) e nella gestione dei like e dei dislike da javascript
+                    con l'ausilio di AJAX e di relative API: aggiornamneto Like commenti e colore load like/dislike. La prima gestisce i nodi commenti nel relativo file XML/Commenti.xml, 
+                    la seconda gestisce l'inserimento, il disinserimento e la relativa colorazione alla pressione di uno dei pulsanti-->
                     <h3>Commenti degli utenti:</h3> 
                     <?php 
+                        // Gestione form commenti, ovviamente il form sarà visibile solo se l'utente è loggato e di grado 2 o superiore
+                        if($service == 0) echo "<p>Devi essere loggato per poter lasciare un commento .</p>";
+                        else if($_SESSION['Grado']<=1) echo "<p>Devi essere di grado 2 o superiore per lasciare un commento.</p>";
+                        else{
 
-                    if($service == 0) echo "<p>Devi essere loggato per poter lasciare un commento .</p>";
-                    else if($_SESSION['Grado']<=1) echo "<p>Devi essere di grado 2 o superiore per lasciare un commento.</p>";
-                    else{
-
-                            echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
-                                    <textarea name=\"commentoUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
-                                    <br/>
-                                    <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
-                                </form>"; 
-                                            
+                                echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
+                                        <textarea name=\"commentoUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
+                                        <br/>
+                                        <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
+                                    </form>"; 
+                                                
                         }
-         
-    
-                    
+                    //   Mostriamo i commenti esistenti per il gioco attuale
                         echo "<h4>Commenti:</h4>";
+                        $elem = xmlPointer("XML/Commenti.xml");
+                        foreach($elem as $i){
+                            // Scorriamo i nodi commento, prendendo solo quelli in cui l'attributo id gioco metcha con l'id gioco attuale
+                            if($i->getAttribute("id_gioco")==$idGioco){
+                                $commentoId = $i->getElementsByTagName("Commento"); //Prendiamo il primo nodo Commento
 
-                    $xmlString="";
+                                //Scarichiamo le informazioni di ogni commento dal primo nodo commento all'ultimo, presente nel nodo Gioco
+                                foreach($commentoId as $c){
 
-                            foreach(file("XML/Commenti.xml") as $node){ 
-                                $xmlString .= trim($node);
-                            }
-                        
-                            $doc= new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root=$doc->documentElement;
-                            $elem=$root->childNodes;
-                            foreach($elem as $i){
-                                    if($i->getAttribute("id_gioco")==$idGioco){
-                                        $commentoId = $i->getElementsByTagName("Commento");
-                                        foreach($commentoId as $c){
+                                    $idUtenteCommento = $c->getAttribute('id_utente');
+                                    $idCommento = $c->getAttribute('id_commento');
+                                    $commentoTesto = $c->getElementsByTagName('text')->item(0)->textContent;
+                                    $dataCommento = $c->getAttribute('data');
+                                    $oraCommento = $c->getAttribute('ore');
+                                    $minutoCommento = $c->getAttribute('minuti');
+                                    $likeCommento = $c->getAttribute('like'); 
+                                    $dislikeCommento = $c->getAttribute('dislike');
+                                   
+                                    //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto il commento
+                                    $db_name = "Database_Pixel_Hub";
+                                    $table_users = "Tabella_Utenti";
+                                    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
-                                            $idUtenteCommento = $c->getAttribute('id_utente');
-                                            $idCommento = $c->getAttribute('id_commento');
-                                            $commentoTesto = $c->getElementsByTagName('text')->item(0)->textContent;
-                                            $dataCommento = $c->getAttribute('data');
-                                            $oraCommento = $c->getAttribute('ore');
-                                            $minutoCommento = $c->getAttribute('minuti');
-                                            $likeCommento = $c->getAttribute('like'); 
-                                            $dislikeCommento = $c->getAttribute('dislike');
+                                    if (mysqli_connect_errno()){
 
-                                            $db_name = "Database_Pixel_Hub";
-                                            $table_users = "Tabella_Utenti";
-                                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-                                            if (mysqli_connect_errno()){
-
-                                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-                                            }
-                                            
-
-                                            $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteCommento'";
-                                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
-                                            $num = mysqli_num_rows($resultQ);
-
-                                            if($num == 1){
-
-                                                $row=mysqli_fetch_array($resultQ);
-                                                $nomeUtenteCommento = $row['Username'];
-                                                echo "<div class=\"commentoUtente\">
-                                                        <div><h4>$nomeUtenteCommento</h4></div>
-                                                        <div><p>$commentoTesto</p></div>
-                                                        <div class=\"likeAndDateContainer\">
-                                                            <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
-                                                            <div class=\"likeDislike\">
-                                                                <div class=\"like\">
-                                                                        <p id=\"likeButtonTextCom$idCommento\"> $likeCommento  </p> 
-                                                                        <button type=\"button\" id=\"likeButtonCom$idCommento\" ";
-
-                                                if($service != 0){
-                                                    if($_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\"";
-                                                    else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
-                                                }
-                                                else echo "onclick=\"userAlert(0)\"";
-                                                echo ">&#128077;
-                                                    </button>
-                                                    </div>
-                                                        <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
-                                                            <button id=\"dislikeButtonCom$idCommento\"type=\"button\" ";
-
-                                                        if($service != 0){ 
-                                                    
-                                                        if( $_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\"";
-                                                        else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
-                                                         }
-                                                    
-                                                        else echo "onclick=\"userAlert(0)\"";
-
-                                                        echo">&#128078;</button>
-                                                          </div>                                                                                
-                                                        </div>
-                                                     </div>
-                                                    </div>";          
-                                                        }
-
-                                        }
-                                        
+                                        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                                     }
+                                    
+
+                                    $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteCommento'";
+                                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                    $num = mysqli_num_rows($resultQ);
+
+                                    if($num == 1){
+
+                                        $row=mysqli_fetch_array($resultQ);
+                                        $nomeUtenteCommento = $row['Username'];
+                                        echo "<div class=\"commentoUtente\">
+                                                <div><h4>$nomeUtenteCommento</h4></div>
+                                                <div><p>$commentoTesto</p></div>
+                                                <div class=\"likeAndDateContainer\">
+                                                    <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>
+                                                    <div class=\"likeDislike\">
+                                                        <div class=\"like\">
+                                                                <p id=\"likeButtonTextCom$idCommento\"> $likeCommento  </p> 
+                                                                <button type=\"button\" id=\"likeButtonCom$idCommento\" ";
+                                    //    Gestiamo i bottoni di like e dislike, in base allo stato di login dell'utente e al suo grado
+                                        if($service != 0){ //Se il servizio di autenticazione è attivo
+                                            if($_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'like')\""; //Metti questo onclick se l'utente è attivo
+                                            else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\""; //Usa quest'altro onclick se l'utente non ha il grado necessario
+                                        }
+                                        else echo "onclick=\"userAlert(0)\""; //Mentre se il servizio non è attivo, usa questo onclick
+                                      //Metti il simbolo relativo, chiudi il button e il div
+                                        echo ">&#128077;
+                                            </button>
+                                            </div>
+                                                <div class=\"dislike\"> <p id=\"dislikeButtonTextCom$idCommento\">  $dislikeCommento   </p> 
+                                                    <button id=\"dislikeButtonCom$idCommento\"type=\"button\" ";
+                                              //Qui viene gestito dislike nello stesso modo di come è stato gestito il like
+                                                if($service != 0){ 
+                                            
+                                                if( $_SESSION['Grado']>1) echo "onclick=\"LikeGestioneCommenti(".$_SESSION['userId'].", $idCommento, $idGioco, 'dislike')\"";
+                                                else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
+                                                    }
+                                            
+                                                else echo "onclick=\"userAlert(0)\"";
+
+                                                echo">&#128078;</button>
+                                                    </div>                                                                                
+                                                </div>
+                                                </div>
+                                            </div>";          
+                                    }
+
                                 }
+                                
+                            }
+                        }
                                        
 
                     ?>
                </div>
-            
+                <!-- La stesse cose fatte in commenti la facciamo in recensioni -->
                <div id="recensioni">
                      <h3>Recensioni degli utenti:</h3> 
 
                      <?php 
-
+                        //Gestione form recensioni, ovviamente il form sarà visibile solo se l'utente è loggato e di grado 3 o superiore
                     if($service == 0)echo "<p>Devi essere loggato per poter lasciare una recensione .</p>";
                     else if($_SESSION['Grado']<=2) echo "<p>Devi essere di grado 3 per lasciare una recensione.</p>";
                     else{
@@ -695,16 +654,9 @@ echo "";
                         }
                       echo "<h4>Recensioni:</h4 >";
 
-                        $xmlString="";
+                        $elem = xmlPointer("XML/Recensioni.xml");
 
-                            foreach(file("XML/Recensioni.xml") as $node){ 
-                                $xmlString .= trim($node);
-                            }
-                        
-                            $doc= new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root=$doc->documentElement;
-                            $elem=$root->childNodes;
+                        //Nel file xml di recensioni per ogni nodo gioco scorriamo la lista delle recensioni e ne scarichiamo le informazioni
                             foreach($elem as $i){
                                     if($i->getAttribute("id_gioco")==$idGioco){
                                         $recensioneId = $i->getElementsByTagName("Recensione");
@@ -717,6 +669,8 @@ echo "";
                                             $minutoRecensione = $r->getAttribute('minuti');
                                             $likeRecensione = $r->getAttribute('like'); 
                                             $dislikeRecensione = $r->getAttribute('dislike');
+
+                                            //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto la recensione
                                             $db_name = "Database_Pixel_Hub";
                                             $table_users = "Tabella_Utenti";
                                             $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
@@ -732,7 +686,7 @@ echo "";
                                             $num = mysqli_num_rows($resultQ);
 
                                             if($num == 1){
-
+                                            // Stampiamo la recensione con le sue informazioni
                                                 $row=mysqli_fetch_array($resultQ);
                                                 $nomeUtenteRecensione = $row['Username'];
                                                 echo "<div class=\"recensioneUtente\">
@@ -745,17 +699,19 @@ echo "";
                                                                 <div class=\"like\">
                                                                     <p id=\"likeButtonTextRec$idRecensione\"> $likeRecensione  </p> 
                                                                     <button type=\"button\" id=\"likeButtonRec$idRecensione\" ";
-
-                                                if($service != 0){
-                                                if($_SESSION['Grado']>2) echo "onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\"";
-                                                else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\""; 
+                                                // Gestiamo i bottoni di like e dislike, in base allo stato di login dell'utente e al suo grado
+                                                if($service != 0){ //Se il servizio di autenticazione è attivo
+                                                if($_SESSION['Grado']>2) echo "onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'like')\""; //Metti questo onclick se l'utente è attivo
+                                                else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";  //Usa quest'altro onclick se l'utente non ha il grado necessario
                                                 }
-                                                else echo "onclick=\"userAlert(0)\"";
+                                                else echo "onclick=\"userAlert(0)\"";//Mentre se il servizio non è attivo, usa questo onclick
+                                                //Metti il simbolo relativo, chiudi il button e il div
                                                 echo ">&#128077;
                                                         </button>
                                                         </div>
                                                         <div class=\"dislike\"> <p id=\"dislikeButtonTextRec$idRecensione\">  $dislikeRecensione   </p> 
                                                         <button id=\"dislikeButtonRec$idRecensione\"type=\"button\" ";
+                                                //Qui viene gestito dislike nello stesso modo di come è stato gestito il like
                                                 if($service != 0){
                                                         if($_SESSION['Grado']>2) echo "onclick=\"LikeGestioneRecensioni(".$_SESSION['userId'].", $idRecensione, $idGioco, 'dislike')\"";
                                                         else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
@@ -779,7 +735,8 @@ echo "";
                 </div>
             </div>
         </div>
-        <div id="footer">
+        <!-- Footer dell pagina -->
+        <div id="footer"> 
             <ul>
                 <li><a href="">Contact Us</a></li>
                 <li><a href="">F.A.Q</a></li>

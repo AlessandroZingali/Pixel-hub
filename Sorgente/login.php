@@ -85,6 +85,8 @@ session_start();
     <head>
         <title>Login - PixelHub</title>        
         <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" />
+        
+
         <script type="text/javascript" src="Script/estensioneLink.js"></script>
         
     </head>

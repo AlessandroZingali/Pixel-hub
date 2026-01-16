@@ -4,7 +4,7 @@
     <Commento id_commento="5" id_utente="5" data="30/12/2025" ore="12" minuti="04" like="0" dislike="1">
       <text>chele</text>
     </Commento>
-    <Commento id_commento="4" id_utente="1" data="30/12/2025" ore="11" minuti="47" like="1" dislike="2">
+    <Commento id_commento="4" id_utente="1" data="30/12/2025" ore="11" minuti="47" like="1" dislike="0">
       <text>her</text>
     </Commento>
     <Commento id_commento="3" id_utente="1" data="30/12/2025" ore="11" minuti="44" like="0" dislike="2">
@@ -20,6 +20,11 @@
   <Gioco id_gioco="2">
     <Commento id_commento="1" id_utente="5" data="30/12/2025" ore="12" minuti="19" like="0" dislike="1">
       <text>bello</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Commento id_commento="1" id_utente="3" data="16/01/2026" ore="10" minuti="18" like="1" dislike="0">
+      <text>haloh</text>
     </Commento>
   </Gioco>
 </listaCommenti>

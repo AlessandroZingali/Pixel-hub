@@ -1,16 +1,5 @@
 <?php 
-require 'xmlPointer.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
-
-//Imposto un limite massimo di giochi da mostrare in ogni slider
-function setLimiteSlider($elem){
-    if($elem->length<20){
-        $limite=$elem->length;
-    } else {
-        $limite=20;
-    }
-    return $limite;
-}
-
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
 $service = 0; //0 = guest, 1 = logged in
 $utente = "";//nome utente loggato

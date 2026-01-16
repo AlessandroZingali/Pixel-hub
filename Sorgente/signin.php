@@ -1,7 +1,7 @@
 <?php  
 error_reporting(E_ALL &~E_NOTICE);
 
-
+//Quando si entra nella pagina di sign in/registrazione si unsetta la sessione attuale e si eliminano tutte le eventuali informazioni salvate in $session
 if(isset($_SESSION)){
    session_unset($_SESSION);
    session_destroy(); 
@@ -13,26 +13,25 @@ $jumper=0;
 $accessKey="1999";
 $unlock = 0;
 
+//in base al link preso dalla pagina di login si passera un valore Tipoutente che varierà il tipo di form che andremo ad compilare 
+// questo verra settato nel cookie per garantire un uso corretto della pagina
 
 if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
     if ($_GET['TipoUtente'] == "0"){
-       // echo "<p>sono il tipo utente 0</p>";
         $tipoSignIn = 0;
         setcookie('tipoSignIn', "0");
     }
     else if($_GET['TipoUtente'] == "1"){
-              //  echo "<p>sono il tipo utente 1</p>";
         $tipoSignIn = 1;
         setcookie('tipoSignIn', "1");
     }
     else if($_GET['TipoUtente'] == "2"){
-               // echo "<p>sono il tipo utente 2</p>";
         $tipoSignIn = 2;
         setcookie('tipoSignIn', "2");
     }
    
 }
-
+//il jumper vienere utilizzato come check finale dopo aver controllato che password email partita iva e data di nascita sono corretti
 if(isset($_POST['signin']) && isset($_COOKIE['tipoSignIn'])){
     if($_COOKIE['tipoSignIn'] == 1){
         if(!(preg_match('/^[0-9]{12}+$/', $_POST['PIVA']))){
@@ -43,11 +42,12 @@ if(isset($_POST['signin']) && isset($_COOKIE['tipoSignIn'])){
         }
     }
 }
+//se si vuole fare la registrazione come admin bisognera inserire una key di accesso speciale qui sotto si controlla usando la chiave d'accesso se la registrazione è regolare
 if(isset($_POST['accessKey'])){
     if($_POST['accessKey'] == $accessKey) $unlock = 1;
 }
 
-
+//Quando si passano i vari check si procede alla procedee alla connessione al database 
 if(isset($_POST['signin']) && $jumper==0){
     if(preg_match('/^.*@.*$/', $_POST['Email']) &&
         preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita']) && 
@@ -60,11 +60,11 @@ if(isset($_POST['signin']) && $jumper==0){
         if (mysqli_connect_errno()){
             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
-
+        //Si controlla se l'utente non è gia presente sul database 
         $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
         $resultQ = mysqli_query($mysqliConnection, $queryLogin);
         $num = mysqli_num_rows($resultQ);
-
+        // se il numero delle righe presente al controllo della tabella utenti 
         if($num > 0){
             $service=("Utente già registrato!");
         }
