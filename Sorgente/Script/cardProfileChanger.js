@@ -1,4 +1,5 @@
 window.addEventListener("load", invalidation);
+
 function swapperInSettings(){
     var cardProfilo = document.getElementById("card1");
     console.log("Ris: "+cardProfilo);

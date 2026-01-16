@@ -9,7 +9,7 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 
-// Ancora da sistemare
+// Ancora da implementare
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>

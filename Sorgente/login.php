@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL &~E_NOTICE);
 session_start();
+// Se si apre la pagina si unsetta la sessione precendente togliendo i vari valori su session
 if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
 
 if(isset($_SESSION['userId'])){
@@ -24,7 +25,7 @@ session_start();
     }
     $emailNickname = $_POST['EmailNickname'];
     $password = $_POST['Password'];
-
+    // Si effettua la connessione al database usando password e l'email/nickname e fa partire la query 
     $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
     $resultQ = mysqli_query($mysqliConnection, $queryLogin);
     $num = mysqli_num_rows($resultQ);
@@ -44,14 +45,16 @@ session_start();
         $doc->loadXML($xmlString);
         $root=$doc->documentElement;
         $elem=$root->childNodes;
-
+        // se diverso da null carichera anche il genere preferito dell'utente ma lo prenderera dal file XML
         foreach($elem as $i){
             if($i->getAttribute('id_user') == $row['ID']){
                 if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
                 }
             }
-    
 
+        
+    
+        // all interno della variabile session carichera le informazioni fondamentali quali grado utente tipologia username e il suo id
         $_SESSION['userId'] = $row['ID'];
         $_SESSION['user'] = $emailNickname;
         $_SESSION['userName']=$row['Username'];
@@ -59,7 +62,7 @@ session_start();
         $_SESSION['Grado']=$row['Grado'];
         
         
-    
+        // Una volta fatto questo andra alla Homepage
         
         header("Location: Homepage.php");
     }
@@ -126,6 +129,7 @@ session_start();
                         <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti</a>!</p>
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=1">publisher</a>?</p>     
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=2">admin</a>?</p>
+                        <!-- attraverso questi link si puo passare alla pagina del sighin passando il tipo di utente che vorrebbe iscriversi mediante GET -->
 
 
                     </div>

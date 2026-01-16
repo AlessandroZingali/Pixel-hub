@@ -16,7 +16,11 @@ body{
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     color: white;
+    width: 100%;
     
 }
 #header{

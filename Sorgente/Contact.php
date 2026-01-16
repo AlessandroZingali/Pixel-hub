@@ -1,103 +1,74 @@
 <?php
+// Avvia la sessione (necessaria per usare $_SESSION)
+session_start();
+
+// Variabili di stato per capire se l’utente è loggato
 $service = 0;
 $utente = "";
 
-    if(isset($_POST["invioRichiesta"])){
-
-        $xmlString="";
-                                
-        foreach(file("XML/Ticket.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
-        $elem = $root->childNodes;
-            foreach($elem as $i){
-                if($i->getAttribute("id_ticket")==$idTicket){
-                    $ticket = (int)$i->getAttribute("id_ticket");
-                    break;
-                }
-            }
-        if($ticket == 0){
-            $newId = 1;
-
-            $gioco=$doc->createElement("Gioco");
-            $gioco->setAttribute("id_gioco", $idGioco);
-            $ticket = $doc->createElement("ticket");
-
-            $testo = $doc->createElement("text", htmlspecialchars($_POST["ticketUtente"]));
-
-            $ticket->setAttribute("id_ticket", $newId);
-            $ticket->setAttribute("id_utente", $_SESSION["userId"]);
-            $ticket->setAttribute("data", date("d/m/Y"));
-            $ticket->setAttribute("ore", date("H"));
-            $ticket->setAttribute("minuti", date("i"));
-
-
-
-            $ticket->appendChild($testo);
-            $ticket->appendChild($ticket);
-            $root->appendChild($ticket);
-        }
-        else{
-            
-            if($gioco->hasChildNodes()){
-                
-                $lastticket = $gioco->firstChild;
-                $newId = (intval($lastticket->getAttribute("id_ticket")));
-
-                $newId += 1;
-                $ticket = $doc->createElement("ticket");
-
-                $testo = $doc->createElement("text", htmlspecialchars($_POST["ticketUtente"]));
-
-                $ticket->setAttribute("id_ticket", $newId);
-                $ticket->setAttribute("id_utente", $_SESSION["userId"]);
-                $ticket->setAttribute("data", date("d/m/Y"));
-                $ticket->setAttribute("ore", date("H"));
-                $ticket->setAttribute("minuti", date("i"));
-
-                $ticket->appendChild($testo);
-                $gioco->insertBefore($ticket, $lastticket);
-           }
-            else { 
-                $newId = 1;
-
-                $ticket = $doc->createElement("ticket");
-
-                $testo = $doc->createElement("text", htmlspecialchars($_POST["ticketUtente"]));
-
-                $ticket->setAttribute("id_ticket", $newId);
-                $ticket->setAttribute("id_utente", $_SESSION["userId"]);
-                $ticket->setAttribute("data", date("d/m/Y"));
-                $ticket->setAttribute("ore", date("H"));
-                $ticket->setAttribute("minuti", date("i"));
-
-
-                $ticket->appendChild($testo);
-                $gioco->appendChild($ticket);
-
-            }
-        }
-        
-        $doc->save("XML/Ticket.xml");
-        alert("Richiesta mandata con successo!");
-        header("Location: Homepage.php");
-    }
-
-session_start();
-if(isset($_SESSION['userId'])){
-    
-    $utente = $_SESSION['userName'];
-    $service = 1;
+// Controllo login
+if (isset($_SESSION['userId'])) {
+    $utente = $_SESSION['userName']; // nome utente da mostrare
+    $service = 1;                   // utente autenticato
 }
 
+// Controlla se il form è stato inviato E l’utente è loggato
+if (isset($_POST["invioTicket"]) && $service === 1) {
 
+    // Stringa che conterrà tutto il file XML
+    $xmlString = "";
+
+    // Legge il file XML riga per riga
+    foreach (file("XML/Ticket.xml") as $node) {
+        $xmlString .= trim($node); // rimuove spazi e concatena
+    }
+
+    // Crea il documento DOM
+    $doc = new DOMDocument();
+    $doc->loadXML($xmlString);     // carica l’XML dalla stringa
+    $doc->formatOutput = true;     // formatta l’output
+    $root = $doc->documentElement; // nodo radice del file XML
+
+    // Calcolo del nuovo id_ticket (incrementale)
+    $newId = 1;
+    foreach ($root->getElementsByTagName("ticket") as $t) {
+        $id = (int)$t->getAttribute("id_ticket");
+        if ($id >= $newId) {
+            $newId = $id + 1;
+        }
+    }
+
+    // Creazione del nodo <ticket>
+    $ticket = $doc->createElement("ticket");
+
+    // Attributi del ticket
+    $ticket->setAttribute("id_ticket", $newId);
+    $ticket->setAttribute("id_utente", $_SESSION["userId"]);
+    $ticket->setAttribute("data", date("d/m/Y"));
+    $ticket->setAttribute("ore", date("H"));
+    $ticket->setAttribute("minuti", date("i"));
+
+    // Nodo testo con il messaggio dell’utente (sanificato)
+    $testo = $doc->createElement(
+        "text",
+        htmlspecialchars($_POST["ticketUtente"], ENT_QUOTES, "UTF-8")
+    );
+
+    // Aggiunge il testo al ticket
+    $ticket->appendChild($testo);
+
+    // Aggiunge il ticket alla root dell’XML
+    $root->appendChild($ticket);
+
+    // Salva il file XML aggiornato
+    $doc->save("XML/Ticket.xml");
+
+    // Redirect alla homepage
+    header("Location: Homepage.php");
+    exit;
+}
 ?>
-
-
+ 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
@@ -164,7 +135,8 @@ if(isset($_SESSION['userId'])){
                     else{
                             echo "<form action=\"Contact.php?idUtente={$_SESSION['userId']}\" method=\"post\" id=\"formTicket\">
 
-                                    <textarea name=\"AlertUtente\" placeholder=\"Scrivi il tuo messaggio qui\"></textarea>
+                                    <textarea name=\"ticketUtente\" placeholder=\"Scrivi il tuo messaggio qui\"></textarea>
+                                    
                                     <br/>
                                     <input type=\"submit\" name=\"invioTicket\" value=\"Invia la segnalazione\"/> 
                                 </form>"; 

@@ -1,6 +1,7 @@
 <?php
 $service = 0;
 $utente = "";
+//Pagina delle Frequently Asked Question domande che possono essere visualizzate anche dai non iscritti al sito 
 
 session_start();
 if(isset($_SESSION['userId'])){
@@ -27,16 +28,11 @@ if(isset($_SESSION['userId'])){
     </head>
     <body>    
         <div id="container">
-            <div id="header">
-                <div id="logo">
-                
-                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
-                
-                </div>
-                
+            <div id="header"><!--header della pagina -->
+                <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
                 <h2>Il tuo shop preferito di videogiochi</h2>
- 
             </div>
+
 
             <div id="navigation">
                 <div class="dropMenu">
@@ -88,7 +84,7 @@ if(isset($_SESSION['userId'])){
                         foreach(file("XML/FAQ.xml") as $node){ 
                             $xmlString .= trim($node);
                         }
-                        
+                        // si carica il file FAQ
                         $doc= new DOMDocument();
                         $doc->loadXML($xmlString);
                         $root=$doc->documentElement;
@@ -96,6 +92,7 @@ if(isset($_SESSION['userId'])){
 
                         for($i=0; $i<$elem->length; $i++){
                             $gioco = $elem->item($i);
+                            // le domande e le risposte sono presenti in un seplicistico file XML diviso con un tag domanda e risposta
 
                             $domanda = $gioco->getElementsByTagName("Domanda")->item(0)->textContent;
                             $risposta = $gioco->getElementsByTagName("Risposta")->item(0)->textContent;

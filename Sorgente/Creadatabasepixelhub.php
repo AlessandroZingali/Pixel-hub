@@ -1,83 +1,136 @@
-<?php			
-error_reporting(E_ALL &~E_NOTICE);
+<?php
+// Questo file php inizializza il database in localhost per il treno e 
+// Mostra tutti gli errori tranne i NOTICE (es. variabili non inizializzate)
+error_reporting(E_ALL & ~E_NOTICE);
 
+// Nome del database
 $db_name = "Database_Pixel_Hub";
+
+// Nome della tabella utenti
 $table_users = "Tabella_Utenti";
 
-
+// Connessione al server MySQL (senza selezionare il database)
 $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi");
-//$mysqliConnection= new mysqli("localhost","archer","archer");
+// alternativa:
+// $mysqliConnection = new mysqli("localhost","archer","archer");
 
-if (mysqli_connect_errno()){
+// Controllo errori di connessione
+if (mysqli_connect_errno()) {
 
-    printf("problemi di connessione : %s\n", mysqli_connect_error());
+    // Stampa il messaggio di errore
+    printf("Problemi di connessione : %s\n", mysqli_connect_error());
 }
-else{
+else {
 
+    // Connessione riuscita
     printf("Connessione avvenuta con successo ...\n");
+
+    // Query per creare il database
     $queryCreazioneDatabase = "CREATE DATABASE $db_name";
 
+    // Esecuzione della query di creazione database
     if ($resultQ = mysqli_query($mysqliConnection, $queryCreazioneDatabase)) {
-        
+
         printf("Database creato ...\n");
+
+        // Query per creare la tabella utenti
         $sqlQuery = "CREATE TABLE $table_users ( 
-        ID  INT  AUTO_INCREMENT, 
-        Email  VARCHAR  (100), 
-        Password  VARCHAR  (100), 
-        Username  VARCHAR  (50), 
-        Grado  INT, 
-        Pixels  INT, 
-        Saldo_attuale  FLOAT, 
-        Data_di_Nascita  VARCHAR(50), 
-        Nome  VARCHAR  (50), 
-        Cognome VARCHAR (50), 
-        Tipologia_utente INT, /* 1=admin 2=admin 3=publisher*/
-        imgProfiloPath VARCHAR(250),  
-        PIVA  VARCHAR (12), 
-        PRIMARY  KEY  (ID, Email),
-        UNIQUE  KEY  Email_UNIQUE  (Email) 
-        ); 
-        ";
+            ID INT AUTO_INCREMENT,                 -- ID univoco utente
+            Email VARCHAR(100),                   -- Email utente
+            Password VARCHAR(100),                -- Password (NON hashata)
+            Username VARCHAR(50),                 -- Username
+            Grado INT,                            -- Livello/ruolo nel sito
+            Pixels INT,                           -- Valuta virtuale
+            Saldo_attuale FLOAT,                  -- Saldo reale
+            Data_di_Nascita VARCHAR(50),          -- Data di nascita
+            Nome VARCHAR(50),                     -- Nome
+            Cognome VARCHAR(50),                  -- Cognome
+            Tipologia_utente INT,                 -- 1=admin 2=user 3=publisher
+            imgProfiloPath VARCHAR(250),          -- Percorso immagine profilo
+            PIVA VARCHAR(12),                     -- Partita IVA
+            PRIMARY KEY (ID, Email),              -- Chiave primaria composta
+            UNIQUE KEY Email_UNIQUE (Email)       -- Email unica
+        );";
+
+        // Chiudo la connessione senza database
         $mysqliConnection->close();
 
+        // Nuova connessione, questa volta al database appena creato
         $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-//        $mysqliConnection = new mysqli("localhost","archer","archer",$db_name);
-        if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)){
+        // alternativa:
+        // $mysqliConnection = new mysqli("localhost","archer","archer",$db_name);
+
+        // Creazione della tabella
+        if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)) {
 
             printf("Ho creato la tabella Utenti ...\n");
 
+            // Query di inserimento utenti di esempio
             $sqlQuery = "INSERT INTO $table_users 
             (Email, Password, Username, Grado, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath, PIVA) 
             VALUES 
-            (\"marcorossi@gmail.com\", \"marcorossi123\", \"marcorossi\", "."1, 1000, 50.0, \"15-04-1990\", \"Marco\", \"Rossi\", 1, \"ProfilePic"."/"."propicblank.png\", \"231231240\"),
-            (\"gabibbo@gmail.com\", \"gabibbo123\", \"gabibbo\", 2, 5000, 200.0, \"20-06-1985\", \"Gabriele\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\"),
-            (\"lucabianchi@gmail.com\", \"luke4316\", \"Lucagame\", 3, 5000, 200.0, \"30-02-1995\", \"Luca\", \"Bianchi\", 2, \"ProfilePic"."/"."propicblank.png\", \"12345678901\");
-            ";
+            (
+                \"marcorossi@gmail.com\", 
+                \"marcorossi123\", 
+                \"marcorossi\", 
+                1, 
+                1000, 
+                50.0, 
+                \"15-04-1990\", 
+                \"Marco\", 
+                \"Rossi\", 
+                1, 
+                \"ProfilePic/propicblank.png\", 
+                \"231231240\"
+            ),
+            (
+                \"gabibbo@gmail.com\", 
+                \"gabibbo123\", 
+                \"gabibbo\", 
+                2, 
+                5000, 
+                200.0, 
+                \"20-06-1985\", 
+                \"Gabriele\", 
+                \"Bianchi\", 
+                2, 
+                \"ProfilePic/propicblank.png\", 
+                \"12345678901\"
+            ),
+            (
+                \"lucabianchi@gmail.com\", 
+                \"luke4316\", 
+                \"Lucagame\", 
+                3, 
+                5000, 
+                200.0, 
+                \"30-02-1995\", 
+                \"Luca\", 
+                \"Bianchi\", 
+                2, 
+                \"ProfilePic/propicblank.png\", 
+                \"12345678901\"
+            );";
 
-            if ($resultQ=mysqli_query($mysqliConnection, $sqlQuery)){
+            // Esecuzione inserimento dati
+            if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)) {
                 printf("Installazione DB effettuata! :-)");
             }
-            else{
-                printf("Errore popolamento DB.");
-            }
+            else printf("Errore popolamento DB.");
+            
         }
-        
-        else {
-            printf("Ho avuto un problema per creare la tabella utenti.\n");
-        }
+        else printf("Ho avuto un problema per creare la tabella utenti.\n");
     }
-    else {
-        printf("Ho avuto un problema per creare il database.\n");
-    }
-
+    else printf("Ho avuto un problema per creare il database.\n");
     
 }
 
-if($mysqliConnection){
+// Chiusura connessione se ancora aperta
+if ($mysqliConnection) {
     $mysqliConnection->close();
 }
-
 ?>
+
 
 
  

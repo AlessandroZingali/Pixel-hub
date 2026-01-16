@@ -253,7 +253,7 @@ if(isset($_POST['signin']) && $jumper==0){
                             <option value="Rouge-like">Rouge-like</option>
                         </select>
                     </div>
-
+                    <!-- si possono inserire come opzioni diversi generi che andranno a dare eventuali sconti all'utente o comunque mostrano all'inizio dell' home page la categoria selezionata -->
                     <div>
                         <input type="submit" name="signin" value="Iscriviti" />
                     </div>

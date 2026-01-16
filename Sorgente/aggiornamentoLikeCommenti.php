@@ -1,23 +1,17 @@
 <?php
 /* Questo file contiene tutte le API, richiamte in AJAX traimte il file LIkeAndDislikeGestione.js per la gestione 
 dei file Xml relativi ai Commenti e alla registrazione dei dislike e like per ogni commento in ogni gioco. In questi script si gestiscono vari casi, 
-per l'iserimento o il deinserimento del like o del dislike*/
+per l'inserimento o il deinserimento del like o del dislike*/
 
 require 'serverUtility.php'; // Includo il file di utilità per ricavare gli elemneti dei file XML (tramite DOMDocument)
-$xmlString="";
+
 $route="0"; // Flag per decidere quale operazione eseguire: 0=nuovo like/dislike, 1=cambio dislike->like, 2=cambio like->dislike, 3=rimozione like, 4=rimozione dislike
 // La route lavora insieme al tipo passato tramite POST (like o dislike), il caso 0 è in comune mentre poi i pari andranno con il dislike e i dispari con il like per gestire le varie operazioni
 
 /* Il file Like Commenti tiene traccia dei like e dislike inseriti. Usa una chiave di 3 elementi, utente che ha messo like/dislike,
 l'id gioco e l'id commento che indentificano il commento stesso. Inoltre avremo 2 flag come attributi, per inserire la tipologia di valutazione inserita */
-foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
+
+        $root = getRoot('XML/LikeCommenti.xml');
         if($root->hasChildNodes()){
             $elem = $root->childNodes;
             foreach($elem as $rc){
@@ -38,13 +32,7 @@ foreach(file("XML/LikeCommenti.xml") as $node){
 if ($_POST['tipo'] == "like") {
     if ($route == "0"){ // incremento like del commento in Commenti.xml se non ha ancora messo like o dislike
     
-        $xmlString="";           
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -58,14 +46,7 @@ if ($_POST['tipo'] == "like") {
             }
         }
         // Aggiunta riferimento in LikeCommenti.xml
-        $xmlString="";
-                                        
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         $nuovoLike = $doc->createElement("ref_Commento");
@@ -81,14 +62,9 @@ if ($_POST['tipo'] == "like") {
     }
     
     if ($route == "1"){ // Cambio da dislike a like
-        $xmlString="";
+  
         //Aggiorno Commenti.xml, sostituisco nei counter un dislike con un like            
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -106,13 +82,7 @@ if ($_POST['tipo'] == "like") {
         }
 
         // Aggiorno LikeCommenti.xml, cambio i flag da dislike a like
-        $xmlString="";
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $rc){
@@ -130,14 +100,7 @@ if ($_POST['tipo'] == "like") {
 
     if ($route == "3"){ // Rimozione like
         // Decremento like del commento in Commenti.xml
-        $xmlString="";
-                                        
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -151,13 +114,7 @@ if ($_POST['tipo'] == "like") {
             }
         }
         // Rimozione riferimento in LikeCommenti.xml
-        $xmlString="";
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $rc){
@@ -180,14 +137,7 @@ if ($_POST['tipo'] == "dislike") {
     
     if ($route == "0"){
         // incremento dislike del commento in Commenti.xml se non ha ancora messo like o dislike
-        $xmlString="";
-                                        
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -201,14 +151,7 @@ if ($_POST['tipo'] == "dislike") {
             }
         }
         //Aggiunta riferimento in LikeCommenti.xml
-        $xmlString="";
-                                        
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         $nuovoLike = $doc->createElement("ref_Commento");
@@ -224,14 +167,7 @@ if ($_POST['tipo'] == "dislike") {
     }
     else if ($route == "2"){ // cambio da like a dislike
         // Aggiorno Commenti.xml, sostituisco nei counter un like con un dislike
-        $xmlString="";
-                                        
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -248,13 +184,7 @@ if ($_POST['tipo'] == "dislike") {
             }
         }
         // Aggiorno LikeCommenti.xml, cambio i flag da like a dislike
-        $xmlString="";
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $rc){
@@ -272,14 +202,7 @@ if ($_POST['tipo'] == "dislike") {
 
     else if($route == "4"){ // Rimozione dislike
         // Decremento dislike del commento in Commenti.xml
-        $xmlString="";
-                                        
-        foreach(file("XML/Commenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/Commenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $gioco){
@@ -294,13 +217,7 @@ if ($_POST['tipo'] == "dislike") {
         }
         
         // Rimozione riferimento in LikeCommenti.xml
-        $xmlString="";
-        foreach(file("XML/LikeCommenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc('XML/LikeCommenti.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
         foreach($elem as $rc){

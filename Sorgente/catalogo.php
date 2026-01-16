@@ -1,25 +1,19 @@
 <?php 
 require 'serverUtility.php'; 
+// Il catalogo usa un array per disporre i giochi in ordine alfabetico per praticita si è voluta creare una classe che definisce gli elementi presenti nell array in modo di disporli in ordine alfabetico 
 class Game {
     public $idGioco;
     public $titolo;
     public $immagine;
     public $prezzo;
-
     public function __construct($idGioco, $titolo, $immagine, $prezzo)
     {
         $this->idGioco = $idGioco;
         $this->titolo = $titolo;
         $this->immagine = $immagine;
-        $this->prezzo = $prezzo;        
-   
+        $this->prezzo = $prezzo;           
     }
 }
-
-
-
-
-
 
 $service = 0;
 $utente = "";
@@ -49,16 +43,11 @@ if(isset($_SESSION['userId'])){
     </head>
     <body>    
         <div id="container">
-            <div id="header">
-                <div id="logo">
-                
-                    <img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/>
-                
-                </div>
-                
+            <div id="header"><!--header della pagina -->
+                <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
                 <h2>Il tuo shop preferito di videogiochi</h2>
- 
             </div>
+
 
             <div id="navigation">
                 <div class="dropMenu">
@@ -75,7 +64,6 @@ if(isset($_SESSION['userId'])){
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
                         <?php 
                         if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
                         ?>
@@ -93,6 +81,7 @@ if(isset($_SESSION['userId'])){
                 
                     <h1>Tutti i giochi:</h1>       
                     <?php
+                    // si inizializza l'array catalogo e si carica l'XML giochi 
 
                         $catalogo = [];
                         $titolo = "";
@@ -116,8 +105,10 @@ if(isset($_SESSION['userId'])){
                             $ref = new Game($idGioco, $titolo, $immagine, $prezzo);
                             array_push($catalogo, $ref);
                         }
-                        
+                        //caricando nell'array tutti i giochi usando il formato definito all'inizio 
                         usort($catalogo, function($rA, $rB){ return $rA->titolo <=> $rB->titolo;});
+
+                        // per ordinare l'array si usa usort per creare un ordine alfabetico mediante function che prende il titolo come valore da confrontare
                         
 
                         foreach($catalogo as $c){
@@ -125,6 +116,8 @@ if(isset($_SESSION['userId'])){
                             $titolo=$c->titolo;
                             echo "<div><h2>".strtoupper($titolo[0])."</h2><hr><pre>                                                          <pre></hr></div>";
                         }
+                        // all'cambiare dell'iniziale di un titolo si usa strtoupper($titolo[0]) per prendere la prima lettera dell titolo e metterla in maiuscolo
+                        // si usa per mostrare una linea che fa da separazione tra una lettera all'altra il <pre> che mostra lo spazio come una linea
                         
                         
                         

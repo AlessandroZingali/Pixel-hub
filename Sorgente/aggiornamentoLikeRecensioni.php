@@ -1,46 +1,60 @@
 <?php
-$xmlString="";
-$route="0";
+/* Questo file contiene tutte le API, richiamte in AJAX traimte il file LIkeAndDislikeGestione.js per la gestione 
+dei file Xml relativi alle Recensioni e alla registrazione dei dislike e like per ogni recensione in ogni gioco. In questi script si gestiscono vari casi, 
+per l'inserimento o il deinserimento del like o del dislike*/
 
-foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
-        $root = $doc->documentElement;
-        if($root->hasChildNodes()){
-            $elem = $root->childNodes;
-            foreach($elem as $rr){
-                $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                $recensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
-                $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-                if ($utente == $_POST['idUtente'] && $recensione == $_POST['idRecensione'] && $gioco == $_POST['idGioco']) {
-                    $flagLike = $rr->getAttribute("flagLike");
-                    $flagDislike = $rr->getAttribute("flagDislike");
-                    if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
-                    else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
-                    else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like, lo sta togliendo
-                    else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike, lo sta togliendo
-                    }
-                }   
-        }
+require 'serverUtility.php'; // Includo il file di utilità per ricavare gli elemneti dei file XML (tramite DOMDocument)
 
+$route = "0"; // Variabile di controllo del flusso 
+
+// Legge LikeRecensioni, che tiene traccia dei like/dislike nelle varie recensioni
+
+$root = getRoot('XML/LikeRecensioni.xml');
+
+// Scorre tutti i record di like/dislike già presenti
+if ($root->hasChildNodes()) {
+    $elem = $root->childNodes;
+    foreach ($elem as $rr) {
+        // Estrae la tupla chiave: Id_Utente + Id_Recensione + Id_Gioco
+        $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
+        $recensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
+        $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+
+        // Confronta la tupla con i dati ricevuti via POST
+        if (
+            $utente == $_POST['idUtente'] &&
+            $recensione == $_POST['idRecensione'] &&
+            $gioco == $_POST['idGioco']
+        ) {
+            // Legge i flag per capire se c’è già un like o un dislike
+            $flagLike = $rr->getAttribute("flagLike");
+            $flagDislike = $rr->getAttribute("flagDislike");
+
+            // Determina il percorso logico in base al tipo di richiesta e allo stato del riferimento alla recensione in LikeGetsione
+            if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // cambia da dislike a like
+            else if ($flagLike == "1" && $_POST['tipo'] == "dislike") $route = "2"; // cambia da like a dislike
+            else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // rimuove il like esistente
+            else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route = "4"; // rimuove il dislike esistente
+        }
+    }
+}
+
+// Gestione del caso: richiesta LIKE
 if ($_POST['tipo'] == "like") {
-    if ($route == "0"){
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+    // Caso 0: non aveva ancora messo like/dislike
+    if ($route == "0") {
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        // Cerca la recensione specifica (Id_Gioco + Id_Recensione)
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
+                    // Incrementa il like
                     $like = $recensione->getAttribute("like");
                     $like = $like + 1;
                     $recensione->setAttribute("like", $like);
@@ -49,16 +63,11 @@ if ($_POST['tipo'] == "like") {
             }
         }
 
-        $xmlString="";
-                                        
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Aggiunge il record di like in LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
-        $elem = $root->childNodes;
+
+        // Crea il nuovo nodo di relazione (utente + gioco + recensione)
         $nuovoLike = $doc->createElement("ref_Recensioni");
         $nuovoLike->setAttribute("flagLike", "1");
         $nuovoLike->setAttribute("flagDislike", "0");
@@ -67,24 +76,23 @@ if ($_POST['tipo'] == "like") {
         $nuovoLike->appendChild($doc->createElement("Id_Gioco", $_POST['idGioco']));
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeRecensioni.xml");
+
+        // Risposta verso AJAX
         echo 'like';
-    
     }
-    
-    if ($route == "1"){
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+
+    // Caso 1: aveva dislike, lo cambia in like
+    if ($route == "1") {
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
                     $like = $recensione->getAttribute("like");
                     $dislike = $recensione->getAttribute("dislike");
                     $dislike = $dislike - 1;
@@ -96,42 +104,45 @@ if ($_POST['tipo'] == "like") {
             }
         }
 
-        $xmlString="";
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Aggiorna il record in LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $rr){
+
+        foreach ($elem as $rr) {
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
             $idRecensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idRecensione == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
+
+            if (
+                $idUtente == $_POST['idUtente'] &&
+                $idRecensione == $_POST['idRecensione'] &&
+                $idGioco == $_POST['idGioco']
+            ) {
                 $rr->setAttribute("flagLike", "1");
                 $rr->setAttribute("flagDislike", "0");
                 $doc->save("XML/LikeRecensioni.xml");
             }
         }
+
+        // Risposta verso AJAX
         echo 'cambioDislikeLike';
     }
 
-    if ($route == "3"){
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+    // Caso 3: aveva già like, lo rimuove
+    if ($route == "3") {
+
+        // Decrementa il contatore like
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
                     $like = $recensione->getAttribute("like");
                     $like = $like - 1;
                     $recensione->setAttribute("like", $like);
@@ -139,49 +150,50 @@ if ($_POST['tipo'] == "like") {
                 }
             }
         }
-        
-        $xmlString="";
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+
+
+        // Rimuove il record di like dal file LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $rr){
+
+        foreach ($elem as $rr) {
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idRecensione= $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
+            $idRecensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idRecensione == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
+
+            if (
+                $idUtente == $_POST['idUtente'] &&
+                $idRecensione == $_POST['idRecensione'] &&
+                $idGioco == $_POST['idGioco']
+            ) {
                 $parent = $rr->parentNode;
                 $parent->removeChild($rr);
                 $doc->save("XML/LikeRecensioni.xml");
+            }
         }
-    }
 
-    echo 'rimozioneLike';
+        // Risposta verso AJAX
+        echo 'rimozioneLike';
     }
 }
 
-
+// Gestione del caso: richiesta DISLIKE
 if ($_POST['tipo'] == "dislike") {
-    
-    if ($route == "0"){
-        // incremento dislike del recensioni$recensione in Recensioni.xml se non ha ancora messo like o dislike
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+    // Caso 0: non aveva ancora messo like/dislike
+    if ($route == "0") {
+
+        // Incrementa il contatore dislike nella recensione
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
                     $dislike = $recensione->getAttribute("dislike");
                     $dislike = $dislike + 1;
                     $recensione->setAttribute("dislike", $dislike);
@@ -190,16 +202,10 @@ if ($_POST['tipo'] == "dislike") {
             }
         }
 
-        $xmlString="";
-                                        
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Aggiunge il record di dislike nel file LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
-        $elem = $root->childNodes;
+
         $nuovoLike = $doc->createElement("ref_Recensioni");
         $nuovoLike->setAttribute("flagLike", "0");
         $nuovoLike->setAttribute("flagDislike", "1");
@@ -209,23 +215,23 @@ if ($_POST['tipo'] == "dislike") {
         $root->appendChild($nuovoLike);
         $doc->save("XML/LikeRecensioni.xml");
 
+        // Risposta verso AJAX
         echo 'dislike';
     }
-    else if ($route == "2"){
-        // cambio da like a dislike
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+    // Caso 2: aveva like, lo cambia in dislike
+    else if ($route == "2") {
+
+        // Aggiorna contatori: +1 dislike, -1 like
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
                     $dislike = $recensione->getAttribute("dislike");
                     $like = $recensione->getAttribute("like");
                     $dislike = $dislike + 1;
@@ -237,44 +243,44 @@ if ($_POST['tipo'] == "dislike") {
             }
         }
 
-        $xmlString="";
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Aggiorna il record in LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $rr){
+
+        foreach ($elem as $rr) {
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-            $idRecensioni= $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
+            $idRecensioni = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idRecensioni == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
+
+            if (
+                $idUtente == $_POST['idUtente'] &&
+                $idRecensioni == $_POST['idRecensione'] &&
+                $idGioco == $_POST['idGioco']
+            ) {
                 $rr->setAttribute("flagLike", "0");
                 $rr->setAttribute("flagDislike", "1");
                 $doc->save("XML/LikeRecensioni.xml");
             }
         }
+
+        // Risposta verso AJAX
         echo 'cambioLikeDislike';
     }
+    // Caso 4: aveva già dislike, lo rimuove
+    else if ($route == "4") {
 
-    else if($route == "4"){
-       
-        // toglie dislike
-        $xmlString="";
-                                        
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Decrementa il contatore dislike
+        $doc = getDoc('XML/Recensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $gioco){
-            foreach($gioco->childNodes as $recensione){
-                if ($recensione->getAttribute("id_recensione") == $_POST['idRecensione'] && $gioco->getAttribute("id_gioco") == $_POST['idGioco']) {
+
+        foreach ($elem as $gioco) {
+            foreach ($gioco->childNodes as $recensione) {
+                if (
+                    $recensione->getAttribute("id_recensione") == $_POST['idRecensione'] &&
+                    $gioco->getAttribute("id_gioco") == $_POST['idGioco']
+                ) {
                     $dislike = $recensione->getAttribute("dislike");
                     $dislike = $dislike - 1;
                     $recensione->setAttribute("dislike", $dislike);
@@ -282,30 +288,31 @@ if ($_POST['tipo'] == "dislike") {
                 }
             }
         }
-        
 
-        $xmlString="";
-        foreach(file("XML/LikeRecensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        // Rimuove il record di dislike da LikeRecensioni.xml
+        $doc = getDoc('XML/LikeRecensioni.xml');
         $root = $doc->documentElement;
         $elem = $root->childNodes;
-        foreach($elem as $rr){
+
+        foreach ($elem as $rr) {
             $idUtente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
             $idRecensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
             $idGioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-            if ($idUtente == $_POST['idUtente'] && $idRecensione == $_POST['idRecensione'] && $idGioco == $_POST['idGioco']) {
+
+            if (
+                $idUtente == $_POST['idUtente'] &&
+                $idRecensione == $_POST['idRecensione'] &&
+                $idGioco == $_POST['idGioco']
+            ) {
                 $parent = $rr->parentNode;
                 $parent->removeChild($rr);
                 $doc->save("XML/LikeRecensioni.xml");
             }
         }
+
+        // Risposta verso AJAX
         echo 'rimozioneDislike';
     }
-    
 }
 
 ?>

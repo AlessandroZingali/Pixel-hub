@@ -1,299 +1,219 @@
 <?php 
+// Pagina del profilo utente:
+// permette di modificare dati personali, acquistare immagini profilo
+// e aggiornare informazioni salvate sia su DB che su XML
+
+$service = 0;          // indica se l’utente è loggato
+$utente = "";          // username dell’utente
+$invalidFlag = 0;      // flag per gestire errori logici (email, password, acquisti ecc.)
+
+// Avvio sessione
+session_start();
+
+// Controllo se l’utente è loggato
+if (isset($_SESSION['userId'])) {
+    $utente = $_SESSION['userName'];
+    $service = 1;
+}
+
+// Nome tabella utenti
+$table_users = "Tabella_Utenti";
 
 
-    $service = 0;
-    $utente = "";
-    $invalidFlag=0;
-
-    session_start();
-    if(isset($_SESSION['userId'])){
-        
-        $utente = $_SESSION['userName'];
-        $service = 1;
-    }
-
-    $table_users = "Tabella_Utenti";
+//    CAMBIO USERNAME (DB)
 
 if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
 
-
+    // Connessione al database
     $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
     $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
-    if (mysqli_connect_errno()){
-
+    // Controllo errori di connessione
+    if (mysqli_connect_errno()) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
+    // Sanificazione input
     $new = mysqli_real_escape_string($mysqliConnection, $_POST["newUsername"]);
 
+    // Query di aggiornamento username
     $sql = "
         UPDATE $table_users
         SET Username = '$new'
         WHERE ID = ".(int)$_SESSION['userId']."
     ";
 
+    // Esecuzione query
     if (mysqli_query($mysqliConnection, $sql)) {
-        
-        header("Location:login.php");
+        header("Location:login.php"); // forza nuovo login
     } else {
-         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
+
+//    CAMBIO EMAIL (DB)
+
 if (isset($_POST["cambiaEmail"]) && !empty($_POST["newEmail"])) {
 
-    if(preg_match('/^.*@.*$/', $_POST['newEmail'])){
+    // Controllo formato email
+    if (preg_match('/^.*@.*$/', $_POST['newEmail'])) {
+
         $db_name = "Database_Pixel_Hub";
-        $table_users = "Tabella_Utenti";
         $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
-        if (mysqli_connect_errno()){
-
+        if (mysqli_connect_errno()) {
             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
         $new = mysqli_real_escape_string($mysqliConnection, $_POST["newEmail"]);
 
+        // Update email
         $sql = "
             UPDATE $table_users
             SET Email = '$new'
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query($mysqliConnection, $sql)) header("Location:login.php");
-        else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-        
-    }
-    else $invalidFlag = 1;
-
-    
-}
-
-if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
-
-    if(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['newPass'])){
-            $db_name = "Database_Pixel_Hub";
-            $table_users = "Tabella_Utenti";
-            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-            if (mysqli_connect_errno()){
-
-                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-            }
-
-            $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPass"]);
-
-            $sql = "
-                UPDATE $table_users
-                SET  = '$new'
-                WHERE ID = ".(int)$_SESSION['userId']."
-            ";
-
-            if (mysqli_query($mysqliConnection, $sql)) header("Location:login.php");
-            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));    
-    }
-    else $invalidFlag = 2; 
-}
-
-if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
- 
-    $idUtente=$_SESSION["userId"];
-
-    $xmlString="";
-                                                            
-    foreach(file("XML/utenti.xml") as $node){ 
-        $xmlString .= trim($node);
-    }
-    
-    $doc= new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-    $root=$doc->documentElement;
-    $elem=$root->childNodes;
-    foreach($elem as $userNode){
-        if($userNode->getAttribute('id_user') == $idUtente){ 
-            $userNode->getElementsByTagName('GenerePreferito')->item(0)->textContent=$_POST["Genere"];
-            $_SESSION['generePreferito'] = $_POST['Genere'];
-            }
-    }
-    $doc->save("XML/utenti.xml");
-}
-
-if (isset($_POST["cambiaSocial"]) && !empty($_POST["newSocial"])) {
-
-    $idUtente=$_SESSION["userId"];
-
-    $xmlString="";
-                                                            
-    foreach(file("XML/utenti.xml") as $node){ 
-        $xmlString .= trim($node);
-    }
-    
-    $doc= new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-    $root=$doc->documentElement;
-    $elem=$root->childNodes;
-    foreach($elem as $userNode){
-        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('linkEsterno')->item(0)->textContent=$_POST["newSocial"];
-    }
-    $doc->save("XML/utenti.xml");
-}
-
-if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
-
-    $idUtente=$_SESSION["userId"];
-
-    $xmlString="";
-                                                            
-    foreach(file("XML/utenti.xml") as $node){ 
-        $xmlString .= trim($node);
-    }
-    
-    $doc= new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-    $root=$doc->documentElement;
-    $elem=$root->childNodes;
-    foreach($elem as $userNode){
-        if($userNode->getAttribute('id_user') == $idUtente) $userNode->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent=$_POST["newCasa"];
-    }
-    $doc->save("XML/utenti.xml");
-}
-
-if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
-
-    $idpicscelto=$_POST["scelta"];
-
-    $idUtente=$_SESSION["userId"];
-
-    $xmlString="";
-                                                            
-    foreach(file("XML/utenti.xml") as $node){ 
-        $xmlString .= trim($node);
-    }
-    
-    $doc= new DOMDocument();
-    $doc->loadXML($xmlString);
-    $root=$doc->documentElement;
-    $elem=$root->childNodes;
-    foreach($elem as $userNode){
-        if($userNode->getAttribute('id_user') == $_SESSION['userId']){
-            if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
-                $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
-                foreach($pics as $pic){ 
-                    if($pic->textContent == $idpicscelto) $invalidFlag = 4;
-                }
-            }
-        }
-    }
-    if($invalidFlag == 0){
-        $xmlString="";
-                                                            
-        foreach(file("XML/ProfilePic.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        
-        $doc= new DOMDocument();
-        $doc->loadXML($xmlString);
-        $root=$doc->documentElement;
-        $elem=$root->childNodes; 
-        foreach($elem as $pics){
-            if($pics->getAttribute('id_pic') == $idpicscelto){
-                $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
-                $newPath = $pics->getElementsByTagName('path')->item(0)->textContent;
-            }
-        }
-
-        $db_name = "Database_Pixel_Hub";
-        $table_users = "Tabella_Utenti";
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-        if (mysqli_connect_errno()){
-
+        if (mysqli_query($mysqliConnection, $sql)) {
+            header("Location:login.php");
+        } else {
             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
-        $resultQ = mysqli_query($mysqliConnection, $sql);
-        
-        if ($resultQ){
-            $row = mysqli_fetch_array($resultQ);
-            if($row['Pixels']<$prezzo) $invalidFlag=3;
-        }
-        
-        if($invalidFlag == 0){
+    } else {
+        $invalidFlag = 1; // email non valida
+    }
+}
 
-            $sql = "
+
+// Cambio password
+if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
+
+    // Password con:
+    // - almeno una maiuscola
+    // - almeno un carattere speciale
+    // - minimo 8 caratteri
+    if (preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['newPass'])) {
+
+        $db_name = "Database_Pixel_Hub";
+        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+        if (mysqli_connect_errno()) {
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPass"]);
+
+        // Query di aggiornamento password
+        $sql = "
             UPDATE $table_users
-            SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
-            WHERE ID = ".(int)$_SESSION['userId'].";
-            ";
+            SET  = '$new'
+            WHERE ID = ".(int)$_SESSION['userId']."
+        ";
 
-            if (mysqli_query($mysqliConnection, $sql)) {
-                $xmlString="";
-                                                                    
-                foreach(file("XML/utenti.xml") as $node){ 
-                    $xmlString .= trim($node);
-                }
-                
-                $doc= new DOMDocument();
-                $doc->loadXML($xmlString);
-                $doc->formatOutput = true;
-                $root=$doc->documentElement;
-                $elem=$root->childNodes;
-                foreach($elem as $userNode){
-                    
-                    if($userNode->getAttribute('id_user') == $idUtente){
-                        $nuovaPic = $doc->createElement("idPropic");
-                        $nuovaPic->textContent=$idpicscelto;
-                        $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
-                        $picRoot->appendChild($nuovaPic);
-                    }
+        if (mysqli_query($mysqliConnection, $sql)) {
+            header("Location:login.php");
+        } else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+    } else {
+        $invalidFlag = 2; // password non valida
+    }
+}
 
 
-                }
-                $doc->save("XML/utenti.xml");
-                /*header("Location:Profilo.php");*/
-            }
-            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-        
+
+//    CAMBIO GENERE PREFERITO (XML)
+
+if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
+
+    $idUtente = $_SESSION["userId"];
+    $xmlString = "";
+
+    // Lettura XML utenti
+    foreach (file("XML/utenti.xml") as $node) {
+        $xmlString .= trim($node);
+    }
+
+    // Parsing XML
+    $doc = new DOMDocument();
+    $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
+
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    // Aggiornamento genere preferito
+    foreach ($elem as $userNode) {
+        if ($userNode->getAttribute('id_user') == $idUtente) {
+            $userNode->getElementsByTagName('GenerePreferito')->item(0)->textContent = $_POST["Genere"];
+            $_SESSION['generePreferito'] = $_POST['Genere'];
         }
     }
-    
-   
+
+    $doc->save("XML/utenti.xml");
 }
 
-if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
 
+/* =========================
+   CAMBIO SOCIAL (XML)
+   ========================= */
+if (isset($_POST["cambiaSocial"]) && !empty($_POST["newSocial"])) {
 
-    $newPath = $_POST['newPropic'];
-                    
+    $idUtente = $_SESSION["userId"];
+    $xmlString = "";
 
-    $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
-
-    if (mysqli_connect_errno()){
-
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    foreach (file("XML/utenti.xml") as $node) {
+        $xmlString .= trim($node);
     }
 
-    $sql="UPDATE $table_users SET imgProfiloPath = \"$newPath\"
-    WHERE ID = ".(int)$_SESSION['userId'].";
-        ";
-    
+    $doc = new DOMDocument();
+    $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
 
-    if(!(mysqli_query($mysqliConnection, $sql))) printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    else header('Location: Profilo.php');
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    foreach ($elem as $userNode) {
+        if ($userNode->getAttribute('id_user') == $idUtente) {
+            $userNode->getElementsByTagName('linkEsterno')->item(0)->textContent = $_POST["newSocial"];
+        }
+    }
+
+    $doc->save("XML/utenti.xml");
 }
-                    
-               
-        
-                
-            
+
+
+
+//    CAMBIO CASA DI SVILUPPO (XML)
+
+if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
+
+    $idUtente = $_SESSION["userId"];
+    $xmlString = "";
+
+    foreach (file("XML/utenti.xml") as $node) {
+        $xmlString .= trim($node);
+    }
+
+    $doc = new DOMDocument();
+    $doc->loadXML($xmlString);
+    $doc->formatOutput = true;
+
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    foreach ($elem as $userNode) {
+        if ($userNode->getAttribute('id_user') == $idUtente) {
+            $userNode->getElementsByTagName('CasaDiSviluppoPreferita')->item(0)->textContent = $_POST["newCasa"];
+        }
+    }
+
+    $doc->save("XML/utenti.xml");
+}
+
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
