@@ -64,7 +64,8 @@ if(isset($_POST['signin']) && $jumper==0){
         $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
         $resultQ = mysqli_query($mysqliConnection, $queryLogin);
         $num = mysqli_num_rows($resultQ);
-        // se il numero delle righe presente al controllo della tabella utenti 
+        // se il numero delle righe presente al controllo della tabella utenti è maggiore di zero vuol dire che c'è gia una riga corrispondente 
+        //a l'utente che si sta registrando quindi imposta il messaggio d'alert come utente gia registrato
         if($num > 0){
             $service=("Utente già registrato!");
         }
@@ -73,31 +74,34 @@ if(isset($_POST['signin']) && $jumper==0){
                 if($_COOKIE['tipoSignIn'] == "2" && $unlock == 0) $service="Chiave di registrazione errata! Contattare la segreteria al numero +3906061225587";
                 
                 else{
-                        if($_COOKIE['tipoSignIn'] == "0"){ //Tipo utente normale
+                        if($_COOKIE['tipoSignIn'] == "0"){ //Controllando il cookie tipo Signin partono all'occorrenza 3 query sql che inseriscono nella tabella i dati scritti nella form
+                        //in questo caso si inserisce un utente normale 
                         $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 0,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
-                        else if($_COOKIE['tipoSignIn'] == "1"){//tipo utente publisher che possiede una partita iva
+                        else if($_COOKIE['tipoSignIn'] == "1"){//Accesso come  publisher che possiede una partita iva con il campo PIVA non vuoto 
                             $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath, PIVA)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 1,'ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
-                        else if($_COOKIE['tipoSignIn'] == "2"){//Tipo utente admin
+                        else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
                             $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
 
-                        
+                        // se non si connette da messaggio di errore
                         if (!$resultQ = mysqli_query($mysqliConnection, $sql)) {
                         echo("Query non partita! \n");
                         exit();
                         }
                         else {
+
+                        // una volta fatto questo si prende l'id dell'utente appena generato e va a creare la seconda parte delle informazioni sotto forma di file XML
 
                             $db_name = "Database_Pixel_Hub";
                             $table_users = "Tabella_Utenti";
@@ -114,13 +118,13 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $row = mysqli_fetch_array($resultQ);
                             
                                 $idUtente=$row['ID'];
-
+                                // si prende dal risultato della query di selezione id e lo passiamo come variabile
                                 $xmlString="";
                                                                                         
                                 foreach(file("XML/utenti.xml") as $node){ 
                                     $xmlString .= trim($node);
                                 }
-                                
+                                // la useremo per creare un nuovo nodo utente che ha come attributo id_utente corrispondente al id preso dal database
                                 $doc= new DOMDocument();
                                 $doc->loadXML($xmlString);
                                 $doc->formatOutput = true;
@@ -129,14 +133,16 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $utente = $doc->createElement("Utente");
                                 $utente->setAttribute("id_user", $idUtente); 
                                 $utente->appendChild($doc->createElement("linkEsterno", ""));
-                                $utente->appendChild($doc->createElement("DataIscrizione", date("d/m/Y")));
+                                $utente->appendChild($doc->createElement("DataIscrizione", date("d-m-Y")));
                                 $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
                                 $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
                                 $utente->appendChild($doc->createElement("listaGiochi"));
                                 $utente->appendChild($doc->createElement("listaPropic"));
+                                //all interno dei nodi figli di utente si inseriscono i dati secondari "meno importanti" e vengono parzialmente popolati
 
                                 $root->appendChild($utente);
                                 $doc->save("XML/utenti.xml");
+                                // infine vengono appesi all nodo radice e vengono salvati al nodo utente
 
                         
                                 header("Location: login.php");
@@ -149,6 +155,7 @@ if(isset($_POST['signin']) && $jumper==0){
                         }
                 }  
             }
+            //settaggio di messaggi di errore: in base all'inserimento errato dell'email al momento dell'iscrizione
     }
     else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
         $service=("Email non valida!");
@@ -181,6 +188,7 @@ if(isset($_POST['signin']) && $jumper==0){
         </div>
         <div id="SigninCard">
             <div class="SigninForm">
+                <!-- nella form verranno inserite le varie informazioni hanno diversi formati  -->
                 
                 <form action="signin.php" method="post">
                     <?php
@@ -200,9 +208,10 @@ if(isset($_POST['signin']) && $jumper==0){
                         <p>Email</p>
                         <input type="text" placeholder="example@mail.com" name="Email" maxlength="100"/>   
                     </div>
-                    <div>
+                    <!-- la password ha come placeholder dei pallini a simboleggiare subito il tipo di dato-->
+                     <div>
                         <p>Password</p>
-                        <input type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password"/>
+                        <input type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password"/>
                     </div>
                     <div>
                         <p>Nickname</p>
@@ -215,6 +224,7 @@ if(isset($_POST['signin']) && $jumper==0){
                     </div>
 
                     <?php
+                    // Questi appaiono solo nel caso si fa l'accesso come publisher o come admin
                     if($tipoSignIn == 1 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "1")){
                         echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\"/></div>";
                     }
