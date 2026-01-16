@@ -17,14 +17,14 @@ if(isset($_SESSION['tipoUtente'])){
                 $elem = $root->childNodes;
                 foreach($elem as $rr){
                     $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                    $Recensioni = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
+                    $Recensione = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
                     $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
                     if ($utente == $_SESSION['userId']  && $gioco == $_POST['idGioco']) {
                         $flagLike = $rr->getAttribute("flagLike");
                         $flagDislike = $rr->getAttribute("flagDislike");
                         $found = true;
                         $tupleRec[] = [
-                            'idRecensione' => $Recensioni,
+                            'idRecensione' => $Recensione,
                             'flagLike' => $flagLike,
                             'flagDislike' => $flagDislike
                         ];

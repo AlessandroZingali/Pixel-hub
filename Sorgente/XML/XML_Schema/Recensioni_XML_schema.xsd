@@ -22,6 +22,7 @@
       <xsd:sequence> 
         <xsd:element nome="text" type="xsd:string" minOccurs="1" maxOccurs="1"/> 
       </xsd:sequence> 
+      <xsd:attribute name="id_recensione" type="xsd:integer" use="required"/> 
       <xsd:attribute name="id_utente" type="xsd:integer" use="required"/> 
       <xsd:attribute name="data" type="xsd:string" use="required"/> 
       <xsd:attribute name="ora" type="xsd:time" use="required"/> 
