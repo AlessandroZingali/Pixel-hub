@@ -13,7 +13,7 @@ foreach(file("XML/LikeRecensioni.xml") as $node){
             $elem = $root->childNodes;
             foreach($elem as $rr){
                 $utente = $rr->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                $recensione = $rr->getElementsByTagName("Id_Recensioni")->item(0)->textContent;
+                $recensione = $rr->getElementsByTagName("Id_Recensione")->item(0)->textContent;
                 $gioco = $rr->getElementsByTagName("Id_Gioco")->item(0)->textContent;
                 if ($utente == $_POST['idUtente'] && $recensione == $_POST['idRecensione'] && $gioco == $_POST['idGioco']) {
                     $flagLike = $rr->getAttribute("flagLike");
