@@ -1,9 +1,5 @@
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
-
-
+/* CSS delle Frequently Asked Question */
+/* la tabella delle faq è divisa nella parte blu per le domande e quella rossa con le risposte*/
 
 #TabFaq{
     margin-top: 2%;
@@ -11,34 +7,22 @@
     border-radius: 15px;
     text-align: center;
 
-    #ColDom{ 
-
+    #ColDom{
         width:30%;
-        border: solid 2px blue;
+        border: solid blue 2px;
         border-radius: 15px;
         background-color: rgb(49, 76, 151);
-            
     }
     #ColRis{
-
         width: 70%;
         border: solid red 2px;
         border-radius: 15px;
         background-color: rgb(172, 42, 42);
-
     }
     td{
-
         background-color: #434343;
         padding: 30px;
         border-radius: 15px;
 
     }
-
-}
-
-
-
-@media (max-width: 1620px){
-
 }

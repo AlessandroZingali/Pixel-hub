@@ -1,7 +1,12 @@
+/* File CSS della pagina del profilo diviso in 3 sezione che saranno mostrate/nascoste al premere di un pulsante. Abbiamo preferito adottare
+una struttura a card per evitare di vreare altre 3, o più, pagine diverse e risparmiare spazio. Inoltre ci sembrava anche un modo per mostare
+le conoscenze acquisite durante il corso in fatto di design e pagine web dinamiche*/
 
+/* il wrapper si spostera in base a quale delle 3 sezioni saranno mostrate senza di questo le sezioni diverse non sarebbero posizionate correttamente */
 .wrapper{
     position: relative;
 }
+/* la principale card e quella del profilo che mostra i vari campi del profilo utente */
 .cardProfilo{
     display: flex;
     flex-direction: column;
@@ -15,13 +20,12 @@
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
 }
+
+/* la seconda card che permette di modificare i campi. L'abbiamo creata sfruttando la table.*/
 .cardSettings{
     margin-top: 2%;
-    
-  
     width: 100%;
     color: white;
-    /*display:contents;*/
     table{
         
         border:white solid 4px;
@@ -32,29 +36,22 @@
         border: white 2px solid;
         padding: 5px;
         border-spacing: 10px 30px;
-        
     }
-
-    table input[type='text']
- {
+    table input[type='text']{
         padding: 5%;
         border-spacing: 100px;
         background-color: beige;
         border-radius: 10px;
         align-items: center;
     }
-    table select
-    {
+    table select{
         padding: 5%;
         width: 100%;
         margin-right: 10%;
         background-color: beige;
         border-radius: 10px;
         align-items: center;
-
-
     }
-    
     table input[type='submit']{
         font-family: "font pixeloso",monospace;
         background-color:#414141;
@@ -65,13 +62,14 @@
         width: 80%;
         height: 30px;
         white-space: nowrap;
-        
-
     }
     table input[type='submit']:hover{
         background-color:#5f5f5f;
     }
 }
+/* terza card per l'acquisto delle immagini profilo In questo caso invece della table abbiamo voluto sfruttare la CSS Grid.
+Infatti, volevamo usarle entrambe per mostare sia le conoscenze acquisite ma anche le differenze tra le due, 
+con relativi punti di forza e debolezza nella praticità d'uso*/
 .cardPicStore{
     padding:3%;
     margin-top: 2%;
@@ -89,8 +87,8 @@
 }
 
 .gridPicStoreForm{
+    /* border: solid green; */
     display: grid;
-    /*border: #76d5f0 solid;*/
     grid-template-columns: repeat( 4, minmax(220px, 1fr));
     grid-template-rows: auto;
     width: 100%;
@@ -101,10 +99,13 @@
   
 }
 
+/* Classe attua a nascondere la card a cui è asseganata (la gestione avviene tramite javascript file: cardProfileChanger.js) */
+
 .hideCard{
     display: none;
 }
 
+/* Stile della sezione principale del profilo con immagine e info utente */
 .baseProfilo{
    color: white;
     border-bottom:white solid 2px;
@@ -113,19 +114,15 @@
     margin-top: 2%;
 
     .info{
-
         /*border:blue solid 2px;*/
         flex-direction: column;
-
         padding: 20px;
-
             td{ 
             padding-left:10px;
             padding-right: 10px;
             padding-top: 5px;
             background-color: #414141;
             border-radius: 15px;
-            
             a{
                 text-decoration: none;
                 color: white;
@@ -144,11 +141,13 @@
 
    
 }
+/* Sotto elemento della card principale che mostra gli ultimi titoli aggiunti */
 
 #lastTitle{
     padding: 10px;
     color: rgb(255, 255, 255);
 }
+/* per il resize abbiamo utilizzato una griglia giustificando il row-gap messo in basso  */
 .flexGridGames{
     display: flex;
     flex-direction: column;
@@ -171,7 +170,7 @@
     }
 
 }
-
+/* Stile dello shop con annesse immaggini */
 .sceltaPic{
     display: flex;
     flex-direction: column;
@@ -205,6 +204,8 @@
     
 }
 
+/* questo definisce l'animazione rotate quando passiamo sopra con il cursore per simulare l'ingranaggio che gira */
+
 @keyframes rotate{
     from{
         transform: rotate(0deg);
@@ -215,6 +216,7 @@
 }
 
 
+/* bottoni del negozio e per ritornare indietro al negozio */
 .shop button{
     background-color:rgba(63, 56, 56, 0);
     border: none;
@@ -236,31 +238,21 @@
         height: 60px;
         white-space: nowrap;
         
-
     }
 
+/*Senzione delle media query, per resize dinamico. Abbiamo messo più mediaQ. per una gestione più ottimizzata*/
 @media (max-width: 1620px){
-
     .cardProfilo{
         width: 85%;
         height: 85%;
     }
-    
-  
     .GameCard .productimage{
         width: 180px;
         height: 250px; 
     }
-
-    
-
-
     .gridPicStoreForm{
         grid-template-columns: repeat( 3, minmax(220px, 1fr));
     }
-
-
-
 }
 
 @media (max-width: 1450px){
@@ -304,38 +296,32 @@
     }
 }
 
-.cardSettings{
-    margin-top: 2%;
-    
-  
-    
-    color: white;
-    /*display:contents;*/
-   table, tr, td {
-        display: block;
-        width: 100%;
-    }
+    .cardSettings{
+        margin-top: 2%;
+        color: white;
+        table, tr, td {
+            display: block;
+            width: 100%;
+        }
 
-    tr {
-        margin-bottom: 15px;
-    }
+        tr {
+            margin-bottom: 15px;
+        }
 
-    td {
-        text-align: left;
-        margin-bottom: 6px;
+        td {
+            text-align: left;
+            margin-bottom: 6px;
+        }
+        input[type="text"],select {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            font-size: 90%;
+            margin-top: 8px;
+        }
     }
-
-    input[type="text"],
-    select {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    input[type="submit"] {
-        width: 100%;
-        margin-top: 8px;
-    }
-}
 
 }
 

@@ -53,4 +53,12 @@
     <listaGiochi/>
     <listaPropic/>
   </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>17-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Bethesda</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>

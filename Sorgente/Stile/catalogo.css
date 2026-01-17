@@ -1,8 +1,6 @@
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
+/*Stile della pagina del catalogo. Abbiamo usato un wapper con all'interno un catalogo container  per aggiunstare meglio il resize della pagina e disporre un container più solido*/
 
+/*Stile wrapper che fa da prima struttura per la pagina del catalogo*/
 #wrapper{
 
     width: 100%;
@@ -11,6 +9,8 @@
     justify-content: center;
     align-items: center;
 }
+
+/*Stile catalogo container della lista giochi in ordine alfabetico*/
 #catalogoContainer{
 
     width: 80%;
@@ -27,10 +27,7 @@
     }
 }
 
-
-
-
-
+/*Stile delle card dei vari giochi nel catalogo*/
 .GameCardCat{   
     width: 80%;
     display: flex;
@@ -74,6 +71,7 @@
     }
 }
 
+/* Stile delle card che segnalano il prezzo o l'acquisto già avvenuto */
 .prezzo{
     text-align: center;
     width: 170px;
@@ -83,10 +81,8 @@
     p{  font-size:95%;
         padding: 10px;
     }
-   
-    
-    
 }
+
 .acquistato {
     
     background-color: rgb(40, 50, 85);
@@ -101,7 +97,7 @@
 }
 
 
-
+/* Sezione delle media query, per resize dinamico */
 @media (max-width: 1620px){
 
     #catalogoContainer{

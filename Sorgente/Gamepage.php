@@ -229,7 +229,7 @@ echo "";
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul class ="submenu">
+                    <ul>
                         <?php //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
                         // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
                         //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php

@@ -70,4 +70,9 @@
     <Id_Commento>3</Id_Commento>
     <Id_Gioco>1</Id_Gioco>
   </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Commento>
 </Associazione_Like_Commenti>

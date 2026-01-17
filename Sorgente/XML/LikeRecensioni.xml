@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Associazione_Like_Recensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Recensioni_schema.xsd"/>
+<Associazione_Like_Recensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Recensioni_schema.xsd">
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>1</Id_Recensione>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Recensioni>
+</Associazione_Like_Recensioni>

@@ -1,15 +1,8 @@
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
-
-
-
+/* Pagina CSS per il Sign in utilizza uno sfondo definito nella cartella sfondi e una form che variera il numero di campi mostrati in base al tipo di login */
 body{
     /*border: solid rgb(168, 182, 41);*/
-   /* background-image: linear-gradient(to right, #434343 0%, black 100%);*/
-   display: flex;
-   flex-direction: column;
+    display: flex;
+    flex-direction: column;
     background-image: url('Sfondi/pixelbg2.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,7 +17,7 @@ body{
     justify-content: center;
 
 }
-
+/* stile del messaggio di servizio al momento che un qualcosa all'inserimento dei dati vada storto */
 #service{
     background-color: rgb(243, 203, 231);
     color: red;
@@ -36,7 +29,7 @@ body{
 }
 
 
-
+/* card principale per il sign in  */
 #SigninCard {
     position: relative;
     display: flex;
@@ -54,7 +47,10 @@ body{
     box-shadow: 2px 10px 10px black;
     animation: FadeIn 1.2s forwards; 
 
+
 }
+
+/* animazione in keyframe per passare da una tabella ad un altra */
 @keyframes FadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -75,11 +71,9 @@ body{
     width: 80%;
     height: 100%;
     margin-bottom: 1%;
-    /*padding: 30px;*/
     border-radius: 5%;
     background-color: rgb(80, 74, 74);
     box-shadow: 2px 10px 10px black;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,10 +124,7 @@ body{
 }
 
 
-
-
-
-
+/* Dato il fatto che si usa una struttura diversa nel sign in e log in si è stato inserito il footer e le sue regole di stile */
 
 #footer{
     border: rgb(255, 255, 255) solid;
@@ -146,8 +137,6 @@ body{
     font-size: 12px;
     padding:5px;
     color: white;
-
-    
     }
 
 #footer ul{
@@ -165,7 +154,7 @@ body{
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
-
+/* Sezione media query */
 @media (max-width: 1750px){
 
     #SigninCard{
@@ -183,16 +172,13 @@ body{
     }
     #logo img{
         width: 100%;
-        height: 60%;
-      
+        height: 60%; 
     }
 
 }
 
 
 @media (max-width: 950px){
-
-
 
     #footer{
         margin-top: 2%;
@@ -203,10 +189,8 @@ body{
     #SigninCard{
         width: 80%;
         height: auto;
-      
     }
         
-
     #footer ul li{
         width: 40px;
         font-size: 10px;
@@ -214,7 +198,4 @@ body{
     .SigninForm form{
         width: 350px;
     }
-
-
-
 }

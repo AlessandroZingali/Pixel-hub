@@ -230,7 +230,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul class ="submenu">
+                    <ul>
                         <?php
                         if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
                         else if($service == 0){

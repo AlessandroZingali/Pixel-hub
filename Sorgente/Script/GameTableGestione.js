@@ -28,11 +28,9 @@ var numeroTabelle = 4;
 let push = 0; //Variabile di controllo per il push dell'array contenitore nel caso in cui ci sia un utente loggato
 
 var is_set_id = parseInt(sessionStorage.getItem('idUser')); //Passaggio dell'id utente dalla sessione alla variabile di controllo, conversione in intero
-
 if(sessionStorage.getItem('genPref') != null) var is_set_prefGen = 1; //Controllo della presenza del genere preferito nella sessione
-
 var setAnswer = isNaN(is_set_id) ? 0 : 1; //Controllo della presenza dell'id utente nella sessione
-var setPrefGen = isNaN(is_set_prefGen) ? 0 : 1; //Controllo della presenza del genere preferito nella sessione
+var setPrefGen = (is_set_prefGen == 0) ? 0 : 1; //Controllo della presenza del genere preferito nella sessione
 
 
 //Inizializzazione dell'array contenitore in base alla presenza o meno dell'id utente e del genere preferito
@@ -40,8 +38,10 @@ if(setAnswer == 0 && setPrefGen == 0){
    push=1; 
    console.log("Funzione base");
 } 
+
 //Se non è presente l'id utente e non è presente il genere preferito, significa che l'utente non è loggato, e le tabelle da mostrare sono 3
-for(var i = 0 + push; i < numeroTabelle; i++){
+for(var i = 0 + push; i < numeroTabelle; i++){+
+    console.log(base+i);
     contenitore.push(new selettore(base + i));
 }
 
@@ -73,7 +73,7 @@ function scaleTable(){
 
        else if (width <= 1200) visibili = 3;
        else if (width <= 1500) visibili = 4;
-
+       sessionStorage.setItem("NumCol", visibili); //Salvataggio del numero di celle visibili nella sessione per eventuali usi futuri
         //Recupero della tabella e della riga giochi
         var sel = contenitore[i];
         var table = document.getElementById(sel.tabella);

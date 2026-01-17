@@ -1,19 +1,7 @@
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
+/* Stile della Gamepage*/
 
-
-
-
-#container{
-   /* border: green solid;*/
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
+/* Stile della presentazione delle informazioni sul gioco. Abbiamo diviso, immagine, informazioni(statGioco), riferimenti ad altri giochi e spec in sezioni apposite
+specificate da singoli ID*/
 #presentazioneGioco{
    /* border: red solid ;*/
     margin-top: 2%;
@@ -29,7 +17,8 @@
     border-radius: 20px;
     
 }
-
+/*Stat gioco definisce la seconda colonna di presentazione gioco. Le div sono in colonna e 
+lo stile dei riferimenti ad altri giochi è specificato tarmite un tag apposito*/
 #statGioco{
     /*border: yellow solid;*/
     padding: 20px;
@@ -48,17 +37,20 @@
     }
 }
 
-
-
-
-#descAndBuy{
-    margin-top: 1%;
-    display: flex;
-    flex-direction: row;
+#consigliati{
+    margin-top: 10px;
+    padding: 20px;
+    /*border: brown solid;*/
+    h3{ padding:10px; }
+    li a{text-decoration: none; color:white;padding: 5px;
+    }   
+   
+    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+    border-radius: 10px;
 
 }
 
-
+/* Stile specifiche tecniche del gioco */
 #specGioco{
 
 background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
@@ -79,11 +71,20 @@ border-radius: 10%;
     }
 }
 
+/* Stile descrizione e acquisto gioco, contiene al suo interno i due riquadri e ne setta il display*/
+#descAndBuy{
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
 
+}
+
+
+/*Stile descrizione gioco*/
 #descGioco{
     /*border: teal solid;*/
     padding:30px;
-    width: 60%;
+    width: 80%;
     
    
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
@@ -92,11 +93,15 @@ border-radius: 10%;
      
 }
 
+/*Stile acquisto gioco*/
 #Acquisto{
     border:white solid;
     padding: 4%;
     border-radius: 15px;
     margin-left: 10%;
+    height: 200x;
+  
+    
     
 }
 
@@ -109,20 +114,8 @@ border-radius: 10%;
     border-radius: 20px;
 }
 
-#consigliati{
-    margin-top: 10px;
-    padding: 20px;
-    /*border: brown solid;*/
-    h3{ padding:10px; }
-    li a{text-decoration: none; color:white;padding: 5px;
-    }   
-   
-    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
-    border-radius: 10px;
 
-}
-
-
+/* Stile dell'are social, avremo sempre 2 riquadri in flex. Utile poiche possiamo passare poi in colum nella media query */
 #social{
 
     width: 100%;
@@ -136,21 +129,26 @@ border-radius: 10%;
 
 }
 
+/* Stile Commenti */
 #commenti{
-     border-radius: 15px;
-    background-color: rgb(53, 49, 49);  
-    box-shadow: 2px 10px 10px black;
-    padding-top: 2%;
+
     border: pink solid;
     display: flex;
-    width: 40%;
     flex-direction: column;
     align-items: center;
-
+    width: 40%;
+    padding-top: 2%;
+    
+    
+    border-radius: 15px;
+    background-color: rgb(53, 49, 49);  
+    box-shadow: 2px 10px 10px black;
+    
     textarea{
+        width: 80%;
         background-color: beige;
-    border-radius: 10px;
-    padding: 10px;
+        border-radius: 10px;
+        padding: 10px;
     
     }
 
@@ -170,7 +168,7 @@ border-radius: 10%;
     margin-bottom: 3%;
     /*border: lime solid;*/
     width: 70%;
-    height: 200px;
+    height: auto;
     border-radius: 5%;
     background-color: rgb(80, 75, 75, 0.35);
 }
@@ -234,6 +232,70 @@ padding-right: 10px;
     background-color: rgba(255, 255, 255, 0.25);
 }
 
+/* Stile Recensioni */
+#recensioni{
+    border: cyan solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    padding-top: 2%;
+   
+    
+    border-radius: 15px;
+    background-color: rgb(53, 49, 49);  
+    box-shadow: 2px 10px 10px black;
+    
+    
+    float: right; 
+
+    textarea{
+        width: 80%;
+        padding: 10px;
+        background-color: beige;
+        border-radius: 10px;
+    }
+
+    input[type="submit"]{
+    background-color: rgba(88, 83, 83, 0.322);
+    color: white;
+    margin-top: 3%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    
+    }
+}
+#formRecensioni input[type="number"] {
+    background-color: beige;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 6px 10px;
+    width: 25%;
+
+    
+}
+
+#votoUtente{
+    border: orange solid;
+    background-color: bisque;
+}
+
+    
+
+.recensioneUtente{
+    margin-bottom: 3%;
+    padding: 2% 4% 7%;
+;   /*border: pink solid;*/
+    width: 70%;
+    height: auto;
+    border-radius: 5%;
+    background-color: rgb(80, 75, 75, 0.35);
+
+}
+
 [id^="likeButtonR"]{
     border: none;
 
@@ -264,70 +326,7 @@ padding-right: 10px;
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-
-
-
-
-#recensioni{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 2%;
-    
-    border-radius: 15px;
-    background-color: rgb(53, 49, 49);  
-    box-shadow: 2px 10px 10px black;
-    width: 40%;
-    border: cyan solid;
-    float: right; 
-
-    textarea{
-    padding: 1%;
-    background-color: beige;
-    border-radius: 10px;
-    
-    align-items: center;
-    }
-
-    input[type="submit"]{
-    background-color: rgba(88, 83, 83, 0.322);
-    color: white;
-    margin-top: 3%;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    width: 100%;
-    
-    }
-}
-#formRecensioni input[type="number"] {
-    background-color: beige;
-    border: 1px solid #aaa;
-    border-radius: 10px;
-    padding: 6px 10px;
-    width: 25%;
-
-    
-}
-
-#votoUtente{
-    background-color: bisque;
-}
-
-    
-
-.recensioneUtente{
-    margin-bottom: 3%;
-    padding: 2% 4% 7%;
-;   /*border: pink solid;*/
-    width: 70%;
-    height: 200px;
-    border-radius: 5%;
-    background-color: rgb(80, 75, 75, 0.35);
-
-}
-
+/* Sezione Media Query */
 
 @media (max-width: 1620px){
 
@@ -361,14 +360,44 @@ padding-right: 10px;
     #commenti{
         margin-bottom: 5%;
         width: 80%;
-        
+        textarea{
+            margin-left: 8%;
+            width: 80%;
+        } 
+        input[type="submit"]{
+            margin-left: 10%;
+            width: 80%;
+        }
     }
     #recensioni{
+        width: 80%;    
+        textarea{
+            margin-left: 8%;
+            width: 80%;
+        }
         
-        width: 81%;
+        input[type="submit"]{
+            margin-left: 10%;
+            width: 80%;
+        }
+        input[type="number"] {
+            margin-left: 8%;
+            width: 25%; 
+        }
+    }
+    #Acquisto{  margin-top: 2%;
     }
 
+    #buttonAcquista{
+    margin-left: 34%;
+    }
 
+ }
 
+@media (max-width: 1000px){
+    
+    #descAndBuy{
+        flex-direction: column;
+    }
 }
 

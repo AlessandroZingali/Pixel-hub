@@ -1,5 +1,6 @@
 /* Pagina di stile CSS usata come base per le pagine principali del sito per evitare di ripetere gli stessi elementi sui file CSS specifici di ogni pagina.
-Qui principalmente definiremo il body principale con lo sfondo e i caratteri la navigation bar e il footer*/
+Qui principalmente definiremo il body principale con lo sfondo e i caratteri la navigation bar e il footer 
+per debug si è voluto lasciare nei commenti i border per gli elementi principali cosi che possano essere mostrati se bisogna modificare il codice sorgente */
 
 
 /* Definizione di carattere personalizzato del sito in stile retrò */
@@ -18,9 +19,9 @@ body{
     background-position: center;
     min-height: 100vh;
     color: white;
-
-    
 }
+
+/* Contiene Sia logo che il motto del sito */
 #header{
    /*border: solid red;*/
     width: 100%;
@@ -37,6 +38,7 @@ body{
     }
     
 }
+/* Contiene il corpo del sito */
 #container{
     /*border: solid red;*/
     margin: 20px;
@@ -47,16 +49,14 @@ body{
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    
+    h2{
+        font-size: 22px;
+        color: white;
+    }
 }
 
-
-
-#container h2{
-    font-size: 22px;
-    color: white;
-}
-
-
+/* Il logo del sito */
 #logo{
     /*border: solid blue;*/
     width: 700px;
@@ -67,12 +67,14 @@ body{
     
 }
 
+/*Abbiamo preferito impostare la dimensione dell'imagine del logo con un tag a parte*/
 #logoimg {
     height: 90%;
     margin: 2%;
 
 }
 
+/* La navigation bar principale del sito */
 #navigation{
 /* border: solid orange;*/
         display: flex;
@@ -89,6 +91,10 @@ body{
     border-radius: 80px;
    
 }
+
+/*Da qui iniziano le impostazioni iniziali per il menu a cascata, visibile al restingimento. Abbiamo impostato una classe BotMenu
+per manipolare la visibilita del bottone del menu a cascata. Abbiamo poi impostato tramite la classe dropMenu tutta la logica di stile per l'attivazione in :hover
+del menu a cascata */
 
 .dropMenu ul{
     /*border: solid yellow;*/
@@ -107,7 +113,7 @@ body{
 
     margin: 20px;
     font-size: 20px;
-    padding: 1%;
+    padding: 3%;
 
 }
 
@@ -125,8 +131,10 @@ body{
 .dropMenu a{
     text-decoration: none;
     color: white;
+  
 }
 
+/* Stile per la barra di ricerca con ricerca live */
 #searchBar{
     width: 450px;
     display: inline-block;
@@ -134,6 +142,7 @@ body{
     position: relative;
    /* border: solid pink;*/
     padding: 5px;
+    
 }
 
 #searchBar input[type="text"]{
@@ -166,25 +175,26 @@ body{
     flex-direction: column;
 }
 
+/* Stile del risultato della live search */
 .risultato {
-    position: relative; 
+    position: relative;
+
+    a {
+        display: block; 
+        padding: 8px;
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    a:hover {
+        background: #333;
+        border-radius: 15px;
+    }
 }
 
 
-.risultato a {
-    display: block; 
-    padding: 8px;
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-
-.risultato a:hover {
-    background: #333;
-    border-radius: 15px;
-}
-
+/* Stile per il footer del sito */
 #footer{
     /*border: pink solid;*/
     width: 50%;
@@ -215,6 +225,7 @@ body{
     color: rgb(0, 208, 255);
 }
 
+/* Media Queries per rendere il sito responsive e adattabile a schermi di diverse dimensioni */
 @media (max-width: 1620px){
 
     #header h2{
@@ -227,6 +238,7 @@ body{
         padding-left:22%;
     }
 
+    /* Display del bottone e adattamento del menu a cascata */
     .botMenu{
         border: none;
         border-radius: 15px;
@@ -243,13 +255,11 @@ body{
 
     .dropMenu{
         position: relative;
-
-    
         cursor: pointer;
     }
 
 
-    .dropMenu .submenu{
+    .dropMenu ul{
         display: none;
         position: absolute;
         top: 100%;
@@ -262,7 +272,7 @@ body{
     }
 
 
-    .dropMenu .submenu li{
+    .dropMenu ul li{
         padding: 4px;
         white-space: normal;
         color: white;
@@ -273,7 +283,7 @@ body{
     }
 
 
-    .dropMenu:hover .submenu{
+    .dropMenu:hover ul{
         display: flex;
         flex-direction: column;
         justify-content: left;
@@ -281,14 +291,8 @@ body{
     }
 
     #searchBar{
-
     width: 350px;
     }
-
-
-
-
-
 
 }
 

@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
+  <Gioco id_gioco="6">
+    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="38" like="1" dislike="0">
+      <text>4 Democrazy</text>
+    </Commento>
+  </Gioco>
   <Gioco id_gioco="1">
-    <Commento id_commento="5" id_utente="5" data="30/12/2025" ore="12" minuti="04" like="0" dislike="1">
-      <text>chele</text>
-    </Commento>
-    <Commento id_commento="4" id_utente="1" data="30/12/2025" ore="11" minuti="47" like="1" dislike="0">
-      <text>her</text>
-    </Commento>
-    <Commento id_commento="3" id_utente="1" data="30/12/2025" ore="11" minuti="44" like="0" dislike="3">
-      <text>ciaos</text>
-    </Commento>
-    <Commento id_commento="2" id_utente="1" data="30/12/2025" ore="11" minuti="44" like="3" dislike="0">
-      <text>besughis</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="1" data="29/12/2025" ore="16" minuti="20" like="1" dislike="1">
-      <text>commento con like</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="2">
-    <Commento id_commento="1" id_utente="5" data="30/12/2025" ore="12" minuti="19" like="0" dislike="1">
-      <text>bello</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="7">
-    <Commento id_commento="1" id_utente="3" data="16/01/2026" ore="10" minuti="18" like="1" dislike="0">
-      <text>haloh</text>
+    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="40" like="0" dislike="0">
+      <text>HEROS ASSEMBLE!&#13;
+</text>
     </Commento>
   </Gioco>
 </listaCommenti>

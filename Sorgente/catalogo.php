@@ -59,7 +59,7 @@ if(isset($_SESSION['userId'])){
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul class ="submenu">
+                    <ul>
                     <?php
                         if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
                         else if($service == 0){
