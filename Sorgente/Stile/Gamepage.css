@@ -31,28 +31,21 @@
 }
 
 #statGioco{
-    
     /*border: yellow solid;*/
     padding: 20px;
     display: flex;
     flex-direction: column;
     row-gap: 4%;
     table{
-  border-radius:15px;
-         padding: 20px;
-        font-size: 18px; 
         /*border:orange solid; */
-     
+        border-radius:15px;
+        padding: 20px;
+        font-size: 14px; 
         background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
-        
         td{ 
             padding-left:10px;
-            
         }
-        
     }
-    
-    
 }
 
 
@@ -71,11 +64,12 @@
 background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
 border-radius: 10%;
 
+
     padding: 20px;
     /*border: olive solid;*/
     th{
         text-align: left;
-        padding-right: 20px;
+        padding-right: 10px;
     }
     tr{
         padding:10px;
@@ -120,7 +114,7 @@ border-radius: 10%;
     padding: 20px;
     /*border: brown solid;*/
     h3{ padding:10px; }
-    li a{text-decoration: none; color:white; 
+    li a{text-decoration: none; color:white;padding: 5px;
     }   
    
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);

@@ -51,16 +51,18 @@ if(isset($_SESSION['userId'])){
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-                            echo "<script>";
-                            echo "sessionStorage.removeItem(\"idUser\");";
-                            echo "sessionStorage.removeItem(\"genPref\");";
-                            echo "</script>";
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         

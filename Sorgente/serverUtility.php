@@ -1,5 +1,8 @@
 <?php
-// funzione che carica un file XML e lo restituisce come oggetto DOMDocument
+/*File che presenta al suo interno funzioni utili al sito, come ad esempio ad evitare di riscrivere lo stasso codice più volte 
+come la funzione che carica un file XML e lo restituisce come oggetto DOMDocument, o la funzione che restituisce la root di un file XML,
+la funzione che restituisce il primo livello di nodi figli della root di un file XML o la funzione che setta 
+il limite massimo di giochi da mostrare in ogni slider.*/
 function getDoc($file){
     $xmlString="";
                                 

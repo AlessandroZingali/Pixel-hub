@@ -1,26 +1,24 @@
+/* Pagina di stile CSS usata come base per le pagine principali del sito per evitare di ripetere gli stessi elementi sui file CSS specifici di ogni pagina.
+Qui principalmente definiremo il body principale con lo sfondo e i caratteri la navigation bar e il footer*/
+
+
+/* Definizione di carattere personalizzato del sito in stile retrò */
 @font-face {
     font-family: "font pixeloso";
     src: url('PixelatedElegance.ttf');
 }
-
-
-
-
-
+/* Il body principale di ogni pagina si differenza solo dalla pagina di login e sign in 
+qui si definisce il tipo di carattere presentato sopra e lo sfondo creato in gradiente   */
 body{
-
-   /* border: solid rgb(168, 182, 41);*/
+    /* border: solid green; */
     background-image: linear-gradient(to right, #434343 0%, black 100%);
     background-repeat: no-repeat;
     background-size: auto;
     font-family: "font pixeloso",monospace;
     background-position: center;
     min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
     color: white;
-    width: 100%;
+
     
 }
 #header{
@@ -40,7 +38,7 @@ body{
     
 }
 #container{
-/*    border: solid red;*/
+    /*border: solid red;*/
     margin: 20px;
     padding: 10px;
     padding-bottom: 10px;
@@ -290,6 +288,18 @@ body{
 
 
 
+
+
+}
+
+@media (max-width: 800px){
+    body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: white;
+    width: 100%;
+    }
 
 
 }

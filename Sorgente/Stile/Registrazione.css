@@ -10,7 +10,7 @@ body{
    /* background-image: linear-gradient(to right, #434343 0%, black 100%);*/
    display: flex;
    flex-direction: column;
-    background-image: url('pixelbg2.png');
+    background-image: url('Sfondi/pixelbg2.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: "font pixeloso",monospace;

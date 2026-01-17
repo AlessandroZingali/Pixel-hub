@@ -1,26 +1,20 @@
-@font-face {
-    font-family: "font pixeloso";
-    src: url('PixelatedElegance.ttf');
-}
+/* CSS della pagina dei contatti con gli admin del sito mantiene lo stile dei pulsanti di servizio delle altre pagine */
+
 
 
 
 #formTicket textarea{
-    width: 1000px;
-    height: 20%;
-
-  
-    padding: 10px;
+    padding: 40px;
     border: none;
     border-radius: 20px;
-   
 }
 
 #formTicket input[type="submit"]{
-    background-color: rgba(63, 56, 56, 0.911);
+    background-color: rgba(10, 8, 8, 0.911);
     color: white;
     padding: 10px;
     border: none;
     border-radius: 20px;
-
+    margin-left: 20%;
 }
+

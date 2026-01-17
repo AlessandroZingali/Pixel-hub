@@ -1,33 +1,28 @@
 <?php
-// Avvia la sessione (necessaria per usare $_SESSION)
+/* Il seguente file serve per creare una form per il contatto diretto con gli amministratori. Verranno registrati all'invio del testo, solamente se l'utente è loggato,
+dei nuovi nodi ticket all'interno di un apposito file XML omonimo. Qusto file sarà poi letto in una pagina specifica riservata agli amministratori del sito */
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+
+//Inizia la sessione
 session_start();
 
-// Variabili di stato per capire se l’utente è loggato
+//Variabili di stato per capire se l’utente è loggato
 $service = 0;
 $utente = "";
 
-// Controllo login
+//Controllo login
 if (isset($_SESSION['userId'])) {
-    $utente = $_SESSION['userName']; // nome utente da mostrare
-    $service = 1;                   // utente autenticato
+    $utente = $_SESSION['userName']; //Nome utente da mostrare
+    $service = 1;                   //Utente autenticato
 }
 
-// Controlla se il form è stato inviato E l’utente è loggato
+//Controlla se il form è stato inviato E l’utente è loggato
 if (isset($_POST["invioTicket"]) && $service === 1) {
 
-    // Stringa che conterrà tutto il file XML
-    $xmlString = "";
-
-    // Legge il file XML riga per riga
-    foreach (file("XML/Ticket.xml") as $node) {
-        $xmlString .= trim($node); // rimuove spazi e concatena
-    }
-
-    // Crea il documento DOM
-    $doc = new DOMDocument();
-    $doc->loadXML($xmlString);     // carica l’XML dalla stringa
-    $doc->formatOutput = true;     // formatta l’output
-    $root = $doc->documentElement; // nodo radice del file XML
+    // Carica il documento XML
+    $doc = getDoc("XML/Ticket.xml");
+    $root = $doc->documentElement;
 
     // Calcolo del nuovo id_ticket (incrementale)
     $newId = 1;
@@ -38,32 +33,32 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
         }
     }
 
-    // Creazione del nodo <ticket>
+    //Creazione del nodo <ticket>
     $ticket = $doc->createElement("ticket");
 
-    // Attributi del ticket
+    //Attributi del ticket
     $ticket->setAttribute("id_ticket", $newId);
     $ticket->setAttribute("id_utente", $_SESSION["userId"]);
     $ticket->setAttribute("data", date("d/m/Y"));
     $ticket->setAttribute("ore", date("H"));
     $ticket->setAttribute("minuti", date("i"));
 
-    // Nodo testo con il messaggio dell’utente (sanificato)
+    //Nodo testo con il messaggio dell’utente (sanificato)
     $testo = $doc->createElement(
         "text",
         htmlspecialchars($_POST["ticketUtente"], ENT_QUOTES, "UTF-8")
     );
 
-    // Aggiunge il testo al ticket
+    //Aggiunge il testo al ticket
     $ticket->appendChild($testo);
 
-    // Aggiunge il ticket alla root dell’XML
+    //Aggiunge il ticket alla root dell’XML
     $root->appendChild($ticket);
 
-    // Salva il file XML aggiornato
+    //Salva il file XML aggiornato
     $doc->save("XML/Ticket.xml");
 
-    // Redirect alla homepage
+    //Redirect alla homepage
     header("Location: Homepage.php");
     exit;
 }
@@ -97,13 +92,18 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -116,7 +116,7 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
                         ?>
                     </ul>
                 </div>
-
+                    
                     <form id="searchBar" onsubmit="return false;">
                         <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
                         <div id="livesearch"></div>
@@ -124,25 +124,26 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
             </div>
 
          
-
-                <h1>
+                <!-- se l'utente ha fatto l'accesso puo mandare nella form una segnalazione agli admin  -->
+                <h2>
                     Contattaci:
-                </h1>
+                </h2>
                 <p>Se hai avuto problemi con il sito nell'acquisto di un gioco o magari vuoi darci una dritta su come migliorare facci sapere scrivendolo qui sotto:</p>
-                                    <?php 
-
+                <?php 
+                    //Controlla se l'utente è loggato
                     if($service == 0) echo "<p>Devi essere loggato per mandare un ticket.</p>";
                     else{
-                            echo "<form action=\"Contact.php?idUtente={$_SESSION['userId']}\" method=\"post\" id=\"formTicket\">
+                        //Mostra il form per l'invio del ticket
+                        echo "<form action=\"Contact.php?idUtente={$_SESSION['userId']}\" method=\"post\" id=\"formTicket\"> 
 
-                                    <textarea name=\"ticketUtente\" placeholder=\"Scrivi il tuo messaggio qui\"></textarea>
-                                    
-                                    <br/>
-                                    <input type=\"submit\" name=\"invioTicket\" value=\"Invia la segnalazione\"/> 
-                                </form>"; 
+                                <textarea name=\"ticketUtente\" placeholder=\"Scrivi il tuo messaggio qui\"></textarea>
+                                
+                                <br/>
+                                <input type=\"submit\" name=\"invioTicket\" value=\"Invia la segnalazione\"/> 
+                            </form>"; 
                                             
-                        }
-                        ?>
+                    }
+                ?>
            
 
         </div>

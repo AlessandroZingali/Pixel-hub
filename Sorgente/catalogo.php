@@ -1,11 +1,18 @@
 <?php 
+/*Il catalogo serve a mostare la lista di tutti i titoli scaricabili dal sito. Abbiamo voluto presentare il catalogo come una lista in ordine alfabetico.
+Per fare ciò abbaimo usato una struttura dati apposita e la funzione di utilty di PHP usort, che permette di ordinare un array in base ad uno specifica logica fornita
+in una data funzione.*/
+
 require 'serverUtility.php'; 
-// Il catalogo usa un array per disporre i giochi in ordine alfabetico per praticita si è voluta creare una classe che definisce gli elementi presenti nell array in modo di disporli in ordine alfabetico 
+// Il catalogo usa un array per disporre i giochi in ordine alfabetico per praticita si è voluta creare una classe che definisce gli elementi presenti nell array 
 class Game {
+    //Attributi della classe gioco
     public $idGioco;
     public $titolo;
     public $immagine;
     public $prezzo;
+
+    //Costruttore della classe gioco
     public function __construct($idGioco, $titolo, $immagine, $prezzo)
     {
         $this->idGioco = $idGioco;
@@ -51,13 +58,18 @@ if(isset($_SESSION['userId'])){
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
-                        <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                    <?php
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -81,23 +93,14 @@ if(isset($_SESSION['userId'])){
                 
                     <h1>Tutti i giochi:</h1>       
                     <?php
-                    // si inizializza l'array catalogo e si carica l'XML giochi 
+                    //Si inizializza l'array catalogo e si carica l'XML giochi 
 
                         $catalogo = [];
                         $titolo = "";
-                        $xmlString="";
-                        
-                        foreach(file("XML/Giochi.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                        
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                        $elem = xmlPointer("XML/Giochi.xml");
 
-                        for($i=0; $i<$elem->length; $i++){
-                            $gioco = $elem->item($i);
+                        //Scansione di tutti gli elementi gioco presenti nell'XML
+                        foreach($elem as $gioco){
                             $idGioco = $gioco->getAttribute("id_gioco");
                             $immagine = $gioco->getElementsByTagName("Immagine")->item(0)->textContent;
                             $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
@@ -105,12 +108,10 @@ if(isset($_SESSION['userId'])){
                             $ref = new Game($idGioco, $titolo, $immagine, $prezzo);
                             array_push($catalogo, $ref);
                         }
-                        //caricando nell'array tutti i giochi usando il formato definito all'inizio 
+                        //caricando nell'array tutti i giochi usando usort per stabilire un ordine alfabetico
                         usort($catalogo, function($rA, $rB){ return $rA->titolo <=> $rB->titolo;});
-
-                        // per ordinare l'array si usa usort per creare un ordine alfabetico mediante function che prende il titolo come valore da confrontare
                         
-
+                        //Scansione dell'array catalogo per mostrare i giochi in ordine alfabetico con separazione per iniziale e lettera Maiuscola
                         foreach($catalogo as $c){
                         if($titolo[0] !== $c->titolo[0]){
                             $titolo=$c->titolo;
@@ -119,8 +120,7 @@ if(isset($_SESSION['userId'])){
                         // all'cambiare dell'iniziale di un titolo si usa strtoupper($titolo[0]) per prendere la prima lettera dell titolo e metterla in maiuscolo
                         // si usa per mostrare una linea che fa da separazione tra una lettera all'altra il <pre> che mostra lo spazio come una linea
                         
-                        
-                        
+                        //Struttura HTML per mostrare le card dei giochi
                         echo "
                         
                             <div class='GameCardCat'>
@@ -133,25 +133,17 @@ if(isset($_SESSION['userId'])){
 
                                       if($service){                    
     
-                                        $xmlString = "";
-                                        foreach (file("XML/utenti.xml") as $node) {
-                                            $xmlString .= trim($node);
-                                        }
+                                        $elem2 = xmlPointer("XML/utenti.xml");
 
-                                        $doc2 = new DOMDocument();
-                                        $doc2->loadXML($xmlString);
-                                        $root2=$doc2->documentElement;
-                                        $elem2=$root2->childNodes;
-
-                                            
-
+                                        //Scansione di tutti gli utenti presenti nell'XML
                                         foreach ($elem2 as $utente) {
-                                      $idUtente = $utente->getAttribute("id_user");
+                                             $idUtente = $utente->getAttribute("id_user");
                                             //Verifico se l'utente loggato possiede già il gioco, in modo da mostrare il prezzo o la dicitura "Acquistato!"
                                             if ($idUtente == $_SESSION['userId']) {
                                                 $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
                                                 $possiedeGioco = false;
-
+                                                
+                                                //Scansione della lista dei giochi posseduti dall'utente
                                                 foreach ($giochi as $g) {
                                                     
                                                     $idGiocoP = $g->textContent;
@@ -160,13 +152,12 @@ if(isset($_SESSION['userId'])){
                                                         $possiedeGioco = true;
                                                         break;
                                                     }
-                                                }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> ";
-                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
-                                                
+                                                } 
+                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> "; //Mostro il prezzo se l'utente non possiede il gioco
+                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> "; //Mostro "Acquistato!" se l'utente possiede già il gioco
                                             }
                                         }
-                                      }else echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> ";
+                                      }else echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> "; //Mostro il prezzo se l'utente non è loggato
 
                                      echo "</div>
                                 </div>
@@ -188,7 +179,7 @@ if(isset($_SESSION['userId'])){
         </div>
         <div id="footer">
             <ul>
-                <li><a href="">Contact Us</a></li>
+                <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
                 <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>

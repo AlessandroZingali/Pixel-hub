@@ -1,5 +1,14 @@
 <?php  
+/*Questa pagina gestisce la registrazione degli utenti, permettendo di specificare diverse tipologie di account(normale, publisher, admin) 
+attraverso parametri GET e cookie.La validazione dei dati inseriti avviene tramite 
+espressioni regolari (tramite il preg_match) per email, password, partita IVA e data di nascita.
+In caso di successo, i dati vengono inseriti nel database e viene creato un file XML associato all'utente.
+In caso di errore, vengono visualizzati messaggi di notifica all'utente.
+I publisher vengono inseriti nel sistema solo previa partita IVA; gli admin solo se possiedono una chiave di accesso specifica
+fornita dalla gestione del Sito*/
 error_reporting(E_ALL &~E_NOTICE);
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
 //Quando si entra nella pagina di sign in/registrazione si unsetta la sessione attuale e si eliminano tutte le eventuali informazioni salvate in $session
 if(isset($_SESSION)){
@@ -119,15 +128,7 @@ if(isset($_POST['signin']) && $jumper==0){
                             
                                 $idUtente=$row['ID'];
                                 // si prende dal risultato della query di selezione id e lo passiamo come variabile
-                                $xmlString="";
-                                                                                        
-                                foreach(file("XML/utenti.xml") as $node){ 
-                                    $xmlString .= trim($node);
-                                }
-                                // la useremo per creare un nuovo nodo utente che ha come attributo id_utente corrispondente al id preso dal database
-                                $doc= new DOMDocument();
-                                $doc->loadXML($xmlString);
-                                $doc->formatOutput = true;
+                                $doc = getDoc('XML/utenti.xml');
                                 $root=$doc->documentElement;
                                 $elem=$root->childNodes;
                                 $utente = $doc->createElement("Utente");

@@ -1,3 +1,5 @@
+<!-- Questa è la pagina che mostrera in base all'id in get che gli si passa le informazioni relative al gioco, i commenti e le recensioni degli utenti è possibile inserire se è di un grado suffucente una recensione o un commento e ovviamente acquistare il gioco in se-->
+
 <?php 
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso,
@@ -31,8 +33,9 @@ echo "";
 <?php //Inizio della logica per le API della pagina gioco, ovvero l'invio di commenti e recensioni
 
     if(isset($_POST["invioCommento"])){ //Gestione Commenti
-
-        $elem = xmlPointer("XML/Commenti.xml");
+        $doc = getDoc("XML/Commenti.xml");
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
 
         //Ricordiamo che per la gestione dei commenti, e anche delle recensioni, ogni commento avra un suo id univoco SOLO in relazione al gioco
         //a cui appartiene, quindi ogni gioco avra commenti con id che partono da 1 e cosi via. Di conseguenza se vogliamo il commento con id X,
@@ -115,14 +118,7 @@ echo "";
 
     if(isset($_POST["invioRecensione"])){//Gestione Recensioni
 
-        $xmlString="";
-                                
-        foreach(file("XML/Recensioni.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        $doc = new DOMDocument();
-        $doc->loadXML($xmlString);
-        $doc->formatOutput = true;
+        $doc = getDoc("XML/Recensioni.xml");
         $root = $doc->documentElement;
         $elem = $root->childNodes;
             foreach($elem as $i){
@@ -232,18 +228,21 @@ echo "";
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
                         // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
                         //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php
-                        if ($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-                            echo "<script>";
-                            echo "sessionStorage.removeItem(\"idUser\");";
-                            echo "sessionStorage.removeItem(\"genPref\");";
-                            echo "</script>";
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                     
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -295,6 +294,8 @@ echo "";
                                $PublisherGioco = $i->getElementsByTagName('Publisher')->item(0)->textContent;
                                $CasaSviluppoGioco = $i->getElementsByTagName('CasaSviluppo')->item(0)->textContent;
                                $DescrizioneGioco = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
+                                $VotoAdmin = $i->getElementsByTagName('MediaRecensioniAdmin')->item(0)->textContent;
+                                $VotoUser = $i->getElementsByTagName('MediaRecensioniUtenti')->item(0)->textContent;
                             }
                         }
                         echo "<table>
@@ -325,6 +326,14 @@ echo "";
                                 <tr>
                                     <td>Sviluppatore</td>
                                     <td>$CasaSviluppoGioco</td>
+                                </tr>
+                                <tr>
+                                    <td>Voto degli utenti</td>
+                                    <td>$VotoUser/100</td>
+                                </tr>
+                                <tr>
+                                    <td>Voto degli admin</td>
+                                    <td>$VotoAdmin/100</td>
                                 </tr>
                               </table>";
                      ?>
@@ -738,8 +747,8 @@ echo "";
         <!-- Footer dell pagina -->
         <div id="footer"> 
             <ul>
-                <li><a href="">Contact Us</a></li>
-                <li><a href="">F.A.Q</a></li>
+                <li><a href="Contact.php">Contact Us</a></li>
+                <li><a href="Faq.php">F.A.Q</a></li>
                 <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>

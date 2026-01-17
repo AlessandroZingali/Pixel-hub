@@ -1,7 +1,14 @@
 <?php
+
+/*Pagina delle Frequently Asked Question domande che possono essere visualizzate anche dai non iscritti al sito. 
+Va da se che la pagina prendera il file XML omonimo e lo andrà a scansionare per prendere tutte le domande e risposte inserite
+dagli amministatori del sito, per fare chiarezza su diversi punti. Usiamo un file XML per agevolare l'inserimento
+di nuove FAQ nel tempo a venire.*/
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+
 $service = 0;
 $utente = "";
-//Pagina delle Frequently Asked Question domande che possono essere visualizzate anche dai non iscritti al sito 
 
 session_start();
 if(isset($_SESSION['userId'])){
@@ -36,13 +43,18 @@ if(isset($_SESSION['userId'])){
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
-                        <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                         <?php
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -78,33 +90,24 @@ if(isset($_SESSION['userId'])){
                     </th> 
                     
                 </tr>
+                <!-- Ciclo PHP per l'estrazione delle domande e risposte dal file XML -->
                 <?php
-                        $xmlString="";
+                    $elem= xmlPointer('XML/FAQ.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
+            
+                    //Ciclo per l'estrazione delle domande e risposte
+                    foreach($elem as $gioco){
                         
-                        foreach(file("XML/FAQ.xml") as $node){ 
-                            $xmlString .= trim($node);
-                        }
-                        // si carica il file FAQ
-                        $doc= new DOMDocument();
-                        $doc->loadXML($xmlString);
-                        $root=$doc->documentElement;
-                        $elem=$root->childNodes;
+                        $domanda = $gioco->getElementsByTagName("Domanda")->item(0)->textContent;
+                        $risposta = $gioco->getElementsByTagName("Risposta")->item(0)->textContent;
 
-                        for($i=0; $i<$elem->length; $i++){
-                            $gioco = $elem->item($i);
-                            // le domande e le risposte sono presenti in un seplicistico file XML diviso con un tag domanda e risposta
+                        echo " <tr>
+                        <td>$domanda</td>
+                        <td>$risposta</td>
+                        
+                        
+                        </tr>";
 
-                            $domanda = $gioco->getElementsByTagName("Domanda")->item(0)->textContent;
-                            $risposta = $gioco->getElementsByTagName("Risposta")->item(0)->textContent;
-
-                            echo " <tr>
-                            <td>$domanda</td>
-                            <td>$risposta</td>
-                            
-                            
-                            </tr>";
-
-                        }  
+                    }  
                     ?> 
             </table>
         </div>

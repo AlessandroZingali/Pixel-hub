@@ -1,4 +1,8 @@
 <?php
+/* Pagina per il login utente. La pagina effetua una chiamata al DB per validare le informazioni di nome utente o Email e Password. In caso di successo. l'utente verra indirizzato
+all'homepage. In caso contrario, attraverso varie espressioni regolari (attraverso preg_match) verra restituito qule è stato il problema nell'accesso.  */
+
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 error_reporting(E_ALL &~E_NOTICE);
 session_start();
 // Se si apre la pagina si unsetta la sessione precendente togliendo i vari valori su session
@@ -7,12 +11,15 @@ if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
 if(isset($_SESSION['userId'])){
     session_unset();
     session_destroy(); 
+    $removeClientSession = true;
 }
 
-
+// Variabili per la gestione degli esiti del login
 $esitovuoto="I campi sono vuoti";
 $esitoerrore="Email e/o password errati";
-$flag=1;
+$flag=1; // variabile di controllo per gli esiti
+
+// Se viene premuto il tasto accedi si effettua la connessione al DB e si fa partire la query di login
 if(isset($_POST['Accedi']) ){
 session_start();
     $db_name = "Database_Pixel_Hub";
@@ -30,22 +37,14 @@ session_start();
     $resultQ = mysqli_query($mysqliConnection, $queryLogin);
     $num = mysqli_num_rows($resultQ);
 
+    // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato
     if($num == 1){
         $flag=1;
         session_start();
         $row=mysqli_fetch_array($resultQ);
 
-        $xmlString="";
-                                
-        foreach(file("XML/utenti.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-        
-        $doc= new DOMDocument();
-        $doc->loadXML($xmlString);
-        $root=$doc->documentElement;
-        $elem=$root->childNodes;
-        // se diverso da null carichera anche il genere preferito dell'utente ma lo prenderera dal file XML
+        // Caricamento del genere preferito dell'utente dal suo file XML, sfruttando il suo ID e il risultato della query
+        $elem = xmlPointer('XML/utenti.xml');
         foreach($elem as $i){
             if($i->getAttribute('id_user') == $row['ID']){
                 if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
@@ -54,7 +53,7 @@ session_start();
 
         
     
-        // all interno della variabile session carichera le informazioni fondamentali quali grado utente tipologia username e il suo id
+        //All'interno della Session verranno caricate le informazioni fondamentali quali grado utente tipologia username e il suo id
         $_SESSION['userId'] = $row['ID'];
         $_SESSION['user'] = $emailNickname;
         $_SESSION['userName']=$row['Username'];
@@ -62,16 +61,16 @@ session_start();
         $_SESSION['Grado']=$row['Grado'];
         
         
-        // Una volta fatto questo andra alla Homepage
+        // Una volta fatto questo verremo reindirizzati alla Homepage
         
         header("Location: Homepage.php");
     }
 
-    else if($emailNickname==="" ?? $password ===""){
+    else if($emailNickname==="" ?? $password ===""){ // Controllo se i campi sono vuoti
          $flag=2;
     }
 
-    else if($num<1){
+    else if($num<1){ // Controllo se i dati inseriti sono errati
         $flag=3;
     }
 }
@@ -88,9 +87,15 @@ session_start();
     <head>
         <title>Login - PixelHub</title>        
         <link rel="stylesheet" type="text/css" href="Stile/Login.css?v=1" />
-        
-
         <script type="text/javascript" src="Script/estensioneLink.js"></script>
+        <?php 
+        if(isset($removeClientSession)){
+            echo "<script>";
+            echo "sessionStorage.removeItem(\"idUser\");";
+            echo "sessionStorage.removeItem(\"genPref\");";
+            echo "</script>"; 
+        }
+         ?>
         
     </head>
     <body>
@@ -99,11 +104,12 @@ session_start();
                     <img src="Loghi/logo pixelhub slim.png" alt="logo pixelhub" />
                     </a>
                 </div>
+        <!-- Card centrale per il login utente -->
         <div id="LoginCard">
             <div class="loginForm">
                 
                 <?php
-
+                    // Gestione degli esiti del login in base al valore della variabile flag
                     if($flag == 2){
                     echo "<div id=\"esito\"> <p>$esitovuoto</p> </div>"; 
                     }
@@ -112,7 +118,7 @@ session_start();
                     }
                     
                     ?>
-                
+                <!-- Form per il login utente che invia i dati alla stessa pagina mediante POST -->
                 <form action="login.php" method="post">
                     
                     <div id="Email">
@@ -125,12 +131,13 @@ session_start();
                         <input type="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password"/>
                     </div>
                     <div class="recovery">
+
+                         <!-- attraverso questi link si puo passare alla pagina del sighin passando il tipo di utente che vorrebbe iscriversi mediante GET -->
                         <p>Hai dimeticato le tue <a href="recuperoCredenziali.php">credenziali</a>?</p>
                         <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti</a>!</p>
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=1">publisher</a>?</p>     
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=2">admin</a>?</p>
-                        <!-- attraverso questi link si puo passare alla pagina del sighin passando il tipo di utente che vorrebbe iscriversi mediante GET -->
-
+                       
 
                     </div>
 

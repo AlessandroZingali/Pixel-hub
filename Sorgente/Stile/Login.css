@@ -8,7 +8,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('pixelbg1.png');
+    background-image: url('Sfondi/pixelbg1.png');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: "font pixeloso",monospace;

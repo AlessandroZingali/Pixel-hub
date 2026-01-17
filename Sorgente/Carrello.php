@@ -1,4 +1,6 @@
 <?php
+/* Pagina che mostrera il carrello ancora in fase di sviluppo;
+L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenza e quello finale dato dopo gli sconti */
 $service = 0;
 $utente = "";
 
@@ -9,7 +11,7 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 
-// Ancora da implementare
+
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -40,13 +42,18 @@ if(isset($_SESSION['userId'])){
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -68,6 +75,7 @@ if(isset($_SESSION['userId'])){
 
             <h1>Il mio Carrello - Coming soon...</h1>
 
+            <!-- CARRELLO ANCORA IN ALLESTIMENTO... CI VEDIAMO ALLA PARTE 3 -->
        
 
         <div id="footer">

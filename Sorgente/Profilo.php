@@ -3,6 +3,8 @@
 // permette di modificare dati personali, acquistare immagini profilo
 // e aggiornare informazioni salvate sia su DB che su XML
 
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+
 $service = 0;          // indica se l’utente è loggato
 $utente = "";          // username dell’utente
 $invalidFlag = 0;      // flag per gestire errori logici (email, password, acquisti ecc.)
@@ -130,18 +132,8 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
 if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
 
     $idUtente = $_SESSION["userId"];
-    $xmlString = "";
 
-    // Lettura XML utenti
-    foreach (file("XML/utenti.xml") as $node) {
-        $xmlString .= trim($node);
-    }
-
-    // Parsing XML
-    $doc = new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-
+    $doc = getDoc("XML/utenti.xml");
     $root = $doc->documentElement;
     $elem = $root->childNodes;
 
@@ -157,22 +149,13 @@ if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
 }
 
 
-/* =========================
-   CAMBIO SOCIAL (XML)
-   ========================= */
+//    CAMBIO SOCIAL (XML)
+
 if (isset($_POST["cambiaSocial"]) && !empty($_POST["newSocial"])) {
 
     $idUtente = $_SESSION["userId"];
-    $xmlString = "";
 
-    foreach (file("XML/utenti.xml") as $node) {
-        $xmlString .= trim($node);
-    }
-
-    $doc = new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-
+    $doc = getDoc("XML/utenti.xml");
     $root = $doc->documentElement;
     $elem = $root->childNodes;
 
@@ -192,16 +175,8 @@ if (isset($_POST["cambiaSocial"]) && !empty($_POST["newSocial"])) {
 if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
 
     $idUtente = $_SESSION["userId"];
-    $xmlString = "";
-
-    foreach (file("XML/utenti.xml") as $node) {
-        $xmlString .= trim($node);
-    }
-
-    $doc = new DOMDocument();
-    $doc->loadXML($xmlString);
-    $doc->formatOutput = true;
-
+    
+    $doc = getDoc("XML/utenti.xml");
     $root = $doc->documentElement;
     $elem = $root->childNodes;
 
@@ -254,16 +229,18 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
 
             <div id="navigation">
                 <div class="dropMenu">
-                    <button class="botMenu"><img src="Stile/iconamenu.png" alt=""></button>
+                    <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul class ="submenu">
                         <?php
-                        if($service == 0) echo "<li><a href=\"login.php\">Log in </a></li>";
-                        else if($service == 1){
-                            echo "<script>";
-                            echo "sessionStorage.removeItem(\"idUser\");";
-                            echo "sessionStorage.removeItem(\"genPref\");";
-                            echo "</script>";
-                            echo "<li><a href=\"login.php\">Log out </a></li>";
+                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
+                        else if($service == 0){
+                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                echo "<script>";
+                                echo "sessionStorage.removeItem(\"idUser\");";
+                                echo "sessionStorage.removeItem(\"genPref\");";
+                                echo "</script>"; 
+                            }
+                            echo "<li><a href=\"login.php\">Log in </a></li>";
                         }
                         ?>
                         
@@ -282,6 +259,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                         <div id="livesearch"></div>
                     </form>
             </div>
+            <!-- all'interno del wrapper che sara il divisore principale ci saranno contenuti la card profilo dove saranno mostrate tutte le informazioni principali del l'account con gli ultimi 4 giochi acquistati e due pulsanti  -->
 
             <div class="wrapper">
                 <div class="cardProfilo" id="card1">
@@ -313,23 +291,8 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
 
                                 echo "<div id=\"infoBox\">";
 
-
-                        
-
-                            
-                                
-
-                                $xmlString="";
-                                                        
-                                foreach(file("XML/utenti.xml") as $node){ 
-                                    $xmlString .= trim($node);
-                                }
-                                
-                                $doc= new DOMDocument();
-                                $doc->loadXML($xmlString);
-                                $root=$doc->documentElement;
-                                $elem=$root->childNodes;
-
+                                $elem = xmlPointer("XML/utenti.xml");
+                             // Caricamento file XML utente con le varie informazioni
                                 foreach($elem as $i){
                                     if($i->getAttribute('id_user') == $row['ID']){
                                         if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $GenerePref = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
@@ -342,121 +305,106 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                         else $Contatti = "nessuno";
                                         }
                                     }
-                                }
-                                echo "<table class=\"info\">
+                            }
+                            echo "<table class=\"info\">
 
-                                        <tr>
-                                            <td>Username:</td> <td> $utente </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email: </td><td> ".$row['Email']."</td>
-                                        </tr>
-                                        
-                                        
+                                    <tr>
+                                        <td>Username:</td> <td> $utente </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email: </td><td> ".$row['Email']."</td>
+                                    </tr>
+                                    
+                                    
 
-                                        <tr>
-                                        <td>Numero di Pixel in possesso:</td> 
-                                        <td> ".$row['Pixels']."</td>
-                                        </tr>
+                                    <tr>
+                                    <td>Numero di Pixel in possesso:</td> 
+                                    <td> ".$row['Pixels']."</td>
+                                    </tr>
 
-                                        <tr>
-                                        <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
-                                        </tr>
-
-                                        
+                                    <tr>
+                                    <td>Grado attuale: </td> <td> ".$row['Grado']."</td>
+                                    </tr>
 
                                     
 
-                                        <tr>
-                                            <td>Il mio genere preferito:</td><td> $GenerePref</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td>Data Iscrizione:</td> <td>$DataIsc</td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td>I miei contatti:</td> <td><a href=\"$Contatti\"> Link social </a></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
-                                        </tr>
-            
-                                    </table>
+                                
+
+                                    <tr>
+                                        <td>Il mio genere preferito:</td><td> $GenerePref</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Data Iscrizione:</td> <td>$DataIsc</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>I miei contatti:</td> <td><a href=\"$Contatti\"> Link social </a></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
+                                    </tr>
+        
+                                </table>
                             </div>";
                         ?>
+                        <!-- nella classe buttons ci sono due pulsanti che cambiano la pagina mettendo usando una funzione in javascript la proprietà di stile hidden nella cardProfilo  e mostra rispettivamente la card delle impostazioni del profilo e quella dello store per le immagini profilo -->
                         
                         <div class="buttons">
                             <div class="settings">
-                                <button onclick="swapperInSettings()"><img src="Stile/settingsicon.png" alt="settingbutton" ></button>
+                                <button onclick="swapperInSettings()"><img src="Stile/Icone/settingsicon.png" alt="settingbutton" ></button>
                             </div>
                             <div class="shop">
-                                <button onclick="swapperInStore()"><img src="Stile/shopicon.png" alt="shopbutton" ></button>
+                                <button onclick="swapperInStore()"><img src="Stile/Icone/shopicon.png" alt="shopbutton" ></button>
                             </div>
                         </div>
                     
                     </div>
 
 
-                    
+                    <!-- piccola griglia con gli ultimi 4 giochi posseduti -->
                     <div class="flexGridGames">
                         <div><h3 id="lastTitle">Ultimi Acquisti</h3></div>
                         <div class="lastGames">
                             <?php
-                            $xmlString = "";
-                            foreach(file("XML/utenti.xml") as $node){
-                                $xmlString.=trim($node);
-                            }
-                            $doc = new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root = $doc->documentElement;
-                            $utente = $root->childNodes;
+                                $utente = xmlPointer("XML/utenti.xml");
 
-                            foreach($utente as $u){
-                                if($u->getAttribute('id_user') == $_SESSION['userId']){
-                                    $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
-                                    //print_r($gameList);
-                                    $idContainer = [];
+                                foreach($utente as $u){
+                                    if($u->getAttribute('id_user') == $_SESSION['userId']){
+                                        $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
+                                        
+                                        $idContainer = [];
 
-                                    foreach($gameList as $id){
-                            
-                                        $idContainer[] =  $id->textContent;
+                                        foreach($gameList as $id){
+                                            $idContainer[] =  $id->textContent;
                                         }
-                                
-                                    rsort($idContainer);
-                                    //print_r($idContainer);
-                                    
-                                    $xmlString = "";
-                                    foreach(file("XML/Giochi.xml") as $node){
-                                        $xmlString.=trim($node);
-                                    }
-                                    $doc = new DOMDocument();
-                                    $doc->loadXML($xmlString);
-                                    $root = $doc->documentElement;
-                                    $giochi = $root->childNodes;
-                                    //print_r($giochi);
-                                    $count = 0;
 
+                                        //Come per il catalogo si inseriscono nell array idcontainer gli id di tutti i giochi posseduti dall'utente e 
+                                        //si effettua un reverse sort per invertire l'ordine 
+                                        rsort($idContainer);
                                     
-                                        foreach($idContainer as $i){
-                                            for($j = ($giochi->length)-1 ; $j>=0; $j--){
-                                            $g=$giochi->item($j);
-                                            //echo "Container: ".$i." id: ".$g->getAttribute("id_gioco");
-                                            if($i == $g->getAttribute("id_gioco") && $count < 4){
-                                                $titolo=$g->getElementsByTagName('Titolo')->item(0)->textContent;
-                                                $idGioco=$g->getAttribute("id_gioco");
-                                                
-                                                echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\" onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\" alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
-                                                $count++;
-                                            }
-                                            }
+                                        
+                                        $giochi = xmlPointer("XML/Giochi.xml");
 
-                                            
-                                        }
-                                    
+                                        $count = 0;
+
+                                        // infine si prendono da Giochi.xml i dati dei 4 giochi 
+                                            foreach($idContainer as $i){
+                                                for($j = ($giochi->length)-1 ; $j>=0; $j--){
+                                                $g=$giochi->item($j);
+                                                if($i == $g->getAttribute("id_gioco") && $count < 4){
+                                                    $titolo=$g->getElementsByTagName('Titolo')->item(0)->textContent;
+                                                    $idGioco=$g->getAttribute("id_gioco");
+                                                    
+                                                    echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\" onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\" alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
+                                                    $count++;
+                                                }
+                                                }
+                                            }
+                                        
                                     }
-                            }
+                                }
 
                             
                             ?>
@@ -465,15 +413,16 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                         
                     </div>
                 </div>
+                <!-- bottone che fa ritornare alla pagina precedente per dalle impostazioni profilo -->
                 <div class="cardSettings hideCard" id="card2">
                     <div class="buttons">
                         <div class="backarrow">
-                            <button onclick="swapperInSettings()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
+                            <button onclick="swapperInSettings()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
 
                     </div>
                     <div>
-
+                    <!-- All interno della tabella vi è presente una form con la quale è possibile modificare il proprio profilo e le informazioni personali -->
                         <table>
                             <tr>
                                 <form method="post" action="Profilo.php">
@@ -550,36 +499,27 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                     </td>
                                 </form>
                             <tr>
-                                                        <tr> 
+                                <!-- Per modificare l'immagine del profilo si carica prima da Utenti.xml l'elenco delle immagini profilo acquistate -> si prende l'id delle immagini
+                                 -> e infine si carica nelle option i vari nomi corrispondenti agli id presenti in profilepic.xml  -->
+                                <tr> 
                                 <form method="post" action="Profilo.php">
                                     <td>Modifica Immagine Profilo</td>
                                     <td>
                                         
                                         <select name="newPropic">
                                         <?php  
-                                            $xmlString="";
-                                            foreach(file("XML/utenti.xml") as $node){ 
-                                                $xmlString .= trim($node);
-                                            }
-                                            
-                                            $doc= new DOMDocument();
-                                            $doc->loadXML($xmlString);
-                                            $root=$doc->documentElement;
-                                            $elem=$root->childNodes; 
+                                            //Caricamento immagini profilo acquistate
+                                            $elem = xmlPointer("XML/utenti.xml"); 
+
                                             foreach($elem as $userNode){
                                                 if($userNode->getAttribute('id_user') == $_SESSION['userId']){
                                                     if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
                                                         $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+
+                                                        // Caricamento immagini profilo disponibili
                                                         foreach($pics as $pic){
-                                                            $xmlString="";
-                                                            foreach(file("XML/ProfilePic.xml") as $node){ 
-                                                                $xmlString .= trim($node);
-                                                            }
-                                                
-                                                            $doc2= new DOMDocument();
-                                                            $doc2->loadXML($xmlString);
-                                                            $root2=$doc2->documentElement;
-                                                            $imgs=$root2->childNodes; 
+
+                                                            $imgs = xmlPointer("XML/ProfilePic.xml"); 
                                                             foreach($imgs as $img){ 
                                                                 if($pic->textContent == $img->getAttribute('id_pic')) echo "<option value=\"".$img->getElementsByTagName('path')->item(0)->textContent."\">".$img->getElementsByTagName('nome')->item(0)->textContent."</option>";
                                                             }
@@ -603,26 +543,20 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                         </table>
                     </div>
                 </div>     
-                
+                <!-- Come sopra card del profilo cliccando sul pulsante si nasconde la pagina dello store e si ritorna a quella principale -->
                 <div class="cardPicStore hideCard" id="card3">
                     <div class="backarrow">
-                            <button onclick="swapperInStore()"><img src="Stile/iconafreccia.png" alt="settingbutton" ></button>
+                            <button onclick="swapperInStore()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
                     <div><h2>Store immagini profilo</h2></div>
                     <div class="gridPicStore">
                         <?php 
                        
-                            $xmlString = "";
-                            foreach(file("XML/ProfilePic.xml") as $node){
-                                $xmlString.=trim($node);
-                            }
-                            $doc = new DOMDocument();
-                            $doc->loadXML($xmlString);
-                            $root = $doc->documentElement;
-                            $elem = $root->childNodes;
+                            $elem = xmlPointer("XML/ProfilePic.xml");
                             echo "<form method=\"post\" action=\"Profilo.php\">";
                             echo "<div class=\"gridPicStoreForm\">";
                             foreach($elem as $pic){
+                                // nella griglia del negozio ci saranno presenti le immagini profilo il loro nome e il prezzo in pixels e un pulsante radio per la scelta di un singolo oggetto
                                 
                                 echo "<div class=\"sceltaPic\">";
                                 echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";

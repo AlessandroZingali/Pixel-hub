@@ -1,27 +1,26 @@
 <?php
- $xmlString="";
-                                
-        foreach(file("XML/Giochi.xml") as $node){ 
-            $xmlString .= trim($node);
-        }
-$xml = new DOMDocument();
-$xml->loadXML($xmlString);
-$xml->formatOutput = true;
-$root = $xml->documentElement;
-$giochi = $root->childNodes;
+/*Funzione  di ricerca di un gioco attraverso l'apposita barra di ricerca. Lo script fa una comparazione tra tutti i giochi in Giochi.xml mostrando in modo dinamico i risultati trovati.
+La lista sottostante alla barra di ricerca si aggiorna in tempo reale, in contemporanea alla digitazione del titolo desiderato, passat o come parametro $game via GET.
+Questo lavorera insieme allo script lato client Searchgame.js, che usando le tecnologie AJAX, cerca in diretta i giochi nell'elenco e li mostra in risultato sempre in maniera sincrona 
+una volta trovato il titolo che si desidera si puo cliccare sopra e si andra alla gamepage associata*/
 
-$giochi = $xml->getElementsByTagName("Gioco");
+require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+
+$root = getRoot('XML/Giochi.xml'); //Ottiene il nodo root del file XML contenente i giochi
+
+$giochi = $root->getElementsByTagName("Gioco");
 $game = $_GET["game"] ?? "";
 
 $output = "";
-// funzione che mostra quando si cerca un gioco nella barra di ricerca fa una comparazione tra tutti i giochi in Giochi.xml e mano a mano che si crea la stringa passata in $game
-// si aggiorna anche la finestra risultato passata in output che mostra i vari giochi che hanno il titolo simile alla stringa inserita sotto alla barra di ricerca
-// questo lavora insieme al Searchgame.js che usando una XMLHttprequest cerca in diretta i giochi nell'elenco e li mostra in risultato sempre in maniera sincrona una volta trovato il titolo che si desidera si puo cliccare sopra e si andra alla gamepage associata
+
+// Inizializza una stringa vuota per contenere i risultati della ricerca
+
 if (strlen($game) > 0) {
+    // Cicla attraverso tutti i giochi nel file XML
     foreach ($giochi as $gioco) {
         $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
         $id = $gioco->getAttribute("id_gioco");
-
+        // Confronta il titolo del gioco con la stringa di ricerca
         if (stripos($titolo, $game) !== false) {
             $output .= "
             <div class='risultato'>
@@ -37,6 +36,5 @@ if (strlen($game) > 0) {
 }
 
 // se non trova nulla mostra semplicemente nella finestra nessun risultato
-
 echo $output === "" ? "Nessun risultato" : $output;
 ?>
