@@ -74,6 +74,11 @@ body{
 
 }
 
+#saldo{
+    padding-top: 3%;
+    font-size: 70%;
+}
+
 /* La navigation bar principale del sito */
 #navigation{
 /* border: solid orange;*/
@@ -113,7 +118,7 @@ del menu a cascata */
 
     margin: 20px;
     font-size: 20px;
-    padding: 3%;
+    padding: 2%;
 
 }
 
@@ -138,7 +143,7 @@ del menu a cascata */
 #searchBar{
     width: 450px;
     display: inline-block;
-    
+
     position: relative;
    /* border: solid pink;*/
     padding: 5px;
@@ -148,6 +153,7 @@ del menu a cascata */
 #searchBar input[type="text"]{
     width: 80%;
     padding: 5px;
+    font-family: "font pixeloso",monospace;
     border: none;
     border-radius: 20px;
 }
@@ -228,6 +234,12 @@ del menu a cascata */
 /* Media Queries per rendere il sito responsive e adattabile a schermi di diverse dimensioni */
 @media (max-width: 1620px){
 
+    #saldo{
+        padding-top: 0px;
+        padding-left: 20px;
+        text-align: left;
+    }
+
     #header h2{
         white-space: nowrap;
     }
@@ -273,7 +285,7 @@ del menu a cascata */
 
 
     .dropMenu ul li{
-        padding: 4px;
+        padding: 10px;
         white-space: normal;
         color: white;
         font-size: 15px;

@@ -20,7 +20,7 @@ specificate da singoli ID*/
 /*Stat gioco definisce la seconda colonna di presentazione gioco. Le div sono in colonna e 
 lo stile dei riferimenti ad altri giochi è specificato tarmite un tag apposito*/
 #statGioco{
-    /*border: yellow solid;*/
+    /* border: yellow solid; */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -55,9 +55,10 @@ lo stile dei riferimenti ad altri giochi è specificato tarmite un tag apposito*
 
 background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
 border-radius: 10%;
+max-width: 600px;
 
 
-    padding: 20px;
+    padding: 30px;
     /*border: olive solid;*/
     th{
         text-align: left;
@@ -67,7 +68,7 @@ border-radius: 10%;
         padding:10px;
     }
     td{
-        padding:5px;
+        padding:7px;
     }
 }
 
@@ -82,14 +83,15 @@ border-radius: 10%;
 
 /*Stile descrizione gioco*/
 #descGioco{
-    /*border: teal solid;*/
+    /* border: teal solid; */
     padding:30px;
     width: 80%;
-    
-   
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
     border-radius: 10px;
 
+    p{
+        line-height: 30px;
+    }
      
 }
 
@@ -98,7 +100,7 @@ border-radius: 10%;
     border:white solid;
     padding: 4%;
     border-radius: 15px;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     height: 200x;
   
     
@@ -111,6 +113,9 @@ border-radius: 10%;
     color: white;
     padding: 40px;
     border: none;
+    margin-left: 4%;
+    padding-left: 40%;
+    padding-right: 40%;
     border-radius: 20px;
 }
 
@@ -131,6 +136,7 @@ border-radius: 10%;
 
 /* Stile Commenti */
 #commenti{
+    
 
     border: pink solid;
     display: flex;
@@ -145,7 +151,7 @@ border-radius: 10%;
     box-shadow: 2px 10px 10px black;
     
     textarea{
-        width: 80%;
+        width: 96%;
         background-color: beige;
         border-radius: 10px;
         padding: 10px;
@@ -251,7 +257,7 @@ padding-right: 10px;
     float: right; 
 
     textarea{
-        width: 80%;
+        width: 96%;
         padding: 10px;
         background-color: beige;
         border-radius: 10px;
@@ -348,7 +354,7 @@ padding-right: 10px;
     }
     
     #descGioco{
-        margin-left: 10%;
+        margin-left: 5%;
     }
     #social{
         flex-direction: column;
@@ -358,6 +364,10 @@ padding-right: 10px;
         column-gap: 5%;
     }
     #commenti{
+            p{
+        padding-left: 10%;
+    }
+
         margin-bottom: 5%;
         width: 80%;
         textarea{
@@ -370,6 +380,10 @@ padding-right: 10px;
         }
     }
     #recensioni{
+            p{
+        padding-left: 10%;
+    }
+
         width: 80%;    
         textarea{
             margin-left: 8%;
@@ -389,7 +403,7 @@ padding-right: 10px;
     }
 
     #buttonAcquista{
-    margin-left: 34%;
+    margin-left: 0;
     }
 
  }

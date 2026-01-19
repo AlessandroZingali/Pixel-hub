@@ -18,6 +18,8 @@
       <idPropic>2</idPropic>
       <idPropic>3</idPropic>
       <idPropic>4</idPropic>
+      <idPropic>5</idPropic>
+      <idPropic>6</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="3">
@@ -35,6 +37,9 @@
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
+      <idPropic>2</idPropic>
+      <idPropic>6</idPropic>
+      <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="11">
@@ -58,6 +63,38 @@
     <DataIscrizione>17-01-2026</DataIscrizione>
     <CasaDiSviluppoPreferita>Bethesda</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>19-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
+    <GenerePreferito/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="5">
+    <linkEsterno/>
+    <DataIscrizione>19-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="6">
+    <linkEsterno/>
+    <DataIscrizione>19-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="7">
+    <linkEsterno/>
+    <DataIscrizione>19-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito/>
     <listaGiochi/>
     <listaPropic/>
   </Utente>

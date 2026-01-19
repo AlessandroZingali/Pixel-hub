@@ -229,29 +229,30 @@ echo "";
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul>
-                        <?php //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
-                        // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
-                        //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php
-                     
-                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                        else if($service == 0){
-                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                echo "<script>";
-                                echo "sessionStorage.removeItem(\"idUser\");";
-                                echo "sessionStorage.removeItem(\"genPref\");";
-                                echo "</script>"; 
-                            }
-                            echo "<li><a href=\"login.php\">Log in </a></li>";
-                        }
-                        ?>
-                        
+                    <ul>                       
                         <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <!--Per Debug: <li><a href="Creadatabasepixelhub.php">data</a></li>-->
-                        <?php 
-                        if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
+                        <li><a href="carrello.php">Carrello </a></li>
+                        <?php
+                            //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
+                            // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
+                            //ATTENZIONE: la parte di script è solo per sicurezza, le voci della session lato Client sono eliminate in ogni caso alla disconnessione dell'utente nella pagina di login.php
+                            if($service == 0){
+                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                    echo "<script>";
+                                    echo "sessionStorage.removeItem(\"idUser\");";
+                                    echo "sessionStorage.removeItem(\"genPref\");";
+                                    echo "</script>"; 
+                                }
+                                echo "<li><a href=\"login.php\">Log in </a></li>";
+                            }
+                            else if($service == 1){
+                                echo "<li><a href=\"login.php\">Log out </a></li>";
+                                echo "<li>
+                                <a href=\"Profilo.php\">Profilo di $utente</a>
+                                </li> 
+                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                            }
                         ?>
                     </ul>
                 </div> <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
@@ -382,6 +383,59 @@ echo "";
                         echo "</ul>";
                         ?>
                     </div>
+                    <div>
+                        <?php
+
+                         //Se l'utente non è loggato, e di conseguenza possiedeGioco non è impostato, mostriamo un messaggio che lo invita a farlo per poter acquistare il gioco    
+                        if($service==0 && !(isset($possiedeGioco))){
+                                echo '
+                                <div id="Acquisto">
+                                    <p>Devi essere loggato </br>per poter acquistare il gioco.</p>
+                                </div>';
+
+                            }
+
+                                                //Ovviamente il pulsante di acquisto sarà visibile solo se l'utente è loggato e non possiede già il gioco
+                        if($service){                    
+                    
+                            $elem = xmlPointer("XML/utenti.xml");
+
+                            //Verifichiamo se l'utente loggato possiede già il gioco
+                            foreach ($elem as $utente) {
+
+                                $idUtente = $utente->getAttribute("id_user");
+
+                                if ($idUtente == $_SESSION['userId']) {
+
+                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                    $possiedeGioco = false;
+
+                                    foreach ($giochi as $gioco) {
+                                        $idGiocoP = $gioco->textContent;
+
+                                        if ($idGiocoP == $idGioco) {
+                                            $possiedeGioco = true;
+                                            break;
+                                        }
+                                    }
+                                
+                                    if (!$possiedeGioco) {
+                                        echo '
+                                        <div id="Acquisto">
+                                            <input type="button" id="buttonAcquista" value="Acquista">
+                                        </div>';
+                                    }
+                                    else{
+                                        echo '
+                                        <div id="Acquisto">
+                                            <p>Presente nella libreria.</p>
+                                        </div>';
+                                    }
+                                }    
+                            }
+                        }
+                        ?>
+                    </div>
                     
 
                 </div>
@@ -484,54 +538,9 @@ echo "";
               <div id="descGioco">
                     <?php 
                         echo "<h3>Descrizione:</h3> <p>$DescrizioneGioco</p> </div>";
-                        //Ovviamente il pulsante di acquisto sarà visibile solo se l'utente è loggato e non possiede già il gioco
-                        if($service){                    
-                    
-                            $elem = xmlPointer("XML/utenti.xml");
 
-                            //Verifichiamo se l'utente loggato possiede già il gioco
-                            foreach ($elem as $utente) {
 
-                                $idUtente = $utente->getAttribute("id_user");
-
-                                if ($idUtente == $_SESSION['userId']) {
-
-                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
-                                    $possiedeGioco = false;
-
-                                    foreach ($giochi as $gioco) {
-                                        $idGiocoP = $gioco->textContent;
-
-                                        if ($idGiocoP == $idGioco) {
-                                            $possiedeGioco = true;
-                                            break;
-                                        }
-                                    }
-                                
-                                    if (!$possiedeGioco) {
-                                        echo '
-                                        <div id="Acquisto">
-                                            <input type="button" id="buttonAcquista" value="Acquista">
-                                        </div>';
-                                    }
-                                    else{
-                                        echo '
-                                        <div id="Acquisto">
-                                            <p>Presente nella libreria.</p>
-                                        </div>';
-                                    }
-                                }    
-                            }
-                        }
-
-                        //Se l'utente non è loggato, e di conseguenza possiedeGioco non è impostato, mostriamo un messaggio che lo invita a farlo per poter acquistare il gioco    
-                        if($service==0 && !(isset($possiedeGioco))){
-                                echo '
-                                <div id="Acquisto">
-                                    <p>Devi essere loggato per poter acquistare il gioco.</p>
-                                </div>';
-
-                            }
+                       
 
               ?>
                

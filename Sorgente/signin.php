@@ -99,7 +99,7 @@ if(isset($_POST['signin']) && $jumper==0){
                         else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
                             $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 2, 0, 0, 2,'ProfilePic/propicblank.png')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}','{$_POST['DataNascita']}', 3, 0, 0, 2,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
 
@@ -157,7 +157,7 @@ if(isset($_POST['signin']) && $jumper==0){
                 }  
             }
             //settaggio di messaggi di errore: in base all'inserimento errato dell'email al momento dell'iscrizione
-    }
+    } 
     else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
         $service=("Email non valida!");
     }
@@ -169,6 +169,7 @@ if(isset($_POST['signin']) && $jumper==0){
     }
     
     
+    
 }
     
 
@@ -178,7 +179,11 @@ if(isset($_POST['signin']) && $jumper==0){
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
     <head>
         <title>Registrazione - PixelHub</title>        
-        <link rel="stylesheet" type="text/css" href="Stile/Registrazione.css?v=1" /> 
+        <link rel="stylesheet" type="text/css" href="Stile/Registrazione.css?v=3" />
+        <script>document.addEventListener('copy', e => e.preventDefault());
+                document.addEventListener('cut', e => e.preventDefault());
+                document.addEventListener('paste', e => e.preventDefault());
+        </script> 
         
     </head>
     <body>
@@ -199,29 +204,29 @@ if(isset($_POST['signin']) && $jumper==0){
                     ?>
                     <div>
                         <p>Nome</p>
-                        <input type="text" placeholder="Mario" name="Nome" maxlength="50"/>
+                        <input type="text" placeholder="Mario" name="Nome" maxlength="50" required/>
                     </div>
                     <div>
                         <p>Cognome</p>
-                        <input type="text" placeholder="Rossi" name="Cognome" maxlength="50"/>
+                        <input type="text" placeholder="Rossi" name="Cognome" maxlength="50" required/>
                     </div>
                     <div>
                         <p>Email</p>
-                        <input type="text" placeholder="example@mail.com" name="Email" maxlength="100"/>   
+                        <input type="text" placeholder="example@mail.com" name="Email" maxlength="100" required/>   
                     </div>
                     <!-- la password ha come placeholder dei pallini a simboleggiare subito il tipo di dato-->
                      <div>
                         <p>Password</p>
-                        <input type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password"/>
+                        <input type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password" required/>
                     </div>
                     <div>
                         <p>Nickname</p>
-                        <input type="text" placeholder="SuperBazinga666" name="Nickname" maxlength="50"/>
+                        <input type="text" placeholder="SuperBazinga666" name="Nickname" maxlength="50" required/>
                         
                     </div>
                     <div>
                         <p>Data di Nascita</p>
-                        <input type="text" placeholder="01-01-1980" name="DataNascita" maxlength="50"/>
+                        <input type="text" placeholder="01-01-1980" name="DataNascita" maxlength="50" required/>
                     </div>
 
                     <?php

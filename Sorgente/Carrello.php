@@ -44,25 +44,27 @@ if(isset($_SESSION['userId'])){
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
                     <ul>
-                        <?php
-                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                        else if($service == 0){
-                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                echo "<script>";
-                                echo "sessionStorage.removeItem(\"idUser\");";
-                                echo "sessionStorage.removeItem(\"genPref\");";
-                                echo "</script>"; 
-                            }
-                            echo "<li><a href=\"login.php\">Log in </a></li>";
-                        }
-                        ?>
-                        
                         <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="carrello.html">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
-                        <?php 
-                        if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
+                        <li><a href="carrello.php">Carrello </a></li>
+                        <?php
+                            
+                            if($service == 0){
+                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                    echo "<script>";
+                                    echo "sessionStorage.removeItem(\"idUser\");";
+                                    echo "sessionStorage.removeItem(\"genPref\");";
+                                    echo "</script>"; 
+                                }
+                                echo "<li><a href=\"login.php\">Log in </a></li>";
+                            }
+                            else if($service == 1){
+                                echo "<li><a href=\"login.php\">Log out </a></li>";
+                                echo "<li>
+                                <a href=\"Profilo.php\">Profilo di $utente</a>
+                                </li> 
+                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                            }
                         ?>
                     </ul>
                 </div>

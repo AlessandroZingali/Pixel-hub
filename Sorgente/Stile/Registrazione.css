@@ -1,4 +1,10 @@
 /* Pagina CSS per il Sign in utilizza uno sfondo definito nella cartella sfondi e una form che variera il numero di campi mostrati in base al tipo di login */
+
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
+}
+
 body{
     /*border: solid rgb(168, 182, 41);*/
     display: flex;

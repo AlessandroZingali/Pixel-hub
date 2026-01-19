@@ -189,6 +189,114 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     $doc->save("XML/utenti.xml");
 }
 
+if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
+    $idUtente = $_SESSION["userId"];
+
+    $newPath = $_POST['newPropic'];
+                    
+
+    $db_name = "Database_Pixel_Hub";
+    $table_users = "Tabella_Utenti";
+    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+    if (mysqli_connect_errno()){
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
+    $sql = "
+        UPDATE $table_users
+        SET imgProfiloPath = '$newPath'
+        WHERE ID = ".(int)$_SESSION['userId'].";
+    ";
+    $resultQ = mysqli_query($mysqliConnection, $sql);
+    if($resultQ){
+        header("Location:Profilo.php");
+    }
+    else {
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
+}
+
+    
+
+
+//   ACQUISTO IMMAGINE PROFILO (DB + XML)
+if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
+
+    $idpicscelto=$_POST["scelta"];
+
+    $idUtente=$_SESSION["userId"];
+
+    $elem = xmlPointer("XML/utenti.xml");
+    foreach($elem as $userNode){
+        if($userNode->getAttribute('id_user') == $_SESSION['userId']){
+            if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
+                $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+                foreach($pics as $pic){ 
+                    if($pic->textContent == $idpicscelto) $invalidFlag = 4;
+                }
+            }
+        }
+    }
+    if($invalidFlag == 0){
+        $elem = xmlPointer("XML/ProfilePic.xml");
+        foreach($elem as $pics){
+            if($pics->getAttribute('id_pic') == $idpicscelto){
+                $prezzo=$pics->getElementsByTagName('prezzo')->item(0)->textContent;
+                $newPath = $pics->getElementsByTagName('path')->item(0)->textContent;
+            }
+        }
+
+        $db_name = "Database_Pixel_Hub";
+        $table_users = "Tabella_Utenti";
+        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+        if (mysqli_connect_errno()){
+
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+        $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
+        $resultQ = mysqli_query($mysqliConnection, $sql);
+        
+        if ($resultQ){
+            $row = mysqli_fetch_array($resultQ);
+            if($row['Pixels']<$prezzo) $invalidFlag=3;
+        }
+        
+        if($invalidFlag == 0){
+
+            $sql = "
+            UPDATE $table_users
+            SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
+            WHERE ID = ".(int)$_SESSION['userId'].";
+            ";
+
+            if (mysqli_query($mysqliConnection, $sql)) {
+                $doc = getDoc("XML/utenti.xml");
+                $root = $doc->documentElement;
+                $elem = $root->childNodes;
+                foreach($elem as $userNode){
+                    
+                    if($userNode->getAttribute('id_user') == $idUtente){
+                        $nuovaPic = $doc->createElement("idPropic");
+                        $nuovaPic->textContent=$idpicscelto;
+                        $picRoot = $userNode->getElementsByTagName("listaPropic")->item(0);
+                        $picRoot->appendChild($nuovaPic);
+                    }
+
+
+                }
+                $doc->save("XML/utenti.xml");
+                /*header("Location:Profilo.php");*/
+            }
+            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        
+        }
+    }
+    
+   
+}
+
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -209,6 +317,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
             ?>
             
         </script>
+        <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
         <script type="text/javascript" src="Script/cardProfileChanger.js?v=3"> </script>
         <?php
         if($invalidFlag > 0){ 
@@ -230,27 +339,28 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul>
-                        <?php
-                        if($service == 1) echo "<li><a href=\"login.php\">Log out </a></li>";
-                        else if($service == 0){
-                            if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                echo "<script>";
-                                echo "sessionStorage.removeItem(\"idUser\");";
-                                echo "sessionStorage.removeItem(\"genPref\");";
-                                echo "</script>"; 
-                            }
-                            echo "<li><a href=\"login.php\">Log in </a></li>";
-                        }
-                        ?>
-                        
+                     <ul>
                         <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        
-                        <!-- <li><a href="Creadatabasepixelhub.php">data</a></li> -->
-                        <?php 
-                        if($service == 1) echo "<li><a href=\"Profilo.php\">Profilo di $utente </a></li>";
+                        <li><a href="carrello.php">Carrello </a></li>
+                        <?php
+                            
+                            if($service == 0){
+                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                    echo "<script>";
+                                    echo "sessionStorage.removeItem(\"idUser\");";
+                                    echo "sessionStorage.removeItem(\"genPref\");";
+                                    echo "</script>"; 
+                                }
+                                echo "<li><a href=\"login.php\">Log in </a></li>";
+                            }
+                            else if($service == 1){
+                                echo "<li><a href=\"login.php\">Log out </a></li>";
+                                echo "<li>
+                                <a href=\"Profilo.php\">Profilo di $utente</a>
+                                </li> 
+                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                            }
                         ?>
                     </ul>
                 </div>
@@ -285,8 +395,13 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                 $flag=1;
                                 
                                 $row=mysqli_fetch_array($resultQ);
-                                echo "<div class=\"propic\"> 
+                                echo "<div class=\"profilePicColum\"><div class=\"propic\"> 
                                 <img src=\"".$row['imgProfiloPath']."\" alt=\"Immagine di Default\"/>
+                                </div>
+                                <div class=\"shop\">
+                                <button onclick=\"swapperInStore()\"><img src=\"Stile/Icone/shopicon.png\" alt=\"shopbutton\" ></button>
+                                <p>Store Profile Pictures</p>
+                            </div>
                                 </div>";  
 
                                 echo "<div id=\"infoBox\">";
@@ -354,9 +469,6 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                         <div class="buttons">
                             <div class="settings">
                                 <button onclick="swapperInSettings()"><img src="Stile/Icone/settingsicon.png" alt="settingbutton" ></button>
-                            </div>
-                            <div class="shop">
-                                <button onclick="swapperInStore()"><img src="Stile/Icone/shopicon.png" alt="shopbutton" ></button>
                             </div>
                         </div>
                     
@@ -562,7 +674,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
                                 echo "<div><img src=\"".$pic->getElementsbyTagName('path')->item(0)->textContent."\" alt=\"".$pic->getElementsbyTagName('nome')->item(0)->textContent."\"></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('nome')->item(0)->textContent."</p></div>";
                                 echo "<div><p>".$pic->getElementsbyTagName('prezzo')->item(0)->textContent." Pixels</p></div>";
-                                echo "<div> <input type=\"radio\" name=\"scelta\" value=\"". $pic->getAttribute('id_pic') . "\" /></div>";
+                                echo "<div> Scegli <input type=\"radio\" name=\"scelta\" value=\"". $pic->getAttribute('id_pic') . "\" /></div>";
                                 echo "</div>";
                             }
                             

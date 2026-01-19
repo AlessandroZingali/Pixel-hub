@@ -59,6 +59,8 @@ session_start();
         $_SESSION['userName']=$row['Username'];
         $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
         $_SESSION['Grado']=$row['Grado'];
+        $_SESSION['Pixels']=$row['Pixels'];
+        $_SESSION['Saldo']=$row['Saldo_attuale'];
         
         
         // Una volta fatto questo verremo reindirizzati alla Homepage
