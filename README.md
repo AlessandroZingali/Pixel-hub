@@ -19,18 +19,33 @@
 - [x] aggiungere il formato delle recensioni
 
 Parte 2
-- [ ] Creare scheletro pagina login
-- [ ] creare scheletro pagina registrazione
-- [ ] creare scheletro homepage
+- [x] Creare scheletro pagina login
+- [x] creare scheletro pagina registrazione
+- [x] creare scheletro homepage
      - [x] Impostare design pagina
-     - [] impostare script JS di resize e onload e media query CSS per resize e onload
-     - [] impostare script php di funzionalita sia visiva che di servizio per login
-- [ ] creare scheletro della faq
-- [ ] creare scheletro commenti
-- [ ] creare database users
-- [ ] creare dashboard gestore admin
-- [ ] creare database utenti sql 
-      
+     - [x] impostare script JS di resize e onload e media query CSS per resize e onload
+     - [x] impostare script php di funzionalita sia visiva che di servizio per login
+- [x] creare scheletro della faq
+- [x] creare scheletro commenti
+- [x] creare database users
+- [x] creare dashboard gestore admin
+- [x] creare database utenti sql 
+
+Parte 3
+
+
+- []  Acquisto giochi e carrello
+- [] Creare pagina sconti (da fare nel carrello?)
+- [] Creare funzione lettura ticket admin
+- [] Aggiunta  gioco da parte di gestore
+- []  sospensione gioco per gestore
+- []  modifica gioco per gestore
+- []  Consulto pagina acquisti giochi di un utente
+- []  rimborso gioco
+- []  gestione rimborso gioco admin
+- []  Modificatore Commenti per il sistema dell'esperienza
+- []  sospensione gioco utente
+- []  Aggiunta domande nelle faq da admin
       
 
 
