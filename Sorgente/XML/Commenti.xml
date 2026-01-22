@@ -6,9 +6,37 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="1">
-    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="40" like="0" dislike="0">
-      <text>HEROS ASSEMBLE!&#13;
-</text>
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="27" like="0" dislike="0">
+      <text>Bello</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0">
+      <text>Nerf This</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0">
+      <text>Yeeeee</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="04" like="1" dislike="0">
+      <text>Il big daddy è fighissimo</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="8">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="05" like="0" dislike="0">
+      <text>Halo</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="5">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="19" like="1" dislike="0">
+      <text>belandi&#13;</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="18" like="0" dislike="1">
+      <text>HAlo</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="3">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="35" like="0" dislike="1">
+      <text>We have a city to Burn</text>
     </Commento>
   </Gioco>
 </listaCommenti>

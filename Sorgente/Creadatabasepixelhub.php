@@ -1,6 +1,6 @@
 <?php
-// Questo file php inizializza il database in localhost per il treno e 
-// Mostra tutti gli errori tranne i NOTICE (es. variabili non inizializzate)
+// Questo file php inizializza il database in localhost per il sito e 
+// Mostra tutti gli errori tranne i NOTICE (come ad esempio variabili non inizializzate)
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Nome del database
@@ -37,9 +37,9 @@ else {
         $sqlQuery = "CREATE TABLE $table_users ( 
             ID INT AUTO_INCREMENT,                 -- ID univoco utente
             Email VARCHAR(100),                   -- Email utente
-            Password VARCHAR(100),                -- Password (NON hashata)
+            Password VARCHAR(100),                -- Password utente
             Username VARCHAR(50),                 -- Username
-            Grado INT,                            -- Livello/ruolo nel sito
+            Grado INT,                            -- Grado utente (1-6) di base parte a 3
             Pixels INT,                           -- Valuta virtuale
             Saldo_attuale FLOAT,                  -- Saldo reale
             Data_di_Nascita VARCHAR(50),          -- Data di nascita

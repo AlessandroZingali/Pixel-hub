@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
+  <xsd:element name="listaRecovery">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Recovery" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+
+  <xsd:element name="Recovery">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="text"  minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+        <xsd:attribute name="id_Recovery" type="xsd:interger" use="required"/>
+        <xsd:attribute name="data" type="xsd:string" use="required"/>
+        <xsd:attribute name="ora" type="xsd:time" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="text" type="xsd:string" />
+  </xsd:element>
+  
+</xsd:schema>

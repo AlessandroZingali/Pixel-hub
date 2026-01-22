@@ -89,7 +89,7 @@ if(isset($_SESSION['userId'])){
 
                 <?php 
                 //Se l'utente è loggato e ha un genere preferito, mostro la tabella personalizzata
-                if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+               if (isset($_SESSION['userId']) && isset($_SESSION['generePreferito']) && $_SESSION['generePreferito'] != "Nessuno"){
 
                     //Il gameSlider sarà strutturato in questo modo: Un input button per scorrere indietro, una tabella con i giochi che sarà scorrevole, un input button per scorrere avanti.
                     echo "<div class=\"GameSlider\">

@@ -1,8 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <listaSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Sconti_XML_schema.xsd">
-   <Sconto id_tipoSconto="1">
-     <Gioco valoreSconto="20">2</Gioco>
-     <Gioco valoreSconto="10">4</Gioco>
-     <Gioco valoreSconto="15">5</Gioco>
-   </Sconto>
+  
+  <Sconto id_tipoSconto="1" spesa_minima="50">
+    <Gioco valoreSconto="20">2</Gioco>
+  </Sconto>
+  
+  <Sconto id_tipoSconto="1" spesa_minima="100">
+    <Gioco valoreSconto="25">2</Gioco>
+  </Sconto>
+
+  <Sconto id_tipoSconto="2">
+  </Sconto>
+  
+  <Sconto id_tipoSconto="3" valore_minimo="3000">
+  </Sconto>
+  
+  <Sconto id_tipoSconto="4">
+  </Sconto>
+
+  <Sconto id_tipoSconto="5">
+  </Sconto>
+  
+  <Sconto id_tipoSconto="6">
+  </Sconto>
+
+  <Sconto id_tipoSconto="7">
+  </Sconto>
+  
+  <Sconto id_tipoSconto="8">
+  </Sconto>
+
+  <Sconto id_tipoSconto="9">
+  </Sconto>
+  
 </listaSconti>

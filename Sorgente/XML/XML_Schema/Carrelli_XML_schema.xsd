@@ -15,6 +15,7 @@
         <xsd:element  ref="gioco" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
         <xsd:attribute name="id_user" type="xsd:integer" use="required"/>
+        <xsd:attribute name="id_cart" type="xsd:integer" use="required"/>
     </xsd:complexType>
   </xsd:element>
   

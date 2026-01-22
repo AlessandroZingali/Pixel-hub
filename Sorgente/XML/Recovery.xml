@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listaTicket xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Ticket_XML_schema.xsd">
+  <ticket id_recovery="1" data="22/01/2026" ore="11" minuti="00">
+    <text>besughis@gmail.cer</text>
+  </ticket>
+</listaTicket>

@@ -27,16 +27,25 @@ var numeroTabelle = 4;
 
 let push = 0; //Variabile di controllo per il push dell'array contenitore nel caso in cui ci sia un utente loggato
 
-var is_set_id = parseInt(sessionStorage.getItem('idUser')); //Passaggio dell'id utente dalla sessione alla variabile di controllo, conversione in intero
-if(sessionStorage.getItem('genPref') != null) var is_set_prefGen = 1; //Controllo della presenza del genere preferito nella sessione
+// console.log(sessionStorage.getItem('idUser'));
+var is_set_id = parseInt(sessionStorage.getItem('idUser'));//Passaggio dell'id utente dalla sessione alla variabile di controllo, conversione in intero
+//console.log(is_set_id); 
+//console.log(sessionStorage.getItem('genPref'));
+if(sessionStorage.getItem('genPref') != null && sessionStorage.getItem('genPref') != 'Nessuno') var is_set_prefGen = 1;//Controllo della presenza del genere preferito nella sessione
+// console.log(is_set_prefGen);
 var setAnswer = isNaN(is_set_id) ? 0 : 1; //Controllo della presenza dell'id utente nella sessione
 var setPrefGen = (is_set_prefGen == 0) ? 0 : 1; //Controllo della presenza del genere preferito nella sessione
 
+/*console.log("setAnswer: "+setAnswer);
+console.log("setPrefGen: "+setPrefGen);
+console.log('push '+push);*/
 
 //Inizializzazione dell'array contenitore in base alla presenza o meno dell'id utente e del genere preferito
-if(setAnswer == 0 && setPrefGen == 0){
+if((setAnswer == 0 && setPrefGen == 0) || (setAnswer == 1 && setPrefGen == 0)){
+    
    push=1; 
-   console.log("Funzione base");
+//    console.log('push '+push);
+//    console.log("Funzione base");
 } 
 
 //Se non è presente l'id utente e non è presente il genere preferito, significa che l'utente non è loggato, e le tabelle da mostrare sono 3

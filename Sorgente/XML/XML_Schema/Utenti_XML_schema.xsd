@@ -33,10 +33,12 @@
     <xsd:sequence>
       <xsd:element ref="idGiocoPosseduto" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
+    <xsd:attribute name="data_acquisizione" type="xsd:date" use="required" />
+    <xsd:attribute name="quantita_spesa" type="xsd:float" use="required"/>
   </xsd:complexType>
   </xsd:element>
 
-  <xsd:element name="idGiocoPosseduto" type="xsd:integer" />
+  <xsd:element name="idGiocoPosseduto" type="xsd:integer"/>
 
     <xsd:element name="listaPropic">
   <xsd:complexType>

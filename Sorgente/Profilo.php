@@ -554,6 +554,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     <form method="post" action="Profilo.php"> 
                                         <td>
                                         <select name="Genere" id="GeneriScelta">
+                                            <option value="Nessuno">Nessuno</option>
                                             <option value="Sparatutto">Sparatutto</option> 
                                             <option value="RPG">RPG</option>
                                             <option value="Avventura">Avventura</option>

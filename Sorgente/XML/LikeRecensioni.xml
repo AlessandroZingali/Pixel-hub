@@ -5,4 +5,24 @@
     <Id_Recensione>1</Id_Recensione>
     <Id_Gioco>6</Id_Gioco>
   </ref_Recensioni>
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>3</Id_Recensione>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Recensioni>
+  <ref_Recensioni flagLike="0" flagDislike="1">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>2</Id_Recensione>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Recensioni>
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>1</Id_Recensione>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Recensioni>
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>1</Id_Recensione>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Recensioni>
 </Associazione_Like_Recensioni>

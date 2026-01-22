@@ -1,6 +1,8 @@
 <?php
 /* Pagina che mostrera il carrello ancora in fase di sviluppo;
 L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenza e quello finale dato dopo gli sconti */
+require 'serverUtility.php';
+require 'baseScontiUtente.php';
 $service = 0;
 $utente = "";
 
@@ -10,6 +12,7 @@ if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
     $service = 1;
 }
+$servizioSconti = new scontiUtente($_SESSION['userId']);
 
 
 ?>
@@ -75,7 +78,81 @@ if(isset($_SESSION['userId'])){
                     </form>
             </div>
 
-            <h1>Il mio Carrello - Coming soon...</h1>
+            <h1>Il mio Carrello</h1>
+
+            <div id="CarrelloMain">
+            <table>
+                <tr>
+                    <th> Nome Gioco </th>
+                    <th> Prezzo Iniziale </th>
+                    <th> Prezzo Finale </th>
+                    <th> Sconti Applicati </th>
+                    <th> Sconto Totale</th>
+                </tr>
+                <?php
+                $scontoFinale = 0;
+                $prezzoIniziale = 0;
+                $prezzoFinale = 0;
+                $elemCarrello = xmlPointer('XML/Carrelli.xml');
+                foreach($elemCarrello as $carrello){
+                    if($carrello->getAttribute('id_user')==$_SESSION['userId']){
+                        $elemGioco = $carrello->item(0)->getElementsByTagName('gioco');
+                        foreach($elemGioco as $gioco){
+                            echo "<tr>";
+                            $scontiSulGioco = [];
+                            $idGioco = $gioco->getAttribute('id_gioco');
+                            $titolo=$gioco->gettElementByTagName('titolo')->item(0)->textContent;
+                            $prezzoIniziale=$gioco->getElementsByTagName('prezzo')->item(0)->textContent;
+                            $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
+
+                            $db_name = "Database_Pixel_Hub";
+                            $table_users = "Tabella_Utenti";
+                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+
+                            if (mysqli_connect_errno()){
+
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                            }
+                            $emailNickname = $_SESSION['user'];
+
+                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                            $num = mysqli_num_rows($resultQ); 
+                            if($num == 1){
+                                $gradoUtente = $row['Grado'];
+
+
+                            if($scontiSulGioco->length < 3){
+                                foreach($scontiSulGioco as $sconto){
+                                    $scontoFinale+=$sconto;   
+                                }
+                            }
+                            else{
+                                for($i=0; $i<$gradoUtente; $i++){
+                                    $scontoFinale+=$scontiSulGioco[i];
+                                }
+                            }
+                            }
+                            $prezzoFinale = $prezzoIniziale - ($prezzoIniziale * $scontoFinale / 100);
+
+                            echo "<td>$titolo</td>";
+                            echo "<td>$prezzoIniziale €</td>";
+                            echo "<td>$prezzoFinale €</td>";
+                            foreach($scontiSulGioco as $sconto){
+                                echo "<td>$sconto % </td>";
+                            }
+                            echo "<td>$scontoFinale % </td>";
+                            echo "</tr>";
+                        }
+                    }
+                }
+
+
+
+
+                ?>
+            </table>    
+        </div>
 
             <!-- CARRELLO ANCORA IN ALLESTIMENTO... CI VEDIAMO ALLA PARTE 3 -->
        

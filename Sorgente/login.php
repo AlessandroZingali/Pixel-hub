@@ -135,7 +135,7 @@ session_start();
                     <div class="recovery">
 
                          <!-- attraverso questi link si puo passare alla pagina del sighin passando il tipo di utente che vorrebbe iscriversi mediante GET -->
-                        <p>Hai dimeticato le tue <a href="recuperoCredenziali.php">credenziali</a>?</p>
+                        <p>Hai dimeticato le tue <a href="Recovery.php">credenziali</a>?</p>
                         <p>Sei nuovo?   <a href="signin.php?TipoUtente=0">Iscriviti</a>!</p>
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=1">publisher</a>?</p>     
                         <p>Sei un nuovo    <a href="signin.php?TipoUtente=2">admin</a>?</p>

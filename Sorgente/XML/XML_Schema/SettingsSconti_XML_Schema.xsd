@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="Settings">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="MinimiSpesi" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="MinimiSpesiDa" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="ReputazioneMin" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="MesiMin" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="AnniMin" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="MinimiSpesi" type="xsd:float"/>
+    <xsd:elemwnt name="ReputazioneMin" type="xsd:float"/>
+    <xsd:element name="MesiMin" type="xsd:integer"/>
+    <xsd:element name="AnniMin" type="xsd:integer"/>
+
+    <xsd:element name="MinimiSpesiDa">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="Valore" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="DataInizio" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="Valore" type="xsd:float"/>
+    <xsd:element name="DataInizio" type="xsd:date"/>
+
+</xsd:schema>

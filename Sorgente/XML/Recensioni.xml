@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recensioni_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Recensione id_recensione="2" id_utente="3" data="16/01/2026" ore="15" minuti="01" like="0" dislike="0" voto="80">
+    <Recensione id_recensione="3" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0" voto="99">
+      <text>bello</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="3" data="16/01/2026" ore="15" minuti="01" like="0" dislike="1" voto="80">
       <text>Bello con belle musiche</text>
     </Recensione>
     <Recensione id_recensione="1" id_utente="3" data="16/01/2026" ore="14" minuti="48" like="0" dislike="0" voto="60">
@@ -11,6 +14,16 @@
   <Gioco id_gioco="6">
     <Recensione id_recensione="1" id_utente="3" data="17/01/2026" ore="11" minuti="40" like="1" dislike="0" voto="95">
       <text>Più che un gioco è un esperienza da veterano del Vietnam. Ora ogni volta che vedo un insetto faccio un back-flip cercando di estrarre un revolver e sparagli... grazie ArrowHead &lt;3</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Recensione id_recensione="1" id_utente="3" data="22/01/2026" ore="11" minuti="29" like="1" dislike="0" voto="90">
+      <text>Rupture è spaventosa quanto bella IL DLC SPACCA</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="3">
+    <Recensione id_recensione="1" id_utente="3" data="22/01/2026" ore="11" minuti="37" like="1" dislike="0" voto="85">
+      <text>Questo gioco è partito che era praticamente un colabrodo. Adesso invece è una perla del suo genere. Ma mi mancherà sempre la T Pose sulla moto.</text>
     </Recensione>
   </Gioco>
 </listaRecensioni>

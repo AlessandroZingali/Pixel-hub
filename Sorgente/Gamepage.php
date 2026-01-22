@@ -6,7 +6,8 @@ require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore
 $service = 0;
 $utente = "";
 $titoloGioco = "";
-$gioco = 0;
+$idGame = 0;
+$userSet = false;
 
 //Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
 if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
@@ -42,13 +43,14 @@ echo "";
         //dobbiamo specificare anche a quale gioco appartiene, referezinadone l'apposito id gioco.
         foreach($elem as $i){//Cerchiamo l'id del gioco, a cui recensioni e commenti apparterranno
             if($i->getAttribute("id_gioco")==$idGioco){
-                $gioco = (int)$i->getAttribute("id_gioco");
+                $idGame = (int)$i->getAttribute("id_gioco");
+                $gioco = $i;
                 break;
             }
         }
         //Se il gioco non ha commenti, e ce ne è arrivato uno, creiamo un nuovo nodo apposito. Essendo che gli id partiranno da 1, se non c'è nessuno nodo dei commenti
         //con quel id gioco, la variabile $gioco rimarrà 0.
-        if($gioco == 0){
+        if($idGame == 0){
             $newId = 1;
 
             $gioco=$doc->createElement("Gioco");
@@ -114,6 +116,7 @@ echo "";
         
         $doc->save("XML/Commenti.xml");
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
+        $idGame = 0;
     }
 
     if(isset($_POST["invioRecensione"])){//Gestione Recensioni
@@ -123,11 +126,12 @@ echo "";
         $elem = $root->childNodes;
             foreach($elem as $i){
                 if($i->getAttribute("id_gioco")==$idGioco){
+                    $idGame = (int)$i->getAttribute("id_gioco");
                     $gioco = $i;
                     break;
                 }
             }
-        if($gioco == 0){//Se il gioco non ha recensioni, e ce ne è arrivata una, creiamo un nuovo nodo apposito
+        if($idGame == 0){//Se il gioco non ha recensioni, e ce ne è arrivata una, creiamo un nuovo nodo apposito
             $newId = 1;
 
             $gioco=$doc->createElement("Gioco");
@@ -196,7 +200,99 @@ echo "";
         
         $doc->save("XML/Recensioni.xml");
         header("Location: Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco");
+        $idGame = 0;
         
+    }
+
+    if(isset($_POST["Acquisto"])){
+
+        $giochi = xmlPointer("XML/Giochi.xml");
+        foreach($giochi as $i){
+            if($i->getAttribute("id_gioco")==$idGioco){
+               $PrezzoGioco = $i->getElementsByTagName('Prezzo')->item(0)->textContent;
+            }
+        }
+
+        $doc = getDoc("XML/Carrelli.xml");
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        if(!($root->hasChildNodes())){
+
+            $newIdCar=1;
+
+            $carrello = $doc->createElement("Carrello");
+
+            $carrello->setAttribute("id_user", $_SESSION["userId"]);
+            $carrello->setAttribute("id_cart",$newIdCar);
+
+            $giocoInCart= $doc->createElement("gioco");
+            $giochiInCart->setAttribute("id_gioco", $idGioco);
+            $titolo = $doc->createElement("titolo", $titoloGioco);
+            $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
+
+            $giochiInCart->appendChild($titolo);
+            $giochiInCart->appendChild($prezzo);
+
+
+            $carrello->appendChild($giocoInCart);
+            $root->appendChild($carrello);
+            $doc->save("XML/Carrelli.xml");
+        }
+        else{
+            foreach($elem as $cart){
+                if($cart->getAttribute("id_user")==$_SESSION["userId"]){
+                    $userSet=true;
+                }
+            }
+
+            $doc = getDoc("XML/Carrelli.xml");
+            $root = $doc->documentElement;
+            $elem = $root->childNodes;
+            if(!$userSet){
+                
+                $numCarrelli=$elem->length;
+
+                $lastCarrello =  $elem->item($numCarrelli-1);
+                $newCartId = ((int)$lastCarrello->getAttribute("id_cart"))+1;
+                $carrello = $doc->createElement("Carrello");
+
+                $carrello->setAttribute("id_user", $_SESSION["userId"]);
+                $carrello->setAttribute("id_cart",$newCartId);
+                
+                
+            $giocoInCart= $doc->createElement("gioco");
+            $giocoInCart->setAttribute("id_gioco",$idGioco);
+            $titolo = $doc->createElement("titolo", $titoloGioco);
+            $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
+
+            $giochiInCart->appendChild($titolo);
+            $giochiInCart->appendChild($prezzo);
+
+
+            $carrello->appendChild($giocoInCart);
+            $root->appendChild($carrello);
+            $doc->save("XML/Carrelli.xml");
+            }
+            else if($userSet){
+                $giocoInCart= $doc->createElement("gioco");
+                $giocoInCart->setAttribute("id_gioco",$idGioco);
+                $giocoInCart->setAttribute("titolo",$titoloGioco);
+                $giocoInCart->setAttribute("prezzo",$PrezzoGioco);
+
+                foreach($elem as $cart){
+                if($cart->getAttribute("id_user")==$_SESSION["userId"]){
+                    $carrelloUtente = $cart;
+                }
+            }
+
+                $carrelloUtente->appendChild($giocoInCart);
+                $doc->save("XML/Carrelli.xml");
+            }
+        }
+        
+        
+        header("Location: Carrello.php?iduser=" . $_SESSION["userId"]);
+
     }
     
 ?>
@@ -349,7 +445,7 @@ echo "";
                         $giochi = xmlPointer("XML/Giochi.xml");
                         
                         $idCorrelati = [];
-                    //Cerchiamo i giochi correlati a quello attuale, salvandone gli id in un array
+                     //Cerchiamo i giochi correlati a quello attuale, salvandone gli id in un array
                         foreach ($giochi as $gioco) {
                             if ($gioco->getAttribute("id_gioco") ==$idGioco) {
                                 $lista = $gioco->getElementsByTagName("idGiocoCorrelato");
@@ -396,7 +492,29 @@ echo "";
                             }
 
                                                 //Ovviamente il pulsante di acquisto sarà visibile solo se l'utente è loggato e non possiede già il gioco
-                        if($service){                    
+                        if($service){            
+                            
+    
+                            $inCart = false;
+                            $elemC = xmlPointer("XML/Carrelli.xml");
+
+                            foreach($elemC as $cart){
+                                if($cart->getAttribute("id_user")==$_SESSION["userId"]){
+                                    $giochiInCart = $cart->getElementsByTagName("gioco");
+                                    
+
+                                    foreach($giochiInCart as $giocoInCart){
+                                        $titoloGiocoInCart = $giocoInCart->getAttribute("titolo");
+
+                                        if($titoloGiocoInCart == $titoloGioco){
+                                            $inCart = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                            }
+
                     
                             $elem = xmlPointer("XML/utenti.xml");
 
@@ -419,10 +537,17 @@ echo "";
                                         }
                                     }
                                 
-                                    if (!$possiedeGioco) {
+                                    if (!$possiedeGioco && !$inCart) {
+                                        echo '
+                                        <form method="post" action="Gamepage.php?titoloGioco='.$titoloGioco.'&idGioco='.$idGioco.'">
+                                        <div id="Acquisto">
+                                            <input type="submit" id="buttonAcquista" value="Acquisto" name="Acquisto"/>
+                                        </div></form>';
+                                    }
+                                    else if(!$possiedeGioco && $inCart){
                                         echo '
                                         <div id="Acquisto">
-                                            <input type="button" id="buttonAcquista" value="Acquista">
+                                            <p>Presente nel carrello.</p>
                                         </div>';
                                     }
                                     else{
@@ -434,6 +559,8 @@ echo "";
                                 }    
                             }
                         }
+                        
+
                         ?>
                     </div>
                     

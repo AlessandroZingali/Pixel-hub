@@ -4,14 +4,14 @@
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
     <DataIscrizione>18/02/2016</DataIscrizione>
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
-    <GenerePreferito>RPG</GenerePreferito>
+    <GenerePreferito>Sparatutto</GenerePreferito>
     <listaGiochi>
-      <idGiocoPosseduto>1</idGiocoPosseduto>
-      <idGiocoPosseduto>2</idGiocoPosseduto>
-      <idGiocoPosseduto>6</idGiocoPosseduto>
-      <idGiocoPosseduto>7</idGiocoPosseduto>
-      <idGiocoPosseduto>9</idGiocoPosseduto>
-      <idGiocoPosseduto>18</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="07-06-2025" spesa="19.99">2</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="15-11-2024" spesa="49.99">6</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="26-04-2025" spesa="29">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="14-06-2025" spesa="20">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-01-2026" spesa="13.99">18</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
@@ -22,18 +22,26 @@
       <idPropic>6</idPropic>
     </listaPropic>
   </Utente>
+  <Utente id_user="2">
+    <linkEsterno/>
+    <DataIscrizione>19-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
   <Utente id_user="3">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
     <DataIscrizione>18/02/2016</DataIscrizione>
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
-    <GenerePreferito>Sparatutto</GenerePreferito>
+    <GenerePreferito>Nessuno</GenerePreferito>
     <listaGiochi>
-      <idGiocoPosseduto>1</idGiocoPosseduto>
-      <idGiocoPosseduto>4</idGiocoPosseduto>
-      <idGiocoPosseduto>6</idGiocoPosseduto>
-      <idGiocoPosseduto>7</idGiocoPosseduto>
-      <idGiocoPosseduto>9</idGiocoPosseduto>
-      <idGiocoPosseduto>11</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="09-06-2024" spesa="24.99">4</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="05-08-2024" spesa="39.99">6</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="05-06-2025" spesa="19.99">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="01-02-2024" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="25-12-2025" spesa="29.99">11</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
@@ -42,59 +50,11 @@
       <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
-  <Utente id_user="11">
-    <linkEsterno/>
-    <DataIscrizione>15/01/2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="12">
-    <linkEsterno>belelele</linkEsterno>
-    <DataIscrizione>15/01/2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito/>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
   <Utente id_user="4">
     <linkEsterno/>
-    <DataIscrizione>17-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>Bethesda</CasaDiSviluppoPreferita>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="4">
-    <linkEsterno/>
-    <DataIscrizione>19-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
-    <GenerePreferito/>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="5">
-    <linkEsterno/>
-    <DataIscrizione>19-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito/>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="6">
-    <linkEsterno/>
-    <DataIscrizione>19-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito/>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="7">
-    <linkEsterno/>
-    <DataIscrizione>19-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito/>
+    <DataIscrizione>22-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Ubisoft</CasaDiSviluppoPreferita>
+    <GenerePreferito>RPG</GenerePreferito>
     <listaGiochi/>
     <listaPropic/>
   </Utente>
