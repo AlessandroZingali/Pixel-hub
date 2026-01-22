@@ -1,8 +1,8 @@
 <?php
 /* Pagina che mostrera il carrello ancora in fase di sviluppo;
 L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenza e quello finale dato dopo gli sconti */
-require 'serverUtility.php';
 require 'baseScontiUtente.php';
+error_reporting(E_ALL & ~E_NOTICE);
 $service = 0;
 $utente = "";
 
@@ -13,6 +13,7 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 $servizioSconti = new scontiUtente($_SESSION['userId']);
+
 
 
 ?>
@@ -88,6 +89,7 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
                     <th> Prezzo Finale </th>
                     <th> Sconti Applicati </th>
                     <th> Sconto Totale</th>
+                    <th> Rimuovi </th>
                 </tr>
                 <?php
                 $scontoFinale = 0;
@@ -96,12 +98,12 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
                 $elemCarrello = xmlPointer('XML/Carrelli.xml');
                 foreach($elemCarrello as $carrello){
                     if($carrello->getAttribute('id_user')==$_SESSION['userId']){
-                        $elemGioco = $carrello->item(0)->getElementsByTagName('gioco');
+                        $elemGioco = $carrello->getElementsByTagName('gioco');
                         foreach($elemGioco as $gioco){
                             echo "<tr>";
                             $scontiSulGioco = [];
                             $idGioco = $gioco->getAttribute('id_gioco');
-                            $titolo=$gioco->gettElementByTagName('titolo')->item(0)->textContent;
+                            $titolo=$gioco->getElementsByTagName('titolo')->item(0)->textContent;
                             $prezzoIniziale=$gioco->getElementsByTagName('prezzo')->item(0)->textContent;
                             $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
 
@@ -119,10 +121,11 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
                             $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                             $num = mysqli_num_rows($resultQ); 
                             if($num == 1){
+                                $row = mysqli_fetch_array($resultQ);
                                 $gradoUtente = $row['Grado'];
 
 
-                            if($scontiSulGioco->length < 3){
+                            if(count($scontiSulGioco) < 3){
                                 foreach($scontiSulGioco as $sconto){
                                     $scontoFinale+=$sconto;   
                                 }
@@ -133,16 +136,23 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
                                 }
                             }
                             }
-                            $prezzoFinale = $prezzoIniziale - ($prezzoIniziale * $scontoFinale / 100);
+                            $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
 
                             echo "<td>$titolo</td>";
                             echo "<td>$prezzoIniziale €</td>";
-                            echo "<td>$prezzoFinale €</td>";
+                            echo "<td> $prezzoFinale €</td>";
+                            echo "<td>";
                             foreach($scontiSulGioco as $sconto){
-                                echo "<td>$sconto % </td>";
+                                echo "$sconto % ";
                             }
+                            echo "</td>";
                             echo "<td>$scontoFinale % </td>";
+                            echo "<td><button type='button' onclick=''> Rimuovi </button></td>";
                             echo "</tr>";
+
+                            $scontiSulGioco = [];
+                            $scontoFinale = 0;
+                            $prezzoIniziale = 0;
                         }
                     }
                 }
@@ -151,7 +161,9 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
 
 
                 ?>
-            </table>    
+            </table> 
+            
+            <input type="button" value="Procedi al pagamento" id="pagaButton" onclick="window.location.href='Pagamento.php'"/>
         </div>
 
             <!-- CARRELLO ANCORA IN ALLESTIMENTO... CI VEDIAMO ALLA PARTE 3 -->

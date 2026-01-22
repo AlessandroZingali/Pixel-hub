@@ -14,16 +14,16 @@
       <xsd:sequence>
         <xsd:element  ref="Gioco" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-        <xsd:attribute name="id_tipoSconto" typer="xsd:interger" use="required"/>
+        <xsd:attribute name="id_tipoSconto" type="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
   
   <xsd:element name="Gioco">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element ref="id_gioco" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="id_gioco" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-       <xsd:attribute name="valoreSconto" typer="xsd:int" use="optional"/>
+       <xsd:attribute name="valoreSconto" type="xsd:integer" use="required"/>
     </xsd:complexType>
   </xsd:element>
   

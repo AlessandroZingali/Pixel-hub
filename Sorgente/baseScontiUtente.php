@@ -17,7 +17,7 @@
 
         function __construct($idUtente){
             $this->idUtente=$idUtente;
-            scanner($idUtente);
+            $this->scanner($idUtente);
             $elem = xmlPointer('XML/ScontiAssegnati.xml');
             foreach($elem as $user){
                 if($user->getAttribute('id_user')== $this->idUtente){
@@ -79,9 +79,8 @@
         // spesa da una certa data
         $elemUtenti = xmlPointer('XML/utenti.xml');
         $SettingSelector = getRoot('XML/SettingsSconti.xml');
-
-        $ValoreSpesa= $SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementsByTagName('Valore')->item(0)->textContent;
-        $SpesaData= trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementByTagName('DataInizio')->item(0)->textContent);
+        $ValoreSpesa= $SettingSelector->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('Valore')->item(0)->textContent;
+        $SpesaData = trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementsByTagName('DataInizio')->item(0)->textContent);
         $giorno = substr($SpesaData, 0, 2);
         $mese  = substr($SpesaData, 3, 2);
         $anno  = substr($SpesaData, 6, 4);
@@ -152,7 +151,7 @@
                     if($sconto->getAttribute('id_tipoSconto') == $s){
                         $ref = $sconto->getElementsByTagName('Gioco');
                         foreach($ref as $giocoRef){
-                            if($giocoRef->item(0)->textContent == $idGioco){
+                            if($giocoRef->textContent == $idGioco){
                                 array_push($arraySconti, (int)$giocoRef->getAttribute('valoreSconto'));
                             }
                         }

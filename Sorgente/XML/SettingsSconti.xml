@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SettingsSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/SettingsSconti_XML_schema.xsd">
-    <MinimiSpesi>200</MinimiSpesi>
-    <MinimSpesiDa>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/SettingsSconti_XML_Schema.xsd">
+    <MinimiSpesi>100</MinimiSpesi>
+    <MinimiSpesiDa>
         <Valore>1000</Valore>
         <DataInizio>05-05-2024</DataInizio>
-    </MinimSpesiDa>
+    </MinimiSpesiDa>
     <ReputazioneMin>100</ReputazioneMin>
     <MesiMin>6</MesiMin>
     <AnniMin>1</AnniMin>
-</SettingsSconti>
+</Settings>

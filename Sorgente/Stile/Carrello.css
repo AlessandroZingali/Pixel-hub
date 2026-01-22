@@ -1,1 +1,37 @@
 /* Working in progress... */
+
+#CarrelloMain{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    table{
+        border-radius: 15px; 
+        border: white solid 4px;
+        text-align: center;
+    }
+
+    th{ 
+        width: 10%;
+        background-color: rgb(43, 43, 73);
+        border-radius: 15px;
+    }
+
+    td{ 
+        border-radius:  15px;
+        background-color: #434343 ;
+        padding: 10px;
+    }
+}
+
+#pagaButton{
+    font-family: "font pixeloso",monospace;
+    background-color: rgba(63, 56, 56, 0.911);
+    color: white;
+    padding: 40px;
+    border: none;
+    height: 10%;
+    margin-top: 5%;
+    margin-left: 4%;
+    padding-left: 40%;
+    padding-right: 40%;
+    border-radius: 20px;
+}

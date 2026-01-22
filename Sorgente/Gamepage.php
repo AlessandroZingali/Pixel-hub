@@ -226,12 +226,12 @@ echo "";
             $carrello->setAttribute("id_cart",$newIdCar);
 
             $giocoInCart= $doc->createElement("gioco");
-            $giochiInCart->setAttribute("id_gioco", $idGioco);
+            $giocoInCart->setAttribute("id_gioco", $idGioco);
             $titolo = $doc->createElement("titolo", $titoloGioco);
             $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
 
-            $giochiInCart->appendChild($titolo);
-            $giochiInCart->appendChild($prezzo);
+            $giocoInCart->appendChild($titolo);
+            $giocoInCart->appendChild($prezzo);
 
 
             $carrello->appendChild($giocoInCart);
@@ -260,24 +260,27 @@ echo "";
                 $carrello->setAttribute("id_cart",$newCartId);
                 
                 
-            $giocoInCart= $doc->createElement("gioco");
-            $giocoInCart->setAttribute("id_gioco",$idGioco);
-            $titolo = $doc->createElement("titolo", $titoloGioco);
-            $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
+                $giocoInCart= $doc->createElement("gioco");
+                $giocoInCart->setAttribute("id_gioco",$idGioco);
+                $titolo = $doc->createElement("titolo", $titoloGioco);
+                $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
 
-            $giochiInCart->appendChild($titolo);
-            $giochiInCart->appendChild($prezzo);
+                $giocoInCart->appendChild($titolo);
+                $giocoInCart->appendChild($prezzo);
 
 
-            $carrello->appendChild($giocoInCart);
-            $root->appendChild($carrello);
-            $doc->save("XML/Carrelli.xml");
+                $carrello->appendChild($giocoInCart);
+                $root->appendChild($carrello);
+                $doc->save("XML/Carrelli.xml");
             }
             else if($userSet){
                 $giocoInCart= $doc->createElement("gioco");
                 $giocoInCart->setAttribute("id_gioco",$idGioco);
-                $giocoInCart->setAttribute("titolo",$titoloGioco);
-                $giocoInCart->setAttribute("prezzo",$PrezzoGioco);
+                $titolo = $doc->createElement("titolo", $titoloGioco);
+                $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
+
+                $giocoInCart->appendChild($titolo);
+                $giocoInCart->appendChild($prezzo);
 
                 foreach($elem as $cart){
                 if($cart->getAttribute("id_user")==$_SESSION["userId"]){
@@ -396,10 +399,10 @@ echo "";
                             }
                         }
                         echo "<table>
-                                <!--Debug: <tr>
+                                <tr>
                                     <td> ID Gioco</td>
                                     <td>$idGioco</td>
-                                </tr>-->
+                                </tr>
                                 <tr>
                                     <td>Titolo</td>
                                     <td>$titoloGioco</td>
@@ -502,6 +505,7 @@ echo "";
                                 if($cart->getAttribute("id_user")==$_SESSION["userId"]){
                                     $giochiInCart = $cart->getElementsByTagName("gioco");
                                     
+                                    
 
                                     foreach($giochiInCart as $giocoInCart){
                                         $titoloGiocoInCart = $giocoInCart->getAttribute("titolo");
@@ -536,6 +540,9 @@ echo "";
                                             break;
                                         }
                                     }
+
+                                    echo $possiedeGioco ? "Possiedi il gioco" : "Non possiedi il gioco";
+                                    echo $inCart ? " - Presente nel carrello" : " - Non presente nel carrello";
                                 
                                     if (!$possiedeGioco && !$inCart) {
                                         echo '

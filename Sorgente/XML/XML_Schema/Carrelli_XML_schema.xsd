@@ -30,6 +30,6 @@
   </xsd:element>
   
   <xsd:element  name="Titolo"  type="xsd:string" />
-  <xsd:element  name="prezzo"  type="xsd:double" />
+  <xsd:element  name="prezzo"  type="xsd:float" />
 
 </xsd:schema>
