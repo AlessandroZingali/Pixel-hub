@@ -194,7 +194,7 @@ if(isset($_SESSION['userId'])){
                                     
                                     $gioco=$elem->item($j);
                                     $idGioco = $gioco->getAttribute("id_gioco");
-                                    $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                                    $valGiocoGrezzo=$gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
                                     $valGioco = (float) $valGiocoGrezzo;
                                     //Qui abbiamo impostato un filtro in modo che mostri solo giochi dove la media delle recensioni  
                                     //è sopra un certo valore; in questo caso maggiore o uguale a 80 (ricoridamo che il punteggio va da 0 a 100)

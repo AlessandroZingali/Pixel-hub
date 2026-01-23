@@ -33,7 +33,7 @@
   <Utente id_user="3">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
     <DataIscrizione>18/02/2016</DataIscrizione>
-    <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
+    <CasaDiSviluppoPreferita>Bungie</CasaDiSviluppoPreferita>
     <GenerePreferito>RPG</GenerePreferito>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
@@ -42,6 +42,12 @@
       <idGiocoPosseduto data_acquisizione="05-06-2025" spesa="19.99">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="01-02-2024" spesa="59.99">9</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="25-12-2025" spesa="29.99">11</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="59.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="22.49">12</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="38.99">8</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="49.99">2</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="11.99">5</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="31.99">16</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>

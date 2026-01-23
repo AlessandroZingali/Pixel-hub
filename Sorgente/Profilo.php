@@ -386,9 +386,9 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
                                 printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                             }
-                            $emailNickname = $_SESSION['user'];
+                            $emailNickname = $_SESSION['Email'];
 
-                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname')";
                             $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                             $num = mysqli_num_rows($resultQ); 
                             if($num == 1){
@@ -491,10 +491,14 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                         foreach($gameList as $id){
                                             $idContainer[] =  $id->textContent;
                                         }
+        
 
                                         //Come per il catalogo si inseriscono nell array idcontainer gli id di tutti i giochi posseduti dall'utente e 
                                         //si effettua un reverse sort per invertire l'ordine 
-                                        rsort($idContainer);
+                                     
+                                       $idContainer = array_reverse($idContainer);
+                                       //var_dump($idContainer);
+                                       
                                     
                                         
                                         $giochi = xmlPointer("XML/Giochi.xml");
@@ -561,6 +565,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                             <option value="Souls-like">Souls-like</option>
                                             <option value="Strategia">Strategia</option>
                                             <option value="Rouge-like">Rouge-like</option>
+                                            <option value="Picchiaduro">Picchiaduro</option>
                                         </select>  
                                     
                                 </td> 

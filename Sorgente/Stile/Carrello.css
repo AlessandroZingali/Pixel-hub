@@ -22,16 +22,32 @@
     }
 }
 
-#pagaButton{
+#removebutton{
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+#messageEmpty{
+
+        text-decoration: none;
+    color: rgb(0, 208, 255);
+}
+#formCarrello{
+    display: flex;
+}
+
+#pagaButton,#svuotaButton{
     font-family: "font pixeloso",monospace;
     background-color: rgba(63, 56, 56, 0.911);
+    flex-direction: row;
+ 
     color: white;
-    padding: 40px;
-    border: none;
-    height: 10%;
-    margin-top: 5%;
-    margin-left: 4%;
-    padding-left: 40%;
-    padding-right: 40%;
+    padding: 20px;
+    border: rgb(124, 124, 124) solid;
+    margin-top: 1%; margin-right: 3%;
+ 
+ 
+
     border-radius: 20px;
 }

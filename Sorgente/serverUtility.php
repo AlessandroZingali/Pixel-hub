@@ -35,7 +35,7 @@ function setLimiteSlider($elem){
     if($elem->length<20){
         $limite=$elem->length;
     } else {
-        $limite=20;
+        $limite=23;
     }
     return $limite;
 }

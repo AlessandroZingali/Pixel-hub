@@ -149,33 +149,82 @@ echo "";
             $recensione->setAttribute("dislike", 0);
             $recensione->setAttribute("voto", $_POST["votoUtente"]);
 
+            $sommaVotiUtenti = 0;
+            $sommaVotiUtenti += (int)$_POST["votoUtente"];
+            $numRecensioniUtenti = 1;
+            $mediaVotoUtenti = $sommaVotiUtenti / $numRecensioniUtenti;
+
+            //Aggiorniamo la media delle recensioni utenti nel file Giochi.xml
+                $docGiochi = getDoc("XML/Giochi.xml");
+                $rootGiochi = $docGiochi->documentElement;
+                $elemGiochi = $rootGiochi->childNodes;
+                foreach($elemGiochi as $giocoElem){
+                    if($giocoElem->getAttribute("id_gioco")==$idGioco){
+                        $giocoElem->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent = $mediaVotoUtenti;
+                        $docGiochi->save("XML/Giochi.xml");
+                    }
+                }
+         
+
             $recensione->appendChild($testo);
             $gioco->appendChild($recensione);
             $root->appendChild($gioco);
         }
         else{
-           if($gioco->hasChildNodes()){//Se il gioco ha gia recensioni, aggiungiamo la nuova recensione
-                $lastRecensione = $gioco->firstChild;
-                $newId = (intval($lastRecensione->getAttribute("id_recensione")));
+            if ($gioco->hasChildNodes()) {
 
-                $newId += 1;
+                // prendi l’ULTIMA recensione vera
+                $recensioni = $gioco->getElementsByTagName("Recensione");
+                $lastRecensione = $recensioni->item($recensioni->length - 1);
+
+                $newId = ((int)$lastRecensione->getAttribute("id_recensione")) + 1;
+
                 $recensione = $doc->createElement("Recensione");
-
-                $testo = $doc->createElement("text", htmlspecialchars($_POST["recensioneUtente"]));
+                $testo = $doc->createElement(
+                    "text",
+                    htmlspecialchars($_POST["recensioneUtente"], ENT_QUOTES, "UTF-8")
+                );
 
                 $recensione->setAttribute("id_recensione", $newId);
                 $recensione->setAttribute("id_utente", $_SESSION["userId"]);
                 $recensione->setAttribute("data", date("d/m/Y"));
                 $recensione->setAttribute("ore", date("H"));
                 $recensione->setAttribute("minuti", date("i"));
-                $recensione->setAttribute("like", 0);  
+                $recensione->setAttribute("like", 0);
                 $recensione->setAttribute("dislike", 0);
-                $recensione->setAttribute("dislike", 0);
-                $recensione->setAttribute("voto", $_POST["votoUtente"]);
+                $recensione->setAttribute("voto", (int)$_POST["votoUtente"]);
+
+                //Calcoliamo la nuova media delle recensioni utenti
+                $sommaVoti = 0;
+                $numRecensioni = 0;
+
+                foreach ($recensioni as $rec) {
+                    $sommaVoti += (int)$rec->getAttribute("voto");
+                    $numRecensioni++;
+                }
+
+                // aggiungi il voto nuovo
+                $sommaVoti += (int)$_POST["votoUtente"];
+                $numRecensioni++;
+
+                $mediaVotoUtenti = $sommaVoti / $numRecensioni;
+
+                // aggiorna Giochi.xml
+                $docGiochi = getDoc("XML/Giochi.xml");
+                foreach ($docGiochi->getElementsByTagName("Gioco") as $giocoElem) {
+                    if ((int)$giocoElem->getAttribute("id_gioco") === (int)$idGioco) {
+                        $giocoElem->getElementsByTagName("MediaRecensioniUtenti")
+                                ->item(0)
+                                ->textContent = round($mediaVotoUtenti, 2);
+                        break;
+                    }
+                }
+                $docGiochi->save("XML/Giochi.xml");
 
                 $recensione->appendChild($testo);
-                $gioco->insertBefore($recensione, $lastRecensione);
+                $gioco->appendChild($recensione);
             }
+
             else{ //Questa ripetizione sembra dubbia, ma è funzionale. Può capitare che il gioco abbia un nodo ma non abbia recensioni al suo interno. Cosi gestiamo il caso
                 $newId = 1;
 
@@ -191,6 +240,23 @@ echo "";
                 $recensione->setAttribute("like", 0);  
                 $recensione->setAttribute("dislike", 0);
                 $recensione->setAttribute("voto", $_POST["votoUtente"]);
+
+            $sommaVotiUtenti = 0;
+            $sommaVotiUtenti += (int)$_POST["votoUtente"];
+            $numRecensioniUtenti = 1;
+            $mediaVotoUtenti = $sommaVotiUtenti / $numRecensioniUtenti;
+
+            //Aggiorniamo la media delle recensioni utenti nel file Giochi.xml
+                $docGiochi = getDoc("XML/Giochi.xml");
+                $rootGiochi = $docGiochi->documentElement;
+                $elemGiochi = $rootGiochi->childNodes;
+                foreach($elemGiochi as $giocoElem){
+                    if($giocoElem->getAttribute("id_gioco")==$idGioco){
+                        $giocoElem->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent = $mediaVotoUtenti;
+                        $docGiochi->save("XML/Giochi.xml");
+                    }
+                }
+         
 
                 $recensione->appendChild($testo);
                 $gioco->appendChild($recensione);
@@ -395,7 +461,7 @@ echo "";
                                $CasaSviluppoGioco = $i->getElementsByTagName('CasaSviluppo')->item(0)->textContent;
                                $DescrizioneGioco = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
                                 $VotoAdmin = $i->getElementsByTagName('MediaRecensioniAdmin')->item(0)->textContent;
-                                $VotoUser = $i->getElementsByTagName('MediaRecensioniUtenti')->item(0)->textContent;
+                                $VotoUser = round($i->getElementsByTagName('MediaRecensioniUtenti')->item(0)->textContent);
                             }
                         }
                         echo "<table>
@@ -429,7 +495,10 @@ echo "";
                                 </tr>
                                 <tr>
                                     <td>Voto degli utenti</td>
-                                    <td>$VotoUser/100</td>
+                                    <td>";
+                                    if ($VotoUser != '0') echo "$VotoUser/100";
+                                    else echo "Non ancora valutato";
+                                    echo "</td>
                                 </tr>
                                 <tr>
                                     <td>Voto degli admin</td>
@@ -508,8 +577,8 @@ echo "";
                                     
 
                                     foreach($giochiInCart as $giocoInCart){
-                                        $titoloGiocoInCart = $giocoInCart->getAttribute("titolo");
-
+                                        $titoloGiocoInCart = $giocoInCart->getElementsByTagName("titolo")->item(0)->textContent;
+                                        //echo $titoloGiocoInCart;
                                         if($titoloGiocoInCart == $titoloGioco){
                                             $inCart = true;
                                             break;
@@ -541,8 +610,8 @@ echo "";
                                         }
                                     }
 
-                                    echo $possiedeGioco ? "Possiedi il gioco" : "Non possiedi il gioco";
-                                    echo $inCart ? " - Presente nel carrello" : " - Non presente nel carrello";
+                                    //echo $possiedeGioco ? "Possiedi il gioco" : "Non possiedi il gioco";
+                                    //echo $inCart ? " - Presente nel carrello" : " - Non presente nel carrello";
                                 
                                     if (!$possiedeGioco && !$inCart) {
                                         echo '

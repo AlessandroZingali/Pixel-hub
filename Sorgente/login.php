@@ -55,8 +55,9 @@ session_start();
     
         //All'interno della Session verranno caricate le informazioni fondamentali quali grado utente tipologia username e il suo id
         $_SESSION['userId'] = $row['ID'];
-        $_SESSION['user'] = $emailNickname;
+        $_SESSION['Email']=$row['Email'];
         $_SESSION['userName']=$row['Username'];
+        $_SESSION['Esperienza']=$row['Esperienza'];
         $_SESSION['tipoUtente'] = $row['Tipologia_utente'];
         $_SESSION['Grado']=$row['Grado'];
         $_SESSION['Pixels']=$row['Pixels'];

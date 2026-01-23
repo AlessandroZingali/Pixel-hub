@@ -84,6 +84,7 @@ max-width: 600px;
 /*Stile descrizione gioco*/
 #descGioco{
     /* border: teal solid; */
+    margin-left: 8%;
     padding:30px;
     width: 80%;
     background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);

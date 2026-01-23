@@ -39,6 +39,7 @@ else {
             Email VARCHAR(100),                   -- Email utente
             Password VARCHAR(100),                -- Password utente
             Username VARCHAR(50),                 -- Username
+            Esperienza INT,                       -- Esperienza utente
             Grado INT,                            -- Grado utente (1-6) di base parte a 3
             Pixels INT,                           -- Valuta virtuale
             Saldo_attuale FLOAT,                  -- Saldo reale
@@ -67,7 +68,7 @@ else {
 
             // Query di inserimento utenti di esempio
             $sqlQuery = "INSERT INTO $table_users 
-            (Email, Password, Username, Grado, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath, PIVA) 
+            (Email, Password, Username, Grado,Esperienza, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath, PIVA) 
             VALUES 
             (
             -- i 3 utenti hanno rispettivamente grado uno due e tre 
@@ -76,7 +77,8 @@ else {
                 \"marcorossi123\", 
                 \"marcorossi\", 
                 1, 
-                1000, 
+                0,
+                100, 
                 50.0, 
                 \"15-04-1990\", 
                 \"Marco\", 
@@ -90,7 +92,8 @@ else {
                 \"gabibbo123\", 
                 \"gabibbo\", 
                 2, 
-                5000, 
+                0,
+                100, 
                 200.0, 
                 \"20-06-1985\", 
                 \"Gabriele\", 
@@ -104,7 +107,8 @@ else {
                 \"luke4316\", 
                 \"Lucagame\", 
                 3, 
-                5000, 
+                0,
+                100, 
                 200.0, 
                 \"30-02-1995\", 
                 \"Luca\", 
