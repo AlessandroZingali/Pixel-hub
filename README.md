@@ -34,18 +34,18 @@ Parte 2
 Parte 3
 
 
-- []  Acquisto giochi e carrello
-- [] Creare pagina sconti (da fare nel carrello?)
-- [] Creare funzione lettura ticket admin
-- [] Aggiunta  gioco da parte di gestore
-- []  sospensione gioco per gestore
-- []  modifica gioco per gestore
-- []  Consulto pagina acquisti giochi di un utente
-- []  rimborso gioco
-- []  gestione rimborso gioco admin
-- []  Modificatore Commenti per il sistema dell'esperienza
-- []  sospensione gioco utente
-- []  Aggiunta domande nelle faq da admin
+- [ ]  Acquisto giochi e carrello
+- [ ] Creare pagina sconti (da fare nel carrello?)
+- [ ] Creare funzione lettura ticket admin
+- [ ] Aggiunta  gioco da parte di gestore
+- [ ]  sospensione gioco per gestore
+- [ ]  modifica gioco per gestore
+- [ ]  Consulto pagina acquisti giochi di un utente
+- [ ]  rimborso gioco
+- [ ]  gestione rimborso gioco admin
+- [ ]  Modificatore Commenti per il sistema dell'esperienza
+- [ ]  sospensione gioco utente
+- [ ]  Aggiunta domande nelle faq da admin
       
 
 
