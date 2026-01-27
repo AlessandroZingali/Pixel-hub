@@ -126,20 +126,28 @@ if(isset($_SESSION['userId'])){
             <h2> Gestione sconti utente</h2>
             <?php
             $elemSconti = xmlPointer('XML/ScontiAssegnati.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
-            foreach($elemSconti as $scontiUtente){
-                $idUtente = $scontiUtente->getAttribute("id_user");
-                
+            $utenti = $elemSconti;
 
-                echo "<p> Utente con id: $idUtente </p>";
-                
-               
-                foreach($scontiUtente->getElementsByTagName("sconto") as $sconto){
-                    $valoreSconto = $sconto->getElementsByTagName("valore")->item(0)->nodeValue;
-                    
+            foreach ($utenti as $utente) {
+                $id = $utente->getAttribute("id_user");
+                echo "ID utente: $id<br>";
 
-                    echo "<p> Tipologia sconto  $valoreSconto </p>";
+                $sconti = $utente->getElementsByTagName("Sconto");
+                echo "Sconti assegnati: ";
+
+                foreach ($sconti as $sconto) {
+                    echo $sconto->nodeValue . " ";
                 }
-                
+
+                echo "<br><br>";
+
+                echo "<form method='post' action='GestioneAdmin.php'>
+                        <input type='hidden' name='id_user' value='$id'>
+                        <label for='sconto'>Assegna nuovo sconto:</label>
+                        <input type='text' id='sconto' name='sconto' required>
+                        <input type='submit' value='Assegna Sconto'>
+                      </form><br><hr><br>";
+                    
             }
             ?>
 
