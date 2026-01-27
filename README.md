@@ -40,7 +40,7 @@ fix
 Parte 3
 
 
-- [x]  Acquisto giochi e carrello
+- []  Acquisto giochi e carrello
 - [] Creare pagina sconti (da fare nel carrello?)
 - [] Creare funzione lettura ticket admin
 - [] Aggiunta  gioco da parte di gestore
