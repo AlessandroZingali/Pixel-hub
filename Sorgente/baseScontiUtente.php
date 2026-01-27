@@ -432,8 +432,8 @@
 
             // caso 8 il gioco appartiene ad un certo genere
             $SettingSelector = getRoot('XML/SettingsSconti.xml');
-            $genereSelezionato = $SettingSelector->getElementsByTagName('GenereSelezionato')->item(0)->textContent;
-            $giochi = xmlPointer('XML/Giochi.xml');
+            $genereSelezionato = $SettingSelector->getElementsByTagName('GenereSconto')->item(0)->textContent;
+            $giochi = xmlPointer('XML/utenti.xml');
             foreach($giochi as $gioco){
                 if($gioco->getAttribute('Genere') == $genereSelezionato){
                     $assPointer->reset();
