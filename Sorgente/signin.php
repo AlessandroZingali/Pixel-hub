@@ -38,6 +38,10 @@ if(isset($_GET['TipoUtente']) && !((isset($_POST['Iscriviti'])))){
         $tipoSignIn = 2;
         setcookie('tipoSignIn', "2");
     }
+
+    else{
+        header("Location: login.php");
+    }
    
 }
 //il jumper vienere utilizzato come check finale dopo aver controllato che password email partita iva e data di nascita sono corretti
@@ -61,17 +65,16 @@ if(isset($_POST['signin']) && $jumper==0){
     if(preg_match('/^.*@.*$/', $_POST['Email']) &&
         preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita']) && 
         preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) ){
-        $db_name = "Database_Pixel_Hub";
-        $table_users = "Tabella_Utenti";
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+        $table_users="Tabella_Utenti";
+        connectDB();
         $num=0;
 
         if (mysqli_connect_errno()){
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
         //Si controlla se l'utente non è gia presente sul database 
         $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
-        $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+        $resultQ = mysqli_query(connectDB(), $queryLogin);
         $num = mysqli_num_rows($resultQ);
         // se il numero delle righe presente al controllo della tabella utenti è maggiore di zero vuol dire che c'è gia una riga corrispondente 
         //a l'utente che si sta registrando quindi imposta il messaggio d'alert come utente gia registrato
@@ -104,7 +107,7 @@ if(isset($_POST['signin']) && $jumper==0){
                         }
 
                         // se non si connette da messaggio di errore
-                        if (!$resultQ = mysqli_query($mysqliConnection, $sql)) {
+                        if (!$resultQ = mysqli_query(connectDB(), $sql)) {
                         echo("Query non partita! \n");
                         exit();
                         }
@@ -112,16 +115,14 @@ if(isset($_POST['signin']) && $jumper==0){
 
                         // una volta fatto questo si prende l'id dell'utente appena generato e va a creare la seconda parte delle informazioni sotto forma di file XML
 
-                            $db_name = "Database_Pixel_Hub";
-                            $table_users = "Tabella_Utenti";
-                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                            connectDB();
 
-                            if (mysqli_connect_errno()) printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                            if (mysqli_connect_errno()) printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                             
-                            $nickname = mysqli_real_escape_string($mysqliConnection, $_POST['Nickname']);
+                            $nickname = mysqli_real_escape_string(connectDB(), $_POST['Nickname']);
                             $sql = "SELECT ID FROM $table_users WHERE username = '$nickname'";
 
-                            $resultQ = mysqli_query($mysqliConnection, $sql);
+                            $resultQ = mysqli_query(connectDB(), $sql);
 
                             if ($resultQ){
                                 $row = mysqli_fetch_array($resultQ);
@@ -148,7 +149,7 @@ if(isset($_POST['signin']) && $jumper==0){
                         
                                 header("Location: login.php");
                             }
-                            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                            else printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                             
                                 
                             
@@ -194,6 +195,8 @@ if(isset($_POST['signin']) && $jumper==0){
         </div>
         <div id="SigninCard">
             <div class="SigninForm">
+                <h3>Inserisci le informazioni nei campi</h3>
+                <h5>I campi affiancati con i pallini sono obligatori</h5>
                 <!-- nella form verranno inserite le varie informazioni hanno diversi formati  -->
                 
                 <form action="signin.php" method="post">
@@ -205,40 +208,46 @@ if(isset($_POST['signin']) && $jumper==0){
                     <div>
                         <p>Nome</p>
                         <input type="text" placeholder="Mario" name="Nome" maxlength="50" required/>
+                        &#x2022;
                     </div>
                     <div>
                         <p>Cognome</p>
                         <input type="text" placeholder="Rossi" name="Cognome" maxlength="50" required/>
+                        &#x2022;
                     </div>
                     <div>
                         <p>Email</p>
-                        <input type="text" placeholder="example@mail.com" name="Email" maxlength="100" required/>   
+                        <input type="text" placeholder="example@mail.com" name="Email" maxlength="100" required/>
+                        &#x2022;
                     </div>
                     <!-- la password ha come placeholder dei pallini a simboleggiare subito il tipo di dato-->
                      <div>
                         <p>Password</p>
                         <input type="text" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="Password" required/>
+                        &#x2022;
                     </div>
                     <div>
                         <p>Nickname</p>
                         <input type="text" placeholder="SuperBazinga666" name="Nickname" maxlength="50" required/>
+                        &#x2022;
                         
                     </div>
                     <div>
                         <p>Data di Nascita</p>
                         <input type="text" placeholder="01-01-1980" name="DataNascita" maxlength="50" required/>
+                        &#x2022;
                     </div>
 
                     <?php
                     // Questi appaiono solo nel caso si fa l'accesso come publisher o come admin
                     if($tipoSignIn == 1 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "1")){
-                        echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\"/></div>";
+                        echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\" required/>&#x2022;</div>";
                     }
                     ?>
 
                     <?php
                     if($tipoSignIn == 2 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "2")){
-                        echo "<div id=\"ChiaveAccesso\"> <p>Chiave di registrazione</p> <input type=\"text\" placeholder=\"&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;\" name=\"accessKey\" /></div>";
+                        echo "<div id=\"ChiaveAccesso\"> <p>Chiave di registrazione</p> <input type=\"text\" placeholder=\"&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;\" name=\"accessKey\" required/>&#x2022;</div>";
                     }
                     ?>
 

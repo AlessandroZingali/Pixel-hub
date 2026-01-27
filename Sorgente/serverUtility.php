@@ -18,14 +18,14 @@ function getDoc($file){
 }
 // funzione che associa direttamente la root di un documento XML 
 function getRoot($file){
-    $doc=getDoc($file);
+    $doc = getDoc($file);
     $root=$doc->documentElement;
     return $root;
 }
 // funzione semplice che restituisce il primo elemento figlio della radice di un file XML
 function xmlPointer($file){
     $root = getRoot($file);
-    $elem=$root->childNodes;
+    $elem = $root->childNodes;
 
     return $elem;
 }
@@ -38,5 +38,17 @@ function setLimiteSlider($elem){
         $limite=23;
     }
     return $limite;
+}
+
+function connectDB(){
+    //nome del database ovviamente dovra essere uguale in crea database 
+    $db_name = "Database_Pixel_Hub";
+    $table_users = "Tabella_Utenti";
+    // inserire per una nuova installazione il nome utente per il mariaDB e la password
+    $usernameDB = "Alessandro";
+    $passwordDB = "belandi";
+
+    $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB, $db_name);
+    return $mysqliConnection;
 }
 ?>

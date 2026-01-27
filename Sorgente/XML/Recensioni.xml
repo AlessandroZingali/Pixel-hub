@@ -8,4 +8,9 @@
       <text>Mi piace morire male, avrei preferito più spade</text>
     </Recensione>
   </Gioco>
+  <Gioco id_gioco="2">
+    <Recensione id_recensione="1" id_utente="3" data="26/01/2026" ore="13" minuti="34" like="1" dislike="0" voto="20">
+      <text>belloh</text>
+    </Recensione>
+  </Gioco>
 </listaRecensioni>

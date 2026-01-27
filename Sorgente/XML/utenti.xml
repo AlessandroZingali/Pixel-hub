@@ -64,4 +64,20 @@
     <listaGiochi/>
     <listaPropic/>
   </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>24-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>26-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>

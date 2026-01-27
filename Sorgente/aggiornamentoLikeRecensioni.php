@@ -40,7 +40,7 @@ if ($root->hasChildNodes()) {
 }
 
 // Gestione del caso: richiesta LIKE
-if ($_POST['tipo'] == "like") {
+if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$recensione) {
     // Caso 0: non aveva ancora messo like/dislike
     if ($route == "0") {
         $doc = getDoc('XML/Recensioni.xml');
@@ -179,7 +179,7 @@ if ($_POST['tipo'] == "like") {
 }
 
 // Gestione del caso: richiesta DISLIKE
-if ($_POST['tipo'] == "dislike") {
+if ($_POST['tipo'] == "dislike" && $_SESSION['UserId']!=$recensione) {
     // Caso 0: non aveva ancora messo like/dislike
     if ($route == "0") {
 

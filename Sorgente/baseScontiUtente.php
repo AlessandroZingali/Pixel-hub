@@ -19,13 +19,13 @@
         function __construct(){
             $this->doc = getDoc('XML/ScontiAssegnati.xml');
             $this->root = $this->doc->documentElement;
-            $this->elemAss= $this->root->childNodes;
+            $this->elemAss = $this->root->childNodes;
         }
 
         public function reset(){
             $this->doc = getDoc('XML/ScontiAssegnati.xml');
             $this->root = $this->doc->documentElement;
-            $this->elemAss= $this->root->childNodes;
+            $this->elemAss = $this->root->childNodes;
         }
         
         public function save(){$this->doc->save('XML/ScontiAssegnati.xml');}
@@ -397,6 +397,70 @@
                 }
 
             }
+
+            // caso 7 il gioco appartiene ad una casa di sviluppo
+
+            $SettingSelector = getRoot('XML/SettingsSconti.xml');
+            $casaSviluppo = $SettingSelector->getElementsByTagName('CasaSviluppo')->item(0)->textContent;
+            $giochi = xmlPointer('XML/Giochi.xml');
+            foreach($giochi as $gioco){
+                if($gioco->getAttribute('CasaSviluppo') == $casaSviluppo){
+                    $assPointer->reset();
+                    $alreadyAssigned=false;
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                if($scontoRef->textContent==7){
+                                    $alreadyAssigned=true;
+                                }
+                            }
+                        }
+                    }
+                    $assPointer->reset();
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                            if(!$alreadyAssigned){
+                                $sconto=$assPointer->doc->createElement('Sconto', '7');
+                                $listaSconti->appendChild($sconto);
+                                $assPointer->save();
+                            }
+                        }
+                    }
+                }
+            }
+
+            // caso 8 il gioco appartiene ad un certo genere
+            $SettingSelector = getRoot('XML/SettingsSconti.xml');
+            $genereSelezionato = $SettingSelector->getElementsByTagName('GenereSelezionato')->item(0)->textContent;
+            $giochi = xmlPointer('XML/Giochi.xml');
+            foreach($giochi as $gioco){
+                if($gioco->getAttribute('Genere') == $genereSelezionato){
+                    $assPointer->reset();
+                    $alreadyAssigned=false;
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                if($scontoRef->textContent==8){
+                                    $alreadyAssigned=true;
+                                }
+                            }
+                        }
+                    }
+                    $assPointer->reset();
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                            if(!$alreadyAssigned){
+                                $sconto=$assPointer->doc->createElement('Sconto', '8');
+                                $listaSconti->appendChild($sconto);
+                                $assPointer->save();
+                            }
+                        }
+                    }
+                }
+            }
+
 
 
 

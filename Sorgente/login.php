@@ -22,19 +22,19 @@ $flag=1; // variabile di controllo per gli esiti
 // Se viene premuto il tasto accedi si effettua la connessione al DB e si fa partire la query di login
 if(isset($_POST['Accedi']) ){
 session_start();
-    $db_name = "Database_Pixel_Hub";
+
+    
     $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
 
     if (mysqli_connect_errno()){
 
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
     $emailNickname = $_POST['EmailNickname'];
     $password = $_POST['Password'];
     // Si effettua la connessione al database usando password e l'email/nickname e fa partire la query 
     $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
-    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+    $resultQ = mysqli_query(connectDB(), $queryLogin);
     $num = mysqli_num_rows($resultQ);
 
     // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato

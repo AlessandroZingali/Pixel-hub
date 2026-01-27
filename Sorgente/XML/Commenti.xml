@@ -39,4 +39,9 @@
       <text>We have a city to Burn</text>
     </Commento>
   </Gioco>
+  <Gioco id_gioco="2">
+    <Commento id_commento="1" id_utente="3" data="26/01/2026" ore="13" minuti="30" like="0" dislike="0">
+      <text>bello</text>
+    </Commento>
+  </Gioco>
 </listaCommenti>

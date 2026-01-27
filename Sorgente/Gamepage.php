@@ -791,18 +791,17 @@ echo "";
                                     $dislikeCommento = $c->getAttribute('dislike');
                                    
                                     //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto il commento
-                                    $db_name = "Database_Pixel_Hub";
-                                    $table_users = "Tabella_Utenti";
-                                    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                                    connectDB();
+                                    
 
                                     if (mysqli_connect_errno()){
 
-                                        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                                        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                                     }
-                                    
+                                       $table_users = "Tabella_Utenti";
 
                                     $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteCommento'";
-                                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                    $resultQ = mysqli_query(connectDB(), $queryLogin);
                                     $num = mysqli_num_rows($resultQ);
 
                                     if($num == 1){
@@ -892,18 +891,16 @@ echo "";
                                             $dislikeRecensione = $r->getAttribute('dislike');
 
                                             //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto la recensione
-                                            $db_name = "Database_Pixel_Hub";
-                                            $table_users = "Tabella_Utenti";
-                                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                                            connectDB();
 
                                             if (mysqli_connect_errno()){
 
-                                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                                             }
                                             
 
                                             $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteRecensione'";
-                                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                            $resultQ = mysqli_query(connectDB(), $queryLogin);
                                             $num = mysqli_num_rows($resultQ);
 
                                             if($num == 1){

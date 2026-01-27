@@ -25,4 +25,9 @@
     <Id_Recensione>1</Id_Recensione>
     <Id_Gioco>3</Id_Gioco>
   </ref_Recensioni>
+  <ref_Recensioni flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Recensione>1</Id_Recensione>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Recensioni>
 </Associazione_Like_Recensioni>

@@ -29,7 +29,7 @@ l'id gioco e l'id commento che indentificano il commento stesso. Inoltre avremo 
                 }   
         }
 // Gestione like
-if ($_POST['tipo'] == "like") {
+if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$commento) {
     if ($route == "0"){ // incremento like del commento in Commenti.xml se non ha ancora messo like o dislike
     
         $doc = getDoc('XML/Commenti.xml');
@@ -133,7 +133,7 @@ if ($_POST['tipo'] == "like") {
 }
 
 // Gestione dislike
-if ($_POST['tipo'] == "dislike") {
+if ($_POST['tipo'] == "dislike" && $_SESSION['UserId']!=$commento) {
     
     if ($route == "0"){
         // incremento dislike del commento in Commenti.xml se non ha ancora messo like o dislike

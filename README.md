@@ -31,10 +31,16 @@ Parte 2
 - [x] creare dashboard gestore admin
 - [x] creare database utenti sql 
 
+fix
+- pallini campi obbligatori
+- file apparte per la connessione al database
+- aggiunta giochi correlati sincroni
+- chi ha messo il commento non puo valutarlo
+
 Parte 3
 
 
-- []  Acquisto giochi e carrello
+- [x]  Acquisto giochi e carrello
 - [] Creare pagina sconti (da fare nel carrello?)
 - [] Creare funzione lettura ticket admin
 - [] Aggiunta  gioco da parte di gestore

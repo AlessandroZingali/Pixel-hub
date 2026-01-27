@@ -4,6 +4,8 @@ L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenz
 require 'baseScontiUtente.php';
 require 'gestioneEsperienzauser.php';
 
+require 'serverUtility.php';
+
 class Game{
     public $idGioco = 0;
     public $titolo;

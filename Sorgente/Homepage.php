@@ -74,6 +74,10 @@ if(isset($_SESSION['userId'])){
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
+
+                            if($_SESSION['tipoUtente'] == '1'){
+                                echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
+                            }
                         ?>
                     </ul>
                 </div>

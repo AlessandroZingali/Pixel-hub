@@ -6,13 +6,16 @@ error_reporting(E_ALL & ~E_NOTICE);
 // Nome del database
 $db_name = "Database_Pixel_Hub";
 
+// inserire per una nuova installazione il nome utente per il mariaDB
+$usernameDB = "Alessandro";
+$passwordDB = "belandi";
+
 // Nome della tabella utenti
 $table_users = "Tabella_Utenti";
 
 // Connessione al server MySQL (senza selezionare il database)
-$mysqliConnection = new mysqli("localhost", "Alessandro", "belandi");
-// alternativa:
-// $mysqliConnection = new mysqli("localhost","archer","archer");
+$mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB);
+
 
 // Controllo errori di connessione
 if (mysqli_connect_errno()) {
@@ -21,6 +24,19 @@ if (mysqli_connect_errno()) {
     printf("Problemi di connessione : %s\n", mysqli_connect_error());
 }
 else {
+
+
+    //Per debug/necessita di resettare il server per una modifica nella sua struttura
+    $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB);
+
+    $queryControllo ="DROP DATABASE IF EXISTS $db_name"; 
+    if ($resultQ = mysqli_query($mysqliConnection, $queryControllo)) {
+	printf("Database eliminato...<br> ");
+  
+    }
+    else {
+        printf("Errore eliminazione Database.");
+    }
 
     // Connessione riuscita
     printf("Connessione avvenuta con successo ...\n");
@@ -57,7 +73,7 @@ else {
         $mysqliConnection->close();
 
         // Nuova connessione, questa volta al database appena creato
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+        $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB, $db_name);
         // alternativa:
         // $mysqliConnection = new mysqli("localhost","archer","archer",$db_name);
 

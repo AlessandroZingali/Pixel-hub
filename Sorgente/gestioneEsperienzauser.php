@@ -1,4 +1,7 @@
+
 <?php
+
+require 'serverUtility.php';
     session_start();
     function calcoloEsperienza(){
 
@@ -37,16 +40,14 @@
             $_SESSION['Pixels'] = $_SESSION['Pixels'] + (int)$pocketPixel;
             $_SESSION['Esperienza'] = $_SESSION['Esperienza'] + $esperienzaGuadagnata;
 
-            $db_name = "Database_Pixel_Hub";
-            $table_users = "Tabella_Utenti";
-            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+            connectDB();
 
             if (mysqli_connect_errno()){
 
-                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
             }
             $queryLogin = "SELECT * FROM $table_users WHERE (Email=".$_SESSION['Email']." OR Username='".$_SESSION['username']."');";
-            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+            $resultQ = mysqli_query(connectDB(), $queryLogin);
             $num = mysqli_num_rows($resultQ);
 
             if($num == 1){
@@ -55,7 +56,7 @@
                 $nuovaEsperienza = $_SESSION['Esperienza'];
 
                 $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE id_utente = $idUtenteLoggato;";
-                mysqli_query($mysqliConnection, $updateQuery);
+                mysqli_query(connectDB(), $updateQuery);
             }
         }
     }

@@ -27,16 +27,15 @@ $table_users = "Tabella_Utenti";
 if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
 
     // Connessione al database
-    $db_name = "Database_Pixel_Hub";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+    connectDB();
 
     // Controllo errori di connessione
     if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 
     // Sanificazione input
-    $new = mysqli_real_escape_string($mysqliConnection, $_POST["newUsername"]);
+    $new = mysqli_real_escape_string(connectDB(), $_POST["newUsername"]);
 
     // Query di aggiornamento username
     $sql = "
@@ -46,10 +45,10 @@ if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
     ";
 
     // Esecuzione query
-    if (mysqli_query($mysqliConnection, $sql)) {
+    if (mysqli_query(connectDB(), $sql)) {
         header("Location:login.php"); // forza nuovo login
     } else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 }
 
@@ -61,14 +60,14 @@ if (isset($_POST["cambiaEmail"]) && !empty($_POST["newEmail"])) {
     // Controllo formato email
     if (preg_match('/^.*@.*$/', $_POST['newEmail'])) {
 
-        $db_name = "Database_Pixel_Hub";
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+        
+        connectDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
 
-        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newEmail"]);
+        $new = mysqli_real_escape_string(connectDB(), $_POST["newEmail"]);
 
         // Update email
         $sql = "
@@ -77,10 +76,10 @@ if (isset($_POST["cambiaEmail"]) && !empty($_POST["newEmail"])) {
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query($mysqliConnection, $sql)) {
+        if (mysqli_query(connectDB(), $sql)) {
             header("Location:login.php");
         } else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
 
     } else {
@@ -98,14 +97,14 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
     // - minimo 8 caratteri
     if (preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['newPass'])) {
 
-        $db_name = "Database_Pixel_Hub";
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+        
+        connectDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
 
-        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPass"]);
+        $new = mysqli_real_escape_string(connectDB(), $_POST["newPass"]);
 
         // Query di aggiornamento password
         $sql = "
@@ -114,10 +113,10 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query($mysqliConnection, $sql)) {
+        if (mysqli_query(connectDB(), $sql)) {
             header("Location:login.php");
         } else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
 
     } else {
@@ -193,26 +192,22 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
     $idUtente = $_SESSION["userId"];
 
     $newPath = $_POST['newPropic'];
-                    
-
-    $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+    connectDB();
 
     if (mysqli_connect_errno()){
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
     $sql = "
         UPDATE $table_users
         SET imgProfiloPath = '$newPath'
         WHERE ID = ".(int)$_SESSION['userId'].";
     ";
-    $resultQ = mysqli_query($mysqliConnection, $sql);
+    $resultQ = mysqli_query(connectDB(), $sql);
     if($resultQ){
         header("Location:Profilo.php");
     }
     else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 }
 
@@ -246,17 +241,15 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
             }
         }
 
-        $db_name = "Database_Pixel_Hub";
-        $table_users = "Tabella_Utenti";
-        $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+        connectDB();
 
         if (mysqli_connect_errno()){
 
-            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         }
 
         $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
-        $resultQ = mysqli_query($mysqliConnection, $sql);
+        $resultQ = mysqli_query(connectDB(), $sql);
         
         if ($resultQ){
             $row = mysqli_fetch_array($resultQ);
@@ -271,7 +264,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
             WHERE ID = ".(int)$_SESSION['userId'].";
             ";
 
-            if (mysqli_query($mysqliConnection, $sql)) {
+            if (mysqli_query(connectDB(), $sql)) {
                 $doc = getDoc("XML/utenti.xml");
                 $root = $doc->documentElement;
                 $elem = $root->childNodes;
@@ -289,7 +282,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                 $doc->save("XML/utenti.xml");
                 /*header("Location:Profilo.php");*/
             }
-            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            else printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
         
         }
     }
@@ -378,18 +371,16 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                     
                         <?php 
                             
-                            $db_name = "Database_Pixel_Hub";
-                            $table_users = "Tabella_Utenti";
-                            $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                            connectDB();
 
                             if (mysqli_connect_errno()){
 
-                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                             }
                             $emailNickname = $_SESSION['Email'];
 
                             $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname')";
-                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                            $resultQ = mysqli_query(connectDB(), $queryLogin);
                             $num = mysqli_num_rows($resultQ); 
                             if($num == 1){
                                 $flag=1;
