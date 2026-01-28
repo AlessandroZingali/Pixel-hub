@@ -9,6 +9,8 @@ $titoloGioco = "";
 $idGame = 0;
 $userSet = false;
 
+
+
 //Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
 if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
     $titoloGioco = $_GET['titoloGioco'];
@@ -18,14 +20,32 @@ else if(!isset($_GET['titoloGioco']) || !isset($_GET['idGioco'])){
  header("Location: Homepage.php");
 }
 
-$titoloGioco = $_GET['titoloGioco'];
-$idGioco = $_GET['idGioco'];
+// $titoloGioco = $_GET['titoloGioco'];
+// $idGioco = $_GET['idGioco'];
+$doc = getDoc("XML/Giochi.xml");
+        $root = $doc->documentElement;
+        $elem = $root->childNodes;
+        foreach($elem as $i){
+            if($i->getAttribute("id_gioco")==$idGioco){
+               $disponibilita = $i->getElementsByTagName('Disponibile')->item(0)->textContent;
+            }
+        }
+
 
 session_start();
 //Verifica se l'utente è loggato (servizio di autenticazione)
 if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
     $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
+}
+
+if(($_SESSION['tipoUtente']==1 && $disponibilita=='0')){ 
+    header("Location: GestioneAdmin.php");
+}
+
+if($_SESSION['tipoUtente']==0 && $disponibilita=='0'){
+    echo "<script>alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');</script>";
+    header("Location: Homepage.php");
 }
 echo "";
 ?>
@@ -462,6 +482,7 @@ echo "";
                                $DescrizioneGioco = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
                                 $VotoAdmin = $i->getElementsByTagName('MediaRecensioniAdmin')->item(0)->textContent;
                                 $VotoUser = round($i->getElementsByTagName('MediaRecensioniUtenti')->item(0)->textContent);
+
                             }
                         }
                         echo "<table>

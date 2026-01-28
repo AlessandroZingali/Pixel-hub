@@ -21,6 +21,56 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 
+if (isset($_POST['id_user']) && isset($_POST['sconto'])) {
+    $id_user = $_POST['id_user'];
+    $sconto = $_POST['sconto'];
+    $xml = new DOMDocument();
+    $xml->formatOutput = true;
+    $xml->load('XML/ScontiAssegnati.xml');
+    $elem = $xml->getElementsByTagName("Utente");
+    foreach ($elem as $utenteNode) {
+        if ($utenteNode->getAttribute('id_user') == $id_user) {
+            $newSconto = $xml->createElement("Sconto", htmlspecialchars($sconto));
+            $utenteNode->getElementsByTagName("scontiAssegnati")->item(0)->appendChild($newSconto);
+
+            $xml->save('XML/ScontiAssegnati.xml');
+            break;
+        }
+    }
+
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+if (isset($_POST['id_gioco'])&& !empty($_POST['id_gioco'])) {
+    echo "script>alert('Funzione di sospensione gioco in corso...');</script>";
+    $id_gioco = $_POST['id_gioco'];
+
+    $xml = new DOMDocument();
+    $xml->load('XML/Giochi.xml');
+
+    $elem = $xml->getElementsByTagName("Gioco");
+
+    foreach ($elem as $giocoNode) {
+        if ($giocoNode->getAttribute('id_gioco') == $id_gioco && $giocoNode->getAttribute('Disponibile') == '1') {
+            $giocoNode->setAttribute('Disponibile', '0');
+
+            $xml->save('XML/Giochi.xml');
+            break;
+        }
+        else if ($giocoNode->getAttribute('id_gioco') == $id_gioco && $giocoNode->getAttribute('Disponibile') == '0') {
+           
+            $giocoNode->setAttribute('Disponibile', '1');
+
+            $xml->save('XML/Giochi.xml');
+            
+            break;
+        }
+    }
+
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+
 
 ?>
 
@@ -150,6 +200,16 @@ if(isset($_SESSION['userId'])){
                     
             }
             ?>
+
+            <!-- Funzione admin:rimborso  -->
+             <!-- Funzione admin:sospensione gioco -->
+              <h3> Sospendi gioco dal catalogo </h3>
+              <form method="post" action="GestioneAdmin.php">
+                <label for="id_gioco">ID Gioco da sospendere:</label>
+                <input type="text" id="id_gioco" name="id_gioco" required>
+                <input type="submit" value="Sospendi Gioco">
+                </form>
+
 
         </div>
         <div id="footer">
