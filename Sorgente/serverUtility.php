@@ -51,4 +51,6 @@ function connectDB(){
     $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB, $db_name);
     return $mysqliConnection;
 }
+
+
 ?>

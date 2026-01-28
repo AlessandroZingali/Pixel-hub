@@ -2,9 +2,12 @@
 /* Pagina che mostrera il carrello ancora in fase di sviluppo;
 L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenza e quello finale dato dopo gli sconti */
 require 'baseScontiUtente.php';
-require 'gestioneEsperienzauser.php';
+require_once 'gestioneEsperienzauser.php';
 
-require 'serverUtility.php';
+require_once 'serverUtility.php';
+
+
+
 
 class Game{
     public $idGioco = 0;
@@ -70,6 +73,7 @@ class Carrello{
 error_reporting(E_ALL & ~E_NOTICE);
 $service = 0;
 $utente = "";
+$table_users = "Tabella_Utenti";
 
 session_start();
 if(isset($_SESSION['userId'])){
@@ -81,19 +85,17 @@ $pageCart = new Carrello($_SESSION['userId']);
 $servizioSconti = new scontiUtente($_SESSION['userId']);
 
 if(isset($_POST['Acquista'])){
-    $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
-    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+    connectDB();
     $listaGiochi_json = json_decode($_SESSION['gameList']);
 
     if (mysqli_connect_errno()){
 
-        printf("problemi di connessione : %s", mysqli_connect_error($mysqliConnection));
+        printf("problemi di connessione : %s", mysqli_connect_error(connectDB()));
     }
-    $emailNickname = $_SESSION['user'];
+    $emailNickname = $_SESSION['Email'];
 
-    $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname')";
-    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+    $queryLogin = "SELECT * FROM $table_users WHERE Email='$emailNickname' ";
+    $resultQ = mysqli_query(connectDB(), $queryLogin);
     $num = mysqli_num_rows($resultQ); 
     if($num == 1){
         $row = mysqli_fetch_array($resultQ);
@@ -103,7 +105,7 @@ if(isset($_POST['Acquista'])){
             
             $nuovoSaldo = $saldoUtente -(float)$_POST['SaldoTotale'];
             $updateSaldoQuery = "UPDATE $table_users SET Saldo_attuale='$nuovoSaldo'  WHERE (Email='$emailNickname' OR Username='$emailNickname')";
-            mysqli_query($mysqliConnection, $updateSaldoQuery);
+            mysqli_query(connectDB(), $updateSaldoQuery);
 
             // Aggiungo i giochi acquistati alla lista giochi posseduti dell'utente
             $doc = getDoc('XML/utenti.xml');
@@ -166,17 +168,20 @@ if(isset($_POST['buttonRimuoviAll'])){
     $doc = getDoc('XML/Carrelli.xml');
     $root = $doc->documentElement;
     $elemCarrello = $root->childNodes;
+    
     foreach($elemCarrello as $carrello){
     if($carrello->getAttribute('id_user')==$_SESSION['userId']){
-        $elemGioco = $carrello->getElementsByTagName('gioco');
-        foreach($elemGioco as $gioco){
-                $pageCart->svuotaCarrello();
-                $carrello->removeChild($gioco);
-                $doc->save('XML/Carrelli.xml');
-                
-        }
+        
+        while ($carrello->hasChildNodes()) {
+                $carrello->removeChild($carrello->firstChild);
+            }
+       
+        $pageCart->svuotaCarrello();
+        $carrello->parentNode->removeChild($carrello);
+        $doc->save('XML/Carrelli.xml');
     }
     }
+
 }
 
 if(isset($_POST['buttonRimuovi'])){
@@ -266,13 +271,18 @@ if(isset($_POST['buttonRimuovi'])){
             <h1>Il mio Carrello</h1>
             <?php
             $elemCarrello = xmlPointer('XML/Carrelli.xml');
+            $flagCarrelloVuoto = true;
+            
                 foreach($elemCarrello as $carrello){
+                    
                     if($carrello->getAttribute('id_user')==$_SESSION['userId']){
                         $elemGioco = $carrello->getElementsByTagName('gioco');
                         if($elemGioco->length == 0){
+                            $flagCarrelloVuoto = false;
                             echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
                         }
                         else{
+                            $flagCarrelloVuoto = false;
                             echo "<h2>Ecco i giochi presenti nel tuo carrello:</h2>";
                             
                             echo "<div id=\"CarrelloMain\">
@@ -281,6 +291,7 @@ if(isset($_POST['buttonRimuovi'])){
                                             <th> Nome Gioco </th>
                                             <th> Prezzo Iniziale </th>
                                             <th> Prezzo Finale </th>
+                                            <th> Tipo Sconti </th>
                                             <th> Sconti Applicati </th>
                                             <th> Sconto Totale</th>
                                             <th> Rimuovi </th>
@@ -300,19 +311,22 @@ if(isset($_POST['buttonRimuovi'])){
                                                     $titolo=$gioco->getElementsByTagName('titolo')->item(0)->textContent;
                                                     $prezzoIniziale=$gioco->getElementsByTagName('prezzo')->item(0)->textContent;
                                                     $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
+                                                    
 
-                                                    $db_name = "Database_Pixel_Hub";
-                                                    $table_users = "Tabella_Utenti";
-                                                    $mysqliConnection = new mysqli("localhost", "Alessandro", "belandi", $db_name);
+                                                    connectDB();
 
                                                     if (mysqli_connect_errno()){
 
-                                                        printf("problemi di connessione : %s", mysqli_connect_error($mysqliConnection));
+                                                        printf("problemi di connessione : %s", mysqli_connect_error(connectDB()));
                                                     }
                                                     $emailNickname = $_SESSION['Email'];
 
+                                                    connectDB();
+
+                                                    
+
                                                     $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname')";
-                                                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                                                    $resultQ = mysqli_query(connectDB(), $queryLogin);
                                                     $num = mysqli_num_rows($resultQ); 
                                                     if($num == 1){
                                                         $row = mysqli_fetch_array($resultQ);
@@ -332,10 +346,13 @@ if(isset($_POST['buttonRimuovi'])){
                                                     }
                                                     $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
                                                     $pageCart->aggiungiGioco($idGioco, $titolo, $prezzoIniziale, $prezzoFinale, $scontiSulGioco, $scontoFinale);
+                                                    $tiposconto = $servizioSconti->tipoScontoApplicato($idGioco);
+                                                    
 
-                                                    echo "<td>$titolo</td>";
+                                                    echo "<td><a href=\"Gamepage.php?titoloGioco= $titolo&idGioco=$idGioco\">$titolo</a></td>";
                                                     echo "<td>$prezzoIniziale €</td>";
                                                     echo "<td> $prezzoFinale €</td>";
+                                                    echo "<td> $tiposconto</td>";
                                                     echo "<td>";
                                                     foreach($scontiSulGioco as $sconto){
                                                         echo "$sconto % ";
@@ -376,7 +393,12 @@ if(isset($_POST['buttonRimuovi'])){
                             
                     }
                 }
+                
             }
+            
+                      if($flagCarrelloVuoto){
+                          echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
+                      }
             ?>
         
         </div>       

@@ -48,6 +48,7 @@
   </Sconto>
   
   <Sconto id_tipoSconto="8">
+  <Gioco valoreSconto="20"> </Gioco>
   </Sconto>
 
   <Sconto id_tipoSconto="9">

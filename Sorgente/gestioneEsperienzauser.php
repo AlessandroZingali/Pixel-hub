@@ -1,7 +1,7 @@
 
 <?php
 
-require 'serverUtility.php';
+require_once 'serverUtility.php';
     session_start();
     function calcoloEsperienza(){
 

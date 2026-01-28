@@ -48,6 +48,8 @@
       <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="49.99">2</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="11.99">5</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="31.99">16</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="27-01-2026" spesa="0">22</idGiocoPosseduto>
+
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
