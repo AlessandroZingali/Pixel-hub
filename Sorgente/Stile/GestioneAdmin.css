@@ -1,0 +1,41 @@
+/* CSS della Pagina di gestione admin */
+/* la tabella delle faq è divisa nella parte blu per le domande e quella rossa con le risposte*/
+
+#TabFaq{
+    margin-top: 2%;
+    border: solid 4px pink;
+    border-radius: 15px;
+    text-align: center;
+
+    #ColDom{
+        width:30%;
+        border: solid blue 2px;
+        border-radius: 15px;
+        background-color: rgb(49, 76, 151);
+    }
+    #ColRis{
+        width: 30%;
+        border: solid red 2px;
+        border-radius: 15px;
+        background-color: rgb(172, 42, 42);
+    }
+    td{
+        background-color: #434343;
+        padding: 30px;
+        border-radius: 15px;
+
+    }
+}
+
+.hideCard{display: none;}
+
+
+
+#card2,#card3{
+    margin: 15px;
+
+    padding: 1%;
+    border-radius: 15px;
+    border-color: blue solid 3px;
+    background-color: rgb(46, 40, 40);
+}
