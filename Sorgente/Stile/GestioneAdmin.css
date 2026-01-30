@@ -29,9 +29,12 @@
 
 .hideCard{display: none;}
 
+ button{
+    background-color:rgba(63, 56, 56, 0);
+    border: none;
+}
 
-
-#card2,#card3{
+#card0,#card1,#card2,#card3,#card4,#card5{
     margin: 15px;
 
     padding: 1%;

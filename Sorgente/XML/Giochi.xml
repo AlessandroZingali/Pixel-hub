@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TabellaGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Giochi_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Titolo>Overwatch: Origin Edition</Titolo>
+    <Titolo>babewatch</Titolo>
     <Prezzo>39.99</Prezzo>
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
@@ -16,7 +16,6 @@
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>6</idGiocoCorrelato>
-      <idGiocoCorrelato>3</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="2">
