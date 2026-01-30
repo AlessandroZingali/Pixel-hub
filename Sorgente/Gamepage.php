@@ -397,6 +397,7 @@ echo "";
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script src="Script/likeAndDislikeGestione.js?v=3" defer="true"></script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
+        <script type="text/javascript" src="Script/SegnalazioniCommenti.js?v=3"></script>
     </head>
     <body>
         <div id="container">
@@ -844,7 +845,7 @@ echo "";
                                             else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\""; //Usa quest'altro onclick se l'utente non ha il grado necessario
                                         }
                                         else echo "onclick=\"userAlert(0)\""; //Mentre se il servizio non è attivo, usa questo onclick
-                                      //Metti il simbolo relativo, chiudi il button e il div
+                                            //Metti il simbolo relativo, chiudi il button e il div
                                         echo ">&#128077;
                                             </button>
                                             </div>
@@ -860,7 +861,8 @@ echo "";
                                                 else echo "onclick=\"userAlert(0)\"";
 
                                                 echo">&#128078;</button>
-                                                    </div>                                                                                
+                                                    </div> 
+                                                   <div class=\"buttonSegnalazioni\"><button  onclick=\"segnalaCommento($idCommento, $idGioco)\">!</button></div>                                                                                
                                                 </div>
                                                 </div>
                                             </div>";          

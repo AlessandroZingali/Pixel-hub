@@ -239,6 +239,32 @@ padding-right: 10px;
     background-color: rgba(255, 255, 255, 0.25);
 }
 
+.buttonSegnalazioni{
+   
+    
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 295px;
+    margin-top: 5px;
+    height: 40px;
+    width: 40px;
+
+    button{
+        border: 1px solid rgb(212, 104, 193);
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0);
+        color: rgba(237, 192, 12);
+        font-size: 30px;
+    }
+
+    button:hover{
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
 /* Stile Recensioni */
 #recensioni{
     border: cyan solid;

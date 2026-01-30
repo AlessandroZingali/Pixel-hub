@@ -29,7 +29,7 @@
         <xsd:attribute name="ora" type="xsd:time" use="required"/>
         <xsd:attribute name="like" type="xsd:interger" use="required"/>
         <xsd:attribute name="dislike" type="xsd:interger" use="required"/>
-        
+        <xsd:attribute name="segnalazioni" type="xsd:interger" use="required"/>
     </xsd:complexType>
   </xsd:element>
 

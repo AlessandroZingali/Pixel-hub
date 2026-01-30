@@ -40,6 +40,8 @@ function swapperInRicerca(){
     cardRicerca.classList.toggle("hideCard");
 }
 
+
+
 function swapperInSospensione(){
     var cardPrincipale =document.getElementById("card0");
     var cardSospensione = document.getElementById("card5");
@@ -48,10 +50,26 @@ function swapperInSospensione(){
     cardSospensione.classList.toggle("hideCard");
     
 }
+function swapperSearchUtente(){
+    var cardPrincipale =document.getElementById("card0");
+    var cardSearchUtente = document.getElementById("card6");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardSearchUtente.classList.toggle("hideCard");
+    
+}
+function swapperInUserManagement(){
+    var cardPrincipale =document.getElementById("card0");
+    var cardSearchUtente = document.getElementById("card7");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardSearchUtente.classList.toggle("hideCard");
+    
+}
 
 function modificaGiocoPreset(){
     console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
-    if(sessionStorage.getItem("activeChange") == "true"){
+    if(sessionStorage.getItem("activeChange") == "ricercaGioco"){
         var cards = document.querySelectorAll("div[id^='card']");
         console.log(cards);
 
@@ -72,11 +90,38 @@ function modificaGiocoPreset(){
             }
         }); 
         console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
-        sessionStorage.setItem("activeChange", false);
+        sessionStorage.setItem("activeChange", "vuoto");
     }
 
+    else if(sessionStorage.getItem("activeChange") == "gestioneUtente"){
+        var cards = document.querySelectorAll("div[id^='card']");
+        console.log(cards);
+
+        var cardsArray = Array.from(cards).filter(div => /^card\d+$/.test(div.id)).sort((a, b) => {
+                // Estrai i numeri dagli id e ordina
+                var numA = parseInt(a.id.replace("card", ""));
+                var numB = parseInt(b.id.replace("card", ""));
+                return numA - numB;
+            });
+        console.log(cardsArray);
+
+        cardsArray.forEach(card => {
+            if(!(card.classList.contains("hideCard")) && card.id !== "card7"){
+                card.classList.add("hideCard");
+            }
+            else if(card.id === "card7" && card.classList.contains("hideCard")){
+                card.classList.remove("hideCard");
+            }
+        }); 
+        console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
+        sessionStorage.setItem("activeChange", "vuoto");
+
+}
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     modificaGiocoPreset();
-});
+}
+);
+
+

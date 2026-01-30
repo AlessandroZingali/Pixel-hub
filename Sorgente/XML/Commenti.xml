@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
   <Gioco id_gioco="6">
-    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="38" like="1" dislike="0">
+    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="38" like="1" dislike="0" segnalazioni="0">
       <text>4 Democrazy</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="1">
-    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="27" like="0" dislike="0">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="27" like="0" dislike="0" segnalazioni="0">
       <text>Bello</text>
     </Commento>
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0" segnalazioni="0">
       <text>Nerf This</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="7">
-    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0" segnalazioni="1">
       <text>Yeeeee</text>
     </Commento>
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="04" like="1" dislike="0">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="04" like="1" dislike="0" segnalazioni="0">
       <text>Il big daddy è fighissimo</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="8">
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="05" like="0" dislike="0">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="05" like="0" dislike="0" segnalazioni="0">
       <text>Halo</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="5">
-    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="19" like="1" dislike="0">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="19" like="1" dislike="0" segnalazioni="0">
       <text>belandi&#13;</text>
     </Commento>
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="18" like="0" dislike="1">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="18" like="0" dislike="1" segnalazioni="0">
       <text>HAlo</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="3">
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="35" like="0" dislike="1">
+    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="35" like="0" dislike="1" segnalazioni="0">
       <text>We have a city to Burn</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="2">
-    <Commento id_commento="1" id_utente="3" data="26/01/2026" ore="13" minuti="30" like="0" dislike="0">
+    <Commento id_commento="1" id_utente="3" data="26/01/2026" ore="13" minuti="30" like="0" dislike="0" segnalazioni="0">
       <text>bello</text>
     </Commento>
   </Gioco>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TabellaGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Giochi_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Titolo>babewatch</Titolo>
-    <Prezzo>39.99</Prezzo>
+    <Titolo>Overwatch: Origins Edition</Titolo>
+    <Prezzo></Prezzo>
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Overwatch è uno sparatutto in prima persona a squadre sviluppato da Blizzard Entertainment. Il gioco presenta una vasta gamma di eroi, ognuno con abilità uniche, e si concentra su partite multiplayer competitive in cui due squadre di sei giocatori si sfidano per completare obiettivi specifici su mappe diverse.</Descrizione>
@@ -15,7 +15,7 @@
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
-      <idGiocoCorrelato>6</idGiocoCorrelato>
+      <idGiocoCorrelato/>
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="2">

@@ -93,7 +93,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
 
              // Aggiorna i giochi correlati
              if(!empty($id_correlati)){ 
-                $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati");
+                $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
              while ($correlatiNode->firstChild) {
                  $correlatiNode->removeChild($correlatiNode->firstChild);
              }
@@ -139,6 +139,38 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
     header("Location: GestioneAdmin.php");
 }
 
+if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])){
+
+$id_utente= $_POST['id_user_gestione'];
+connectDB();
+
+echo "<script>console.log('entrato funzione');</script>";
+
+
+    if (mysqli_connect_errno()) {
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
+
+    if(isset($_POST['EmailModificata'])){
+ 
+    $sql = "
+        UPDATE $table_users
+        SET Email = '$new'
+        WHERE ID = ".$id_user."
+    ";
+
+    // Esecuzione query
+    if (mysqli_query(connectDB(), $sql)) {
+        echo"<script>console.log('modifica eseguita')</script>";
+        // header("Location:GestioneAdmin.php"); 
+    } else {
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
+    }
+
+
+}
+
 
 ?>
 
@@ -152,8 +184,9 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
         <link rel="stylesheet" type="text/css" href="Stile/GestioneAdmin.css?v=3" />
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" />
         <?php 
-            if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", true);</script>";
-            else echo "<script>sessionStorage.setItem(\"activeChange\", false);</script>";
+            if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
+            else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
+            else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
         ?> 
         
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
@@ -195,6 +228,9 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
+                            if($_SESSION['tipoUtente'] == '1'){
+                                echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
+                            }
                         ?>
                     </ul>
                 </div>
@@ -222,6 +258,14 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                 <div class="tickets">
                     <p>Gestisci i ticket degli utenti
                     <button onclick="swapperInTickets()"> <img src="Stile/Icone/ticketicon.png" alt="ticketbutton" ></button></p>
+                </div>
+                <div class="gestioneUtenti">
+                    <p>Gestisci gli utenti iscritti
+                        <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
+                        alt="gestioneutentibutton">
+                    </button>
+
+                    </p>
                 </div>
             </div>
             </div>
@@ -311,7 +355,7 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                 echo "<form method='post' action='GestioneAdmin.php'>
                         <input type='hidden' name='id_user' value='$id'>
                         <label for='sconto'>Assegna nuovo sconto:</label>
-                        <input type='text' id='sconto' name='sconto' required>
+                        <input type='text' id='sconto' name='sconto' >
                         <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
                       </form><br><hr><br>";
                     
@@ -325,9 +369,9 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
             <h2> Gestione rimborsi </h2>
             <form method="post" action="GestioneAdmin.php">
                 <label for="id_user_rimborso">ID Utente da rimborsare:</label>
-                <input type="text" id="id_user_rimborso" name="id_user_rimborso" required> <br><br>
+                <input type="text" id="id_user_rimborso" name="id_user_rimborso" > <br><br>
                 <label for="importo_rimborso">Importo da rimborsare (€):</label>
-                <input type="text" id="importo_rimborso" name="importo_rimborso" required>
+                <input type="text" id="importo_rimborso" name="importo_rimborso" >
                 <input type="submit" name="processaRimborso" value="Processa Rimborso">
             </form>
 
@@ -347,7 +391,7 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                 echo "<form method=\"post\" action=\"GestioneAdmin.php\">
                     <!-- Aggiungi qui i campi per modificare il gioco -->
                     <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
-                    <input type=\"text\" id=\"id_gioco_modifica\" name=\"id_gioco_modifica\" required>
+                    <input type=\"text\" id=\"id_gioco_modifica\" name=\"id_gioco_modifica\" >
                     <input type=\"submit\" name=\"cercaGioco\" value=\"Ricerca\">
                     
                 </form>";
@@ -360,14 +404,19 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
             </div>
 
             <div class="cardSettings hideCard" id="card3">
-
+                <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInModificaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
+                    </div>
+                </div>
 
 
                 <h1>Modifica Gioco</h1>
                 <!-- Contenuto per la modifica del gioco -->
                 
-                <?php
                 
+                
+                <?php
                 if (isset($_POST['id_gioco_modifica']) && !empty($_POST['id_gioco_modifica'])) {
                     $elemGiochi = xmlPointer('XML/Giochi.xml');
                         $elemPointer = $elemGiochi;
@@ -409,7 +458,7 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                     
 
                     
-                    <input type=\"submit\" name=\"modificaGioco\" value=\"Modifica Gioco\">
+                    <input type=\"submit\" name=\"modificaGioco\" value=\"Modifica Gioco\"></br>
                     <label for=\"id_correlati_eliminati\">Rimuovi da ID Giochi Correlati:</label> ";
                     
                         $elemGiochi = xmlPointer('XML/Giochi.xml');
@@ -444,18 +493,14 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                             
                     ?>
   
-                <div class="buttons">
-                    <div class="backarrow">
-                        <button onclick="swapperInModificaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
-                    </div>
-            </div>
+                
             </div>
             <div class="cardSettings hideCard" id="card5">
                 <!-- Funzione admin:sospensione gioco -->
               <h3> Sospendi gioco dal catalogo </h3>
               <form method="post" action="GestioneAdmin.php">
                 <label for="id_gioco">ID Gioco da sospendere:</label>
-                <input type="text" id="id_gioco" name="id_gioco_da_sospendere"  required>
+                <input type="text" id="id_gioco" name="id_gioco_da_sospendere"  >
                 <input type="submit" name="sospendi" value="Sospendi Gioco">
             </form>
                 <div class="buttons">
@@ -463,6 +508,102 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
                         <button onclick="swapperInSospensione()"><img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
                     </div>
                 </div>
+            </div>
+
+            <div class="cardSettings hideCard" id="card6">
+                <!-- Card gestione utente -->
+                <h1>Gestione Utente</h1>
+
+                <?php 
+                echo "<form method='post' action='GestioneAdmin.php'>
+                    <label for='id_user_gestione'>ID Utente da gestire:</label>
+                    <input type='text' id='id_user_gestione' name='id_user_gestione' >
+                    <input type='submit' name='cercaUtente' value='Cerca Utente'>
+                </form>";
+                ?>
+                <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperSearchUtente()"><img src="Stile/Icone/iconafreccia.png" alt="usergestionbutton" ></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cardSettings hideCard" id="card7">
+
+            <?php 
+            $table_users = "Tabella_Utenti";
+
+            if (mysqli_connect_errno()){
+                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            }
+            
+
+                $queryLogin = "SELECT * FROM $table_users WHERE ID = '".$_POST['id_user_gestione']."'";
+                $resultQ = mysqli_query(connectDB(), $queryLogin);
+                $num = mysqli_num_rows($resultQ);
+
+                // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato
+                if($num == 1){
+                    $flag=1;
+                    
+                    $row=mysqli_fetch_array($resultQ);
+                    echo "<h1>Gestione utente: ".$row['Username']."</h1>";
+
+                    
+                    echo "<form action=\"GestioneAdmin.php\" method=\"post\">
+                                <label for=\"Email\" >Modifica Email:</label>
+                                <input type=\"text\" id=\"Email\" name=\"EmailModificata\" ><br><br>
+
+                                <label for=\"Password\" >Modifica Password:</label>
+                                <input type=\"text\" id=\"Password\" name=\"Password\" value=\"".$row['Password']."\" ><br><br>
+
+                                <label for=\"Username\" >Modifica Username:</label>
+                                <input type=\"text\" id=\"Username\" name=\"Username\" value=\"".$row['Username']."\" ><br><br>
+
+                                <label for=\"Esperienza\" >Modifica Esperienza:</label>
+                                <input type=\"text\" id=\"Esperienza\" name=\"Esperienza\" value=\"".$row['Esperienza']."\" ><br><br>
+
+                                <label for=\"Grado\" >Modifica Grado:</label>   
+                                <input type=\"text\" id=\"Grado\" name=\"Grado\" value=\"".$row['Grado']."\" ><br><br>
+
+                                <label for=\"Pixels\" >Modifica Pixels:</label>   
+                                <input type=\"text\" id=\"Pixels\" name=\"Pixels\" value=\"".$row['Pixels']."\" ><br><br>
+
+                                <label for=\"Nome\" >Modifica Nome:</label>   
+                                <input type=\"text\" id=\"Nome\" name=\"Nome\" value=\"".$row['Nome']."\" ><br><br>
+
+                                <label for=\"Cognome\" >Modifica Cognome:</label>   
+                                <input type=\"text\" id=\"Cognome\" name=\"Cognome\" value=\"".$row['Cognome']."\" ><br><br>
+
+                                <label for=\"Data_di_Nascita\">Modifica Data di nascita:</label>
+                                <input type=\"text\" id=\"Data_di_Nascita\" name=\"Data_di_Nascita\" value=\"".$row['Data_di_Nascita']."\" ><br><br>
+
+                                <label for=\"Saldo_attuale\" >Modifica saldo attuale :</label>   
+                                <input type=\"text\" id=\"Saldo_attuale\" name=\"Grado\" value=\"".$row['Saldo_attuale']."\" ><br><br>
+
+                                <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=admin, 2=Publisher):</label>
+                                <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br><br>
+
+                                <label for=\"PIVA\" >Modifica PIVA:</label>   
+                                <input type=\"text\" id=\"PIVA\" name=\"PIVA\" value=\"".$row['PIVA']."\" ><br><br>
+                                
+                                
+                                
+                                
+                                
+
+                                <input type=\"submit\" name=\"modificaUtente\" value=\"Applica modifiche\"></br>
+                          </form>";
+                } else {
+                    echo "<h1>Utente non trovato</h1>";
+                }
+                ?>
+                <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInUserManagement()"><img src="Stile/Icone/iconafreccia.png" alt="usergestionbutton" ></button>
+                    </div>
+                </div>
+            </div>
             </div>
 
         </div>
