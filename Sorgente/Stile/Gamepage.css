@@ -245,16 +245,16 @@ padding-right: 10px;
     border: none;
     border-radius: 10px;
     padding: 5px;
-    margin-left: 295px;
+    margin-left: 58%;
     margin-top: 5px;
     height: 40px;
     width: 40px;
 
     button{
-        border: 1px solid rgb(212, 104, 193);
+        border: 3px solid rgba(255, 255, 255, 0.26);
         height: 100%;
         width: 100%;
-        border-radius: 5px;
+        border-radius: 50px;
         background-color: rgba(255, 255, 255, 0);
         color: rgba(237, 192, 12);
         font-size: 30px;
@@ -436,6 +436,7 @@ padding-right: 10px;
  }
 
 @media (max-width: 1000px){
+
     
     #descAndBuy{
         flex-direction: column;

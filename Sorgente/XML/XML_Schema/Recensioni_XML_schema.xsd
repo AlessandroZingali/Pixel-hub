@@ -28,7 +28,8 @@
       <xsd:attribute name="ora" type="xsd:time" use="required"/> 
       <xsd:attribute name="like" type="xsd:integer" use="required"/> 
       <xsd:attribute name="dislike" type="xsd:integer" use="required"/> 
-      <xsd:attribute name="voto" type="xsd:integer" use="required"/> 
+      <xsd:attribute name="voto" type="xsd:integer" use="required"/>
+      <xsd:attribute name="segnalazioni" type="xsd:integer" use="required"/> 
       
  
     </xsd:complexType> 

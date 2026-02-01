@@ -6,7 +6,7 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="1">
-    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="27" like="0" dislike="0" segnalazioni="0">
+    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="27" like="0" dislike="0" segnalazioni="1">
       <text>Bello</text>
     </Commento>
     <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0" segnalazioni="0">

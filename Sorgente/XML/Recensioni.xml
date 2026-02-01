@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recensioni_XML_schema.xsd">
   <Gioco id_gioco="14">
-    <Recensione id_recensione="1" id_utente="3" data="23/01/2026" ore="12" minuti="10" like="0" dislike="0" voto="50">
+    <Recensione id_recensione="1" id_utente="3" data="23/01/2026" ore="12" minuti="10" like="0" dislike="0" voto="50" segnalazioni="0">
       <text>Meh</text>
     </Recensione>
-    <Recensione id_recensione="2" id_utente="3" data="23/01/2026" ore="16" minuti="57" like="0" dislike="0" voto="80">
+    <Recensione id_recensione="2" id_utente="3" data="23/01/2026" ore="16" minuti="57" like="0" dislike="0" voto="80" segnalazioni="0">
       <text>Mi piace morire male, avrei preferito più spade</text>
     </Recensione>
   </Gioco>
   <Gioco id_gioco="2">
-    <Recensione id_recensione="1" id_utente="3" data="26/01/2026" ore="13" minuti="34" like="1" dislike="0" voto="20">
+    <Recensione id_recensione="1" id_utente="3" data="26/01/2026" ore="13" minuti="34" like="1" dislike="0" voto="20" segnalazioni="1">
       <text>belloh</text>
     </Recensione>
   </Gioco>

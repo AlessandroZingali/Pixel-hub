@@ -4,6 +4,7 @@
 require_once 'serverUtility.php';
     session_start();
     function calcoloEsperienza(){
+        $table_users = "Tabella_Utenti";
 
         //var_dump($_SESSION['gameList']);
         $listaGiochi_json = json_decode($_SESSION['gameList']);
@@ -54,10 +55,40 @@ require_once 'serverUtility.php';
                 $row = mysqli_fetch_array($resultQ);
                 $nuoviPixels = $_SESSION['Pixels'];
                 $nuovaEsperienza = $_SESSION['Esperienza'];
+                $gradoAttuale = $row['Grado'];
+
+                switch($gradoAttuale > 0){
+                    case $grado = 1:
+                        $capEsperienza = 500;
+                        break;
+                    case $grado = 2:
+                        $capEsperienza = 1000;
+                        break;
+                    case $grado = 3:
+                        $capEsperienza = 3000;
+                        break;
+                    case $grado = 4:
+                        $capEsperienza = 5000;
+                        break;
+                    case $grado = 5:
+                        $capEsperienza = 10000;
+                        break;
+                    default:
+                        $capEsperienza = 0;
+                        break;
+                }
+
+                if($nuovaEsperienza >= $capEsperienza){
+                    $nuovoGrado = $gradoAttuale + 1;
+                    $updateGradoQuery = "UPDATE $table_users SET Grado = $nuovoGrado WHERE id_utente = $idUtenteLoggato;";
+                    mysqli_query(connectDB(), $updateGradoQuery);
+                }
+
+            }
 
                 $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE id_utente = $idUtenteLoggato;";
                 mysqli_query(connectDB(), $updateQuery);
-            }
+            
         }
     }
 ?>

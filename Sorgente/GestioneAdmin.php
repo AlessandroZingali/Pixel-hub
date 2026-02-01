@@ -141,39 +141,69 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
 
 if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])){
 
-$id_utente= $_POST['id_user_gestione'];
+$table_users='Tabella_Utenti';
+$id_utente = $_POST['id_user_gestione'];
 connectDB();
-
-echo "<script>console.log('entrato funzione');</script>";
-
 
     if (mysqli_connect_errno()) {
         printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 
-    if(isset($_POST['EmailModificata'])){
- 
     $sql = "
         UPDATE $table_users
-        SET Email = '$new'
-        WHERE ID = ".$id_user."
-    ";
+        SET Email = '".$_POST['Email']."' ,
+        Password = '".$_POST['Password']."',
+        Username = '".$_POST['Username']."',
+        Esperienza = '".$_POST['Esperienza']."',
+        Grado = '".$_POST['Grado']."',
+        Pixels = '".$_POST['Pixels']."',
+        Saldo_attuale = '".$_POST['Saldo_attuale']."',
+        Data_di_Nascita = '".$_POST['Data_di_Nascita']."',
+        Nome = '".$_POST['Nome']."',
+        Cognome = '".$_POST['Cognome']."',
+        Tipologia_utente = '".$_POST['Tipologia_utente']."',
+        imgProfiloPath = '".$_POST['imgProfiloPath']."',
+        PIVA = '".$_POST['PIVA']."'
+        WHERE ID = '$id_utente'
+    ;";
+
 
     // Esecuzione query
     if (mysqli_query(connectDB(), $sql)) {
-        echo"<script>console.log('modifica eseguita')</script>";
+
         // header("Location:GestioneAdmin.php"); 
-    } else {
+    } 
+    else{
         printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
+}
+
+if(isset($_POST['sospensione'])){
+    $table_users='Tabella_Utenti';
+    $id_utente = $_POST['id_user_gestione'];
+    connectDB();
+
+    if (mysqli_connect_errno()) {
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 
 
+    $sql = "
+        UPDATE $table_users
+        SET Grado = 0
+        WHERE ID = '$id_utente'
+    ;";
+
+    // Esecuzione query
+    if (mysqli_query(connectDB(), $sql)) {
+        echo"<script>console.log('sospensione eseguita')</script>";
+        // header("Location:GestioneAdmin.php"); 
+    } 
+    else{
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
 }
-
-
 ?>
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
@@ -354,8 +384,8 @@ echo "<script>console.log('entrato funzione');</script>";
 
                 echo "<form method='post' action='GestioneAdmin.php'>
                         <input type='hidden' name='id_user' value='$id'>
-                        <label for='sconto'>Assegna nuovo sconto:</label>
-                        <input type='text' id='sconto' name='sconto' >
+                        <label for='sconto_$id'>Assegna nuovo sconto:</label>
+                        <input type='text' id='sconto_$id' name='sconto' >
                         <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
                       </form><br><hr><br>";
                     
@@ -547,12 +577,14 @@ echo "<script>console.log('entrato funzione');</script>";
                     $flag=1;
                     
                     $row=mysqli_fetch_array($resultQ);
-                    echo "<h1>Gestione utente: ".$row['Username']."</h1>";
+                    echo "<h1>Gestione utente: ".$row['Username']." ID: ".$row['ID']."</h1>";
 
                     
-                    echo "<form action=\"GestioneAdmin.php\" method=\"post\">
+                    echo "<form method=\"post\" action=\"GestioneAdmin.php\" >
+                    
+                                
                                 <label for=\"Email\" >Modifica Email:</label>
-                                <input type=\"text\" id=\"Email\" name=\"EmailModificata\" ><br><br>
+                                <input type=\"text\" id=\"Email\" name=\"Email\" value=\"".$row['Email']."\"><br><br>
 
                                 <label for=\"Password\" >Modifica Password:</label>
                                 <input type=\"text\" id=\"Password\" name=\"Password\" value=\"".$row['Password']."\" ><br><br>
@@ -579,19 +611,23 @@ echo "<script>console.log('entrato funzione');</script>";
                                 <input type=\"text\" id=\"Data_di_Nascita\" name=\"Data_di_Nascita\" value=\"".$row['Data_di_Nascita']."\" ><br><br>
 
                                 <label for=\"Saldo_attuale\" >Modifica saldo attuale :</label>   
-                                <input type=\"text\" id=\"Saldo_attuale\" name=\"Grado\" value=\"".$row['Saldo_attuale']."\" ><br><br>
+                                <input type=\"text\" id=\"Saldo_attuale\" name=\"Saldo_attuale\" value=\"".$row['Saldo_attuale']."\" ><br><br>
 
                                 <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=admin, 2=Publisher):</label>
                                 <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br><br>
 
+                                <label for=\"imgProfiloPath\" >Modifica il percorso dell immagine del profilo :</label>   
+                                <input type=\"text\" id=\"imgProfiloPath\" name=\"imgProfiloPath\" value=\"".$row['imgProfiloPath']."\" ><br><br>
+
                                 <label for=\"PIVA\" >Modifica PIVA:</label>   
                                 <input type=\"text\" id=\"PIVA\" name=\"PIVA\" value=\"".$row['PIVA']."\" ><br><br>
-                                
-                                
-                                
-                                
-                                
 
+                                <label for=\"checkSopsensione\" >Sospendi utente?</label>   
+                                <input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" ><br><br>
+
+
+
+                                <input type=\"hidden\" name=\"id_user_gestione\" value=\"".$row['ID']."\">
                                 <input type=\"submit\" name=\"modificaUtente\" value=\"Applica modifiche\"></br>
                           </form>";
                 } else {

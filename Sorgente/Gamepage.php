@@ -397,7 +397,7 @@ echo "";
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script src="Script/likeAndDislikeGestione.js?v=3" defer="true"></script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
-        <script type="text/javascript" src="Script/SegnalazioniCommenti.js?v=3"></script>
+        <script type="text/javascript" src="Script/SegnalazioniGestione.js?v=3"></script>
     </head>
     <body>
         <div id="container">
@@ -862,7 +862,7 @@ echo "";
 
                                                 echo">&#128078;</button>
                                                     </div> 
-                                                   <div class=\"buttonSegnalazioni\"><button  onclick=\"segnalaCommento($idCommento, $idGioco)\">!</button></div>                                                                                
+                                                   <div class=\"buttonSegnalazioni\"><button  onclick=\"segnala($idCommento, $idGioco, 'com')\">!</button></div>                                                                                
                                                 </div>
                                                 </div>
                                             </div>";          
@@ -958,7 +958,8 @@ echo "";
                                                         else echo "onclick=\"userAlert(".$_SESSION['Grado'].")\"";
                                                     }
                                                     else echo "onclick=\"userAlert(0)\"";
-                                                    echo ">&#128078;</button></div>                                                                             
+                                                    echo ">&#128078;</button></div>
+                                                                    <div class=\"buttonSegnalazioni\"><button  onclick=\"segnala($idRecensione, $idGioco, 'rec')\">!</button></div>                                                                              
                                                                 </div>
                                                              </div>
                                                          </div>";          
