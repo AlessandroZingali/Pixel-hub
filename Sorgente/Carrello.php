@@ -87,7 +87,7 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
 if(isset($_POST['Acquista'])){
     connectDB();
     $listaGiochi_json = json_decode($_SESSION['gameList']);
-    var_dump($listaGiochi_json);
+    // var_dump($listaGiochi_json);
 
     if (mysqli_connect_errno()){
 
@@ -103,9 +103,13 @@ if(isset($_POST['Acquista'])){
         $saldoUtente = (float)$row['Saldo_attuale'];
         $pixels = (int)$row['Pixels'];
         if($saldoUtente >= $_POST['SaldoTotale']){
-            
-            $nuovoSaldo = $saldoUtente -(float)$_POST['SaldoTotale'];
+            echo "saldo utente: ".$saldoUtente;
+            echo "Saldo totale: ".$_POST['SaldoTotale'];
+            $nuovoSaldo = $saldoUtente - (float)$_POST['SaldoTotale'];
+            echo "risultante: ".$nuovoSaldo;
+
             $updateSaldoQuery = "UPDATE $table_users SET Saldo_attuale='$nuovoSaldo'  WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+
             mysqli_query(connectDB(), $updateSaldoQuery);
 
             // Aggiungo i giochi acquistati alla lista giochi posseduti dell'utente
@@ -137,6 +141,8 @@ if(isset($_POST['Acquista'])){
                 }
             }
             calcoloEsperienza();
+
+            
             // Svuoto il carrello
             $doc = getDoc('XML/Carrelli.xml');
             $root = $doc->documentElement;
@@ -151,7 +157,8 @@ if(isset($_POST['Acquista'])){
                 }
             }
             }
-            echo "<script>alert('Acquisto completato con successo!');</script>";
+            $_SESSION['Saldo'] = $nuovoSaldo;
+
             header("Location: Profilo.php");
             
             
@@ -373,18 +380,21 @@ if(isset($_POST['buttonRimuovi'])){
                                                     $scontoFinale = 0;
                                                     $prezzoIniziale = 0;
                                                 }
+                                                
                                             }
                                         }
 
                                         $totaleIniziale = $pageCart->calcolaTotaleIniziale();
                                         $totaleFinale = $pageCart->calcolaTotaleScontato();
+                                       
                                         $risparmio = round($totaleIniziale - $totaleFinale, 2);
                                         $gameList_json = (json_encode($pageCart->listaGiochi));
                                         $_SESSION['gameList'] = $gameList_json;
                                         
-                                   echo " </table> 
+                                   echo "<tr> <td>Totale finale:  $totaleFinale </td> </tr>";
+                                  echo "  </table> 
                                     <form action=\"Carrello.php\" method=\"post\" id=\"formCarrello\">
-                                        <input type=\"hidden\" name=\"SaldoTotale\" value=\" .$totaleFinale.\"/>
+                                        <input type=\"hidden\" name=\"SaldoTotale\" value=\"$totaleFinale\"/>
                                         <input type=\"submit\" name=\"Acquista\" value=\"Procedi al pagamento\" id=\"pagaButton\"/>
                                         <input type=\"submit\" name=\"buttonRimuoviAll\" value=\"Svuota carrello\" id=\"svuotaButton\"/>
                                     </form>

@@ -1,31 +1,39 @@
 /* CSS della Pagina di gestione admin */
-/* la tabella delle faq è divisa nella parte blu per le domande e quella rossa con le risposte*/
 
-#TabFaq{
-    margin-top: 2%;
-    border: solid 4px pink;
-    border-radius: 15px;
-    text-align: center;
-
-    #ColDom{
-        width:30%;
-        border: solid blue 2px;
-        border-radius: 15px;
-        background-color: rgb(49, 76, 151);
-    }
-    #ColRis{
-        width: 30%;
-        border: solid red 2px;
-        border-radius: 15px;
-        background-color: rgb(172, 42, 42);
-    }
-    td{
-        background-color: #434343;
-        padding: 30px;
-        border-radius: 15px;
-
-    }
+@font-face {
+    font-family: "font pixeloso";
+    src: url('PixelatedElegance.ttf');
 }
+
+
+#rimborsi{
+    th{
+        width: 10%;
+    }
+
+   padding: 10px;
+   border-radius: 15px;
+   border: white solid 3px;
+     td{
+        background-color: gray;
+        border-radius: 15px;
+        text-align: right;
+        padding-right: 1%;
+        
+     }
+     
+
+
+     #transazione{
+        border: green solid 3px;
+        
+        td{
+            background-color: rgba(118, 236, 39, 0.521);
+        }
+     }
+}
+
+
 
 .hideCard{display: none;}
 
@@ -53,7 +61,7 @@ input[type="submit"]{
     
     }
 
-#card1,#card2,#card3,#card4,#card5{
+#card1,#card2,#card3,#card4,#card5,#card6,#card7,#card8,#card9{
     margin: 15px;
 
 

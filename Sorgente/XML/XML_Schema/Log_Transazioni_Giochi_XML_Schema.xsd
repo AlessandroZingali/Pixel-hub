@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
-    <xsd:element name="LogTransizioniGiochi">
+    <xsd:element name="LogTransazioniGiochi">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="Transizione" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="Transazione" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="Transizione">
+    <xsd:element name="Transazione">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="Gioco" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
-            <xsd:attribute name="IDTransizione" type="xsd:integer" use="required"/>
+            <xsd:attribute name="IDTransazione" type="xsd:integer" use="required"/>
             <xsd:attribute name="IDGiocatore" type="xsd:integer"/>
             <xsd:attribute name="ModCommentiUsato" type="xsd:float" use="required"/>
             <xsd:attribute name="DataOra" type="xsd:dateTime" use="required"/>
+            <xsd:attribute name="PixelIniziali" type="xsd:integer" use="required"/>
         </xsd:complexType>
         <xsd:element name="Gioco">
             <xsd:complexType>

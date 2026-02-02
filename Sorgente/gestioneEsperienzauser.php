@@ -21,6 +21,7 @@ require_once 'serverUtility.php';
 
     function calcoloEsperienza(){
         $table_users = "Tabella_Utenti";
+        $pixelIniziali= $_SESSION['Pixels'];
 
         //var_dump($_SESSION['gameList']);
         $listaGiochi_json = json_decode($_SESSION['gameList']);
@@ -40,10 +41,12 @@ require_once 'serverUtility.php';
                 array_push($logAcquisti, new GameAcquistato($game->idGioco, $game->titolo, $game->prezzoFinale));
             }
 
-
-            $esperienzaGuadagnata = ((int)$pocketPixel * (int)$modcommenti);
-
-            $_SESSION['Pixels'] = $_SESSION['Pixels'] + (int)$pocketPixel;
+            $pocketPixelTotale = array_sum($pocketPixel);
+            $esperienzaGuadagnata = ($pocketPixelTotale * $modcommenti);
+            echo "pixel guadagnati " . $pocketPixelTotale;
+            echo "mod commenti: " . $modcommenti;
+            echo "Esperienza prima: " . $_SESSION['Esperienza'];
+            $_SESSION['Pixels'] = $_SESSION['Pixels'] + (int)$pocketPixelTotale;
             $_SESSION['Esperienza'] = $_SESSION['Esperienza'] + $esperienzaGuadagnata;
 
             connectDB();
@@ -63,19 +66,19 @@ require_once 'serverUtility.php';
                 $gradoAttuale = $row['Grado'];
 
                 switch($gradoAttuale > 0){
-                    case $grado = 1:
+                    case $gradoAttuale= 1:
                         $capEsperienza = 500;
                         break;
-                    case $grado = 2:
+                    case $gradoAttuale = 2:
                         $capEsperienza = 1000;
                         break;
-                    case $grado = 3:
+                    case $gradoAttuale = 3:
                         $capEsperienza = 3000;
                         break;
-                    case $grado = 4:
+                    case $gradoAttuale = 4:
                         $capEsperienza = 5000;
                         break;
-                    case $grado = 5:
+                    case $gradoAttuale = 5:
                         $capEsperienza = 10000;
                         break;
                     default:
@@ -90,10 +93,11 @@ require_once 'serverUtility.php';
                 }
 
             }
-
+                var_dump($_SESSION['Esperienza']);
+                echo "Esperienza guadagnata: " . $esperienzaGuadagnata;
                 $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE ID = $idUtenteLoggato;";
                 mysqli_query(connectDB(), $updateQuery);
-                logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti);
+                logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti, $pixelIniziali);
                 return;
             
         }
@@ -129,9 +133,9 @@ require_once 'serverUtility.php';
         }
     
 
-    function logAcquistiRegister($idUtente, $logAcquisti, $modificatore){
+    function logAcquistiRegister($idUtente, $logAcquisti, $modificatore, $pixelIniziali){
 
-        $doc=getDoc('XML/LogTransizioniGiochi.xml');
+        $doc=getDoc('XML/LogTransazioniGiochi.xml');
 
         $root =  $doc->documentElement;
         $elem = $root->childNodes;
@@ -143,11 +147,13 @@ require_once 'serverUtility.php';
             $nuovoIdTransizione = 1;
         }
 
-        $nuovoLog = $doc->createElement("Transizione");
+        $nuovoLog = $doc->createElement("Transazione");
         
-        $nuovoLog->setAttribute("IDTransizione",$nuovoIdTransizione);
+        $nuovoLog->setAttribute("IDTransazione",$nuovoIdTransizione);
         $nuovoLog->setAttribute("ModCommentiUsato",$modificatore);
         $nuovoLog->setAttribute("IDGiocatore", $idUtente);
+        $nuovoLog->setAttribute("DataOra", date("d/m/y H:i"));
+        $nuovoLog->setAttribute("PixelIniziali", $pixelIniziali);
 
         
 
@@ -157,19 +163,17 @@ require_once 'serverUtility.php';
   
             $idGioco = $doc->createElement("IDGioco", $acquisto->id_gioco);
             $titolo = $doc->createElement("Titolo", $acquisto->titolo);
-            $data = $doc->createElement("DataOra",date("d/m/y H:i"));
             $importoSpeso = $doc->createElement("Importo", $acquisto->prezzoFinale);
 
             $GiocoInLog->appendChild($titolo);
             $GiocoInLog->appendChild($idGioco);
-            $GiocoInLog->appendChild($data);
             $GiocoInLog->appendChild($importoSpeso);
 
             $nuovoLog->appendChild($GiocoInLog);
             
         }
         $root->appendChild($nuovoLog);
-        $doc->save('XML/LogTransizioniGiochi.xml');
+        $doc->save('XML/LogTransazioniGiochi.xml');
         return;
     }
 ?>

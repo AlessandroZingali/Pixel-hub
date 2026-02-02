@@ -451,6 +451,10 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     <tr>
                                         <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
                                     </tr>
+
+                                    <tr>
+                                        <td>I miei punti esperienza:</td><td>".$row['Esperienza']."</td>
+                                    </tr>
         
                                 </table>
                             </div>";

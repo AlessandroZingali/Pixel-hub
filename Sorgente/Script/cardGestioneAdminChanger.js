@@ -67,6 +67,23 @@ function swapperInUserManagement(){
     
 }
 
+function swapperInSearchUtenteRim(){
+    var cardPrincipale =document.getElementById("card0");
+    var cardCercaUtenteRim = document.getElementById("card8");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardCercaUtenteRim.classList.toggle("hideCard");
+    
+}
+
+function swapperInGestioneRimborsi(){
+    var cardPrincipale =document.getElementById("card0");
+    var cardRimborsi = document.getElementById("card9");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardRimborsi.classList.toggle("hideCard");
+    
+}
 function modificaGiocoPreset(){
     console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
     if(sessionStorage.getItem("activeChange") == "ricercaGioco"){
@@ -112,11 +129,40 @@ function modificaGiocoPreset(){
             else if(card.id === "card7" && card.classList.contains("hideCard")){
                 card.classList.remove("hideCard");
             }
+            else if(!(card.classList.contains("hideCard")) && card.id !== "card8"){
+                card.classList.add("hideCard");
+            }
+            else if(card.id === "card8" && card.classList.contains("hideCard")){
+                card.classList.remove("hideCard");
+            }
         }); 
         console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
         sessionStorage.setItem("activeChange", "vuoto");
 
-}
+    }
+    if(sessionStorage.getItem("activeChange") == "gestioneRimborso"){
+        var cards = document.querySelectorAll("div[id^='card']");
+        console.log(cards);
+
+        var cardsArray = Array.from(cards).filter(div => /^card\d+$/.test(div.id)).sort((a, b) => {
+                // Estrai i numeri dagli id e ordina
+                var numA = parseInt(a.id.replace("card", ""));
+                var numB = parseInt(b.id.replace("card", ""));
+                return numA - numB;
+            });
+        console.log(cardsArray);
+
+        cardsArray.forEach(card => {
+            if(!(card.classList.contains("hideCard")) && card.id !== "card9"){
+                card.classList.add("hideCard");
+            }
+            else if(card.id === "card9" && card.classList.contains("hideCard")){
+                card.classList.remove("hideCard");
+            }
+        }); 
+        console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
+        sessionStorage.setItem("activeChange", "vuoto");
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {

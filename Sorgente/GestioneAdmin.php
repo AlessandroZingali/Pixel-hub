@@ -64,9 +64,6 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     header("Location: GestioneAdmin.php");
 }
-
-
-
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $id_gioco = $_POST['id_da_modificare'];
     if(isset($_POST['nuovo_nome'])) $nuovo_nome = $_POST['nuovo_nome'];
@@ -139,7 +136,7 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
     header("Location: GestioneAdmin.php");
 }
 
-if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])){
+if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 
 $table_users='Tabella_Utenti';
 $id_utente = $_POST['id_user_gestione'];
@@ -216,6 +213,7 @@ if(isset($_POST['sospensione'])){
         <?php 
             if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
             else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
+            else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
             else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
         ?> 
         
@@ -304,6 +302,12 @@ if(isset($_POST['sospensione'])){
                             <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
                             alt="gestioneutentibutton">
                             </button>
+                        </p>
+                    </div>
+                    <div class="gestioneRimborsi">
+                        <p>- Gestisci i rimborsi
+                            <button onclick="swapperInSearchUtenteRim()"> <img src="Stile/Icone/rimborsiicon.png" alt="rimborsibutton" >
+                        </button>  
                         </p>
                     </div>
                 </div>
@@ -405,22 +409,6 @@ if(isset($_POST['sospensione'])){
 
             <!-- Funzione admin:rimborso  -->
 
-            <h2> Gestione rimborsi </h2>
-            <form method="post" action="GestioneAdmin.php">
-                <label for="id_user_rimborso">ID Utente da rimborsare:</label>
-                <input type="text" id="id_user_rimborso" name="id_user_rimborso" > <br><br>
-                <label for="importo_rimborso">Importo da rimborsare (€):</label>
-                <input type="text" id="importo_rimborso" name="importo_rimborso" >
-                <input type="submit" name="processaRimborso" value="Processa Rimborso">
-            </form>
-
-
-
-                    <div class="buttons">
-                        <div class="backarrow">
-                            <button onclick="swapperInSettings()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
-                        </div>
-                    </div>
             </div>
             <div class="cardSettings hideCard" id="card4">
 
@@ -658,9 +646,97 @@ if(isset($_POST['sospensione'])){
                     </div>
                 </div>
             </div>
+
+            <div class="cardSettings hideCard" id="card8">
+                <!-- Card gestione utente -->
+                <h1>Gestione Rimborsi:Selezione Utente</h1>
+
+                <?php 
+                echo "<form method='post' action='GestioneAdmin.php'>
+                    <label for='id_user_gestione'>ID Utente da gestire:</label>
+                    <input type='text' id='id_user_gestione' name='id_user_gestione' >
+                    <input type='submit' name='cercaUtenteRimborso' value='Cerca Utente'>
+                </form>";
+                ?>
+                <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInSearchUtenteRim()"><img src="Stile/Icone/iconafreccia.png" alt="usergestionbutton" ></button>
+                    </div>
+                </div>
             </div>
 
+
+
+                <div class="cardSettings hideCard" id="card9">
+                <!-- Card gestione rimborsi -->
+                <h1>Lista Rimborsi </h1>
+                <?php 
+                 
+                $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
+                foreach($elem as $trans){
+                    if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
+                        echo "<table id=\"rimborsi\">";
+                        echo "<tr>
+                                <th>ID Transazione</th>
+                                <th>ID Giocatore</th>
+                                <th>Data e Ora</th>
+                                <th>Mod Utente</th>
+                                <th>Pixel Iniziali</th>
+                            </tr>";
+                        $idTransazione = $trans->getAttribute('IDTransazione');
+                        $idUser = $trans->getAttribute('IDGiocatore');
+                        $modCommenti = (float)$trans->getAttribute('ModCommentiUsato');
+                        echo "</br>";
+                        $pixels = $trans->getAttribute('PixelIniziali');
+                        echo "<tr id=\"transazione\">";
+                        echo '<td>'.$idTransazione.'</td>';
+                        echo '<td>'.$idUser.'</td>';
+                        echo '<td> '.$trans->getAttribute('DataOra').'</td>';
+                        echo '<td> '.(float)$modCommenti.' </td>';
+                        echo '<td>'.$pixels.'</td>';
+                        $giochi = $trans->getElementsByTagName("Gioco");
+                        echo "</tr>
+                                <tr>
+                                    <th>ID Gioco</th>
+                                    <th id=\"colTitolo\">Titolo</th>
+                                    <th>Importo(€)</th>
+                                    <th>Annullare Acquisto?</th>
+                                </tr>";
+                       
+                        foreach($giochi as $gioco){
+                            echo "<tr>";
+                            echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
+                            echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";   
+                            echo "<td>".$gioco->getElementsByTagName("Importo")->item(0)->textContent."€</td>";
+                            echo "<td><form method='post' action='GestioneAdmin.php'>
+                                    <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
+                                    <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
+                                    <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
+                                    <input type='hidden' name='pixelsPrecedenti' value='".$pixels."'>
+                                    <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
+                                    <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
+                                  </form></td>";
+                            echo "</tr>";      
+                        }
+                        
+                        echo "</table>";
+                    }
+                    
+                }
+                
+                ?>
+        
+                <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInGestioneRimborsi()"><img src="Stile/Icone/iconafreccia.png" alt="usergestionbutton" ></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
         </div>
+
         <div id="footer">
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
