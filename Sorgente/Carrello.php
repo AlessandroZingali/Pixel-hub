@@ -379,7 +379,7 @@ if(isset($_POST['buttonRimuovi'])){
                                         $totaleIniziale = $pageCart->calcolaTotaleIniziale();
                                         $totaleFinale = $pageCart->calcolaTotaleScontato();
                                         $risparmio = round($totaleIniziale - $totaleFinale, 2);
-                                        $gameList_json = htmlspecialchars(json_encode($pageCart->listaGiochi), ENT_QUOTES, 'UTF-8');
+                                        $gameList_json = (json_encode($pageCart->listaGiochi));
                                         $_SESSION['gameList'] = $gameList_json;
                                         
                                    echo " </table> 

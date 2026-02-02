@@ -28,7 +28,6 @@ require_once 'serverUtility.php';
 
         if(isset($_SESSION['userId'])){
             $idUtenteLoggato = $_SESSION['userId'];
-            $rapporti = [];
             $pocketPixel = [];
 
             $elem = xmlPointer("XML/Commenti.xml");
@@ -38,7 +37,7 @@ require_once 'serverUtility.php';
             
             foreach($listaGiochi_json as $game){
                 array_push($pocketPixel, ($game->prezzoFinale)*5);
-                array_push($logAcquisti, new GameAcquistato($game->id_gioco, $game->titolo, $game->prezzoFinale));
+                array_push($logAcquisti, new GameAcquistato($game->idGioco, $game->titolo, $game->prezzoFinale));
             }
 
 
