@@ -12,6 +12,7 @@
       <idGiocoPosseduto data_acquisizione="26-04-2025" spesa="29">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="14-06-2025" spesa="20">9</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="11-01-2026" spesa="13.99">18</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">10</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
@@ -27,7 +28,10 @@
     <DataIscrizione>19-01-2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
     <GenerePreferito>Sparatutto</GenerePreferito>
-    <listaGiochi/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="01-02-2026" spesa="0">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">7</idGiocoPosseduto>
+    </listaGiochi>
     <listaPropic/>
   </Utente>
   <Utente id_user="3">
@@ -49,7 +53,20 @@
       <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="11.99">5</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="22-01-2026" spesa="31.99">16</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="27-01-2026" spesa="0">22</idGiocoPosseduto>
-
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">15</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">14</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="0">10</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>

@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd">
   <Carrello id_user="2" id_cart="1">
-    <gioco id_gioco="14">
-      <titolo>Dark Souls Remastered</titolo>
-      <prezzo>39.99</prezzo>
+    <gioco id_gioco="7">
+      <titolo>Bioshock</titolo>
+      <prezzo>19.99</prezzo>
+    </gioco>
+  </Carrello>
+  <Carrello id_user="3" id_cart="2">
+    <gioco id_gioco="10">
+      <titolo>Doom Eternal</titolo>
+      <prezzo>49.99</prezzo>
+    </gioco>
+  </Carrello>
+  <Carrello id_user="1" id_cart="3">
+    <gioco id_gioco="10">
+      <titolo>Doom Eternal</titolo>
+      <prezzo>49.99</prezzo>
     </gioco>
   </Carrello>
 </listaCarrelli>

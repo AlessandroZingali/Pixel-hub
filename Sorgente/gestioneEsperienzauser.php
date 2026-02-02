@@ -2,12 +2,29 @@
 <?php
 
 require_once 'serverUtility.php';
+    class GameAcquistato{
+        public $titolo;
+        public $id_gioco;
+        public $prezzoFinale;
+
+        function __construct($id_gioco, $titolo, $prezzoFinale){
+            $this->titolo = $titolo;
+            $this->id_gioco = $id_gioco;
+            $this->prezzoFinale = $prezzoFinale;
+        }
+    }
+
+
     session_start();
+
+    
+
     function calcoloEsperienza(){
         $table_users = "Tabella_Utenti";
 
         //var_dump($_SESSION['gameList']);
         $listaGiochi_json = json_decode($_SESSION['gameList']);
+        $logAcquisti = [];
 
         if(isset($_SESSION['userId'])){
             $idUtenteLoggato = $_SESSION['userId'];
@@ -15,24 +32,13 @@ require_once 'serverUtility.php';
             $pocketPixel = [];
 
             $elem = xmlPointer("XML/Commenti.xml");
-            foreach($elem as $i){
-
-                if($i->getAttribute("id_user")==$idUtenteLoggato){
-                                        
-                    $commentoId = $i->getElementsByTagName("Commento"); 
-                    foreach($commentoId as $c){
-                        $likeCommento = $c->getAttribute('like'); 
-                        $dislikeCommento = $c->getAttribute('dislike');
-                        array_push($rapporti, ($likeCommento/$dislikeCommento) );
-                    }
-                    $sommatoria = array_sum($rapporti);
-                    $_SESSION['modCommenti'] = $sommatoria;
-                    $modcommenti = $_SESSION['modCommenti']/100;
-                }
-            }
-
+            calcoloModCommenti($elem);
+            if($_SESSION['modCommenti'] == 0) $modcommenti = 1/100;
+            else $modcommenti = $_SESSION['modCommenti']/100;
+            
             foreach($listaGiochi_json as $game){
                 array_push($pocketPixel, ($game->prezzoFinale)*5);
+                array_push($logAcquisti, new GameAcquistato($game->id_gioco, $game->titolo, $game->prezzoFinale));
             }
 
 
@@ -47,7 +53,7 @@ require_once 'serverUtility.php';
 
                 printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
             }
-            $queryLogin = "SELECT * FROM $table_users WHERE (Email=".$_SESSION['Email']." OR Username='".$_SESSION['username']."');";
+            $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_SESSION['Email']."' OR Username='".$_SESSION['userName']."');";
             $resultQ = mysqli_query(connectDB(), $queryLogin);
             $num = mysqli_num_rows($resultQ);
 
@@ -86,9 +92,87 @@ require_once 'serverUtility.php';
 
             }
 
-                $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE id_utente = $idUtenteLoggato;";
+                $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE ID = $idUtenteLoggato;";
                 mysqli_query(connectDB(), $updateQuery);
+                logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti);
+                return;
             
         }
     }
+    
+    function calcoloModCommenti($elem){
+        if(isset($_SESSION['userId'])){
+            $idUtenteLoggato = $_SESSION['userId'];
+            $rapporti = [];
+
+           
+
+            foreach($elem as $i){
+                $commentoId = $i->getElementsByTagName("Commento"); 
+                foreach($commentoId as $c){
+                 if($c->getAttribute("id_utente")==$idUtenteLoggato){
+                    $likeCommento = $c->getAttribute('like'); 
+                    $dislikeCommento = $c->getAttribute('dislike');
+                    if($dislikeCommento==0 || $likeCommento==0){
+                        $base = 1;
+                    }
+                    else $base = ($likeCommento/$dislikeCommento);
+                    array_push($rapporti, $base);
+                 }
+                }
+                }
+                $sommatoria = array_sum($rapporti);
+
+
+                return $sommatoria;
+            }
+            
+        }
+    
+
+    function logAcquistiRegister($idUtente, $logAcquisti, $modificatore){
+
+        $doc=getDoc('XML/LogTransizioniGiochi.xml');
+
+        $root =  $doc->documentElement;
+        $elem = $root->childNodes;
+        if($root->hasChildNodes()){
+            $num = $root->childNodes->length;
+            $nuovoIdTransizione = $num + 1;
+        }
+        else{
+            $nuovoIdTransizione = 1;
+        }
+
+        $nuovoLog = $doc->createElement("Transizione");
+        
+        $nuovoLog->setAttribute("IDTransizione",$nuovoIdTransizione);
+        $nuovoLog->setAttribute("ModCommentiUsato",$modificatore);
+        $nuovoLog->setAttribute("IDGiocatore", $idUtente);
+
+        
+
+        foreach($logAcquisti as $acquisto){
+            $GiocoInLog = $doc->createElement("Gioco");
+
+  
+            $idGioco = $doc->createElement("IDGioco", $acquisto->id_gioco);
+            $titolo = $doc->createElement("Titolo", $acquisto->titolo);
+            $data = $doc->createElement("DataOra",date("d/m/y H:i"));
+            $importoSpeso = $doc->createElement("Importo", $acquisto->prezzoFinale);
+
+            $GiocoInLog->appendChild($titolo);
+            $GiocoInLog->appendChild($idGioco);
+            $GiocoInLog->appendChild($data);
+            $GiocoInLog->appendChild($importoSpeso);
+
+            $nuovoLog->appendChild($GiocoInLog);
+            
+        }
+        $root->appendChild($nuovoLog);
+        $doc->save('XML/LogTransizioniGiochi.xml');
+        return;
+    }
 ?>
+
+ 

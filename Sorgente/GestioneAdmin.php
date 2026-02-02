@@ -271,33 +271,42 @@ if(isset($_POST['sospensione'])){
                     </form>
             </div>
             <div class="adminFunctions" id="card0">
-                <h1>Menu Funzioni admin</h1>
-                <div class="buttons">
-                <div class="sconti">
-                   <p>Vai alla pagina gestione sconti per gli utenti
-                    <button onclick="swapperInSettings()">  <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > </button></p>
-                </div>
-                <div class="modifica">
-                    <p>Modifica un gioco presente
-                    <button onclick="swapperInRicerca()"> <img src="Stile/Icone/modificaicon.png" alt="ricercabutton" ></button></p>
-                </div>
-                <div class="sospendi">
-                    <p>Sospendi/Riattiva un gioco dal catalogo
-                    <button onclick="swapperInSospensione()"> <img src="Stile/Icone/icona elenco.png" alt="sospendibutton" ></button></p>
-                </div>
-                <div class="tickets">
-                    <p>Gestisci i ticket degli utenti
-                    <button onclick="swapperInTickets()"> <img src="Stile/Icone/ticketicon.png" alt="ticketbutton" ></button></p>
-                </div>
-                <div class="gestioneUtenti">
-                    <p>Gestisci gli utenti iscritti
-                        <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
-                        alt="gestioneutentibutton">
-                    </button>
 
+                <h1>Menu Funzioni admin</h1>
+                
+                <div class="buttons">
+                    <div class="sconti">
+                    <p>- Vai alla pagina gestione sconti per gli utenti
+                        <button onclick="swapperInSettings()">  
+                            <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
+                        </button>
                     </p>
+                    </div>
+                    <div class="modifica">
+                        <p>- Modifica un gioco presente
+                        <button onclick="swapperInRicerca()">
+                             <img src="Stile/Icone/modificaicon.png" alt="ricercabutton" >
+                            </button>
+                            </p>
+                    </div>
+                    <div class="sospendi">
+                        <p>- Sospendi/Riattiva un gioco dal catalogo
+                        <button onclick="swapperInSospensione()"> <img src="Stile/Icone/icona elenco.png" alt="sospendibutton" ></button></p>
+                    </div>
+                    <div class="tickets">
+                        <p>- Gestisci i ticket degli utenti
+                        <button onclick="swapperInTickets()"> <img src="Stile/Icone/ticketicon.png" alt="ticketbutton" >
+                        </button>  
+                        </p>
+                    </div>
+                    <div class="gestioneUtenti">
+                        <p>- Gestisci gli utenti iscritti
+                            <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
+                            alt="gestioneutentibutton">
+                            </button>
+                        </p>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <div class="cardSettings hideCard" id="card1">
@@ -468,10 +477,16 @@ if(isset($_POST['sospensione'])){
                         
                     
                     
-                    <label for=\"nuovo_nome\">Titolo attuale:$titolo Nuovo Nome:</label>
-                    <input type=\"text\" id=\"nuovo_nome\" name=\"nuovo_nome\"></br>
-                    <label for=\"nuovo_prezzo\">Nuovo Prezzo (€):</label>
-                    <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\"></br>
+                    <p>
+                        <label for=\"nuovo_nome\">Titolo attuale:$titolo Nuovo Nome:</label>
+                        <input type=\"text\" id=\"nuovo_nome\" name=\"nuovo_nome\">
+                        </br>
+                    </p>
+                    <p> 
+                        <label for=\"nuovo_prezzo\">Nuovo Prezzo (€):</label>
+                        <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\"
+                        </br>
+                    </p>
                     <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
                     <input type=\"text\" id=\"nuova_descrizione\" name=\"nuova_descrizione\" ></br>
                     <label for=\"id_correlati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
@@ -482,13 +497,16 @@ if(isset($_POST['sospensione'])){
                     <input type=\"text\" id=\"Publisher\" name=\"Publisher\" ></br>
                     <label for=\"MediaRecensioniAdmin\" id=\"nuovaMediaRecensioniAdmin\" name=\"nuovaMediaRecensioniAdmin\"> Nuova media recensioni admin :</label>
                     <input type=\"text\" id=\"MediaRecensioniAdmin\" name=\"MediaRecensioniAdmin\" ></br>
-                    <label for=\"nuovo_genere\" id=\"nuovo_genere\" name=\"nuovo_genere\"> Nuovo genere :</label>
-                    <input type=\"text\" id=\"nuovo_genere\" name=\"nuovo_genere\" ></br>
+                    <p>
+                        <label for=\"nuovo_genere\" id=\"nuovo_genere\" name=\"nuovo_genere\"> Nuovo genere :</label>
+                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovo_genere\" ></br>
+                    </p>
 
                     
 
                     
                     <input type=\"submit\" name=\"modificaGioco\" value=\"Modifica Gioco\"></br>
+                    <p>
                     <label for=\"id_correlati_eliminati\">Rimuovi da ID Giochi Correlati:</label> ";
                     
                         $elemGiochi = xmlPointer('XML/Giochi.xml');
@@ -514,7 +532,7 @@ if(isset($_POST['sospensione'])){
                             
                     
                         }
-                        echo "<br><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\">";
+                        echo "<br><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
                     echo "</form>";
                     
 

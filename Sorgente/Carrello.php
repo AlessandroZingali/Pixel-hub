@@ -87,6 +87,7 @@ $servizioSconti = new scontiUtente($_SESSION['userId']);
 if(isset($_POST['Acquista'])){
     connectDB();
     $listaGiochi_json = json_decode($_SESSION['gameList']);
+    var_dump($listaGiochi_json);
 
     if (mysqli_connect_errno()){
 
@@ -119,12 +120,12 @@ if(isset($_POST['Acquista'])){
                         if($carrello->getAttribute('id_user')==$_SESSION['userId']){
                             $elemGioco = $carrello->getElementsByTagName('gioco');
                             $i=0;
+                            
                             foreach($elemGioco as $gioco){
                                 $nuovoGioco = $doc->createElement('idGiocoPosseduto', $gioco->getAttribute('id_gioco'));
                                 $nuovoGioco->setAttribute('data_acquisizione', date("d-m-Y"));
                                 $nuovoGioco->setAttribute('spesa', (float)$listaGiochi_json[$i]->prezzoFinale);
-                                
-                                
+  
                                 $listaGiochi->appendChild($nuovoGioco);
                                 $i++;
                                 
@@ -291,7 +292,7 @@ if(isset($_POST['buttonRimuovi'])){
                                             <th> Nome Gioco </th>
                                             <th> Prezzo Iniziale </th>
                                             <th> Prezzo Finale </th>
-                                            <th> Tipo Sconti </th>
+                                        
                                             <th> Sconti Applicati </th>
                                             <th> Sconto Totale</th>
                                             <th> Rimuovi </th>
@@ -346,13 +347,13 @@ if(isset($_POST['buttonRimuovi'])){
                                                     }
                                                     $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
                                                     $pageCart->aggiungiGioco($idGioco, $titolo, $prezzoIniziale, $prezzoFinale, $scontiSulGioco, $scontoFinale);
-                                                    $tiposconto = $servizioSconti->tipoScontoApplicato($idGioco);
+                                                    // $tiposconto = $servizioSconti->tipoScontoApplicato($idGioco);
                                                     
 
                                                     echo "<td><a href=\"Gamepage.php?titoloGioco= $titolo&idGioco=$idGioco\">$titolo</a></td>";
                                                     echo "<td>$prezzoIniziale €</td>";
                                                     echo "<td> $prezzoFinale €</td>";
-                                                    echo "<td> $tiposconto</td>";
+                                                    // echo "<td> $tiposconto</td>";
                                                     echo "<td>";
                                                     foreach($scontiSulGioco as $sconto){
                                                         echo "$sconto % ";
@@ -379,7 +380,7 @@ if(isset($_POST['buttonRimuovi'])){
                                         $totaleFinale = $pageCart->calcolaTotaleScontato();
                                         $risparmio = round($totaleIniziale - $totaleFinale, 2);
                                         $gameList_json = htmlspecialchars(json_encode($pageCart->listaGiochi), ENT_QUOTES, 'UTF-8');
-                                        $SESSION['gameList'] = $gameList_json;
+                                        $_SESSION['gameList'] = $gameList_json;
                                         
                                    echo " </table> 
                                     <form action=\"Carrello.php\" method=\"post\" id=\"formCarrello\">

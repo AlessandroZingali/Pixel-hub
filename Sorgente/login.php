@@ -3,6 +3,8 @@
 all'homepage. In caso contrario, attraverso varie espressioni regolari (attraverso preg_match) verra restituito qule è stato il problema nell'accesso.  */
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+
+require_once 'gestioneEsperienzauser.php';
 error_reporting(E_ALL &~E_NOTICE);
 session_start();
 // Se si apre la pagina si unsetta la sessione precendente togliendo i vari valori su session
@@ -17,6 +19,7 @@ if(isset($_SESSION['userId'])){
 // Variabili per la gestione degli esiti del login
 $esitovuoto="I campi sono vuoti";
 $esitoerrore="Email e/o password errati";
+$esitogrado="Hai grado zero! Non puoi accedere manda un messaggio agli admin.";
 $flag=1; // variabile di controllo per gli esiti
 
 // Se viene premuto il tasto accedi si effettua la connessione al DB e si fa partire la query di login
@@ -62,20 +65,34 @@ session_start();
         $_SESSION['Grado']=$row['Grado'];
         $_SESSION['Pixels']=$row['Pixels'];
         $_SESSION['Saldo']=$row['Saldo_attuale'];
+        $commenti=xmlPointer("XML/Commenti.xml");
+        $sommatoria = calcoloModCommenti($commenti);
+        $_SESSION['modCommenti'] = $sommatoria;
+
+        
+        
+
+        
         
         
         // Una volta fatto questo verremo reindirizzati alla Homepage
-        
-        header("Location: Homepage.php");
+        if($_SESSION['Grado']>0) header("Location: Homepage.php");
+        else if ($_SESSION['Grado'] == 0){ // Controllo se l'utente ha grado 0
+        $flag=4;
     }
-
-    else if($emailNickname==="" ?? $password ===""){ // Controllo se i campi sono vuoti
+    }
+    
+    if($flag != 4){
+    if($emailNickname==="" ?? $password ===""){ // Controllo se i campi sono vuoti
          $flag=2;
     }
 
     else if($num<1){ // Controllo se i dati inseriti sono errati
         $flag=3;
     }
+
+   } 
+
 }
     
 
@@ -118,6 +135,9 @@ session_start();
                     }
                     if($flag == 3){
                     echo "<div id=\"esito\"> <p>$esitoerrore</p> </div>"; 
+                    }
+                    if($flag == 4){
+                    echo "<div id=\"esito\"> <p>$esitogrado</p> </div>"; 
                     }
                     
                     ?>

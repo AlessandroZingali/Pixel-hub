@@ -1,14 +1,21 @@
 <?php 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
+require_once 'gestioneEsperienzauser.php';
+
 $service = 0; //0 = guest, 1 = logged in
 $utente = "";//nome utente loggato
+
 
 session_start();
 if(isset($_SESSION['userId'])){
     
     $utente = $_SESSION['userName'];
     $service = 1;
+    $commenti=xmlPointer("XML/Commenti.xml");
+    $sommatoria = calcoloModCommenti($commenti);
+    $mod = $_SESSION['modCommenti']/100;
+
 }
 
 
@@ -40,6 +47,8 @@ if(isset($_SESSION['userId'])){
         <!--Set dei vari file js, per la gestione del comportamento dei vari Slider e per la barra di ricerca dei giochi -->
         <script type="text/javascript" src="Script/GameTableGestione.js?v=3">  </script>
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
+        <script><?php echo "console.log(\"mod Commenti: ".$mod."\");"; ?></script>
+
     </head>
     <body>    
         <div id="container"><!--contenitore principale, interno al body -->
@@ -47,6 +56,7 @@ if(isset($_SESSION['userId'])){
             <div id="header"><!--header della pagina -->
                 <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
                 <h2>Il tuo shop preferito di videogiochi</h2>
+
             </div>
 
             <div id="navigation">
@@ -75,7 +85,8 @@ if(isset($_SESSION['userId'])){
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
 
-                            if($_SESSION['tipoUtente'] == '1'){
+                            if(isset($_SESSION['tipoUtente'])){
+                                if($_SESSION['tipoUtente'] == "1")
                                 echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
                             }
                         ?>

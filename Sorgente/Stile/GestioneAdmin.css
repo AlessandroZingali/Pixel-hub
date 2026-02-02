@@ -34,11 +34,54 @@
     border: none;
 }
 
-#card0,#card1,#card2,#card3,#card4,#card5{
+input[type="submit"]{
+    background-color: rgba(88, 83, 83, 0.322);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    margin-top: 1%;
+}
+
+    
+    input[type="text"]{
+        width: 20%;
+        background-color: beige;
+        border-radius: 10px;
+        padding: 10px;
+    
+    }
+
+#card1,#card2,#card3,#card4,#card5{
     margin: 15px;
+
 
     padding: 1%;
     border-radius: 15px;
     border-color: blue solid 3px;
     background-color: rgb(46, 40, 40);
+}
+
+#card0{
+    border-radius: 15px;
+    border-color: blue solid 3px;
+    background-color: rgb(46, 40, 40);
+    padding: 1%;
+
+    
+
+    img{
+        padding: 5px;
+    }
+
+    .buttons button:hover{
+        
+        background-color: rgba(63, 56, 56, 0.8);
+        box-shadow: 2px 2px 5px #000000;
+        border-radius: 80px;
+        transition: ease-in-out 0.4s;
+        
+    }
+
 }
