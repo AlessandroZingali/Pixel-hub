@@ -129,12 +129,7 @@ function modificaGiocoPreset(){
             else if(card.id === "card7" && card.classList.contains("hideCard")){
                 card.classList.remove("hideCard");
             }
-            else if(!(card.classList.contains("hideCard")) && card.id !== "card8"){
-                card.classList.add("hideCard");
-            }
-            else if(card.id === "card8" && card.classList.contains("hideCard")){
-                card.classList.remove("hideCard");
-            }
+            
         }); 
         console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
         sessionStorage.setItem("activeChange", "vuoto");

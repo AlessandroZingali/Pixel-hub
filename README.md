@@ -32,26 +32,28 @@ Parte 2
 - [x] creare database utenti sql 
 
 fix
-- pallini campi obbligatori
-- file apparte per la connessione al database
-- aggiunta giochi correlati sincroni
-- chi ha messo il commento non puo valutarlo
+- [x] pallini campi obbligatori
+- [x] file apparte per la connessione al database
+- [x] aggiunta giochi correlati sincroni
+- [x] chi ha messo il commento non puo valutarlo
 
 Parte 3
 
 
-- []  Acquisto giochi e carrello
-- [] Creare pagina sconti (da fare nel carrello?)
-- [] Creare funzione lettura ticket admin
-- [] Aggiunta  gioco da parte di gestore
+- [x]  Acquisto giochi e carrello
+- [x] Creare pagina sconti (da fare nel carrello?)
+- [x] Creare funzione lettura ticket admin
+- [x] Aggiunta  gioco da parte di gestore
+- [] Aggiungere modifica /inserimento sconti da gestore 
 - []  sospensione gioco per gestore
 - []  modifica gioco per gestore
-- []  Consulto pagina acquisti giochi di un utente
-- []  rimborso gioco
-- []  gestione rimborso gioco admin
-- []  Modificatore Commenti per il sistema dell'esperienza
-- []  sospensione gioco utente
-- []  Aggiunta domande nelle faq da admin
+- []  Consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
+- [] Mostrare sconti su Home e Catalogo
+- [x]  rimborso gioco
+- [x]  gestione rimborso gioco admin
+- [x]  Modificatore Commenti per il sistema dell'esperienza
+- [x]  sospensione gioco e utente
+- [x]  Aggiunta domande nelle faq da admin
       
 
 

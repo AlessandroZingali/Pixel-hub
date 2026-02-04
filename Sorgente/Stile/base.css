@@ -92,6 +92,11 @@ body{
     white-space: nowrap;
     height: 40px;
     padding: 10px;
+    a{
+        font-size: 90%;
+    }
+    
+ 
     
     border-radius: 80px;
    
@@ -165,6 +170,8 @@ del menu a cascata */
     border: none;
     border-radius: 20px;
 }
+
+
 
 
 #livesearch {

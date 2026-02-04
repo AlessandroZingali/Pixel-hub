@@ -11,11 +11,12 @@
     <DataDiUscita>2016</DataDiUscita>
     <Immagine>ImmaginiGiochi/overwatch_logo.png</Immagine>
     <Generi>Sparatutto</Generi>
-    <Disponibile>1</Disponibile>
+    <Disponibile>0</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
-      <idGiocoCorrelato/>
+      <idGiocoCorrelato>6</idGiocoCorrelato>
+      <idGiocoCorrelato>8</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="2">
@@ -47,7 +48,7 @@
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/cyberpunk2077_logo.png</Immagine>
     <Generi>RPG</Generi>
-    <Disponibile>0</Disponibile>
+    <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>78.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
@@ -416,11 +417,11 @@
   </Gioco>
   <Gioco id_gioco="23">
     <Titolo>Final Fantasy Tacticts: The Ivalice Chronicles</Titolo>
-    <Prezzo>29.99</Prezzo>
+    <Prezzo>229.99</Prezzo>
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
-    <Publisher>Blizzard Ent.</Publisher>
+    <Publisher>Lucagame</Publisher>
     <Descrizione>Combatti alla conquista della galassiaVivi il gioco che ha ridefinito il genere della strategia in tempo reale.Terran, Zerg o Protoss.Hai la stoffa per diventare il prossimo comandante supremo della galassia?</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
+    <RequisitiMinimi> OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/Final_Fantasy_Tactics_-_The_Ivalice_Chronicles_cover.jpg</Immagine>
@@ -431,6 +432,25 @@
     <TitoliCorrelati>
       <idGiocoCorrelato>11</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+  <Gioco id_gioco="24">
+    <Titolo>Terraria</Titolo>
+    <Prezzo>10</Prezzo>
+    <CasaSviluppo>Re-Logic</CasaSviluppo>
+    <Publisher>Re-Logic</Publisher>
+    <Descrizione>Meglio di minecraft</Descrizione>
+    <RequisitiMinimi>Potato</RequisitiMinimi>
+    <RequisitiRaccomandati>Potato con 32gb di ram per le mod</RequisitiRaccomandati>
+    <DataDiUscita>16/05/2011</DataDiUscita>
+    <Immagine>ImmaginiGiochi\Terraria_portrait_cover.jpg</Immagine>
+    <Generi>Avventura</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>100</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>1</idGiocoCorrelato>
+      <idGiocoCorrelato>2</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
 </TabellaGiochi>

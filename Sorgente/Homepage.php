@@ -67,6 +67,8 @@ if(isset($_SESSION['userId'])){
                         <li><a href="catalogo.php">Catalogo </a></li>
                         <li><a href="carrello.php">Carrello </a></li>
                         <?php
+
+
                             
                             if($service == 0){
                                 if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
@@ -89,6 +91,11 @@ if(isset($_SESSION['userId'])){
                                 if($_SESSION['tipoUtente'] == "1")
                                 echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
                             }
+                            if(isset($_SESSION['tipoUtente'])){
+                                if($_SESSION['tipoUtente'] == "2")
+                                echo "<li><a href=\"gestionePublisher.php\">A</a></li>";
+                            }
+
                         ?>
                     </ul>
                 </div>

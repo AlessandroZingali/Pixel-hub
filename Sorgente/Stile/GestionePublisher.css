@@ -5,42 +5,6 @@
     src: url('PixelatedElegance.ttf');
 }
 
-#TabellaTicket{
-        margin-top: 2%;
-    border: solid 4px pink;
-    border-radius: 15px;
-    text-align: center;
-
-    #ColTicket{
-        width:30%;
-        border: solid blue 2px;
-        border-radius: 15px;
-        background-color: rgb(49, 76, 151);
-    }
-    #ColInv{
-        width: 70%;
-        border: solid red 2px;
-        border-radius: 15px;
-        background-color: rgb(172, 42, 42);
-    }
-    td{
-        background-color: #434343;
-        padding: 30px;
-        border-radius: 15px;
-
-    }
-
-    button{
-        background-color: rgba(63, 56, 56, 0.493);
-        color: rgb(255, 255, 255);
-        padding: 10px;
-        border: none;
-        border-radius: 20px;
-        width: 100%;
-    }
-}
-
-
 
 .hideCard{display: none;}
 
@@ -119,7 +83,7 @@ input[type="text"],textarea{
     }
 
 }
-#card1,#card2,#card3,#card4,#card5,#card6,#card7,#card8,#card9{
+#card1,#card2,#card3,#card4{
     
     h1{
         text-align: center;
@@ -133,32 +97,3 @@ input[type="text"],textarea{
     background-color: rgb(46, 40, 40);
 }
 
-#rimborsi{
-   padding: 10px;
-   border-radius: 15px;
-   border: white solid 3px;
-
-    th{
-        width: 10%;
-    }
-
-    td{
-    background-color: gray;
-    border-radius: 15px;
-    text-align: right;
-    padding: 1%;
-    height: 50px;
-    }
-     #transazione{
- 
-        td{
-            background-color: rgba(118, 236, 39, 0.521);
-        }
-     }
-     #giochiacquistati{
-        td{
-            background-color: rgb(92, 92, 189);
-        }
-
-     }
-}

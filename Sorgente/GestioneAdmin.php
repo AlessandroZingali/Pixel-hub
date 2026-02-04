@@ -66,11 +66,7 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 }
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $id_gioco = $_POST['id_da_modificare'];
-    if(isset($_POST['nuovo_nome'])) $nuovo_nome = $_POST['nuovo_nome'];
-    if(isset($_POST['nuovo_prezzo']))$nuovo_prezzo = $_POST['nuovo_prezzo'];
-    if(isset($_POST['nuova_descrizione']))$nuova_descrizione = $_POST['nuova_descrizione'];
-    if(isset($_POST['CasaSviluppo']))$nuovaCasa = $_POST['CasaSviluppo'];
-    if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
+
 
     $xml = getDoc('XML/Giochi.xml');
     $root = $xml->documentElement;
@@ -80,13 +76,29 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
         if ($gioco->getAttribute('id_gioco') == $id_gioco) {
             // var_dump($gioco);
             // echo "<script>console.log($gioco);</script>";
-            if(isset($nuovo_nome)) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $nuovo_nome; 
+
+             
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_nome']);
+
             
-             if(isset($nuovo_prezzo)) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = htmlspecialchars($nuovo_prezzo);
-             if(!empty($nuova_descrizione)) $gioco->getElementsByTagName("Descrizione")->item(0)->nodeValue = htmlspecialchars($nuova_descrizione);
-             if(!empty($nuovaCasa)) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->nodeValue = htmlspecialchars($nuovaCasa);
-             if(!empty($_POST['Publisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->nodeValue = htmlspecialchars($_POST['Publisher']);
-             if(!empty($_POST['MediaRecensioniAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['MediaRecensioniAdmin']);
+            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_prezzo']);
+
+
+            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaCasa']);
+
+            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoPublisher']);
+            
+            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->nodeValue = htmlspecialchars($_POST['nuoviReqMin']);
+            
+            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->nodeValue = htmlspecialchars($_POST['nuova_descrizione']);
+
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaMediaAdmin']);
+
+            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaData']);
+
+            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoGenere']);
+            
+            if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
 
              // Aggiorna i giochi correlati
              if(!empty($id_correlati)){ 
@@ -200,6 +212,78 @@ if(isset($_POST['sospensione'])){
         printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 }
+
+if(isset($_POST["richiediRimborso"])){
+
+    $table_users='Tabella_Utenti';
+    $id_utente = $_POST['id_user_rimborso'];
+    $baseDB = connectDB();
+
+    if (mysqli_connect_errno()) {
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
+
+
+    $sql ="SELECT * FROM $table_users WHERE ID=\"".$_POST['id_user_rimborso']."\";";
+    
+    $resultQ = mysqli_query($baseDB, $sql);
+    $num = mysqli_num_rows($resultQ);
+    if($num == 1){
+        $row=mysqli_fetch_array($resultQ);
+        
+        $esperienzaDedotta= $row['Esperienza']-($_POST['pixels_da_togliere']*$_POST['modCommentiPrecedente']);
+
+        $pixelsDedotti = $row['Pixels'] - $_POST['pixels_da_togliere'];
+        
+        $saldoDaAggiungere = $row['Saldo_attuale'] + $_POST['importo'];
+        
+        $sql ="UPDATE $table_users SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere WHERE ID=\"".$_POST['id_user_rimborso']."\";";
+        if(mysqli_query($baseDB, $sql)){
+        $docUtente = getDoc("XML/utenti.xml");
+        $docLog = getDoc("XML/LogTransazioniGiochi.xml");
+
+        $rootUtente = $docUtente->documentElement;
+        $elemUtente = $rootUtente->childNodes;
+
+        foreach($elemUtente as $utente){
+            $listaGiochi = $utente->getElementsByTagName("listaGiochi");
+
+
+            foreach($listaGiochi as $gioco){
+                if($gioco->textContent == $_POST['id_gioco_rimborso']){
+                    $gioco->parentNode->removeChild($gioco);
+                    break;
+                }
+            }
+
+            $docUtente->save('XML/utenti.xml');
+        }
+
+        $rootLog = $docLog->documentElement;
+        $elemLog = $rootLog->childNodes;
+
+        foreach($elemLog as $log){
+            if($log->getAttribute('IDTransazione') == $_POST['id_transazione_rimborso'] && $log->getAttribute('IDGiocatore') == $_POST['id_user_rimborso']){
+                $listaGiochi = $log->getElementsByTagName('Gioco');
+                foreach($listaGiochi as $gioco){
+                    if($gioco->getElementsByTagName('IDGioco')->item(0)->textContent == $_POST['id_gioco_rimborso']){
+                        $gioco->parentNode->removeChild($gioco);
+                        break;
+                    }
+                }
+                if(!($log->hasChildNodes())){
+                    $log->parentNode->removeChild($log);
+                }
+            }
+        }
+        $docLog->save('XML/LogTransazioniGiochi.xml');
+        header('Location: GestioneAdmin.php');
+        } else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        }
+    }
+    
+}
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -219,9 +303,8 @@ if(isset($_POST['sospensione'])){
         
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
         <script type="text/javascript" src="Script/cardGestioneAdminChanger.js"></script>
-        
-        
-      
+        <script type="text/javascript" src="Script/scriptMail.js"></script>
+
     </head>
     <body>    
         <div id="container">
@@ -269,43 +352,47 @@ if(isset($_POST['sospensione'])){
                     </form>
             </div>
             <div class="adminFunctions" id="card0">
+                <!-- card 0 di menu -->
 
                 <h1>Menu Funzioni admin</h1>
                 
                 <div class="buttons">
                     <div class="sconti">
-                    <p>- Vai alla pagina gestione sconti per gli utenti
+                    <p> - Vai alla pagina gestione sconti per gli utenti
+                        <!-- accedi alla card 2 nascondi la card 0 -->
                         <button onclick="swapperInSettings()">  
                             <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
                         </button>
                     </p>
                     </div>
                     <div class="modifica">
-                        <p>- Modifica un gioco presente
+                        <p>- Modifica un gioco presente - >
+                        <!-- accedi alla card 4 nascondi la card 0 -->
                         <button onclick="swapperInRicerca()">
                              <img src="Stile/Icone/modificaicon.png" alt="ricercabutton" >
                             </button>
                             </p>
                     </div>
                     <div class="sospendi">
-                        <p>- Sospendi/Riattiva un gioco dal catalogo
+                        <p>- Sospendi/Riattiva un gioco dal catalogo - >
                         <button onclick="swapperInSospensione()"> <img src="Stile/Icone/icona elenco.png" alt="sospendibutton" ></button></p>
                     </div>
                     <div class="tickets">
-                        <p>- Gestisci i ticket degli utenti
+                        <p>- Gestisci i ticket degli utenti - >
+                        <!-- accedi alla card 1 nascondi la card 0 -->
                         <button onclick="swapperInTickets()"> <img src="Stile/Icone/ticketicon.png" alt="ticketbutton" >
                         </button>  
                         </p>
                     </div>
                     <div class="gestioneUtenti">
-                        <p>- Gestisci gli utenti iscritti
+                        <p>- Gestisci gli utenti iscritti - >
                             <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
                             alt="gestioneutentibutton">
                             </button>
                         </p>
                     </div>
                     <div class="gestioneRimborsi">
-                        <p>- Gestisci i rimborsi
+                        <p>- Gestisci i rimborsi - >
                             <button onclick="swapperInSearchUtenteRim()"> <img src="Stile/Icone/rimborsiicon.png" alt="rimborsibutton" >
                         </button>  
                         </p>
@@ -315,33 +402,28 @@ if(isset($_POST['sospensione'])){
 
             <div class="cardSettings hideCard" id="card1">
 
-                <div class="buttons">
-                    <div class="backarrow">
-                        <button onclick="swapperInTickets()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
-                    </div>
-                </div>
                 <!-- Card di gestione ticket  -->
                 <h1>Gestione Ticket Utenti</h1>
 
-
-                
-
                 <table id="TabellaTicket">
                     <tr>
-                        
-                        <th id="ColDom">
-                            Domanda
+                      
+                        <th id="ColTicket">
+                            Num.Ticket &
+                            Num.Utente
                         </th>          
                     
 
                         
-                        <th id="ColRis">
-                            Risposta
+                        <th id="ColTesto">
+                            Testo Ticket
                         </th> 
 
                         <th id="ColInv">
-                            Invia
+                            Risposta
                         </th>
+
+                        <th>Invia</th>
                         
                     </tr>
                     <!-- Ciclo PHP per l'estrazione delle domande e risposte dal file XML -->
@@ -350,22 +432,29 @@ if(isset($_POST['sospensione'])){
                 
                         //Ciclo per l'estrazione delle domande e risposte
                         foreach($elem as $tickets){
-                            
+                        $idTicket = $tickets->getAttribute('id_ticket');
+                        $idUtenteDestinatario = $tickets->getAttribute('id_utente');
+                        $testo = $tickets->getElementsByTagName("text")->item(0)->textContent;
 
-                        $testo = $tickets->getElementsByTagName("text")->item(0)->nodeValue;
 
-
-                            echo " <tr>
+                            echo " <tr id=\"ticketN$idTicket\">
+                            <td>Ticket N.$idTicket</br> Utente ID: $idUtenteDestinatario</td>
                             <td>$testo</td>
-                            <td><textarea id='RispostaTicket'> </textarea> </td>
-                            <td><input type='submit' value='Invia'></td>
+                            <td><textarea name='RispostaTicket' id='RispostaTicketN$idTicket'> </textarea> </td>
+                            <td><button  type=\"button\" name='Invia Mail' onclick='mailSender($idTicket, $idUtenteDestinatario)'>Invia Mail</button></td>
                             
                             
                             </tr>";
 
                         }  
-                        ?> 
+                    ?>
+
                 </table>
+                 <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInTickets()">  <img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
+                    </div>
+                </div>
             
             
             </div>
@@ -373,7 +462,7 @@ if(isset($_POST['sospensione'])){
 
             <div class="cardSettings hideCard" id="card2">
                 
-            <h1>Gestione Sconti e Rimborsi</h1>
+            
 
 
         
@@ -404,7 +493,11 @@ if(isset($_POST['sospensione'])){
                     
             }
             ?>
-            
+             <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInSettings()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
+                    </div>
+                </div>
 
 
             <!-- Funzione admin:rimborso  -->
@@ -431,11 +524,7 @@ if(isset($_POST['sospensione'])){
             </div>
 
             <div class="cardSettings hideCard" id="card3">
-                <div class="buttons">
-                    <div class="backarrow">
-                        <button onclick="swapperInModificaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
-                    </div>
-                </div>
+
 
 
                 <h1>Modifica Gioco</h1>
@@ -453,6 +542,26 @@ if(isset($_POST['sospensione'])){
                             if($gioco->getAttribute('id_gioco') == $_POST['id_gioco_modifica']){
                                 $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                                 $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                                $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
+                                $casaSviluppo = $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent;
+                                $dataUscita = $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent;
+                                $generi = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                                $descrizione = $gioco->getElementsByTagName("Descrizione")->item(0)->textContent;
+                                $mediaAdmin = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
+                              
+                                $requisitiMin = $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent;
+                                $requisitiRac = $gioco->getElementsByTagName("RequisitiRaccomandati")->item(0)->textContent;
+
+                                $ids = [];
+
+                                $correlatiNode = $gioco->getElementsByTagName("idGiocoCorrelato");
+                                foreach ($correlatiNode as $nodo) {
+                                    $ids[] = $nodo->nodeValue;
+                                }
+
+                                $correlati = implode(", ", $ids);
+
+                                 
                                 
 
                             }
@@ -464,30 +573,57 @@ if(isset($_POST['sospensione'])){
                     
                         
                     
-                    
+       
                     <p>
-                        <label for=\"nuovo_nome\">Titolo attuale:$titolo Nuovo Nome:</label>
-                        <input type=\"text\" id=\"nuovo_nome\" name=\"nuovo_nome\">
-                        </br>
+                        <label for=\"nuovo_nome\"> Nuovo Nome:</label>
+                        <input type=\"text\" id=\"nuovo_nome\" name=\"nuovo_nome\" value=\"$titolo\"> </br>
+                       
                     </p>
                     <p> 
                         <label for=\"nuovo_prezzo\">Nuovo Prezzo (€):</label>
-                        <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\"
-                        </br>
+                        <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\" value=\"$prezzo\" ></br>
+                        
                     </p>
-                    <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
-                    <input type=\"text\" id=\"nuova_descrizione\" name=\"nuova_descrizione\" ></br>
-                    <label for=\"id_correlati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
-                    <input type=\"text\" id=\"id_correlati\" name=\"id_correlati\"></br>
-                    <label for=\"CasaSviluppo\" id=\"nuovaCasa\" name=\"nuovaCasa\"> Nuova casa di sviluppo :</label>
-                    <input type=\"text\" id=\"CasaSviluppo\" name=\"CasaSviluppo\" ></br>
-                    <label for=\"Publisher\" id=\"nuovoPublisher\" name=\"nuovoPublisher\"> Nuovo publisher :</label>
-                    <input type=\"text\" id=\"Publisher\" name=\"Publisher\" ></br>
-                    <label for=\"MediaRecensioniAdmin\" id=\"nuovaMediaRecensioniAdmin\" name=\"nuovaMediaRecensioniAdmin\"> Nuova media recensioni admin :</label>
-                    <input type=\"text\" id=\"MediaRecensioniAdmin\" name=\"MediaRecensioniAdmin\" ></br>
+
+                    
                     <p>
-                        <label for=\"nuovo_genere\" id=\"nuovo_genere\" name=\"nuovo_genere\"> Nuovo genere :</label>
-                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovo_genere\" ></br>
+                        <label for=\"CasaSviluppo\"> Nuova casa di sviluppo :</label>
+                        <input type=\"text\" id=\"CasaSviluppo\" name=\"nuovaCasa\" value=\"$casaSviluppo\" ></br>
+                    </p>
+                    <p>
+                        <label for=\"Publisher\"> Nuovo publisher :</label>
+                        <input type=\"text\" id=\"Publisher\" name=\"nuovoPublisher\" value=\"$publisher\" ></br>
+                    </p>                    
+                    <p>
+                        <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
+                        <textarea id=\"nuova_descrizione\" name=\"nuova_descrizione\"  >$descrizione</textarea></br>
+                    </p>
+                    <p>
+                        <label for=\"nuovi_requisiti_min\">Nuovi Requisiti minimi:</label>
+                        <textarea id=\"nuovi_requisiti_min\" name=\"nuoviReqMin\"  > $requisitiMin </textarea></br>
+                    </p>
+                    <p>
+                        <label for=\"nuovi_requisiti_rac\">Nuovi Requisiti minimi:</label>
+                        <textarea id=\"nuovi_requisiti_rac\" name=\"nuoviReqRac\"  > $requisitiRac </textarea></br>
+                    </p>
+                    <p>
+                        <label for=\"MediaRecensioniAdmin\" > Nuova media recensioni admin :</label>
+                        <input type=\"text\" id=\"MediaRecensioniAdmin\" name=\"nuovaMediaAdmin\" value=\"$mediaAdmin\" ></br>
+                    </p>
+
+                    <p>
+                        <label for=\"DataUscita\"> Nuovo data di uscita :</label>
+                        <input type=\"text\" id=\"DataUscita\" name=\"nuovaData\" value=\"$dataUscita\"></br>
+                    </p>
+
+                    <p>
+                        <label for=\"nuovo_genere\"> Nuovo genere :</label>
+                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovoGenere\" value=\"$generi\"></br>
+                    </p>
+                    
+                    <p>
+                        <label for=\"IdCorrelati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
+                        <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"$correlati\"></br>
                     </p>
 
                     
@@ -528,7 +664,12 @@ if(isset($_POST['sospensione'])){
                 }
                             
                     ?>
-  
+                    
+                  <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInModificaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
+                    </div>
+                </div>
                 
             </div>
             <div class="cardSettings hideCard" id="card5">
@@ -672,6 +813,26 @@ if(isset($_POST['sospensione'])){
                 <h1>Lista Rimborsi </h1>
                 <?php 
                  
+                    $table_users='Tabella_Utenti';
+                    $id_utente = $_POST['id_user_gestione'];
+                    connectDB();
+
+                    if (mysqli_connect_errno()) {
+                        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                    }
+
+                    $query="SELECT * FROM $table_users WHERE ID=$id_utente";
+
+                    $result = mysqli_query(connectDB(), $query);
+
+                    if ($result) {
+                        $row = mysqli_fetch_array($result);
+                        $pixelAttuali = $row['Pixels'];
+                    } else {
+                        echo "<h2>Utente non trovato</h2>";
+                    }
+
+
                 $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
                 foreach($elem as $trans){
                     if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
@@ -693,27 +854,33 @@ if(isset($_POST['sospensione'])){
                         echo '<td>'.$idUser.'</td>';
                         echo '<td> '.$trans->getAttribute('DataOra').'</td>';
                         echo '<td> '.(float)$modCommenti.' </td>';
-                        echo '<td>'.$pixels.'</td>';
+                        echo '<td>'.$pixels.'->'.$pixelAttuali.'</td>';
+ 
                         $giochi = $trans->getElementsByTagName("Gioco");
                         echo "</tr>
                                 <tr>
                                     <th>ID Gioco</th>
                                     <th id=\"colTitolo\">Titolo</th>
                                     <th>Importo(€)</th>
+                                    <th>Pixel Guadagnati</th>
                                     <th>Annullare Acquisto?</th>
                                 </tr>";
                        
                         foreach($giochi as $gioco){
-                            echo "<tr>";
+                            echo "<tr id=\"giochiacquistati\">";
                             echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
-                            echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";   
-                            echo "<td>".$gioco->getElementsByTagName("Importo")->item(0)->textContent."€</td>";
+                            echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";
+                            $importo = (float)$gioco->getElementsByTagName("Importo")->item(0)->textContent;   
+                            echo "<td>".$importo."€</td>";
+                            $pixelGuadagnati = $importo*5;
+                            echo"<td>$pixelGuadagnati</td>";
                             echo "<td><form method='post' action='GestioneAdmin.php'>
                                     <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
                                     <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
                                     <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
-                                    <input type='hidden' name='pixelsPrecedenti' value='".$pixels."'>
+                                    <input type='hidden' name='pixels_da_togliere' value='".$pixelGuadagnati."'>
                                     <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
+                                    <input type='hidden' name='importo' value='".$importo."'>
                                     <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
                                   </form></td>";
                             echo "</tr>";      

@@ -6,12 +6,13 @@
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="19.99">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="14.99">5</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="59.99">9</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="49.99">10</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="39.99">6</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="59.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="39.99">13</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>1</idPropic>
@@ -25,6 +26,8 @@
     <GenerePreferito>Sparatutto</GenerePreferito>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="01-02-2026" spesa="0">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="59.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="39.99">6</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic/>
   </Utente>

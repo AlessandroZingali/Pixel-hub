@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaTicket xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Ticket_XML_schema.xsd">
-  <ticket id_ticket="1" id_utente="1" data="26/01/2026" ore="17" minuti="19">
-    <text>Helloh</text>
+  <ticket id_ticket="1" id_utente="1" data="03/02/2026" ore="17" minuti="33">
+    <text>Segnalo un errore, i miei pixel sono troppo pochi!</text>
   </ticket>
 </listaTicket>

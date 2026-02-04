@@ -11,4 +11,10 @@
       <prezzo>14.99</prezzo>
     </gioco>
   </Carrello>
+  <Carrello id_user="2" id_cart="3">
+    <gioco id_gioco="6">
+      <titolo>Helldivers II</titolo>
+      <prezzo>39.99</prezzo>
+    </gioco>
+  </Carrello>
 </listaCarrelli>
