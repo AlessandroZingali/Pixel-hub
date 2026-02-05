@@ -83,7 +83,7 @@ input[type="text"],textarea{
     }
 
 }
-#card1,#card2,#card3,#card4{
+#card1,#card2,#card3,#card4,#card5{
     
     h1{
         text-align: center;
@@ -96,4 +96,25 @@ input[type="text"],textarea{
     border-color: blue solid 3px;
     background-color: rgb(46, 40, 40);
 }
+
+.scontiAttiviPublisher{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    li{
+        margin-bottom: 5px;
+    }
+ 
+}
+
+.scontiAttiviPublisher li{
+        margin-bottom: 10px;
+    }
+ 
 
