@@ -24,6 +24,16 @@ function swapperInStore(){ //Funzione per lo scambio di card tra profilo e store
     cardStore.classList.toggle("hideCard");
 }
 
+function swapperInLibreria(){ //Funzione per lo scambio di card tra profilo e store
+    var cardProfilo = document.getElementById("card1"); //Prendo la card del profilo tramite il document
+    console.log("Ris: "+cardProfilo);
+    var cardLibreria = document.getElementById("card4"); //Prendo la card dello store tramite il document
+
+    //Uso classList.toggle per aggiungere/rimuovere la classe hideCard
+    cardProfilo.classList.toggle("hideCard");
+    cardLibreria.classList.toggle("hideCard");
+}
+
 //Funzione per la gestione degli errori restituiti dalle logiche iniziali alla pagina profilo
 function invalidation(){
     //Prendo il flag dal localStorage, salvato precederentemente 

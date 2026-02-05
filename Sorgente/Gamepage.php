@@ -831,7 +831,7 @@ echo "";
                                         $row=mysqli_fetch_array($resultQ);
                                         $nomeUtenteCommento = $row['Username'];
                                         echo "<div class=\"commentoUtente\">
-                                                <div><h4>$nomeUtenteCommento</h4></div>
+                                                <div><a href=\"ProfiloEsterno.php?idUtenteExt=$idUtenteCommento\"><h4>$nomeUtenteCommento</h4></a></div>
                                                 <div><p>$commentoTesto</p></div>
                                                 <div class=\"likeAndDateContainer\">
                                                     <div class=\"dataCommento\"> <p>Data: $dataCommento - $oraCommento : $minutoCommento </p> </div>

@@ -138,7 +138,9 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $utente->appendChild($doc->createElement("DataIscrizione", date("d-m-Y")));
                                 $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
                                 $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
+                                $utente->appendChild($doc->createElement("Descrizione"));
                                 $utente->appendChild($doc->createElement("listaGiochi"));
+                                
                                 $utente->appendChild($doc->createElement("listaPropic"));
                                 //all interno dei nodi figli di utente si inseriscono i dati secondari "meno importanti" e vengono parzialmente popolati
 

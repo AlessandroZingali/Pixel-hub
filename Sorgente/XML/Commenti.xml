@@ -14,6 +14,10 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="7">
+    <Commento id_commento="3" id_utente="2" data="05/02/2026" ore="12" minuti="43" like="0" dislike="0">
+      <text>Spettacolo&#13;
+</text>
+    </Commento>
     <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0" segnalazioni="1">
       <text>Yeeeee</text>
     </Commento>

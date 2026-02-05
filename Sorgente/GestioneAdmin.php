@@ -78,27 +78,28 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             // echo "<script>console.log($gioco);</script>";
 
              
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_nome']);
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovo_nome'];
 
             
-            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_prezzo']);
+            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
 
 
-            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaCasa']);
+            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
 
-            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoPublisher']);
+            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
             
-            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->nodeValue = htmlspecialchars($_POST['nuoviReqMin']);
+            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
             
-            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->nodeValue = htmlspecialchars($_POST['nuova_descrizione']);
+            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
 
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaMediaAdmin']);
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovaMediaAdmin'];
 
-            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaData']);
+            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
 
-            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoGenere']);
+            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
             
             if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
+
 
              // Aggiorna i giochi correlati
              if(!empty($id_correlati)){ 

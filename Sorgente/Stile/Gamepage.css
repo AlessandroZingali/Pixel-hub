@@ -133,6 +133,10 @@ max-width: 600px;
     padding-top: 2%;
     margin-bottom: 20px;
 
+    a{
+    text-decoration: none;
+    color: rgb(0, 208, 255);
+}
 }
 
 /* Stile Commenti */

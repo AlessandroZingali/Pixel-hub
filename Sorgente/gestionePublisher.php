@@ -4,6 +4,7 @@ require 'serverUtility.php';
 
 $service = 0;
 $utente = "";
+$inBound = true;
 
 session_start();
 if($_SESSION['tipoUtente'] == '2'){
@@ -108,26 +109,34 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             // echo "<script>console.log($gioco);</script>";
 
              
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_nome']);
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovo_nome'];
 
             
-            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovo_prezzo']);
+            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
 
 
-            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaCasa']);
+            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
 
-            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoPublisher']);
+            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
             
-            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->nodeValue = htmlspecialchars($_POST['nuoviReqMin']);
+            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
             
-            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->nodeValue = htmlspecialchars($_POST['nuova_descrizione']);
+            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
 
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaMediaAdmin']);
+            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovaMediaAdmin'];
 
-            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->nodeValue = htmlspecialchars($_POST['nuovaData']);
+            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
 
-            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->nodeValue = htmlspecialchars($_POST['nuovoGenere']);
-            
+            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
+
+            if(isset($_POST['nuovaDisponibilità'])) {
+                if($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 0){
+                    $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 1;
+                }
+            else if ($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 1){
+            $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 0;
+                }
+            }
             if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
 
              // Aggiorna i giochi correlati
@@ -176,6 +185,88 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     header("Location: GestionePublisher.php");
 }
+
+if(isset($_POST['aggiornaScontiPublisher'])){
+    $sommaFinaleSconti = [];
+    foreach ($_POST as $chiave => $valore) {
+        // Trova le checkbox "sconto" + numero
+        if (preg_match('/^sconto(\d+)$/', $chiave, $matches)) {
+            $indice = $matches[1]; 
+            
+            // Prendi il valore del select corrispondente
+            $valoreSconto = $_POST["valoreSconto$indice"] ?? null;
+
+            if($valoreSconto>0) array_push($sommaFinaleSconti, $valoreSconto);
+        }
+    }
+    $ris=array_sum($sommaFinaleSconti);
+    if($ris>30) $inBound = false;
+
+    if($inBound){
+        $docSconti = getDoc('XML/Sconti.xml');
+        $root = $docSconti->documentElement;
+        $elemSconti = $root->childNodes;
+
+        foreach($elemSconti as $sconto){
+            $scontoType = $sconto->getAttribute('id_tipoSconto');
+            // $_POST[$chiave] con $chiave = "sconto".$scontoType
+        }
+
+
+    }
+}
+
+if ((isset($_POST["gestioneScontiPublisher"]) && (!empty($_POST['id_gioco_publisher']) || !empty($_POST['name_gioco_publisher']))) || $inBound == false) {
+    
+    $listaSconti = [];
+    if($inBound){
+        if(!empty($_POST['name_gioco_publisher']) && empty($_POST['id_gioco_publisher'])){
+        $elemGiochi = xmlPointer("XML/Giochi.xml");
+
+        foreach($elemGiochi as $gioco){
+            if($gioco->getElementsByTagName('Titolo')->item(0)->textContent == $_POST['name_gioco_publisher']) $idGioco = $gioco->getAttribute('id_gioco');
+        }
+    }
+        else if(!empty($_POST['id_gioco_publisher'])){
+            $idGioco = $_POST['id_gioco_publisher'];
+        }
+
+        if(empty($_POST['name_gioco_publisher'])){
+            $elemGiochi = xmlPointer("XML/Giochi.xml");
+
+            foreach($elemGiochi as $gioco){
+                if($gioco->getAttribute('id_gioco') == $_POST['id_gioco_publisher']) $nomeGioco = $gioco->getElementsByTagName('Titolo')->item(0)->textContent;
+            }
+        }
+        else $nomeGioco = $_POST['name_gioco_publisher'];
+
+    }
+    else{
+        $idGioco = $_POST['id_gioco_sconto'];
+        $elemGiochi = xmlPointer("XML/Giochi.xml");
+
+        foreach($elemGiochi as $gioco){
+            if($gioco->getAttribute('id_gioco') == $idGioco) $nomeGioco = $gioco->getElementsByTagName('Titolo')->item(0)->textContent;
+        }
+    }
+    
+    $elem = xmlPointer('XML/Sconti.xml');
+
+    foreach($elem as $sconto){
+        $type = $sconto->getAttribute('id_tipoSconto');
+        foreach($sconto->childNodes as $gioco){
+            $riga =[];
+            if($idGioco == $gioco->item(0)->textContent){
+                $riga = ['tipoSconto' => $type, 'valoreSconto' => $gioco->getAttribute('valoreSconto')];
+                array_push($listaSconti, $riga);
+            }
+        }
+    }
+
+}
+else if((empty($_POST['id_gioco_publisher']) && empty($_POST['name_gioco_publisher'])) && $inBound) $campiVuoti = 'Campi Vuoti';
+
+
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -188,9 +279,12 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" />
 
         <?php 
-            if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
-            else if (isset($_POST['cercaGiocoDaSosp']) && !empty($_POST['id_gioco_da_sosp'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"Sospendi\");</script>";
-            else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
+            if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) 
+                echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
+
+            else if (isset($_POST['cercaGiocoDaSosp']) && !empty($_POST['id_gioco_da_sosp'])) 
+                echo "<script>sessionStorage.setItem(\"activeChange\", \"Sospendi\");</script>";
+
             else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
         ?> 
         
@@ -276,18 +370,13 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                     </div>
                     <div class="sconti">
                     <p> - Vai alla pagina gestione sconti dei miei giochi
-                        <!-- accedi alla card 2 nascondi la card 0 -->
-                        <button onclick="swapperInCercaGioco()">  
+                        <!-- accedi alla card 4 nascondi la card 0 -->
+                        <button onclick="swapperInGestioneSconti()">  
                             <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
                         </button>
                     </p>
                     </div>
-                  
-                    <div class="sospendi">
-                        <!-- accedi alla card 4 nascondi la 0 -->
-                        <p>- Sospendi/Riattiva un gioco dal catalogo - >
-                        <button onclick="swapperInSospensione()"> <img src="Stile/Icone/icona elenco.png" alt="sospendibutton" ></button></p>
-                    </div>
+    
                 
 
                 </div>
@@ -469,6 +558,7 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                                 $generi = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
                                 $descrizione = $gioco->getElementsByTagName("Descrizione")->item(0)->textContent;
                                 $mediaAdmin = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
+                                $disponibile =$gioco->getElementsByTagName("Disponibile")->item(0)->textContent;
                               
                                 $requisitiMin = $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent;
                                 $requisitiRac = $gioco->getElementsByTagName("RequisitiRaccomandati")->item(0)->textContent;
@@ -490,11 +580,8 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                 
                 echo "<h2>Modifica i dettagli del gioco: $titolo</h2>";
                 echo "<form method='post' action='gestionePublisher.php'>
-                    <input type='hidden' name='id_da_modificare' value='".htmlspecialchars($_POST['id_gioco_modifica'])."'>
+                    <input type='hidden' name='id_da_modificare' value='".$_POST['id_gioco_modifica']."'>
                     
-                        
-                    
-       
                     <p>
                         <label for=\"nuovo_nome\"> Nuovo Nome:</label>
                         <input type=\"text\" id=\"nuovo_nome\" name=\"nuovo_nome\" value=\"$titolo\"> </br>
@@ -502,30 +589,29 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                     </p>
                     <p> 
                         <label for=\"nuovo_prezzo\">Nuovo Prezzo (€):</label>
-                        <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\" value=\"$prezzo\" ></br>
-                        
+                        <input type=\"text\" id=\"nuovo_prezzo\" name=\"nuovo_prezzo\" value=\"$prezzo\"></br>
                     </p>
 
                     
                     <p>
                         <label for=\"CasaSviluppo\"> Nuova casa di sviluppo :</label>
-                        <input type=\"text\" id=\"CasaSviluppo\" name=\"nuovaCasa\" value=\"$casaSviluppo\" ></br>
+                        <input type=\"text\" id=\"CasaSviluppo\" name=\"nuovaCasa\" value=\"$casaSviluppo\"></br>
                     </p>
                     <p>
                         <label for=\"Publisher\"> Nuovo publisher :</label>
-                        <input type=\"text\" id=\"Publisher\" name=\"nuovoPublisher\" value=\"$publisher\" ></br>
+                        <input type=\"text\" id=\"Publisher\" name=\"nuovoPublisher\" value=\"$publisher\"></br>
                     </p>                    
                     <p>
                         <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
-                        <textarea id=\"nuova_descrizione\" name=\"nuova_descrizione\"  >$descrizione</textarea></br>
+                        <textarea id=\"nuova_descrizione\" name=\"nuova_descrizione\">$descrizione</textarea></br>
                     </p>
                     <p>
                         <label for=\"nuovi_requisiti_min\">Nuovi Requisiti minimi:</label>
-                        <textarea id=\"nuovi_requisiti_min\" name=\"nuoviReqMin\"  > $requisitiMin </textarea></br>
+                        <textarea id=\"nuovi_requisiti_min\" name=\"nuoviReqMin\">$requisitiMin</textarea></br>
                     </p>
                     <p>
                         <label for=\"nuovi_requisiti_rac\">Nuovi Requisiti minimi:</label>
-                        <textarea id=\"nuovi_requisiti_rac\" name=\"nuoviReqRac\"  > $requisitiRac </textarea></br>
+                        <textarea id=\"nuovi_requisiti_rac\" name=\"nuoviReqRac\">$requisitiRac</textarea></br>
                     </p>
 
                     <p>
@@ -536,6 +622,11 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                     <p>
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
                         <input type=\"text\" id=\"nuovo_genere\" name=\"nuovoGenere\" value=\"$generi\"></br>
+                    </p>
+
+                    <p>
+                        <label for=\"disponibile\"> Cambia la disponibilita nel sito :</label>
+                        <input type=\"checkbox\" id=\"disponibile\" name=\"nuovaDisponibilità\" value=\"$disponibile\"></br>
                     </p>
                     
                     <p>
@@ -588,56 +679,71 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
                     </div>
                 </div>
 
-                <div class="cardSettings hideCard" id="card4">
 
-                <h1>Seleziona giochi da sospendere</h1>
-
-
-
-                         
-                <?php              
-                $elemGiochi = xmlPointer('XML/Giochi.xml');
-            
-                        
-                echo"Hai messo questi giochi nel sito: ";
-                foreach($elemGiochi as $gioco){
-                    $idGioco = $gioco->getAttribute('id_gioco');
-                    $idPosseduti = array();
-
-                    $publisherGiocoScanner = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
-                    if($publisherGiocoScanner == $_SESSION['userName']){
-                        $idPosseduti[] = $idGioco;
-                        if(empty($idPosseduti)){
-                            echo"Nessun gioco trovato";
-                        }
-                        else{echo "ID: $idGioco";
-                        echo "<h1>Cerca Gioco</h1>";
-                        echo "<form method=\"post\" action=\"gestionePublisher.php\">
-                        <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
-                        <select name=\"id_gioco_da_sosp\" id=\"id_gioco_modifica\">";
-                                
-                        foreach($idPosseduti as $id){ 
-                            echo "<option value=\"$id\">Gioco $id</option>";
-                        }
-
-                        echo "  </select>
-
-                                <input type=\"submit\" name=\"cercaGiocoDaSosp\" value=\"Sospendi\">
-                            </form>";
-
-                        }
-                        
-                    }
-                }
-                
-                ?>
-                <div class="buttons">
-                    <div class="backarrow">
-                        <button onclick="swapperInCercaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
-                    </div>
-                </div>
             </div>
 
+            <div class="cardSettings hideCard" id="card4">
+                <h2>Ricerca gioco Sconti</h2>
+                <!-- Contenuto per la gestione sconti -->
+                <div class="buttons">
+                        <div class="backarrow">
+                            <button onclick=""><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
+                        </div>
+                </div>
+                <form method="post" action="GestioneScontiPublisher.php">
+                        <input type="hidden" name="publisher_name" value="<?php echo $_SESSION['userName']; ?>">
+                        <label for="id_gioco_publisher">Inserisci l'ID del gioco di cui vuoi gestire gli sconti:</label>
+                        <input type="text" name="id_gioco_publisher" value="">
+                        <label for="name_gioco_publisher">Oppure il Nome del gioco:</label>
+                        <input type="text" name="name_gioco_publisher" value="">
+                        <input type="submit" name="gestioneScontiPublisher" value="Gestisci gli sconti di questo Gioco">
+                    </form>
+            </div>
+            <div class="cardSettings hideCard" id="card5">
+                <?php
+                    if(isset($_POST['gestioneScontiPublisher']) && (isset($idGioco) || isset($nomeGioco))){
+                        echo "<h2>Gestione Sconti per il gioco: $nomeGioco (ID: $idGioco)</h2>";
+                        if(empty($listaSconti)){
+                            echo "<p>Non ci sono sconti attivi per questo gioco.</p>";
+                        } else {
+                            echo "<form method=\"post\" action=\"GestioneScontiPublisher.php\"><ul>";
+                            for($i = 1; $i < 10; $i++){
+                                foreach($listaSconti as $rigaSconto){
+                                    if($i == (int)$rigaSconto['tipoSconto']){
+
+                                        echo "<li><input type=\"checkbox\" name=\"sconto$i\" checked=\"checked\">Tipo di Sconto: ".$sconto['tipoSconto']."</input>";
+                                        echo "<label for=\"valoreSconto$i\">Valore dello Sconto:</label>";
+                                        echo "<select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
+                                        
+                                        for($j = 1; $j < 31; $j++){
+                                            if($j == (int)$rigaSconto['valoreSconto']) echo "<option value=\"$j\" selected>$j</option>";
+                                            else echo "<option value=\"$j\">$j</option>";
+                                        }
+                                        echo "</select></li>";
+                                    }
+                                    else {
+                                        echo "<li><input type=\"checkbox\" name=\"sconto$i\">Tipo di Sconto: ".$i."</input>";
+                                        echo "<label for=\"valoreSconto$i\">Valore dello Sconto:</label>";
+                                        echo "<select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
+                                        
+                                        for($j = 1; $j < 31; $j++){
+                                            echo "<option value=\"$j\">$j</option>";
+                                        }
+                                        echo "</select></li>";
+                                    }
+
+                                }
+                            }
+                            echo "</ul>
+                            <input type=\"hidden\" name=\"id_gioco_sconto\" value=\"$idGioco\">
+                            <input type=\"submit\" name=\"aggiornaScontiPublisher\" value=\"Aggiorna Sconti\">
+                                </form>";
+                        }
+                    }
+                ?>
+                <h1>Sconti Del Gioco: </h1>
+
+            </div>
          <div id="footer">
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>

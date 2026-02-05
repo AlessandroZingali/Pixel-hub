@@ -40,20 +40,26 @@ fix
 Parte 3
 
 
-- [x]  Acquisto giochi e carrello
+- [x] Acquisto giochi e carrello
 - [x] Creare pagina sconti (da fare nel carrello?)
 - [x] Creare funzione lettura ticket admin
 - [x] Aggiunta  gioco da parte di gestore
-- [] Aggiungere modifica /inserimento sconti da gestore 
-- []  sospensione gioco per gestore
-- []  modifica gioco per gestore
-- []  Consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
+- [x] Sospensione gioco per gestore
+- [x] Modifica gioco per gestore
+- [x] Rimborso gioco
+- [x] Gestione rimborso gioco admin
+- [x] Modificatore Commenti per il sistema dell'esperienza
+- [x] Sospensione gioco e utente
+- [x] Aggiunta domande nelle faq da admin
+
+- [] Aggiungere modifica/inserimento sconti da gestore 
+- [] Aggiungere modifica profilo da parte di gestore e admin
+- [x] Aggiungere logo e presentazione dell'azienda
+- [] Aggiungere consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
+- [x] Aggiungere visita pagina utenti da parte di altri utenti
 - [] Mostrare sconti su Home e Catalogo
-- [x]  rimborso gioco
-- [x]  gestione rimborso gioco admin
-- [x]  Modificatore Commenti per il sistema dell'esperienza
-- [x]  sospensione gioco e utente
-- [x]  Aggiunta domande nelle faq da admin
+
+
       
 
 

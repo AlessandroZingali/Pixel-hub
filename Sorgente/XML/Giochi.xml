@@ -421,12 +421,12 @@
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Lucagame</Publisher>
     <Descrizione>Combatti alla conquista della galassiaVivi il gioco che ha ridefinito il genere della strategia in tempo reale.Terran, Zerg o Protoss.Hai la stoffa per diventare il prossimo comandante supremo della galassia?</Descrizione>
-    <RequisitiMinimi> OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible </RequisitiMinimi>
+    <RequisitiMinimi>       OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible       </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/Final_Fantasy_Tactics_-_The_Ivalice_Chronicles_cover.jpg</Immagine>
     <Generi>Strategia</Generi>
-    <Disponibile>1</Disponibile>
+    <Disponibile>0</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>

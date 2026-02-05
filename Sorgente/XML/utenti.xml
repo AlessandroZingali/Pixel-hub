@@ -5,6 +5,7 @@
     <DataIscrizione>18/02/2016</DataIscrizione>
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
+    <Descrizione/>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="19.99">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="14.99">5</idGiocoPosseduto>
@@ -24,6 +25,7 @@
     <DataIscrizione>19-01-2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
     <GenerePreferito>Sparatutto</GenerePreferito>
+        <Descrizione/>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="01-02-2026" spesa="0">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="59.99">1</idGiocoPosseduto>
@@ -36,6 +38,7 @@
     <DataIscrizione>18/02/2016</DataIscrizione>
     <CasaDiSviluppoPreferita>Bungie</CasaDiSviluppoPreferita>
     <GenerePreferito>RPG</GenerePreferito>
+    <Descrizione>Ciao sono luke il grande gamemaker</Descrizione>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="09-06-2024" spesa="24.99">4</idGiocoPosseduto>
@@ -56,28 +59,5 @@
       <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
-  <Utente id_user="4">
-    <linkEsterno/>
-    <DataIscrizione>22-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>Ubisoft</CasaDiSviluppoPreferita>
-    <GenerePreferito>RPG</GenerePreferito>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="4">
-    <linkEsterno/>
-    <DataIscrizione>24-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="4">
-    <linkEsterno/>
-    <DataIscrizione>26-01-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
+ 
 </listaUtenti>

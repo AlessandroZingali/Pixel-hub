@@ -147,6 +147,26 @@ if (isset($_POST["cambiaGenere"]) && !empty($_POST["Genere"])) {
     $doc->save("XML/utenti.xml");
 }
 
+//    CAMBIA DESCRIZIONE (XML)
+
+if (isset($_POST["cambiaDescrizione"]) && !empty($_POST["newDescrizione"])) {
+
+    $idUtente = $_SESSION["userId"];
+
+    $doc = getDoc("XML/utenti.xml");
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    // Aggiornamento la nuova descrizione
+    foreach ($elem as $userNode) {
+        if ($userNode->getAttribute('id_user') == $idUtente) {
+            $userNode->getElementsByTagName('Descrizione')->item(0)->textContent = $_POST["newDescrizione"];
+        }
+    }
+
+    $doc->save("XML/utenti.xml");
+}
+
 
 //    CAMBIO SOCIAL (XML)
 
@@ -393,6 +413,11 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 <button onclick=\"swapperInStore()\"><img src=\"Stile/Icone/shopicon.png\" alt=\"shopbutton\" ></button>
                                 <p>Store Profile Pictures</p>
                             </div>
+
+                            <div class=\"shop\">
+                                <button onclick=\"swapperInLibreria()\"><img src=\"Stile/Icone/icona elenco.png\" alt=\"shopbutton\" ></button>
+                                <p>La mia libreria</p>
+                            </div>
                                 </div>";  
 
                                 echo "<div id=\"infoBox\">";
@@ -409,6 +434,8 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                         else $DataIsc = "!Errore!::Informazione non presente, si prega di ricontrollare le impostazioni di iscrizione";
                                         if($i->getElementsByTagName('linkEsterno')->item(0)->textContent != '') $Contatti = $i->getElementsByTagName('linkEsterno')->item(0)->textContent;
                                         else $Contatti = "nessuno";
+                                        if($i->getElementsByTagName('Descrizione')->item(0)->textContent != '') $Descrizione = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
+                                        else $Descrizione = "Nessuna Descrizione";
                                         }
                                     }
                             }
@@ -450,8 +477,20 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     
                                     <tr>
                                         <td>La mia casa di sviluppo preferita:</td><td>$CasaSvilPref</td>
-                                    </tr>
+                                    </tr>";
+                                
+                                    if($service == 1){
+                                if(isset($_SESSION['userId']) && isset($_SESSION['tipoUtente']) && $_SESSION['tipoUtente'] == '2'){
 
+                                    echo"<tr>
+                                        <td>Descrizione:</td><td>$Descrizione</td>
+                                    </tr>";
+                                    
+
+                                
+                                }
+                            }
+                            echo "
                                     <tr>
                                         <td>I miei punti esperienza:</td><td>".$row['Esperienza']."</td>
                                     </tr>
@@ -581,6 +620,11 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     </td>
                                 </form>
                             </tr>
+                            <tr><form method="post" action="Profilo.php">
+                                <td>Modifica Descrizione</td>
+                                <td><textarea type="text" placeholder="Inserisci una tua descrizione!" name="newDescrizione" ></textarea>    </td>
+                                <td><input type="submit" name="cambiaDescrizione" value="Modifica la tua descrizione"/></td></form>
+                            </tr>  
                             <tr> 
                                 <form method="post" action="Profilo.php">
                                     <td>Modifica Password</td>
@@ -684,7 +728,65 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                             echo "</form>"
                         ?>
                     </div> 
-                </div> 
+                </div>
+                <div class="cardPicStore hideCard" id="card4">
+                    <div class="backarrow">
+                            <button onclick="swapperInLibreria()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
+                        </div>
+                        <?php
+                            $utente = xmlPointer("XML/utenti.xml");
+                            $TabellaGiochi = xmlPointer("XML/Giochi.xml");
+
+                            $giochi = $TabellaGiochi->getElementsByTagName("Gioco");
+                            $utenti = $utente->getElementsByTagName("Utente");
+
+                            foreach($utenti as $u){
+
+                                if($u->getAttribute("id_user") == $_SESSION['userId']){
+
+                                    $gameList = $u->getElementsByTagName("listaGiochi")->item(0)
+                                                ->getElementsByTagName("idGiocoPosseduto");
+
+                                    echo "<table border='1' style='width:100%; border-collapse:collapse; text-align:center;'>";
+                                    echo "<tr>
+                                            <th>Titolo</th>
+                                            <th>Genere</th>
+                                            <th>Voto</th>
+                                            <th>Publisher</th>
+                                        </tr>";
+
+                                    foreach($gameList as $idNode){
+
+                                        $idGiocoPosseduto = $idNode->textContent;
+
+                                        for($j = 0; $j < $giochi->length; $j++){
+
+                                            $g = $giochi->item($j);
+
+                                            if($idGiocoPosseduto == $g->getAttribute("id_gioco")){
+
+                                                $titolo = $g->getElementsByTagName("Titolo")->item(0)->textContent;
+                                                $genere = $g->getElementsByTagName("Genere")->item(0)->textContent;
+                                                $voto = $g->getElementsByTagName("MediaVotoUtenti")->item(0)->textContent;
+                                                $publisher = $g->getElementsByTagName("Publisher")->item(0)->textContent;
+
+                                                echo "<tr onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGiocoPosseduto'\" style='cursor:pointer;'>
+                                                        <td>$titolo</td>
+                                                        <td>$genere</td>
+                                                        <td>$voto</td>
+                                                        <td>$publisher</td>
+                                                    </tr>";
+                                            }
+                                        }
+                                    }
+
+                                    echo "</table>";
+                                }
+                            }
+
+                                                            
+
+                    ?>
                 </div>
             </div>
         </div>
