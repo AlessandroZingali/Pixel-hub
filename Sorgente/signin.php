@@ -139,6 +139,7 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
                                 $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
                                 $utente->appendChild($doc->createElement("Descrizione"));
+                                if ($_COOKIE['tipoSignIn'] == "2") $utente->appendChild($doc->createElement("ToggleAgency", false));
                                 $utente->appendChild($doc->createElement("listaGiochi"));
                                 
                                 $utente->appendChild($doc->createElement("listaPropic"));

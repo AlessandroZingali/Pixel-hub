@@ -5,6 +5,7 @@
     <Gioco valoreSconto="20">5</Gioco>
     <Gioco valoreSconto="10">6</Gioco>
     <Gioco valoreSconto="15">1</Gioco>
+    <Gioco valoreSconto="3">23</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="2">
     <Gioco valoreSconto="15">8</Gioco>
@@ -14,6 +15,7 @@
     <Gioco valoreSconto="10">11</Gioco>
     <Gioco valoreSconto="10">18</Gioco>
     <Gioco valoreSconto="15">4</Gioco>
+    <Gioco valoreSconto="10">23</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="3" valore_minimo="3000">
     <Gioco valoreSconto="5">17</Gioco>

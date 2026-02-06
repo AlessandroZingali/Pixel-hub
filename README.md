@@ -52,10 +52,10 @@ Parte 3
 - [x] Sospensione gioco e utente
 - [x] Aggiunta domande nelle faq da admin
 
-- [] Aggiungere modifica/inserimento sconti da gestore 
-- [] Aggiungere modifica profilo da parte di gestore e admin
+- [x] Aggiungere modifica/inserimento sconti da gestore 
+- [x] Aggiungere modifica profilo da parte di gestore e admin
 - [x] Aggiungere logo e presentazione dell'azienda
-- [] Aggiungere consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
+- [x] Aggiungere consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
 - [x] Aggiungere visita pagina utenti da parte di altri utenti
 - [] Mostrare sconti su Home e Catalogo
 

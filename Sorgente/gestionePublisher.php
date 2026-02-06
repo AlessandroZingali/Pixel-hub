@@ -567,13 +567,18 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                         <select name=\"id_gioco_modifica\" id=\"id_gioco_modifica\">";
                                 
                         foreach($idPosseduti as $id){ 
-                            echo "<option value=\"$id\">Gioco $id</option>";
-                        }
 
-                        echo "  </select>
-
+                            $elemGiochi = xmlPointer("XML/Giochi.xml");
+                            foreach($elemGiochi as $gioco){
+                                 if($gioco->getElementsByTagName('Publisher')->item(0)->textContent == $_SESSION['userName']) {
+                                    $idGiocoOption = $gioco->getAttribute('id_gioco');
+                                    echo "<option value=\"$id\">".$id." - ".$gioco->getElementsByTagName('Titolo')->item(0)->textContent."</option>
+    
                                 <input type=\"submit\" name=\"cercaGioco\" value=\"Ricerca\">
                             </form>";
+                                 }
+                            }
+                        }
 
                         }
                         
@@ -822,7 +827,8 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                 ?>
 
             </div>
-         <div id="footer">
+        <div>
+        <div id="footer">
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>

@@ -45,12 +45,13 @@ session_start();
         $flag=1;
         session_start();
         $row=mysqli_fetch_array($resultQ);
-
+        
         // Caricamento del genere preferito dell'utente dal suo file XML, sfruttando il suo ID e il risultato della query
         $elem = xmlPointer('XML/utenti.xml');
         foreach($elem as $i){
             if($i->getAttribute('id_user') == $row['ID']){
                 if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
+                if($row['Tipologia_utente'] == 2) $agencyElem = $i->getElementsByTagName('ToggleAgency')->item(0)->textContent; 
                 }
             }
 
@@ -65,6 +66,7 @@ session_start();
         $_SESSION['Grado']=$row['Grado'];
         $_SESSION['Pixels']=$row['Pixels'];
         $_SESSION['Saldo']=$row['Saldo_attuale'];
+        $_SESSION['agencyMod']=$agencyElem;
         $commenti=xmlPointer("XML/Commenti.xml");
         $sommatoria = calcoloModCommenti($commenti);
         $_SESSION['modCommenti'] = $sommatoria;
