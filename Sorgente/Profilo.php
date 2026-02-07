@@ -826,13 +826,27 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                 </div>
                 
                 <!-- div per mostrare la pagina di presentazione del publisher -->
-                <div class="presentazionePublisher hideCard" id="card5">
+                <div class="cardProfilo hideCard" id="card5">
                
                      <div class="backarrow">
                             <button onclick="swapperInPresentazione()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
                         <?php
-                        
+                            $table_users = "tabella_utenti";
+
+                            connectDB();
+
+                            if (mysqli_connect_errno()){
+                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                            }
+                            $sql = "SELECT * FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
+                            $resultQ = mysqli_query(connectDB(), $sql);
+                            if ($resultQ){
+                                $row = mysqli_fetch_array($resultQ);
+                                $immagineProfiloPub = $row['imgProfiloPathPub'];
+                            }
+                            
+
                         echo "<div><h1>Presentazione Publisher: ".$_SESSION['userName']."</h1></div>";
                         echo "<div id=\"Presentazione\">";
                         echo "<div class=\"publisherPropic\"> 
@@ -865,8 +879,9 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
    
                     $elemGiochi = xmlPointer("XML/Giochi.xml");
                     foreach($elemGiochi as $gioco){
+                        
                          if($gioco->getElementsByTagName('Publisher')->item(0)->textContent == $_SESSION['userName']){
-                            $idGioco = $gioco->getAttribute('id_gioco');
+                         $idGioco = $gioco->getAttribute('id_gioco');
 
                             $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                             $genere = $gioco->getElementsByTagName("Generi")->item(0)->textContent;

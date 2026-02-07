@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd">
   <Carrello id_user="1" id_cart="1"/>
-  <Carrello id_user="3" id_cart="2">
-    <gioco id_gioco="12">
-      <titolo>Dead Cells</titolo>
-      <prezzo>24.99</prezzo>
-    </gioco>
-    <gioco id_gioco="5">
-      <titolo>Clair Obscur:Expedition 33</titolo>
-      <prezzo>14.99</prezzo>
-    </gioco>
-  </Carrello>
   <Carrello id_user="2" id_cart="3">
     <gioco id_gioco="6">
       <titolo>Helldivers II</titolo>

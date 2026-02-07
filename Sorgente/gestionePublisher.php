@@ -56,63 +56,69 @@ if(isset($_POST['aggiungiGioco'])){
 
     // Controlla se il file è stato effettivamente caricato
     
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    if (isset($_FILES["fileToUpload"]["name"]) && isset($_POST['nuovo_nome']) && isset($_POST['nuovo_prezzo']) && isset($_POST['nuova_casa']) && isset($_POST['nuovo_publisher']) && isset($_POST['nuova_descrizione']) && isset($_POST['nuovaRequiMin']) && isset($_POST['nuovaRequiRac']) && isset($_POST['nuova_dataUscita']) && isset($_POST['nuovo_genere']) && isset($_POST['MediaRecensioniAdmin']) && !empty($_FILES["fileToUpload"]["name"]) && !empty($_POST['nuovo_nome']) && !empty($_POST['nuovo_prezzo']) && !empty($_POST['nuova_casa']) && !empty($_POST['nuovo_publisher']) && !empty($_POST['nuova_descrizione']) && !empty($_POST['nuovaRequiMin']) && !empty($_POST['nuovaRequiRac']) && !empty($_POST['nuova_dataUscita']) && !empty($_POST['nuovo_genere']) && !empty($_POST['MediaRecensioniAdmin'])) {
         // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
-        
-        $docGiochi= getDoc('XML/Giochi.xml');
-        $root = $docGiochi->documentElement;
-        $elemGiochi = $root->childNodes;
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
+            $docGiochi= getDoc('XML/Giochi.xml');
+            $root = $docGiochi->documentElement;
+            $elemGiochi = $root->childNodes;
+                
+            if ($elemGiochi->length > 0) {
+                $ultimoGioco = $elemGiochi->item($elemGiochi->length - 1);
+                $ultimoId = $ultimoGioco->getAttribute("id_gioco");
+                $nuovoIdGioco = $ultimoId + 1;
+            }
+            else if (!($root->hasChildNodes())) $nuovoIdGioco = 1;
             
-        if ($elemGiochi->length > 0) {
-            $ultimoGioco = $elemGiochi->item($elemGiochi->length - 1);
-            $ultimoId = $ultimoGioco->getAttribute("id_gioco");
-            $nuovoIdGioco = $ultimoId + 1;
+
+            $nuovoGioco = $docGiochi->createElement("Gioco");
+            $nuovoGioco->setAttribute('id_gioco', $nuovoIdGioco);
+
+            $nuovoNodoTitolo = $docGiochi->createElement("Titolo",$_POST['nuovo_nome']);
+            $nuovoNodoPrezzo = $docGiochi->createElement("Prezzo",$_POST['nuovo_prezzo']);
+            $nuovoNodoCasaDiSviluppo = $docGiochi->createElement("CasaSviluppo",$_POST['nuova_casa']);
+            $nuovoNodoPublisher = $docGiochi->createElement("Publisher",$_POST['nuovo_publisher']);
+            $nuovoNodoDescrizione = $docGiochi->createElement("Descrizione",$_POST['nuova_descrizione']);
+            $nuovoNodoRequisitiMinimi = $docGiochi->createElement("RequisitiMinimi",$_POST['nuovaRequiMin']);
+            $nuovoNodoRequisitiRaccomandati=$docGiochi->createElement("RequisitiRaccomandati",$_POST['nuovaRequiRac']);
+            $nuovoNodoDataUscita=$docGiochi->createElement("DataDiUscita",$_POST['nuova_dataUscita']);
+            $nuovoNodoImmagine=$docGiochi->createElement("Immagine", $target_file);
+            $nuovoNodoGenere=$docGiochi->createElement("Generi",$_POST['nuovo_genere']);
+            $nuovoNodoDisponibilie=$docGiochi->createElement("Disponibile",1);
+            $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
+            $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
+            $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
+            $id_correlati = explode(',',$_POST['id_correlati']);
+
+            foreach ($id_correlati as $id_correlato) {
+                $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
+                $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+            }
+            
+            $nuovoGioco->appendChild($nuovoNodoTitolo);
+            $nuovoGioco->appendChild($nuovoNodoPrezzo);
+            $nuovoGioco->appendChild($nuovoNodoCasaDiSviluppo);
+            $nuovoGioco->appendChild($nuovoNodoPublisher);
+            $nuovoGioco->appendChild($nuovoNodoDescrizione);
+            $nuovoGioco->appendChild($nuovoNodoRequisitiMinimi);
+            $nuovoGioco->appendChild($nuovoNodoRequisitiRaccomandati);
+            $nuovoGioco->appendChild($nuovoNodoDataUscita);
+            $nuovoGioco->appendChild($nuovoNodoImmagine);
+            $nuovoGioco->appendChild($nuovoNodoGenere); 
+            $nuovoGioco->appendChild($nuovoNodoDisponibilie);
+            $nuovoGioco->appendChild($nuovoNodoMediaAdmin);
+            $nuovoGioco->appendChild($nuovoNodoMediaUtenti);
+            $nuovoGioco->appendChild($nuovoNodoTitoliCorrelati);
+            
+            $root->appendChild($nuovoGioco);
+            
+            $docGiochi->save('XML/Giochi.xml');
         }
-        else if (!($root->hasChildNodes())) $nuovoIdGioco = 1;
-        
-
-        $nuovoGioco = $docGiochi->createElement("Gioco");
-        $nuovoGioco->setAttribute('id_gioco', $nuovoIdGioco);
-
-        $nuovoNodoTitolo = $docGiochi->createElement("Titolo",$_POST['nuovo_nome']);
-        $nuovoNodoPrezzo = $docGiochi->createElement("Prezzo",$_POST['nuovo_prezzo']);
-        $nuovoNodoCasaDiSviluppo = $docGiochi->createElement("CasaSviluppo",$_POST['nuova_casa']);
-        $nuovoNodoPublisher = $docGiochi->createElement("Publisher",$_POST['nuovo_publisher']);
-        $nuovoNodoDescrizione = $docGiochi->createElement("Descrizione",$_POST['nuova_descrizione']);
-        $nuovoNodoRequisitiMinimi = $docGiochi->createElement("RequisitiMinimi",$_POST['nuovaRequiMin']);
-        $nuovoNodoRequisitiRaccomandati=$docGiochi->createElement("RequisitiRaccomandati",$_POST['nuovaRequiRac']);
-        $nuovoNodoDataUscita=$docGiochi->createElement("DataDiUscita",$_POST['nuova_dataUscita']);
-        $nuovoNodoImmagine=$docGiochi->createElement("Immagine", $target_file);
-        $nuovoNodoGenere=$docGiochi->createElement("Generi",$_POST['nuovo_genere']);
-        $nuovoNodoDisponibilie=$docGiochi->createElement("Disponibile",1);
-        $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
-        $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
-        $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
-        $id_correlati = explode(',',$_POST['id_correlati']);
-
-        foreach ($id_correlati as $id_correlato) {
-            $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
-            $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+        else{
+            echo "Si è verificato un errore durante il caricamento dell'immagine.";
         }
-        
-        $nuovoGioco->appendChild($nuovoNodoTitolo);
-        $nuovoGioco->appendChild($nuovoNodoPrezzo);
-        $nuovoGioco->appendChild($nuovoNodoCasaDiSviluppo);
-        $nuovoGioco->appendChild($nuovoNodoPublisher);
-        $nuovoGioco->appendChild($nuovoNodoDescrizione);
-        $nuovoGioco->appendChild($nuovoNodoRequisitiMinimi);
-        $nuovoGioco->appendChild($nuovoNodoRequisitiRaccomandati);
-        $nuovoGioco->appendChild($nuovoNodoDataUscita);
-        $nuovoGioco->appendChild($nuovoNodoImmagine);
-        $nuovoGioco->appendChild($nuovoNodoGenere); 
-        $nuovoGioco->appendChild($nuovoNodoDisponibilie);
-        $nuovoGioco->appendChild($nuovoNodoMediaAdmin);
-        $nuovoGioco->appendChild($nuovoNodoMediaUtenti);
-        $nuovoGioco->appendChild($nuovoNodoTitoliCorrelati);
-        
-        $root->appendChild($nuovoGioco);
-        
-        $docGiochi->save('XML/Giochi.xml');
+       
+
 
     } else {
         echo "Si è verificato un errore durante il caricamento.";
@@ -338,17 +344,19 @@ if (isset($_POST["agencyToggleSubmit"])) {
     $doc->save("XML/utenti.xml");
 }
 
-if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
+if (isset($_POST["agencyToggleSubmit"])){
     $idUtente = $_SESSION["userId"];
     $target_dir ="loghiPub\\";
     var_dump($_FILES["agencyImageUpload"]);
-    $target_file = $target_dir .$_FILES["agencyImageUpload"]["name"];
-    $table_users = "Tabella Utenti";
+    $nameLogo = $_SESSION['userName']."_logo.png";
+    $target_file = $target_dir.$nameLogo;
+    $table_users = "tabella_utenti";
 
     // Controlla se il file è stato effettivamente caricato
-    
+    var_dump($target_file);
     if (move_uploaded_file($_FILES["agencyImageUpload"]["tmp_name"], $target_file)) {
-        $newPath = $target_file;
+        
+        $newPath = "loghiPub/$nameLogo";
         connectDB();
 
         if (mysqli_connect_errno()){
@@ -495,7 +503,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
                     <p> - Attiva la modalità agency -> 
                         <!-- accedi alla card 4 nascondi la card 0 -->
                         <button onclick="swapperInAgency()">  
-                            <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
+                            <img src="Stile/Icone/switchPub.png" alt="switchPubbutton" > 
                         </button>
                     </p>
                     </div>
@@ -619,7 +627,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
                          
                 <?php              
                 $elemGiochi = xmlPointer('XML/Giochi.xml');
-                      
+                 echo "<h1>Cerca Gioco</h1>";     
                         
                 echo"Hai messo questi giochi nel sito: ";
                 foreach($elemGiochi as $gioco){
@@ -633,7 +641,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
                             echo"Nessun gioco trovato";
                         }
                         else{echo "ID: $idGiocoInserito";
-                        echo "<h1>Cerca Gioco</h1>";
+                        
                         echo "<form method=\"post\" action=\"gestionePublisher.php\">
                         <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
                         <select name=\"id_gioco_modifica\" id=\"id_gioco_modifica\">";
@@ -642,7 +650,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
 
                             $elemGiochi = xmlPointer("XML/Giochi.xml");
                             foreach($elemGiochi as $gioco){
-                                 if($gioco->getElementsByTagName('Publisher')->item(0)->textContent == $_SESSION['userName']) {
+                                 if($gioco->getElementsByTagName('Publisher')->item(0)->textContent == $_SESSION['userName'] && $gioco->getAttribute('id_gioco') == $id){
                                     $idGiocoOption = $gioco->getAttribute('id_gioco');
                                     echo "<option value=\"$id\">".$id." - ".$gioco->getElementsByTagName('Titolo')->item(0)->textContent."</option>
     
@@ -913,7 +921,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
                 ?>
 
             </div>
-            <div class="cardSettings " id="card6">
+            <div class="cardSettings hideCard" id="card6">
                 <div class="buttons">
                         <div class="backarrow">
                             <button onclick="swapperInAgency()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
@@ -922,7 +930,7 @@ if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
             
 
                 <div class="imageAndToggleAgency">
-                    <form method="post" action="gestionePublisher.php">
+                    <form method="post" action="gestionePublisher.php" enctype="multipart/form-data">
                     <div class="switchLabel">
                         <div class="switch">
                             <?php

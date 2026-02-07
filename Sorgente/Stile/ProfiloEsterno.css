@@ -144,6 +144,13 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
    
 }
 
+#card2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10%;
+}
+
 .profilePicColum{
     display: flex;
     flex-direction: column;
@@ -213,9 +220,11 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     display: flex;
     flex-direction: row;
     border-radius: 5px;
+    align-items: center;
     padding: 10px;
     border: blue solid 1px;
     background-color: #414141;
+ 
 
     div{
        /*border: green solid 1px;*/
@@ -309,16 +318,17 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     }
 
 #Presentazione{
-    border: solid red 2px;
-    display: flex;
-    flex-direction: row;
+    border: none;
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-columns: repeat( 2, minmax(220px, 1fr));
+    grid-template-rows: auto;
     align-items: center;
     color: white;
     padding: 10px;
-
-    column-gap: 10%;
+    
 }
-
    
 
 .publisherPropic{
@@ -348,6 +358,9 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     .gridPicStoreForm{
         grid-template-columns: repeat( 3, minmax(220px, 1fr));
     }
+    #card2 h1{
+        font-size: 25px;
+    }
 }
 
 @media (max-width: 1450px){
@@ -368,6 +381,11 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     
     .gridPicStoreForm{
         grid-template-columns: repeat( 2, minmax(220px, 1fr));
+    }
+
+    #libreria{
+        grid-template-columns: repeat( 2, minmax(220px, 1fr));
+        font-size: 25px;
     }
 }
 @media (max-width: 1350px){
@@ -430,5 +448,41 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
         }
     }
 
+    #Presentazione{
+        grid-template-columns: repeat( 1, minmax(220px, 1fr));
+    }
+    
+    #libreria{
+        grid-template-columns: repeat( 1, minmax(220px, 1fr));
+    }
+
+    #card2 h1{
+        font-size: 20px;
+    }
+
+}
+
+@media (max-width: 1200px){
+
+    #libreria{
+        grid-template-columns: repeat( 1, minmax(220px, 1fr));
+        font-size: 20px;
+    }
+    #card2 h1{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 900px){
+    #libreria{
+        grid-template-columns: repeat( 1, minmax(220px, 1fr));
+        font-size: 15px;
+    }
+    #Presentazione{
+        border: none;
+    }
+    #card2 h1{
+        display: none;
+    }
 }
 

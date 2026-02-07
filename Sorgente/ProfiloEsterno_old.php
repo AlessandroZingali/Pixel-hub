@@ -5,14 +5,14 @@
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
-$service = 0;          // indica se l'utente è loggato
-$utente = "";          // username dell'utente
+$service = 0;          // indica se l’utente è loggato
+$utente = "";          // username dell’utente
 $invalidFlag = 0;      // flag per gestire errori logici (email, password, acquisti ecc.)
 
 // Avvio sessione
 session_start();
 
-// Controllo se l'utente è loggato
+// Controllo se l’utente è loggato
 if (isset($_SESSION['userId'])) {
     $utente = $_SESSION['userName'];
     $service = 1;
@@ -321,11 +321,11 @@ var_dump($toggleState);
                         
                         </div>
 
-                    </div> <!-- div di chiusura del baseProfilo -->
+                    
                     <!-- div di chiusura del profilo di base -->
                 
 
-                </div> <!-- div di chiusura del cardProfilo card1 -->
+                </div>
 
             <?php
                 connectDB();
@@ -374,7 +374,7 @@ var_dump($toggleState);
                                 }
                             }
                             echo "<div><p>La mia Descrizione: $descrizione</p></div>";
-                            echo "</div>"; // chiusura div Presentazione
+                            echo "</div>";
                             
 
 
@@ -402,15 +402,23 @@ var_dump($toggleState);
                                 }
                             }
                             
-                            echo "</div>"; // chiusura div libreria
+                            echo "</div>";
                     ?>
-                </div> <!-- div di chiusura del cardProfilo card2 -->
+                </div>
 
 
             </div>  <!-- div di chiusura del wrapper--> 
             
-        </div> <!-- div di chiusura del container -->
+             
+
         
+            
+            
+
+           
+            
+            
+        </div> <!-- div di chiusura del container -->
         <div id="footer">
             <ul>
                 <li><a href="contact.php">Contact Us</a></li>
@@ -418,8 +426,10 @@ var_dump($toggleState);
                 <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
+</div>
         
     </body>
     
 
-</html>
+</html> 
+        

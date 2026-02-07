@@ -56,6 +56,16 @@ function swapperInAggiornamentoSconti(){
     
 }
 
+function swapperInAgency(){
+    var cardPrincipale =document.getElementById("card0");
+    var cardSospensione = document.getElementById("card6");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardSospensione.classList.toggle("hideCard");
+    
+}
+
+
 function modificaGiocoPreset(){
     console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
     if(sessionStorage.getItem("activeChange") == "ricercaGioco"){
