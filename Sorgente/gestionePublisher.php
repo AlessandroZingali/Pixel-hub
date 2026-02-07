@@ -5,23 +5,23 @@ require 'serverUtility.php';
 function scontoTranslate($id) {
     switch ($id) {
         case 1:
-            return "clienti che hanno speso N crediti finora";
+            return "N crediti finora";
         case 2:
-            return "clienti che hanno speso M crediti da una certa data";
+            return "M crediti da una certa data";
         case 3:
-            return "clienti che hanno acquistato una certa offerta(giochi correlati)";
+            return "Acquistata una certa offerta(giochi correlati)";
         case 4:
-            return "clienti che hanno una certa reputazione";
+            return "in base alla reputazione";
         case 5:
             return "clienti che sono con noi da X mesi";
         case 6:
             return "clienti che sono con noi da Y anni";
         case 7:
-            return "il gioco appartiene ad una certa casa di sviluppo";
+            return "per una certa casa di sviluppo";
         case 8:
-            return "il gioco appartiene ad un certo genere apprezzato da un cliente";
+            return "genere preferito";
         case 9:
-            return "sconto indipendente(esempio saldi invernali o festivi o altro)";
+            return "sconto indipendente";
         default:
             return "Sconto Sconosciuto";
     }
@@ -312,6 +312,66 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
 
 }
 
+if (isset($_POST["agencyToggleSubmit"])) {
+
+    $idUtente = $_SESSION["userId"];
+
+    $doc = getDoc("XML/utenti.xml");
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    // Cambimo modalita agency
+    foreach ($elem as $userNode) {
+        if ($userNode->getAttribute('id_user') == $idUtente) {
+            if(!isset($_POST['newModAgency'])) {
+                $userNode->getElementsByTagName('ToggleAgency')->item(0)->textContent = 'false';
+                $_SESSION['agencyMod'] = false;
+
+            }else {
+                $userNode->getElementsByTagName('ToggleAgency')->item(0)->textContent = 'true';
+                $_SESSION['agencyMod'] = true;
+            }
+             
+        }
+    }
+
+    $doc->save("XML/utenti.xml");
+}
+
+if (isset($_POST["agencyToggleSubmit"]) && isset($_FILES["agencyImageUpload"])){
+    $idUtente = $_SESSION["userId"];
+    $target_dir ="loghiPub\\";
+    var_dump($_FILES["agencyImageUpload"]);
+    $target_file = $target_dir .$_FILES["agencyImageUpload"]["name"];
+    $table_users = "Tabella Utenti";
+
+    // Controlla se il file è stato effettivamente caricato
+    
+    if (move_uploaded_file($_FILES["agencyImageUpload"]["tmp_name"], $target_file)) {
+        $newPath = $target_file;
+        connectDB();
+
+        if (mysqli_connect_errno()){
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        }
+        $sql = "
+            UPDATE $table_users
+            SET imgProfiloPathPub = '$newPath'
+            WHERE ID = ".(int)$_SESSION['userId'].";
+        ";
+        $resultQ = mysqli_query(connectDB(), $sql);
+        if($resultQ){
+            header("Location:gestionePublisher.php");
+        }
+        else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        }
+    }
+
+    
+}
+
+
 
 
 ?>
@@ -430,6 +490,15 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                         </button>
                     </p>
                     </div>
+
+                    <div class="agency">
+                    <p> - Attiva la modalità agency -> 
+                        <!-- accedi alla card 4 nascondi la card 0 -->
+                        <button onclick="swapperInAgency()">  
+                            <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
+                        </button>
+                    </p>
+                    </div>
     
                 
 
@@ -513,11 +582,14 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                         </br>
                     </p>
                     
-                    
-                    <p>
-                        Seleziona immagine:
-                        <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\">
-                    </p>
+                    <div class=\"fileUploadBase\">
+                    <div class=\"file-upload-wrapper\">
+                            <label for=\"fileToUpload\" class=\"btn-upload\">
+                                Carica immagine
+                            </label>
+                            <input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" accept=\"image/*\"/>
+                        </div>
+                    </div>
 
                     <p>
                         <label for=\"id_correlati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
@@ -779,16 +851,14 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                     if(isset($_POST['gestioneScontiPublisher']) && (isset($idGioco)) && (!empty($idGioco)) || (isset($_POST['aggiornaScontiPublisher']))){
 
                         echo "<h2>Gestione Sconti per il gioco: $nomeGioco (ID: $idGioco)</h2>";
-                        if(empty($listaSconti)){
-                            echo "<p>Non ci sono sconti attivi per questo gioco.</p>";
-                        } else {
-                            echo "<div class=\"scontiAttiviPublisher\">";
-                            echo "<form method=\"post\" action=\"gestionePublisher.php\"><ul>";
-                            for($i = 1; $i < 10; $i++){
-                                $eraScontoAttivo = false;
-                                
+                    
+                        echo "<div class=\"scontiAttiviPublisher\">";
+                        echo "<form method=\"post\" action=\"gestionePublisher.php\"><ul>";
+                        for($i = 1; $i < 10; $i++){
+                            $eraScontoAttivo = false;
+                            if(count($listaSconti) > 0){
                                 foreach($listaSconti as $rigaSconto){
-                                    
+                                
                                     if($i == (int)$rigaSconto['tipoSconto']){
                                         $eraScontoAttivo = true;
                                         $valoreSconto = (int)$rigaSconto['valoreSconto'];
@@ -796,38 +866,94 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
                                     }
                                 }
                                 if($eraScontoAttivo){
-                                        echo "<li><input type=\"checkbox\" name=\"sconto$i\" checked=\"checked\">Tipo di Sconto: ".scontoTranslate($i)."</input></br>";
-                                        echo "<label for=\"valoreSconto$i\">   Valore dello Sconto:</label>";
-                                        echo "<select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
-                                        for($j = 0; $j < 71; $j++){
-                                            if($j == $valoreSconto) echo "<option value=\"$j\" selected>$j</option>";
-                                            else echo "<option value=\"$j\">$j</option>";
-                                            
-                                        }
-                                        echo "</select></li>";
+                                    echo "<li><div class=\"switchAndScontoLabel\"><div class=\"switchLabel\"><div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$i\" name=\"sconto$i\" checked=\"checked\"/>";
+                                    echo "<label for=\"switchSconto$i\"></label></div><div><p>".scontoTranslate($i)."</p></div></div>";
+                                    echo "<div><select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
+                                    for($j = 0; $j < 71; $j++){
+                                        if($j == $valoreSconto) echo "<option value=\"$j\" selected>$j</option>";
+                                        else echo "<option value=\"$j\">$j</option>";
+                                        
                                     }
-                                    else{
-                                        echo "<li><input type=\"checkbox\" name=\"sconto$i\">Tipo di Sconto: ".scontoTranslate($i)."</input></br>";
-                                        echo "<label for=\"valoreSconto$i\">    Valore dello Sconto:</label>";
-                                        echo "<select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
-                                        for($j = 0; $j < 71; $j++){
-                                            echo "<option value=\"$j\">$j</option>";
-                                        }
-                                      echo "</select></li>";  
-                                    }
-                                
+                                    echo "</select></div></div></li>";
                                 }
+                                else{
+                                        echo "<li><div class=\"switchAndScontoLabel\">
+                                                <div class=\"switchLabel\">
+                                                    <div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$i\" name=\"sconto$i\"/>";
+                                    echo "<label for=\"switchSconto$i\"></label></div><div><p>".scontoTranslate($i)."</p></div></div>";
+                                    echo "<div><select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
+                                    for($j = 0; $j < 71; $j++){
+                                        echo "<option value=\"$j\">$j</option>";
+                                    }
+                                    echo "</select></div></li>";  
+                                }
+                            }
+                            else{
+                                echo "<li><div class=\"switchAndScontoLabel\">
+                                    <div class=\"switchLabel\"><div class=\"switch\"><div><p>".scontoTranslate($i)."</p></div>
+                                        <input type=\"checkbox\" id=\"switchSconto$i\" name=\"sconto$i\"/>";
+                                echo "<label for=\"switchSconto$i\"></label></div></div>";
+                                echo "<div><select id=\"valoreSconto$i\" name=\"valoreSconto$i\">";
+                                for($j = 0; $j < 71; $j++){
+                                    echo "<option value=\"$j\">$j</option>";
+                                }
+                                echo "</select></div></li>";  
+                            }
                             
-                            echo "</ul>
-                            <input type=\"hidden\" name=\"id_gioco_sconto\" value=\"$idGioco\">
-                            <input type=\"submit\" name=\"aggiornaScontiPublisher\" value=\"Aggiorna Sconti\">
-                                </form></div>";
-                        }
+                            
+                            
+                            }
+                        
+                        echo "</ul>
+                        <input type=\"hidden\" name=\"id_gioco_sconto\" value=\"$idGioco\">
+                        <input type=\"submit\" name=\"aggiornaScontiPublisher\" value=\"Aggiorna Sconti\">
+                            </form></div>";
+                        
                     }
                 ?>
 
             </div>
-        <div>
+            <div class="cardSettings " id="card6">
+                <div class="buttons">
+                        <div class="backarrow">
+                            <button onclick="swapperInAgency()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>
+                        </div>
+                </div>
+            
+
+                <div class="imageAndToggleAgency">
+                    <form method="post" action="gestionePublisher.php">
+                    <div class="switchLabel">
+                        <div class="switch">
+                            <?php
+                                $elem = xmlPointer("XML/utenti.xml");
+                                $toggleState = 'false';
+                                foreach ($elem as $userNode) {
+                                    if ($userNode->getAttribute('id_user') == $_SESSION['userId']) { 
+                                        $toggleState = $userNode->getElementsByTagName('ToggleAgency')->item(0)->textContent;
+                                    }
+                                }
+                            
+                            ?>
+                            <input type="checkbox" name="newModAgency" id="toggleAgency" <?php if($toggleState == 'true') echo "checked=\"checked\"";?>/>
+                            <label for="toggleAgency"></label>
+                        </div>
+                        <div><p>Modalità Agency</p></div>
+                    </div>
+
+                    <div class="agencyImageBase">
+                         <div class="file-upload-wrapper">
+                            <label for="agencyImageUpload" class="btn-upload">
+                                Carica logo
+                            </label>
+                            <input type="file" name="agencyImageUpload" id="agencyImageUpload" accept="image/*"/>
+                        </div>
+                    </div>
+                    <div><input type="submit" id="buttonAgencySubmit" name="agencyToggleSubmit" value="Invia"/></div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div id="footer">
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
@@ -837,3 +963,4 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
         </div>
     </body>
 </html>
+

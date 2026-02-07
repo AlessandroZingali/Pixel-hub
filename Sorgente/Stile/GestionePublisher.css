@@ -107,14 +107,133 @@ input[type="text"],textarea{
     padding: 10px;
     margin-bottom: 10px;
 
+    ul{
+        list-style: none;
+    }
     li{
         margin-bottom: 5px;
     }
  
 }
 
+.switchAndScontoLabel{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
 .scontiAttiviPublisher li{
         margin-bottom: 10px;
     }
- 
+
+.imageAndToggleAgency form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}    
+
+.switchLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 5px;
+}    
+.switch input[type="checkbox"] {
+    display: none;
+}
+
+
+.switch {
+    display: inline-block;
+    position: relative;
+}
+
+
+.switch label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+
+.switch label:after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s;
+}
+
+
+.switch input[type="checkbox"]:checked + label {
+    background-color: #4CAF50;
+}
+
+.switch input[type="checkbox"]:checked + label:after {
+    left: 32px;
+}
+
+
+.switch label:hover {
+    opacity: 0.8;
+}
+
+.agencyImageBase {
+    max-width: 400px;
+}
+    
+.agencyImageBase p {
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+}
+
+.fileUploadBase input[type="file"] {
+    display: none;
+}
+.agencyImageBase input[type="file"] {
+    display: none;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg,  #76d5f0 0%, rgb(82, 113, 255) 80%);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-upload:before {
+    content: "⬆";
+    font-size: 18px;
+}
+
 

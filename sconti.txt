@@ -117,3 +117,36 @@ Apre gioco A
 Prezzo base 60 
 
 Prezzo finale= (prezzo base-scontoattivo*(prezzobase-ScontoNcrediti)-altroattivatore*(prezzobase-altrosconto))... 
+
+<?php
+                            if($service == '1' && $_SESSION['tipoUtente']=='2'){
+                                echo"<tr>
+                                <form method=\"post\" action=\"Profilo.php\">
+                                <td>Modifica Descrizione</td>
+                                <td><textarea type=\"text\" placeholder=\"Inserisci una tua descrizione per la tua pagina publisher!\" name=\"newDescrizioneP\" ></textarea>    </td>
+                                <td><input type=\"submit\" name=\"cambiaDescrizioneP\" value=\"Modifica la tua descrizione\"/></td></form>
+                            </tr>  ";
+                            }
+
+                            ?>
+
+                             $elem = xmlPointer('XML/utenti.xml');
+                            foreach($elem as $utente){
+                                if($_SESSION['tipoUtente'] == 2){
+                                    if($_SESSION['userId'] == $utente->getAttribute('id_user')) $toggleAgencyVer=$utente->getElementsByTagName('ToggleAgency')->item(0)->textContent;
+                                }
+                            }
+
+                            echo"<tr>
+                                <form method=\"post\" action=\"Profilo.php\">
+                                <td>Attiva Modalita Agency</td>";
+                                
+                            if($toggleAgencyVer=='true') echo "<td><input type=\"checkbox\"  name=\"newModAgency\" checked=\"checked\" >    </td>";
+                            else if($toggleAgencyVer=='false') echo "<td><input type=\"checkbox\"  name=\"newModAgency\">    </td>";
+                            echo "<td><input type=\"submit\" name=\"cambiaModalita\" value=\"Attiva/Disattiva modalità Agency\"/></td></form>
+                            </tr>  ";
+
+                            
+                        
+
+                            }

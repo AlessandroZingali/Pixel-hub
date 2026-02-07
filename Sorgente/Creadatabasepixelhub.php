@@ -64,6 +64,7 @@ else {
             Cognome VARCHAR(50),                  -- Cognome
             Tipologia_utente INT,                 -- 1=admin 2=user 3=publisher
             imgProfiloPath VARCHAR(250),          -- Percorso immagine profilo
+            imgProfiloPathPub VARCHAR(250),       -- Percorso immagine profilo Publisher
             PIVA VARCHAR(12),                     -- Partita IVA
             PRIMARY KEY (ID, Email),              -- Chiave primaria composta
             UNIQUE KEY Email_UNIQUE (Email)       -- Email unica
@@ -84,7 +85,7 @@ else {
 
             // Query di inserimento utenti di esempio
             $sqlQuery = "INSERT INTO $table_users 
-            (Email, Password, Username, Grado,Esperienza, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath, PIVA) 
+            (Email, Password, Username, Grado,Esperienza, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath,imgProfiloPathPub, PIVA) 
             VALUES 
             (
             -- i 3 utenti hanno rispettivamente grado uno due e tre 
@@ -101,6 +102,7 @@ else {
                 \"Rossi\", 
                 0, 
                 \"ProfilePic/propicblank.png\", 
+                NULL,
                 NULL
             ),
             (
@@ -116,12 +118,13 @@ else {
                 \"Bianchi\", 
                 1, 
                 \"ProfilePic/propicblank.png\", 
+                NULL,
                 NULL
             ),
             (
                 \"lucabianchi@gmail.com\", 
                 \"luke4316\", 
-                \"Lucagame\", 
+                \"Bandai Namco Entertaiment\", 
                 3, 
                 0,
                 100, 
@@ -131,6 +134,7 @@ else {
                 \"Bianchi\", 
                 2, 
                 \"ProfilePic/propicblank.png\", 
+                \"ProfilePic/propicblank.png\",
                 \"12345678901\"
             );";
 

@@ -109,7 +109,7 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
         // Query di aggiornamento password
         $sql = "
             UPDATE $table_users
-            SET  = '$new'
+            SET Password = '$new'
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
@@ -187,33 +187,8 @@ if (isset($_POST["cambiaDescrizioneP"]) && !empty($_POST["newDescrizioneP"])) {
     $doc->save("XML/utenti.xml");
 }
 
-//    CAMBIA DESCRIZIONE PUBLISHER (XML)
 
-if (isset($_POST["cambiaModalita"])) {
 
-    $idUtente = $_SESSION["userId"];
-
-    $doc = getDoc("XML/utenti.xml");
-    $root = $doc->documentElement;
-    $elem = $root->childNodes;
-
-    // Cambimo modalita agency
-    foreach ($elem as $userNode) {
-        if ($userNode->getAttribute('id_user') == $idUtente) {
-            if(!isset($_POST['newModAgency'])) {
-                $userNode->getElementsByTagName('ToggleAgency')->item(0)->textContent = 'false';
-                $_SESSION['agencyMod'] = false;
-
-            }else {
-                $userNode->getElementsByTagName('ToggleAgency')->item(0)->textContent = 'true';
-                $_SESSION['agencyMod'] = true;
-            }
-             
-        }
-    }
-
-    $doc->save("XML/utenti.xml");
-}
 
 //    CAMBIO SOCIAL (XML)
 
@@ -277,6 +252,8 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
         printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
     }
 }
+
+
 
     
 
@@ -453,11 +430,12 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 $flag=1;
                                 
                                 $row=mysqli_fetch_array($resultQ);
+                                $immagineProfiloPub = $row['imgProfiloPathPub'];
                                 $immagineProfilo =  $row['imgProfiloPath'];
                                 echo "<div class=\"profilePicColum\"><div class=\"propic\"> 
                                 <img src=\"".$immagineProfilo."\" alt=\"Immagine di Default\"/>
                                 </div>";
-                            if($_SESSION['tipoUtente'] == '2' && !$_SESSION['agencyMod']){
+                            if($_SESSION['tipoUtente'] == '2' && $_SESSION['agencyMod']){
                                 echo "<div class=\"shop\">
                                 <button onclick=\"swapperInPresentazione()\"><img src=\"Stile/Icone/IconaPublisher.png\" alt=\"Presentazione button\" ></button>
                                 <p>Cambia a vista Publisher</p>
@@ -676,34 +654,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 <td><textarea type="text" placeholder="Inserisci una tua descrizione!" name="newDescrizione" ></textarea>    </td>
                                 <td><input type="submit" name="cambiaDescrizione" value="Modifica la tua descrizione"/></td></form>
                             </tr>  
-                            <?php
-                            if($service == '1' && $_SESSION['tipoUtente']=='2'){
-                                echo"<tr>
-                                <form method=\"post\" action=\"Profilo.php\">
-                                <td>Modifica Descrizione</td>
-                                <td><textarea type=\"text\" placeholder=\"Inserisci una tua descrizione per la tua pagina publisher!\" name=\"newDescrizioneP\" ></textarea>    </td>
-                                <td><input type=\"submit\" name=\"cambiaDescrizioneP\" value=\"Modifica la tua descrizione\"/></td></form>
-                            </tr>  ";
-
-                            $elem = xmlPointer('XML/utenti.xml');
-                            foreach($elem as $utente){
-                                if($_SESSION['tipoUtente'] == 2){
-                                    if($_SESSION['userId'] == $utente->getAttribute('id_user')) $toggleAgencyVer=$utente->getElementsByTagName('ToggleAgency')->item(0)->textContent;
-                                }
-                            }
-
-                            echo"<tr>
-                                <form method=\"post\" action=\"Profilo.php\">
-                                <td>Attiva Modalita Agency</td>";
-                                
-                            if($toggleAgencyVer=='true') echo "<td><input type=\"checkbox\"  name=\"newModAgency\" checked=\"checked\" >    </td>";
-                            else if($toggleAgencyVer=='false') echo "<td><input type=\"checkbox\"  name=\"newModAgency\">    </td>";
-                            echo "<td><input type=\"submit\" name=\"cambiaModalita\" value=\"Attiva/Disattiva modalità Agency\"/></td></form>
-                            </tr>  ";
-                        
-
-                            }
-                            ?>
+                            
                             <tr> 
                                 <form method="post" action="Profilo.php">
                                     <td>Modifica Password</td>
@@ -776,6 +727,12 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     </td>
                                 </form>
                             <tr>
+
+
+
+                                
+                            
+                            
                         </table>
                     </div>
                 </div>     
@@ -879,7 +836,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                         echo "<div><h1>Presentazione Publisher: ".$_SESSION['userName']."</h1></div>";
                         echo "<div id=\"Presentazione\">";
                         echo "<div class=\"publisherPropic\"> 
-                                <img src=\"".$immagineProfilo."\" alt=\"Immagine di Default\"/>
+                                <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di Default\"/>
                                 </div>";
                     
                         $elemUtenti = xmlPointer("XML/utenti.xml");
@@ -896,12 +853,13 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 else $descrizionePub = "Nessuna Descrizione";
                             }
                         }
-                        echo "<div><p>La mia Descrizione: $descrizionePub</p></div>";
+                        echo "<div class=\"publisherDescrizione\"><p><h4>La mia Descrizione:</br></h4> $descrizionePub</p></div>";
                         echo "</div>";
                         
 
-
+                    echo"<h2> Ultimi giochi rilasciati:</h2>";
                     echo "<div id=\"libreria\">";
+                    
 
                                                    
    
@@ -912,14 +870,20 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
                             $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                             $genere = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
-                            $voto = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
-                            $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
+                            $votoA = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
+                            $votoU = $gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
+                            $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                            
+                            $immagine = $gioco->getElementsByTagName("Immagine")->item(0)->textContent;
+
                             echo "<div id=\"libreriaBody\"><a onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\">
-                                    <div class=\"imageGame\"><img src=\"$image\" alt=\"$titolo\"/></div>
+                                    <div class=\"imageGame\"><img src=\"$immagine\" alt=\"$titolo\"/></div>
                                     <div><p>Titolo:</p><p> $titolo</p></div>
                                     <div><p>Genere:</p><p> $genere</p></div>
-                                    <div><p>Voto:</p><p> $voto</p></div>
-                                    <div><p>Publisher: </p><p>$publisher</p></div>
+                                    <div><p>Voto Admin:</p><p> $votoA</p></div>
+                                    <div><p>Voto Utenti:</p><p> $votoU</p></div>
+                                    <div><p>Prezzo:</p><p>$prezzo €</p></div>
+                                    
                                 </a></div>";
                         }
                     }
