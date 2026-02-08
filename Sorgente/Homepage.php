@@ -86,14 +86,13 @@ if(isset($_SESSION['userId'])){
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
-
-                            if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "1")
-                                echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
+                            
+                            if($_SESSION['tipoUtente'] == '1'){
+                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             if(isset($_SESSION['tipoUtente'])){
                                 if($_SESSION['tipoUtente'] == "2")
-                                echo "<li><a href=\"gestionePublisher.php\">A</a></li>";
+                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
 
                         ?>

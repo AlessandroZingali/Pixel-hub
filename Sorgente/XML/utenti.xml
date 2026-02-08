@@ -40,7 +40,7 @@
     <GenerePreferito>RPG</GenerePreferito>
     <Descrizione>Ciao sono luke il grande gamemaker</Descrizione>
     <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.</DescrizionePublisher>
-    <ToggleAgency>true</ToggleAgency>
+    <ToggleAgency>false</ToggleAgency>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="09-06-2024" spesa="24.99">4</idGiocoPosseduto>

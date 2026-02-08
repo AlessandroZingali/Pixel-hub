@@ -131,9 +131,16 @@ var_dump($toggleState);
                             else if($service == 1){
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
                                 echo "<li>
-                                <a href=\"Profilo.php\">Profilo di ".$_SESSION['userName']." </a>
+                                <a href=\"Profilo.php\">Profilo</a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                            }
+                                                        if($_SESSION['tipoUtente'] == '1'){
+                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                            }
+                            if(isset($_SESSION['tipoUtente'])){
+                                if($_SESSION['tipoUtente'] == "2")
+                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
                         ?>
                     </ul>
@@ -147,6 +154,7 @@ var_dump($toggleState);
 
             <div class="wrapper">
                 <div class="cardProfilo" id="card1">
+                    
                     <div class="baseProfilo" >
                 
                     
@@ -264,7 +272,7 @@ var_dump($toggleState);
                             ";
                         ?>
 
-            
+             </div> <!-- div di chiusura del baseProfilo -->
 
 
 
@@ -273,55 +281,55 @@ var_dump($toggleState);
                             <div><h3 id="lastTitle">Ultimi Acquisti</h3></div>
                                 <div class="lastGames">
                                     <?php
-                                    $utente = xmlPointer("XML/utenti.xml");
-                                    foreach($utente as $u){
-                                    if($u->getAttribute('id_user') == $_SESSION['userId']){
-                                        $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
-                                        
-                                        $idContainer = [];
+                                        $utente = xmlPointer("XML/utenti.xml");
+                                        foreach($utente as $u){
+                                            if($u->getAttribute('id_user') == $_SESSION['userId']){
+                                                $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
+                                                
+                                                $idContainer = [];
 
-                                        foreach($gameList as $id){
-                                            $idContainer[] =  $id->textContent;
-                                        }
-        
-
-                                        //Come per il catalogo si inseriscono nell array idcontainer gli id di tutti i giochi posseduti dall'utente e 
-                                        //si effettua un reverse sort per invertire l'ordine 
-                                     
-                                       $idContainer = array_reverse($idContainer);
-                                       //var_dump($idContainer);
-                                       
-                                    
-                                        
-                                        $giochi = xmlPointer("XML/Giochi.xml");
-
-                                        $count = 0;
-
-                                        // infine si prendono da Giochi.xml i dati dei 4 giochi 
-                                            foreach($idContainer as $i){
-                                                for($j = ($giochi->length)-1 ; $j>=0; $j--){
-                                                $g=$giochi->item($j);
-                                                    if($i == $g->getAttribute("id_gioco") && $count < 4){
-                                                        $titolo=$g->getElementsByTagName('Titolo')->item(0)->textContent;
-                                                        $idGioco=$g->getAttribute("id_gioco");
-                                                        
-                                                        echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\" onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\" alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
-                                                        $count++;
-                                                    }
+                                                foreach($gameList as $id){
+                                                    $idContainer[] =  $id->textContent;
                                                 }
+                
+
+                                                //Come per il catalogo si inseriscono nell array idcontainer gli id di tutti i giochi posseduti dall'utente e 
+                                                //si effettua un reverse sort per invertire l'ordine 
+                                            
+                                            $idContainer = array_reverse($idContainer);
+                                            //var_dump($idContainer);
+                                            
+                                            
+                                                
+                                                $giochi = xmlPointer("XML/Giochi.xml");
+
+                                                $count = 0;
+
+                                                // infine si prendono da Giochi.xml i dati dei 4 giochi 
+                                                    foreach($idContainer as $i){
+                                                        for($j = ($giochi->length)-1 ; $j>=0; $j--){
+                                                        $g=$giochi->item($j);
+                                                            if($i == $g->getAttribute("id_gioco") && $count < 4){
+                                                                $titolo=$g->getElementsByTagName('Titolo')->item(0)->textContent;
+                                                                $idGioco=$g->getAttribute("id_gioco");
+                                                                
+                                                                echo "<div class=\"lastgame\"><img src=\"".$g->getElementsByTagName('Immagine')->item(0)->textContent."\" onclick=\"location.href='Gamepage.php?titoloGioco=$titolo&idGioco=$idGioco'\" alt=\"".$g->getElementsByTagName('Titolo')->item(0)->textContent."\"/></div>";
+                                                                $count++;
+                                                            }
+                                                        }
+                                                    }
+                                                
                                             }
-                                        
-                                    }
-                                }
+                                        }
 
                             
-                            ?>
+                                    ?>
                             </div>
                     
                         
                         </div>
 
-                    </div> <!-- div di chiusura del baseProfilo -->
+                   
                     <!-- div di chiusura del profilo di base -->
                 
 
@@ -346,7 +354,7 @@ var_dump($toggleState);
                     $immagineProfilo = $row['imgProfiloPathPub'];
                 } 
                 ?> 
-                <div class="cardProfilo hideCard" id="card2" >
+                <div class="cardProfilo" id="card2" >
                     <!-- div per il profilo publisher -->
                    
                             

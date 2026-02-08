@@ -336,7 +336,7 @@ if(isset($_POST["richiediRimborso"])){
                             else if($service == 1){
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
                                 echo "<li>
-                                <a href=\"Profilo.php\">Profilo di $utente</a>
+                                <a href=\"Profilo.php\">Profilo</a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }

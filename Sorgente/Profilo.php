@@ -394,7 +394,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                             else if($service == 1){
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
                                 echo "<li>
-                                <a href=\"Profilo.php\">Profilo di $utente</a>
+                                <a href=\"Profilo.php\">Profilo</a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
@@ -847,8 +847,8 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                             }
                             
 
-                        echo "<div><h1>Presentazione Publisher: ".$_SESSION['userName']."</h1></div>";
-                        echo "<div id=\"Presentazione\">";
+                        echo "<div id=\"titoloPub\"><h1>Presentazione Publisher: ".$_SESSION['userName']."</h1></div>";
+                        echo "<div class=\"containerPresentazione\"><div id=\"Presentazione\">";
                         echo "<div class=\"publisherPropic\"> 
                                 <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di Default\"/>
                                 </div>";
@@ -868,7 +868,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                             }
                         }
                         echo "<div class=\"publisherDescrizione\"><p><h4>La mia Descrizione:</br></h4> $descrizionePub</p></div>";
-                        echo "</div>";
+                        echo "</div></div>";
                         
 
                     echo"<h2> Ultimi giochi rilasciati:</h2>";

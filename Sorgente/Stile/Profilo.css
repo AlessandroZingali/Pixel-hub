@@ -14,7 +14,8 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     margin-bottom: 1%;
     width:88%;
     height: 80%;
-    margin-left: 10%;
+    margin-left: 5%;
+    padding: 2%;
     border: solid rgb(241, 196, 204);
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
@@ -132,7 +133,12 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
         }   
 
     }
-    .propic{padding: 50px;}
+    .propic{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 50px;
+    }
         .propic img{
         border: solid rgb(172, 0, 0) 10px;
         width: 200px;
@@ -233,6 +239,7 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     width: 200px;
     height: 280px;
     border-radius: 10px;
+    padding-left: 10%;
 }
 
 
@@ -309,24 +316,50 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
         
     }
 
-.presentazionePublisher{
-    width: 90%;
-    padding-left: 5%;
+
+
+
+#titoloPub{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+
+.containerPresentazione{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;  
+    column-gap: 7px;  
 }
 
 #Presentazione{
+    
     border-radius: 15px;
 
-    display: grid;
-    grid-template-columns: repeat( 2, minmax(220px, 1fr));
-    grid-template-rows: auto;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     color: white;
-    padding: 10px;
+    padding: 1%;
+    border-radius: 15%;
     
 }
 .publisherDescrizione{
-        max-width: 800px;
+    width: 900px;
+      /* border: teal solid; */
+    
+    padding:30px;
+    
+    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+    border-radius: 10px;
+
+    p{
+        line-height: 40px;
+    }
+     
+    
+        
     }
    
 
@@ -364,6 +397,13 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
         font-size: 25px;
         align-items: center;
     }
+    #Presentazione{
+        flex-direction: column;
+        row-gap: 10%;
+    }
+    .publisherDescrizione{
+        width: 100%;
+    }
 }
 
 @media (max-width: 1450px){
@@ -388,8 +428,14 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
 
     #libreria{
         grid-template-columns: repeat( 2, minmax(220px, 1fr));
-        font-size: 25px;
+        font-size: 20px;
+        a{
+            padding-left: 30%;
+        }
     }
+    
+    
+    
 }
 @media (max-width: 1350px){
 
@@ -452,11 +498,17 @@ con relativi punti di forza e debolezza nella praticità d'uso*/
     }
 
     #Presentazione{
-        grid-template-columns: repeat( 1, minmax(220px, 1fr));
+        padding-left: 20%;
+
     }
     
     #libreria{
         grid-template-columns: repeat( 1, minmax(220px, 1fr));
+    }
+    .publisherDescrizione{
+        margin-top: 10%;
+
+
     }
 
 }

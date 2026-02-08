@@ -124,7 +124,7 @@ else {
             (
                 \"lucabianchi@gmail.com\", 
                 \"luke4316\", 
-                \"Bandai Namco Entertaiment\", 
+                \"Bandai Namco Entertaniment\", 
                 3, 
                 0,
                 100, 
