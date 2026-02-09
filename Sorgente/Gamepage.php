@@ -10,7 +10,7 @@ $idGame = 0;
 $userSet = false;
 
 
-
+require_once 'baseScontiUtente.php';
 //Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
 if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
     $titoloGioco = $_GET['titoloGioco'];
@@ -36,6 +36,7 @@ session_start();
 //Verifica se l'utente è loggato (servizio di autenticazione)
 if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
+    $scontoManager = new scontiUtente($_SESSION['userId']);
     $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
 }
 
@@ -503,9 +504,18 @@ echo "";
                                     <td>$titoloGioco</td>
                                 </tr>
                                 <tr>
-                                    <td>Prezzo</td>
-                                    <td>$PrezzoGioco €</td>
-                                </tr>
+                                    <td>Prezzo</td>";
+                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                    if(count($sconti) > 0){
+                                        $sommaSconti=array_sum($sconti);
+                                        $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
+                                        echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
+                                    }
+                                    else{
+                                        echo "<td> $PrezzoGioco € </td> ";
+                                    }     
+
+                                echo "</tr>
                                 <tr>
                                     <td>Generi</td>
                                     <td>$GenereGioco </td>

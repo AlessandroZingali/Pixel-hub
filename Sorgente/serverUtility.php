@@ -32,11 +32,7 @@ function xmlPointer($file){
 
 //Imposto un limite massimo di giochi da mostrare in ogni slider
 function setLimiteSlider($elem){
-    if($elem->length<20){
-        $limite=$elem->length;
-    } else {
-        $limite=23;
-    }
+    $limite=$elem->length;
     return $limite;
 }
 

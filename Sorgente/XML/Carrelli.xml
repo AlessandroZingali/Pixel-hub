@@ -7,4 +7,10 @@
       <prezzo>39.99</prezzo>
     </gioco>
   </Carrello>
+  <Carrello id_user="3" id_cart="4">
+    <gioco id_gioco="5">
+      <titolo>Clair Obscur:Expedition 33</titolo>
+      <prezzo>14.99</prezzo>
+    </gioco>
+  </Carrello>
 </listaCarrelli>

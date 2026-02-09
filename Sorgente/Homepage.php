@@ -2,6 +2,7 @@
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
 require_once 'gestioneEsperienzauser.php';
+require_once 'baseScontiUtente.php';
 
 $service = 0; //0 = guest, 1 = logged in
 $utente = "";//nome utente loggato
@@ -15,6 +16,7 @@ if(isset($_SESSION['userId'])){
     $commenti=xmlPointer("XML/Commenti.xml");
     $sommatoria = calcoloModCommenti($commenti);
     $mod = $_SESSION['modCommenti']/100;
+    $scontoManager = new scontiUtente($_SESSION['userId']);
 
 }
 
@@ -139,6 +141,8 @@ if(isset($_SESSION['userId'])){
                                         $titoloGioco=$gioco->getElementsbyTagName("Titolo")->item(0)->textContent;
                                         $prezzoGioco=$gioco->getElementsbyTagName("Prezzo")->item(0)->textContent;
                                         $immagine=$gioco->getElementsbyTagName("Immagine")->item(0)->textContent;
+
+                                        
                                         //Le game card sono le singole celle della tabella che contengono l'immagine del gioco, il prezzo e il link alla pagina del gioco.
                                         echo "<td>";
                                         echo "<div class= \" GameCard \"> 
@@ -163,7 +167,23 @@ if(isset($_SESSION['userId'])){
                                                         break;
                                                     }
                                                 }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
+                                                if (!$possiedeGioco) {
+                                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                                   if(count($sconti) > 0){
+                                                        $sommaSconti=array_sum($sconti);
+                                                        $prezzoGiocoScontato = $prezzoGioco - ($prezzoGioco * ($sommaSconti/100));
+                                                    
+                                                        echo "<div class=\"prezzo\"><p>  <s>$prezzoGioco €</s></p></div> ";
+                                                        echo "<div class=\"prezzoSconto\"><p>".round($prezzoGiocoScontato, 2)." € </p></div>";
+
+                                                    }
+                                                    else{
+                                                        echo "<div class=\"prezzo\"><p> $prezzoGioco €  </p></div> ";
+
+                                                    }
+
+                                                    
+                                                }
                                                 else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
                                                 
                                             }
@@ -249,8 +269,26 @@ if(isset($_SESSION['userId'])){
                                                             break;
                                                         }
                                                     }
-                                                    if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
-                                                    else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
+                                                    if (!$possiedeGioco) {
+                                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                                    if(count($sconti) > 0){
+                                                        $sommaSconti=array_sum($sconti);
+                                                        $prezzoGiocoScontato = $prezzoGioco - ($prezzoGioco * ($sommaSconti/100));
+                                                        
+                                                        
+                                                        echo "<div class=\"prezzo\"><p>  <s>$prezzoGioco €</s> </p></div> ";
+                                                        echo "<div class=\"prezzoSconto\"><p>".round($prezzoGiocoScontato, 2)." € </p></div>";
+                                                        
+
+                                                    }
+                                                    else{
+                                                        echo "<div class=\"prezzoNoSconto\"><p> $prezzoGioco €  </p></div> ";
+
+                                                    }
+
+                                                    
+                                                }
+                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
                                                     
                                                 }
                                             }
@@ -344,7 +382,23 @@ if(isset($_SESSION['userId'])){
                                                         break;
                                                     }
                                                 }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
+                                                if (!$possiedeGioco) {
+                                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                                    if(count($sconti) > 0){
+                                                        $sommaSconti=array_sum($sconti);
+                                                        $prezzoGiocoScontato = $prezzoGioco - ($prezzoGioco * ($sommaSconti/100));
+                                                   
+                                                        echo "<div class=\"prezzo\"><p>  <s>$prezzoGioco €</s> </p></div> ";
+                                                             echo "<div class=\"prezzoSconto\"><p>".round($prezzoGiocoScontato, 2)." € </p></div>";
+
+                                                    }
+                                                    else{
+                                                        echo "<div class=\"prezzoNoSconto\"><p> $prezzoGioco €  </p></div> ";
+
+                                                    }
+
+                                                    
+                                                }
                                                 else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
                                                 
                                             }
@@ -437,7 +491,24 @@ if(isset($_SESSION['userId'])){
                                                         break;
                                                     }
                                                 }
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $prezzoGioco € </p></div> ";
+                                                if (!$possiedeGioco) {
+                                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                                    if(count($sconti) > 0){
+                                                        $sommaSconti=array_sum($sconti);
+                                                        $prezzoGiocoScontato = $prezzoGioco - ($prezzoGioco * ($sommaSconti/100));
+                                                    
+                                                        echo "<div class=\"prezzo\"><p>  <s>$prezzoGioco €</s> </p></div> ";
+                                                             echo "<div class=\"prezzoSconto\"><p>".round($prezzoGiocoScontato, 2)." € </p></div>";
+
+                                                    }
+                                                    else{
+                                                        echo "<div class=\"prezzoNoSconto\"><p> $prezzoGioco €  </p></div> ";
+
+                                                    }
+
+                                                    
+                                                
+                                                }
                                                 else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
                                                 
                                             }

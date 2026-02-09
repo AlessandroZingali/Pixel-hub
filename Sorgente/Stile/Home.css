@@ -123,6 +123,35 @@
     }
 
 .prezzo {
+    background-color: rgb(197, 166, 43);
+
+    text-align: right;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    height: 40px;
+    width: 72px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+
+}
+.prezzoSconto {
+    background-color: rgb(71, 95, 228);
+
+    text-align: right;
+    position: absolute;
+    bottom: 20px;
+    right: 100px;
+    height: 40px;
+    width: 72px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    
+
+}
+.prezzoNoSconto {
     background-color: rgb(63, 197, 43);
 
     text-align: right;

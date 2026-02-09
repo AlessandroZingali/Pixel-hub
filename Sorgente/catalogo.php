@@ -4,6 +4,7 @@ Per fare ciò abbaimo usato una struttura dati apposita e la funzione di utilty 
 in una data funzione.*/
 
 require 'serverUtility.php'; 
+require_once 'baseScontiUtente.php';
 // Il catalogo usa un array per disporre i giochi in ordine alfabetico per praticita si è voluta creare una classe che definisce gli elementi presenti nell array 
 class Game {
     //Attributi della classe gioco
@@ -30,6 +31,7 @@ if(isset($_SESSION['userId'])){
     
     $utente = $_SESSION['userName'];
     $service = 1;
+    $scontoManager = new scontiUtente($_SESSION['userId']);
 }
 
 
@@ -162,8 +164,27 @@ if(isset($_SESSION['userId'])){
                                                         break;
                                                     }
                                                 } 
-                                                if (!$possiedeGioco) echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> "; //Mostro il prezzo se l'utente non possiede il gioco
-                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> "; //Mostro "Acquistato!" se l'utente possiede già il gioco
+                                                if (!$possiedeGioco) {
+                                                    $sconti = $scontoManager->percentualeScontoGioco($c->idGioco);
+                                                   if(count($sconti) > 0){
+                                                        $sommaSconti=array_sum($sconti);
+                                                        $prezzoGiocoScontato = $c->prezzo - ($c->prezzo * ($sommaSconti/100));
+                                                        echo"<div class=\"prezzi\">";
+                                                    
+                                                        echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> ";
+                                                        echo "<div class=\"prezzoSconto\"><p>".round($prezzoGiocoScontato, 2)." € </p></div>";
+
+                                                        echo"</div>";
+
+                                                    }
+                                                    else{
+                                                        echo "<div class=\"prezzoNoSconto\"><p> $c->prezzo €  </p></div> ";
+
+                                                    }
+
+                                                    
+                                                }
+                                                else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
                                             }
                                         }
                                       }else echo "<div class=\"prezzo\"><p>  $c->prezzo € </p></div> "; //Mostro il prezzo se l'utente non è loggato
