@@ -40,15 +40,20 @@ if(isset($_SESSION['userId'])){
     $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
 }
 
-if(($_SESSION['tipoUtente']==1 && $disponibilita=='0')){ 
-    header("Location: GestioneAdmin.php");
+if(isset($_SESSION['tipoUtente'])){
+
+    if($_SESSION['tipoUtente']==0 && $disponibilita=='0'){
+        echo "<script>alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');</script>";
+        header("Location: Homepage.php");
+    }
+    else if(($_SESSION['tipoUtente']==1 && $disponibilita=='0')) {
+        header("Location: GestioneAdmin.php"); 
+    }
 }
 
-if($_SESSION['tipoUtente']==0 && $disponibilita=='0'){
-    echo "<script>alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');</script>";
-    header("Location: Homepage.php");
-}
-echo "";
+    
+
+
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -419,7 +424,7 @@ echo "";
                     <ul>                       
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
+                        
                         <?php
                             //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
                             // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
@@ -434,19 +439,22 @@ echo "";
                                 echo "<li><a href=\"login.php\">Log in </a></li>";
                             }
                             else if($service == 1){
+                                echo"<li><a href=\"carrello.php\">Carrello </a></li>";
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
                                 echo "<li>
                                 <a href=\"Profilo.php\">Profilo</a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
-                                                        if($_SESSION['tipoUtente'] == '1'){
+                                 
+                            if(isset($_SESSION['tipoUtente'])){
+                                if($_SESSION['tipoUtente'] == '1')
                                 echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             if(isset($_SESSION['tipoUtente'])){
                                 if($_SESSION['tipoUtente'] == "2")
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
+                            } 
                         ?>
                     </ul>
                 </div> <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
@@ -505,12 +513,13 @@ echo "";
                                 </tr>
                                 <tr>
                                     <td>Prezzo</td>";
+                                    if(isset($_SESSION['tipoUtente'])){
                                     $sconti = $scontoManager->percentualeScontoGioco($idGioco);
                                     if(count($sconti) > 0){
                                         $sommaSconti=array_sum($sconti);
                                         $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
                                         echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
-                                    }
+                                    }}
                                     else{
                                         echo "<td> $PrezzoGioco € </td> ";
                                     }     

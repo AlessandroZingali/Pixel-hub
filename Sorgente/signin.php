@@ -149,6 +149,16 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $doc->save("XML/utenti.xml");
                                 // infine vengono appesi all nodo radice e vengono salvati al nodo utente
 
+                                $doc = getDoc('XML/ScontiAssegnati.xml');
+                                $root=$doc->documentElement;
+                                $elem=$root->childNodes;
+                                $utente = $doc->createElement("Utente");
+                                $utente->setAttribute("id_user", $idUtente);
+                                $scontoAssBase = $doc->createElement("scontiAssegnati");
+                                $utente->appendChild($scontoAssBase);
+                                $root->appendChild($utente);
+                                $doc->save("XML/ScontiAssegnati.xml");
+
                         
                                 header("Location: login.php");
                             }

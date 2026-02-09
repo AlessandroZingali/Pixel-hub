@@ -60,4 +60,13 @@
       <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>09-02-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Bandai Namco Entertainment</CasaDiSviluppoPreferita>
+    <GenerePreferito>Avventura</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>

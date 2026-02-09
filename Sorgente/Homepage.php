@@ -82,21 +82,22 @@ if(isset($_SESSION['userId'])){
                                 echo "<li><a href=\"login.php\">Log in </a></li>";
                             }
                             else if($service == 1){
+                                
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
                                 echo "<li>
                                 <a href=\"Profilo.php\">Profilo </a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
+                            
                             
                             if($_SESSION['tipoUtente'] == '1'){
                                 echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
-                            if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "2")
+                            
+                                if($_SESSION['tipoUtente'] == "2"){
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
-
+                        }
                         ?>
                     </ul>
                 </div>

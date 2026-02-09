@@ -48,10 +48,6 @@ if($tipoUtente != null && $tipoUtente == '2') {
     }    
 }
 
-var_dump($toggleState);
-
-// Nome tabella utenti
-
 
 
 
@@ -134,13 +130,14 @@ var_dump($toggleState);
                                 <a href=\"Profilo.php\">Profilo</a>
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
+                            
                                                         if($_SESSION['tipoUtente'] == '1'){
                                 echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             if(isset($_SESSION['tipoUtente'])){
                                 if($_SESSION['tipoUtente'] == "2")
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                            }
                             }
                         ?>
                     </ul>
@@ -175,7 +172,7 @@ var_dump($toggleState);
                                 $flag=1;
                                 
                                 $row=mysqli_fetch_array($resultQ);
-                                echo"
+                                echo"<h1>Pagina Utente - ".$row['Username']."</h1>
                                         <div class=\"profilePicColum\">
                                             <div class=\"propic\"> 
                                                 <img src=\"".$row['imgProfiloPath']."\" alt=\"Immagine di Default\"/>
@@ -283,7 +280,7 @@ var_dump($toggleState);
                                     <?php
                                         $utente = xmlPointer("XML/utenti.xml");
                                         foreach($utente as $u){
-                                            if($u->getAttribute('id_user') == $_SESSION['userId']){
+                                            if($u->getAttribute('id_user') == $idUtenteEsterno){
                                                 $gameList = $u->getElementsByTagName('listaGiochi')->item(0)->getElementsByTagName("idGiocoPosseduto");
                                                 
                                                 $idContainer = [];

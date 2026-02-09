@@ -23,6 +23,7 @@
     <Gioco valoreSconto="5">17</Gioco>
     <Gioco valoreSconto="3">13</Gioco>
     <Gioco valoreSconto="10">3</Gioco>
+    <Gioco valoreSconto="5">5</Gioco>
     <Gioco valoreSconto="5">21</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="4"/>
