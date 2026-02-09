@@ -44,5 +44,9 @@
   <Sconto id_tipoSconto="8"/>
   <Sconto id_tipoSconto="9">
     <Gioco valoreSconto="20">23</Gioco>
+    <Gioco valoreSconto="5">20</Gioco>
+    <Gioco valoreSconto="5">2</Gioco>
+    <Gioco valoreSconto="10">7</Gioco>
+    <Gioco valoreSconto="10">17</Gioco>
   </Sconto>
 </listaSconti>

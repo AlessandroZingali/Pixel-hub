@@ -116,6 +116,7 @@
            }
 
             // 2. spesa da una certa data
+            $saldo=0;
             $alreadyAssigned=false;
             $elemUtenti = xmlPointer('XML/utenti.xml');
             $SettingSelector = getRoot('XML/SettingsSconti.xml');
@@ -210,17 +211,19 @@
             $alreadyAssigned=false;
 
             foreach($giochi as $gioco){
-                $correlati = $gioco->getElementsByTagName('TitoliCorrelati')[0]->getElementsByTagName('idGiocoCorrelato');
-                foreach($scontoSel->getElementsByTagName('Gioco') as $giocoSconto){
-                    if($gioco->getAttribute('id_gioco') == $giocoSconto->textContent){
-                        $isIn = true;
-                        break;
+                if($gioco->getElementsByTagName('TitoliCorrelati')->length > 0){
+                    $correlati = $gioco->getElementsByTagName('TitoliCorrelati')[0]->getElementsByTagName('idGiocoCorrelato');
+                    foreach($scontoSel->getElementsByTagName('Gioco') as $giocoSconto){
+                        if($gioco->getAttribute('id_gioco') == $giocoSconto->textContent){
+                            $isIn = true;
+                            break;
+                        }
+                    }
+                    foreach($correlati as $correlato){
+                        array_push($giochiCor, (int)$correlato->textContent);
                     }
                 }
-                foreach($correlati as $correlato){
-                    array_push($giochiCor, (int)$correlato->textContent);
-                    
-                }
+                
                 $isIn = false;
             }
             //var_dump($giochiCor);

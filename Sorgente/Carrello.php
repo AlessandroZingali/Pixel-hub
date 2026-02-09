@@ -289,11 +289,13 @@ if(isset($_POST['buttonRimuovi'])){
             <?php
             $elemCarrello = xmlPointer('XML/Carrelli.xml');
             $flagCarrelloVuoto = true;
-            if($service==1){ foreach($elemCarrello as $carrello){
+            if($service==1){ 
+                foreach($elemCarrello as $carrello){
                     
                     if($carrello->getAttribute('id_user')==$_SESSION['userId']){
                         $elemGioco = $carrello->getElementsByTagName('gioco');
                         if($elemGioco->length == 0){
+                            var_dump($carrello->getAttribute('id_cart'));
                             $flagCarrelloVuoto = false;
                             echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
                         }

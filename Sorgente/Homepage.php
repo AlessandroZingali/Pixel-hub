@@ -170,6 +170,7 @@ if(isset($_SESSION['userId'])){
                                                 }
                                                 if (!$possiedeGioco) {
                                                     $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                                    
                                                    if(count($sconti) > 0){
                                                         $sommaSconti=array_sum($sconti);
                                                         $prezzoGiocoScontato = $prezzoGioco - ($prezzoGioco * ($sommaSconti/100));
@@ -179,7 +180,7 @@ if(isset($_SESSION['userId'])){
 
                                                     }
                                                     else{
-                                                        echo "<div class=\"prezzo\"><p> $prezzoGioco €  </p></div> ";
+                                                        echo "<div class=\"prezzoNoSconto\"><p> $prezzoGioco €  </p></div> ";
 
                                                     }
 
