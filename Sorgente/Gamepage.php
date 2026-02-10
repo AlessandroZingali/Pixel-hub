@@ -92,6 +92,7 @@ if(isset($_SESSION['tipoUtente'])){
             $commento->setAttribute("minuti", date("i"));
             $commento->setAttribute("like", 0);  
             $commento->setAttribute("dislike", 0);
+            $commento->setAttribute("segnalazioni", 0);
 
             $commento->appendChild($testo);
             $gioco->appendChild($commento);
@@ -116,6 +117,7 @@ if(isset($_SESSION['tipoUtente'])){
                 $commento->setAttribute("minuti", date("i"));
                 $commento->setAttribute("like", 0);  
                 $commento->setAttribute("dislike", 0);
+                $commento->setAttribute("segnalazioni", 0);
                 $commento->appendChild($testo);
                 $gioco->insertBefore($commento, $lastCommento);
            }
@@ -133,6 +135,7 @@ if(isset($_SESSION['tipoUtente'])){
                 $commento->setAttribute("minuti", date("i"));
                 $commento->setAttribute("like", 0);  
                 $commento->setAttribute("dislike", 0);
+                $commento->setAttribute("segnalazioni", 0);
 
                 $commento->appendChild($testo);
                 $gioco->appendChild($commento);
@@ -173,7 +176,9 @@ if(isset($_SESSION['tipoUtente'])){
             $recensione->setAttribute("minuti", date("i"));
             $recensione->setAttribute("like", 0);  
             $recensione->setAttribute("dislike", 0);
+            $recensione->setAttribute("segnalazioni", 0);
             $recensione->setAttribute("voto", $_POST["votoUtente"]);
+            
 
             $sommaVotiUtenti = 0;
             $sommaVotiUtenti += (int)$_POST["votoUtente"];
@@ -218,6 +223,7 @@ if(isset($_SESSION['tipoUtente'])){
                 $recensione->setAttribute("minuti", date("i"));
                 $recensione->setAttribute("like", 0);
                 $recensione->setAttribute("dislike", 0);
+                $recensione->setAttribute("segnalazioni", 0);
                 $recensione->setAttribute("voto", (int)$_POST["votoUtente"]);
 
                 //Calcoliamo la nuova media delle recensioni utenti
@@ -265,6 +271,7 @@ if(isset($_SESSION['tipoUtente'])){
                 $recensione->setAttribute("minuti", date("i"));
                 $recensione->setAttribute("like", 0);  
                 $recensione->setAttribute("dislike", 0);
+                $recensione->setAttribute("segnalazioni", 0);
                 $recensione->setAttribute("voto", $_POST["votoUtente"]);
 
             $sommaVotiUtenti = 0;
@@ -819,12 +826,19 @@ if(isset($_SESSION['tipoUtente'])){
                                                 
                         }
                     //   Mostriamo i commenti esistenti per il gioco attuale
+
                         echo "<h4>Commenti:</h4>";
                         $elem = xmlPointer("XML/Commenti.xml");
                         foreach($elem as $i){
                             // Scorriamo i nodi commento, prendendo solo quelli in cui l'attributo id gioco metcha con l'id gioco attuale
                             if($i->getAttribute("id_gioco")==$idGioco){
+                                if (($i->hasChildNodes())){
+                                    echo"Nessun commento";
+                                }
+                                
                                 $commentoId = $i->getElementsByTagName("Commento"); //Prendiamo il primo nodo Commento
+
+                            
 
                                 //Scarichiamo le informazioni di ogni commento dal primo nodo commento all'ultimo, presente nel nodo Gioco
                                 foreach($commentoId as $c){

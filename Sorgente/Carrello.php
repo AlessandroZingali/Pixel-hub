@@ -416,7 +416,10 @@ if(isset($_POST['buttonRimuovi'])){
                 }
                 
             }
-            
+            }
+            else {
+                echo "<h2> Iscriviti al sito per aggiungere un gioco nel carrello</h2>";
+            }
         ?>
         
         </div>       

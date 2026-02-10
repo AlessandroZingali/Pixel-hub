@@ -285,6 +285,65 @@ if(isset($_POST["richiediRimborso"])){
     }
     
 }
+
+if(isset($_POST['formSegnalazioniCommenti'])){
+    $docCommenti = getDoc("XML/Commenti.xml");
+    $root = $docCommenti->documentElement;
+    $elem =$root->childNodes;
+
+    foreach($elem as $idGiocoCom){
+        if($idGiocoCom->getAttribute("id_gioco")==$_POST["idGiocoSegnalato"]){
+            $Commenti= $idGiocoCom->childNodes;
+            foreach($Commenti as $CommentoDaEliminare){
+                if($CommentoDaEliminare->getAttribute("id_commento")==$_POST['idCommentoSegnalato']){
+                    $CommentoDaEliminare->parentNode->removeChild($CommentoDaEliminare);
+
+                }
+            }
+        }
+        $docCommenti->save("XML/Commenti.xml");
+    }
+    $docLike = getDoc("XML/LikeCommenti.xml");
+    $root = $docLike->documentElement;
+    $elem =$root->childNodes;
+    foreach($elem as $ref){
+        if($ref->getElementsByTagName('Id_Gioco')[0]->textContent==$_POST["idGiocoSegnalato"] && $ref->getElementsByTagName('Id_Commento')[0]->textContent==$_POST['idCommentoSegnalato']){
+            $root->removeChild($ref);
+        }
+    }
+    $docLike->save('XML/LikeCommenti.xml');
+
+
+}
+
+if(isset($_POST['formSegnalazioniRecensioni'])){
+    $docRecensioni = getDoc("XML/Recensioni.xml");
+    $root = $docRecensioni->documentElement;
+    $elem =$root->childNodes;
+
+    foreach($elem as $idGiocoRec){
+        if($idGiocoRec->getAttribute("id_gioco")==$_POST["idRecensioneSegnalato"]){
+            $Recensioni= $idGiocoRec->childNodes;
+            foreach($Recensioni as $RecensioneDaEliminare){
+                if($RecensioneDaEliminare->getAttribute("id_recensione")==$_POST['idRecensioneSegnalato']){
+                    $RecensioneDaEliminare->parentNode->removeChild($RecensioneDaEliminare);
+                }
+            }
+        }
+        $docRecensioni->save("XML/Recensioni.xml");
+    }
+    $docLike = getDoc("XML/LikeRecensioni.xml");
+    $root = $docLike->documentElement;
+    $elem =$root->childNodes;
+    foreach($elem as $ref){
+        if($ref->getElementsByTagName('Id_Gioco')[0]->textContent==$_POST["idGiocoSegnalato"] && $ref->getElementsByTagName('Id_Recensione')[0]->textContent==$_POST['idRecensioneSegnalato']){
+            $root->removeChild($ref);
+        }
+    }
+    $docLike->save('XML/LikeRecensioni.xml');
+
+
+}
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -341,7 +400,7 @@ if(isset($_POST["richiediRimborso"])){
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
                             if($_SESSION['tipoUtente'] == '1'){
-                                echo "<li><a href=\"GestioneAdmin.php\">A</a></li>";
+                                echo "<li><a href=\"GestioneAdmin.php\">Gestione </a></li>";
                             }
                         ?>
                     </ul>
@@ -395,6 +454,12 @@ if(isset($_POST["richiediRimborso"])){
                     <div class="gestioneRimborsi">
                         <p>- Gestisci i rimborsi - >
                             <button onclick="swapperInSearchUtenteRim()"> <img src="Stile/Icone/rimborsiicon.png" alt="rimborsibutton" >
+                        </button>  
+                        </p>
+                    </div>
+                    <div class="gestioneSegnalazioni">
+                        <p>- Gestisci Le segnalazioni - >
+                            <button onclick="swapperInGestioneSegnalazioni()"> <img src="Stile/Icone/segnalaicon.png" alt="Segnalzionibutton" >
                         </button>  
                         </p>
                     </div>
@@ -809,88 +874,90 @@ if(isset($_POST["richiediRimborso"])){
 
 
 
-                <div class="cardSettings hideCard" id="card9">
+            <div class="cardSettings hideCard" id="card9">
                 <!-- Card gestione rimborsi -->
                 <h1>Lista Rimborsi </h1>
                 <?php 
-                 
-                    $table_users='Tabella_Utenti';
-                    $id_utente = $_POST['id_user_gestione'];
-                    connectDB();
+                    if(isset($_POST["id_user_gestione"])){
+                        $table_users='Tabella_Utenti';
+                        $id_utente = $_POST['id_user_gestione'];
+                        connectDB();
 
-                    if (mysqli_connect_errno()) {
-                        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
-                    }
-
-                    $query="SELECT * FROM $table_users WHERE ID=$id_utente";
-
-                    $result = mysqli_query(connectDB(), $query);
-
-                    if ($result) {
-                        $row = mysqli_fetch_array($result);
-                        $pixelAttuali = $row['Pixels'];
-                    } else {
-                        echo "<h2>Utente non trovato</h2>";
-                    }
-
-
-                $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
-                foreach($elem as $trans){
-                    if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
-                        echo "<table id=\"rimborsi\">";
-                        echo "<tr>
-                                <th>ID Transazione</th>
-                                <th>ID Giocatore</th>
-                                <th>Data e Ora</th>
-                                <th>Mod Utente</th>
-                                <th>Pixel Iniziali</th>
-                            </tr>";
-                        $idTransazione = $trans->getAttribute('IDTransazione');
-                        $idUser = $trans->getAttribute('IDGiocatore');
-                        $modCommenti = (float)$trans->getAttribute('ModCommentiUsato');
-                        echo "</br>";
-                        $pixels = $trans->getAttribute('PixelIniziali');
-                        echo "<tr id=\"transazione\">";
-                        echo '<td>'.$idTransazione.'</td>';
-                        echo '<td>'.$idUser.'</td>';
-                        echo '<td> '.$trans->getAttribute('DataOra').'</td>';
-                        echo '<td> '.(float)$modCommenti.' </td>';
-                        echo '<td>'.$pixels.'->'.$pixelAttuali.'</td>';
- 
-                        $giochi = $trans->getElementsByTagName("Gioco");
-                        echo "</tr>
-                                <tr>
-                                    <th>ID Gioco</th>
-                                    <th id=\"colTitolo\">Titolo</th>
-                                    <th>Importo(€)</th>
-                                    <th>Pixel Guadagnati</th>
-                                    <th>Annullare Acquisto?</th>
-                                </tr>";
-                       
-                        foreach($giochi as $gioco){
-                            echo "<tr id=\"giochiacquistati\">";
-                            echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
-                            echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";
-                            $importo = (float)$gioco->getElementsByTagName("Importo")->item(0)->textContent;   
-                            echo "<td>".$importo."€</td>";
-                            $pixelGuadagnati = $importo*5;
-                            echo"<td>$pixelGuadagnati</td>";
-                            echo "<td><form method='post' action='GestioneAdmin.php'>
-                                    <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
-                                    <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
-                                    <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
-                                    <input type='hidden' name='pixels_da_togliere' value='".$pixelGuadagnati."'>
-                                    <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
-                                    <input type='hidden' name='importo' value='".$importo."'>
-                                    <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
-                                  </form></td>";
-                            echo "</tr>";      
+                        if (mysqli_connect_errno()) {
+                            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                         }
-                        
-                        echo "</table>";
+
+                        $query="SELECT * FROM $table_users WHERE ID=$id_utente";
+
+                        $result = mysqli_query(connectDB(), $query);
+
+                        if ($result) {
+                            $row = mysqli_fetch_array($result);
+                            $pixelAttuali = $row['Pixels'];
+                        } else {
+                            echo "<h2>Utente non trovato</h2>";
+                        }
+
+
+                        $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
+                        foreach($elem as $trans){
+                            if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
+                                echo "<table id=\"rimborsi\">";
+                                echo "<tr>
+                                        <th>ID Transazione</th>
+                                        <th>ID Giocatore</th>
+                                        <th>Data e Ora</th>
+                                        <th>Mod Utente</th>
+                                        <th>Pixel Iniziali</th>
+                                    </tr>";
+                                $idTransazione = $trans->getAttribute('IDTransazione');
+                                $idUser = $trans->getAttribute('IDGiocatore');
+                                $modCommenti = (float)$trans->getAttribute('ModCommentiUsato');
+                                echo "</br>";
+                                $pixels = $trans->getAttribute('PixelIniziali');
+                                echo "<tr id=\"transazione\">";
+                                echo '<td>'.$idTransazione.'</td>';
+                                echo '<td>'.$idUser.'</td>';
+                                echo '<td> '.$trans->getAttribute('DataOra').'</td>';
+                                echo '<td> '.(float)$modCommenti.' </td>';
+                                echo '<td>'.$pixels.'->'.$pixelAttuali.'</td>';
+
+                                $giochi = $trans->getElementsByTagName("Gioco");
+                                echo "</tr>
+                                        <tr>
+                                            <th>ID Gioco</th>
+                                            <th id=\"colTitolo\">Titolo</th>
+                                            <th>Importo(€)</th>
+                                            <th>Pixel Guadagnati</th>
+                                            <th>Annullare Acquisto?</th>
+                                        </tr>";
+                                
+                                foreach($giochi as $gioco){
+                                    echo "<tr id=\"giochiacquistati\">";
+                                    echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
+                                    echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";
+                                    $importo = (float)$gioco->getElementsByTagName("Importo")->item(0)->textContent;   
+                                    echo "<td>".$importo."€</td>";
+                                    $pixelGuadagnati = $importo*5;
+                                    echo"<td>$pixelGuadagnati</td>";
+                                    echo "<td><form method='post' action='GestioneAdmin.php'>
+                                            <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
+                                            <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
+                                            <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
+                                            <input type='hidden' name='pixels_da_togliere' value='".$pixelGuadagnati."'>
+                                            <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
+                                            <input type='hidden' name='importo' value='".$importo."'>
+                                            <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
+                                            </form></td>";
+                                    echo "</tr>";      
+                                }
+                                
+                                echo "</table>";
+                            }
+                            
+                        }
+                
                     }
-                    
-                }
                 
                 ?>
         
@@ -898,6 +965,103 @@ if(isset($_POST["richiediRimborso"])){
                     <div class="backarrow">
                         <button onclick="swapperInGestioneRimborsi()"><img src="Stile/Icone/iconafreccia.png" alt="usergestionbutton" ></button>
                     </div>
+                </div>
+            </div>
+            <div class="cardSettings hideCard" id="card10">
+                 <div class="buttons">
+                    <div class="backarrow">
+                        <button onclick="swapperInGestioneSegnalazioni()"><img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
+                    </div>
+                </div>
+                
+                <div id="segnalazioni"> 
+                <div><h2>Segnalazioni commenti</h2></div>
+                
+                <?php
+                $isSegnalato = false;
+                    $elem = xmlPointer("XML/Commenti.xml");
+                    foreach($elem as $gioco){
+                        if($gioco->getElementsByTagName("Commento")->length > 0){
+                            $commenti = $gioco->childNodes;
+                            foreach($commenti as $commento){
+                                if($commento->getAttribute('segnalazioni') != '0'){
+                                    $isSegnalato = true;
+                                }
+                            }
+                            if($isSegnalato){
+                                echo"<p> ID Gioco: ".$gioco->getAttribute('id_gioco')."</p>";
+                                $commenti = $gioco->childNodes;
+                                echo "<div class=\"commentiSegnalati\">";
+                                foreach($commenti as $commento){
+                                    if($commento->getAttribute('segnalazioni') != '0'){
+                                        echo "<div class=\"elemSegnalazione\"><p> ID Commento: ".$commento->getAttribute('id_commento')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> ID Utente: ".$commento->getAttribute('id_utente')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> Testo: ".$commento->getElementsByTagName('text')[0]->textContent."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> N.Segnalazioni: ".$commento->getAttribute('segnalazioni')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"> 
+                                                <form method='post' action='GestioneAdmin.php'>
+                                                <input type=\"hidden\" name=\"idCommentoSegnalato\" value=".$commento->getAttribute('id_commento').">
+                                                <input type=\"hidden\" name=\"idGiocoSegnalato\" value=".$gioco->getAttribute('id_gioco').">
+                                                <input type=\"submit\" name=\"formSegnalazioniCommenti\"value=\"Elimina Commento \" />
+                                                </form>
+                                                </div>";
+                                    }
+                                }
+                                echo "</div>";
+                                $isSegnalato = false;
+                            }
+                            
+                        }
+                        
+                    }
+                ?>
+
+
+                <div><h2>Segnalazioni Recensioni</h2></div>
+                
+                <?php
+                $isSegnalato = false;
+                    $elem = xmlPointer("XML/Recensioni.xml");
+                    foreach($elem as $gioco){
+                        if($gioco->getElementsByTagName("Recensione")->length > 0){
+                            $recensioni = $gioco->childNodes;
+                            foreach($recensioni as $recensione){
+                                if($recensione->getAttribute('segnalazioni') != '0'){
+                                    $isSegnalato = true;
+                                }
+                                
+                            }
+                            if($isSegnalato){
+                                echo"<p> ID Gioco: ".$gioco->getAttribute('id_gioco')."</p>";
+                                $recensioni = $gioco->childNodes;
+                                echo "<div class=\"recensioniSegnalati\">";
+                                foreach($recensioni as $recensione){
+                                    if($recensione->getAttribute('segnalazioni') != '0'){
+                                        echo "<div class=\"elemSegnalazione\"><p> ID Recensione: ".$recensione->getAttribute('id_recensione')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> ID Utente: ".$recensione->getAttribute('id_utente')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> Testo: ".$recensione->getElementsByTagName('text')[0]->textContent."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"><p> N.Segnalazioni: ".$recensione->getAttribute('segnalazioni')."</p></div>";
+                                        echo "<div class=\"elemSegnalazione\"> 
+                                                <form method='post' action='GestioneAdmin.php'>
+                                                <input type=\"hidden\" name=\"idRecensioneSegnalato\" value=".$recensione->getAttribute('id_recensione').">
+                                                <input type=\"hidden\" name=\"idGiocoSegnalato\" value=".$recensione->getAttribute('id_gioco').">
+                                                <input type=\"submit\" name=\"formSegnalazioniRecensioni\"value=\"Elimina Recensioni \" />
+                                                </form>
+                                                </div>";
+                                    }
+                                }
+                                echo "</div>";
+                                
+                                
+                            }else{$isSegnalato = false;
+                                    echo"<h2>Nessuna segnalazione tra le recensioni...Grueto!</h2>";
+                                }
+                            
+                        }
+                        
+                    }
+                ?>
+                
                 </div>
             </div>
             </div>

@@ -77,11 +77,20 @@ function swapperInSearchUtenteRim(){
 }
 
 function swapperInGestioneRimborsi(){
-    var cardPrincipale =document.getElementById("card0");
+    var cardPrincipale = document.getElementById("card0");
     var cardRimborsi = document.getElementById("card9");
 
     cardPrincipale.classList.toggle("hideCard");
     cardRimborsi.classList.toggle("hideCard");
+    
+}
+
+function swapperInGestioneSegnalazioni(){
+    var cardPrincipale = document.getElementById("card0");
+    var cardSegnalazioni = document.getElementById("card10");
+
+    cardPrincipale.classList.toggle("hideCard");
+    cardSegnalazioni.classList.toggle("hideCard");
     
 }
 function modificaGiocoPreset(){

@@ -21,8 +21,8 @@
   </Utente>
   <Utente id_user="4">
     <scontiAssegnati>
-      <Sconto>3</Sconto>
       <Sconto>9</Sconto>
+      <Sconto>3</Sconto>
     </scontiAssegnati>
   </Utente>
 </ListaAssegnazioneSconti>

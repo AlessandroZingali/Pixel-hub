@@ -106,9 +106,6 @@ input[type="text"],textarea{
 }
 
 
-
-    
-
     .buttons button:hover{
         background-color: rgba(63, 56, 56, 0.8);
         box-shadow: 2px 2px 5px #000000;
@@ -119,7 +116,7 @@ input[type="text"],textarea{
     }
 
 }
-#card1,#card2,#card3,#card4,#card5,#card6,#card7,#card8,#card9{
+#card1,#card2,#card3,#card4,#card5,#card6,#card7,#card8,#card9,#card10{
     
     h1{
         text-align: center;
@@ -162,3 +159,40 @@ input[type="text"],textarea{
 
      }
 }
+
+#segnalazioni{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+}
+
+.commentiSegnalati{
+    display: grid;
+    grid-template-columns: repeat( 5, minmax(220px, 1fr));
+    grid-template-rows: auto;
+    border: red solid ;
+
+    .elemSegnalazione{
+        overflow-wrap: break-word;
+        word-wrap: break-word; 
+        overflow: hidden;
+        hyphens: auto; 
+    }
+}
+.recensioniSegnalati{
+    display: grid;
+    grid-template-columns: repeat( 5, minmax(220px, 1fr));
+    grid-template-rows: auto;
+    border: rgb(51, 255, 0) solid ;
+
+    .elemSegnalazione{
+        overflow-wrap: break-word;
+        word-wrap: break-word; 
+        overflow: hidden;
+        hyphens: auto; 
+    }
+}
+
+
+

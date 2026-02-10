@@ -8,4 +8,18 @@
     </gioco>
   </Carrello>
   <Carrello id_user="3" id_cart="4"/>
+  <Carrello id_user="4" id_cart="5">
+    <gioco id_gioco="3">
+      <titolo>Cyberpunk 2077</titolo>
+      <prezzo>59.99</prezzo>
+    </gioco>
+    <gioco id_gioco="24">
+      <titolo>Terraria</titolo>
+      <prezzo>10</prezzo>
+    </gioco>
+    <gioco id_gioco="2">
+      <titolo>The Witcher 3: Wild Hunt</titolo>
+      <prezzo>49.99</prezzo>
+    </gioco>
+  </Carrello>
 </listaCarrelli>
