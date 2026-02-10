@@ -1,25 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd">
-  <Carrello id_user="1" id_cart="1"/>
-  <Carrello id_user="2" id_cart="3">
+  <carrello id_user="1" id_cart="1"/>
+  <carrello id_user="2" id_cart="3">
     <gioco id_gioco="6">
-      <titolo>Helldivers II</titolo>
+      <Titolo>Helldivers II</Titolo>
       <prezzo>39.99</prezzo>
     </gioco>
-  </Carrello>
-  <Carrello id_user="3" id_cart="4"/>
-  <Carrello id_user="4" id_cart="5">
-    <gioco id_gioco="3">
-      <titolo>Cyberpunk 2077</titolo>
-      <prezzo>59.99</prezzo>
-    </gioco>
-    <gioco id_gioco="24">
-      <titolo>Terraria</titolo>
-      <prezzo>10</prezzo>
-    </gioco>
-    <gioco id_gioco="2">
-      <titolo>The Witcher 3: Wild Hunt</titolo>
-      <prezzo>49.99</prezzo>
-    </gioco>
-  </Carrello>
+  </carrello>
+  <carrello id_user="3" id_cart="4"/>
 </listaCarrelli>

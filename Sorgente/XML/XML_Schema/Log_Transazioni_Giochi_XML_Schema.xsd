@@ -18,6 +18,7 @@
             <xsd:attribute name="DataOra" type="xsd:dateTime" use="required"/>
             <xsd:attribute name="PixelIniziali" type="xsd:integer" use="required"/>
         </xsd:complexType>
+        </xsd:element>
         <xsd:element name="Gioco">
             <xsd:complexType>
                 <xsd:sequence>
@@ -26,7 +27,6 @@
                     <xsd:element ref="Importo" minOccurs="1" maxOccurs="1"/> 
                     <!-- l'importo sara quello calcolato dopo gli sconti -->
                 </xsd:sequence>
-                <xsd:attribute name="Rimborsato" type="xsd:boolean" use="required"/>
             </xsd:complexType>
     </xsd:element>
     <xsd:element name="Titolo" type="xsd:string"/>

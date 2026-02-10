@@ -12,7 +12,7 @@
   <xsd:element name="carrello">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element  ref="gioco" minOccurs="0" maxOccurs="1"/>
+        <xsd:element  ref="gioco" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
         <xsd:attribute name="id_user" type="xsd:integer" use="required"/>
         <xsd:attribute name="id_cart" type="xsd:integer" use="required"/>

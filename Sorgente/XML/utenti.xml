@@ -66,7 +66,13 @@
     <CasaDiSviluppoPreferita>Bandai Namco Entertainment</CasaDiSviluppoPreferita>
     <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione/>
-    <listaGiochi/>
-    <listaPropic/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="10-02-2026" spesa="59.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="10-02-2026" spesa="10">24</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>5</idPropic>
+      <idPropic>3</idPropic>
+    </listaPropic>
   </Utente>
 </listaUtenti>

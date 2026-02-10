@@ -8,13 +8,17 @@
                 <xsd:element ref="ReputazioneMin" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="MesiMin" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="AnniMin" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="CasaSconto" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="GenereSconto" minOccurs="1" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="MinimiSpesi" type="xsd:float"/>
-    <xsd:elemwnt name="ReputazioneMin" type="xsd:float"/>
+    <xsd:element name="ReputazioneMin" type="xsd:float"/>
     <xsd:element name="MesiMin" type="xsd:integer"/>
     <xsd:element name="AnniMin" type="xsd:integer"/>
+    <xsd:element name="GenereSconto" type="xsd:string"/>
+    <xsd:element name="CasaSconto" type="xsd:string"/>
 
     <xsd:element name="MinimiSpesiDa">
         <xsd:complexType>

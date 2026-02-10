@@ -324,6 +324,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
 
                 }
                 $doc->save("XML/utenti.xml");
+                $_SESSION['Pixels'] = $_SESSION['Pixels'] - $prezzo;
                 /*header("Location:Profilo.php");*/
             }
             else printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));

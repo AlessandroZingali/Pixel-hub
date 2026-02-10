@@ -42,16 +42,16 @@
       <Importo>39.99</Importo>
     </Gioco>
   </Transazione>
-  <Transazione IDTransazione="10" ModCommentiUsato="0.01" IDGiocatore="2" DataOra="03/02/26 10:20" PixelIniziali="100">
+  <Transazione IDTransazione="7" ModCommentiUsato="0.01" IDGiocatore="4" DataOra="10/02/26 17:21" PixelIniziali="0">
     <Gioco>
       <Titolo>Overwatch Origins</Titolo>
       <IDGioco>1</IDGioco>
       <Importo>59.99</Importo>
     </Gioco>
     <Gioco>
-      <Titolo>Helldivers II</Titolo>
-      <IDGioco>6</IDGioco>
-      <Importo>39.99</Importo>
+      <Titolo>Terraria</Titolo>
+      <IDGioco>24</IDGioco>
+      <Importo>10</Importo>
     </Gioco>
   </Transazione>
 </LogTransazioniGiochi>

@@ -319,14 +319,14 @@ if(isset($_SESSION['tipoUtente'])){
 
             $newIdCar=1;
 
-            $carrello = $doc->createElement("Carrello");
+            $carrello = $doc->createElement("carrello");
 
             $carrello->setAttribute("id_user", $_SESSION["userId"]);
             $carrello->setAttribute("id_cart",$newIdCar);
 
             $giocoInCart= $doc->createElement("gioco");
             $giocoInCart->setAttribute("id_gioco", $idGioco);
-            $titolo = $doc->createElement("titolo", $titoloGioco);
+            $titolo = $doc->createElement("Titolo", $titoloGioco);
             $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
 
             $giocoInCart->appendChild($titolo);
@@ -353,7 +353,7 @@ if(isset($_SESSION['tipoUtente'])){
 
                 $lastCarrello =  $elem->item($numCarrelli-1);
                 $newCartId = ((int)$lastCarrello->getAttribute("id_cart"))+1;
-                $carrello = $doc->createElement("Carrello");
+                $carrello = $doc->createElement("carrello");
 
                 $carrello->setAttribute("id_user", $_SESSION["userId"]);
                 $carrello->setAttribute("id_cart",$newCartId);
@@ -361,7 +361,7 @@ if(isset($_SESSION['tipoUtente'])){
                 
                 $giocoInCart= $doc->createElement("gioco");
                 $giocoInCart->setAttribute("id_gioco",$idGioco);
-                $titolo = $doc->createElement("titolo", $titoloGioco);
+                $titolo = $doc->createElement("Titolo", $titoloGioco);
                 $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
 
                 $giocoInCart->appendChild($titolo);
@@ -375,7 +375,7 @@ if(isset($_SESSION['tipoUtente'])){
             else if($userSet){
                 $giocoInCart= $doc->createElement("gioco");
                 $giocoInCart->setAttribute("id_gioco",$idGioco);
-                $titolo = $doc->createElement("titolo", $titoloGioco);
+                $titolo = $doc->createElement("Titolo", $titoloGioco);
                 $prezzo = $doc->createElement("prezzo", $PrezzoGioco);
 
                 $giocoInCart->appendChild($titolo);
@@ -632,7 +632,7 @@ if(isset($_SESSION['tipoUtente'])){
                                     
 
                                     foreach($giochiInCart as $giocoInCart){
-                                        $titoloGiocoInCart = $giocoInCart->getElementsByTagName("titolo")->item(0)->textContent;
+                                        $titoloGiocoInCart = $giocoInCart->getElementsByTagName("Titolo")->item(0)->textContent;
                                         //echo $titoloGiocoInCart;
                                         if($titoloGiocoInCart == $titoloGioco){
                                             $inCart = true;

@@ -150,14 +150,10 @@ if(isset($_POST['Acquista'])){
             $elemCarrello = $root->childNodes;
             foreach($elemCarrello as $carrello){
             if($carrello->getAttribute('id_user')==$_SESSION['userId']){
-                $elemGioco = $carrello->getElementsByTagName('gioco');
-                foreach($elemGioco as $gioco){
-                        $carrello->removeChild($gioco);
-                        $doc->save('XML/Carrelli.xml');
-                        
-                }
+                $carrello->parentNode->removeChild($carrello);
             }
             }
+            $doc->save('XML/Carrelli.xml');
             $_SESSION['Saldo'] = $nuovoSaldo;
 
             header("Location: Profilo.php");
@@ -295,7 +291,6 @@ if(isset($_POST['buttonRimuovi'])){
                     if($carrello->getAttribute('id_user')==$_SESSION['userId']){
                         $elemGioco = $carrello->getElementsByTagName('gioco');
                         if($elemGioco->length == 0){
-                            var_dump($carrello->getAttribute('id_cart'));
                             $flagCarrelloVuoto = false;
                             echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
                         }
@@ -326,7 +321,7 @@ if(isset($_POST['buttonRimuovi'])){
                                                     echo "<tr>";
                                                     $scontiSulGioco = [];
                                                     $idGioco = $gioco->getAttribute('id_gioco');
-                                                    $titolo=$gioco->getElementsByTagName('titolo')->item(0)->textContent;
+                                                    $titolo=$gioco->getElementsByTagName('Titolo')->item(0)->textContent;
                                                     $prezzoIniziale=$gioco->getElementsByTagName('prezzo')->item(0)->textContent;
                                                     $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
                                                     
