@@ -67,8 +67,10 @@
     <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione/>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="10-02-2026" spesa="59.99">1</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="10-02-2026" spesa="10">24</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="29.99">22</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="53.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="47.49">2</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>5</idPropic>

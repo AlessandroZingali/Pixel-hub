@@ -6,6 +6,9 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="1">
+    <Commento id_commento="2" id_utente="4" data="11/02/2026" ore="13" minuti="02" like="100" dislike="50" segnalazioni="0">
+      <text>Tutti i nuovi eroi fanno pena, sembrano fatti con l'AI!</text>
+    </Commento>
     <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0" segnalazioni="1">
       <text>Nerf This</text>
     </Commento>
@@ -40,6 +43,16 @@
   <Gioco id_gioco="13">
     <Commento id_commento="1" id_utente="4" data="10/02/2026" ore="13" minuti="03" like="0" dislike="0" segnalazioni="0">
       <text>Viva i ragni</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="9">
+    <Commento id_commento="1" id_utente="4" data="11/02/2026" ore="13" minuti="01" like="13" dislike="5" segnalazioni="0">
+      <text>Bel gioco ma bisogna farmare troppe armi!</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="24">
+    <Commento id_commento="1" id_utente="4" data="11/02/2026" ore="13" minuti="03" like="14" dislike="3" segnalazioni="0">
+      <text>Meglio di Minecraft il mio culo 3D!!!</text>
     </Commento>
   </Gioco>
 </listaCommenti>

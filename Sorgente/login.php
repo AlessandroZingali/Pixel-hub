@@ -68,8 +68,8 @@ session_start();
         $_SESSION['Saldo']=$row['Saldo_attuale'];
         $_SESSION['agencyMod']=$agencyElem;
         $commenti=xmlPointer("XML/Commenti.xml");
-        $sommatoria = calcoloModCommenti($commenti);
-        $_SESSION['modCommenti'] = $sommatoria;
+        $mod = calcoloModCommenti($commenti);
+        $_SESSION['modCommenti'] = $mod;
 
         
         

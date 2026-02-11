@@ -409,8 +409,11 @@ if(isset($_POST['buttonRimuovi'])){
                             
                     }
                 }
+                else $noCarrello = true;
                 
             }
+
+            if(isset($noCarrello)) echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
             }
             else {
                 echo "<h2> Iscriviti al sito per aggiungere un gioco nel carrello</h2>";

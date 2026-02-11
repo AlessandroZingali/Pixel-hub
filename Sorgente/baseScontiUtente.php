@@ -290,7 +290,7 @@
 
                 foreach($elemUtenti as $utente){
                     if($utente->getAttribute('id_user')== $idUtente){
-                        $reputazioneUtente= ($_SESSION['Esperienza']/$_SESSION['Grado'])*100;
+                        $reputazioneUtente= ($_SESSION['Esperienza']);
                         
                         if((int)$reputazioneUtente>=(int)$ReputazioneMin){
                             $type = 4;

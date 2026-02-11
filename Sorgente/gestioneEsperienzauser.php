@@ -32,9 +32,9 @@ require_once 'serverUtility.php';
             $pocketPixel = [];
 
             $elem = xmlPointer("XML/Commenti.xml");
-            calcoloModCommenti($elem);
-            if($_SESSION['modCommenti'] == 0) $modcommenti = 1/100;
-            else $modcommenti = $_SESSION['modCommenti']/100;
+            $modcommenti= calcoloModCommenti($elem);
+            $_SESSION["modCommenti"] = $modcommenti;
+
             
             foreach($listaGiochi_json as $game){
                 array_push($pocketPixel, ($game->prezzoFinale)*5);
@@ -66,19 +66,19 @@ require_once 'serverUtility.php';
                 $gradoAttuale = $row['Grado'];
 
                 switch($gradoAttuale > 0){
-                    case $gradoAttuale= 1:
+                    case $gradoAttuale == 1:
                         $capEsperienza = 500;
                         break;
-                    case $gradoAttuale = 2:
+                    case $gradoAttuale == 2:
                         $capEsperienza = 1000;
                         break;
-                    case $gradoAttuale = 3:
+                    case $gradoAttuale == 3:
                         $capEsperienza = 3000;
                         break;
-                    case $gradoAttuale = 4:
+                    case $gradoAttuale == 4:
                         $capEsperienza = 5000;
                         break;
-                    case $gradoAttuale = 5:
+                    case $gradoAttuale == 5:
                         $capEsperienza = 10000;
                         break;
                     default:
@@ -88,7 +88,7 @@ require_once 'serverUtility.php';
 
                 if($nuovaEsperienza >= $capEsperienza){
                     $nuovoGrado = $gradoAttuale + 1;
-                    $updateGradoQuery = "UPDATE $table_users SET Grado = $nuovoGrado WHERE id_utente = $idUtenteLoggato;";
+                    $updateGradoQuery = "UPDATE $table_users SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
                     mysqli_query(connectDB(), $updateGradoQuery);
                 }
 
@@ -106,31 +106,44 @@ require_once 'serverUtility.php';
     function calcoloModCommenti($elem){
         if(isset($_SESSION['userId'])){
             $idUtenteLoggato = $_SESSION['userId'];
-            $rapporti = [];
+            $commenti=$elem;
+            $numeroCommenti = 0;
+            $forza = 15;
+            $rangeMax = 0.25;
+            $likeTotali = 0;
+            $dislikeTotali = 0;
 
-           
-
-            foreach($elem as $i){
+            foreach($commenti as $i){
                 $commentoId = $i->getElementsByTagName("Commento"); 
-                foreach($commentoId as $c){
-                 if($c->getAttribute("id_utente")==$idUtenteLoggato){
-                    $likeCommento = $c->getAttribute('like'); 
-                    $dislikeCommento = $c->getAttribute('dislike');
-                    if($dislikeCommento==0 || $likeCommento==0){
-                        $base = 1;
+                    foreach($commentoId as $c){
+                        if($c->getAttribute("id_utente")==$idUtenteLoggato){
+                        $numeroCommenti++;
+                        $likeCommento = $c->getAttribute('like'); 
+                        $dislikeCommento = $c->getAttribute('dislike');
+                        $likeTotali+=$likeCommento;
+                        $dislikeTotali+=$dislikeCommento;
+                        }
                     }
-                    else $base = ($likeCommento/$dislikeCommento);
-                    array_push($rapporti, $base);
-                 }
-                }
-                }
-                $sommatoria = array_sum($rapporti);
-
-
-                return $sommatoria;
             }
-            
+
+            if ($numeroCommenti==0) return 1.0;
+
+            $AdLike = $likeTotali + $forza;
+            $totaleInterazioni = $likeTotali + $dislikeTotali + (2*$forza);
+            if($totaleInterazioni >0) $ratio = $AdLike / $totaleInterazioni;
+            else $ratio = 0.5;
+
+            $totaleVoti = $likeTotali + $dislikeTotali;
+            $Engagement = min(1.0, log10($totaleVoti + 1)/2);
+
+            $deviatore = ($ratio - 0.5)*2;
+            $deviazioneFinale = $deviatore * $Engagement;
+
+            $mod = 1.0 + ($deviazioneFinale * $rangeMax);
+            return round(max(0.75, min(1.25, $mod)), 2);
         }
+            
+    }
     
 
     function logAcquistiRegister($idUtente, $logAcquisti, $modificatore, $pixelIniziali){

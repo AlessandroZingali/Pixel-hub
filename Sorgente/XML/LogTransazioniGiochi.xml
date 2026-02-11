@@ -42,16 +42,32 @@
       <Importo>39.99</Importo>
     </Gioco>
   </Transazione>
-  <Transazione IDTransazione="7" ModCommentiUsato="0.01" IDGiocatore="4" DataOra="10/02/26 17:21" PixelIniziali="0">
+  <Transazione IDTransazione="7" ModCommentiUsato="1" IDGiocatore="4" DataOra="11/02/26 13:00" PixelIniziali="500">
     <Gioco>
-      <Titolo>Overwatch Origins</Titolo>
-      <IDGioco>1</IDGioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
       <Importo>59.99</Importo>
     </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="8" ModCommentiUsato="1.2083333333333" IDGiocatore="4" DataOra="11/02/26 13:03" PixelIniziali="799">
     <Gioco>
-      <Titolo>Terraria</Titolo>
-      <IDGioco>24</IDGioco>
-      <Importo>10</Importo>
+      <Titolo>Civilization VI</Titolo>
+      <IDGioco>22</IDGioco>
+      <Importo>29.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="9" ModCommentiUsato="0.79" IDGiocatore="4" DataOra="11/02/26 13:08" PixelIniziali="948">
+    <Gioco>
+      <Titolo>Cyberpunk 2077</Titolo>
+      <IDGioco>3</IDGioco>
+      <Importo>53.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="10" ModCommentiUsato="1.08" IDGiocatore="4" DataOra="11/02/26 13:11" PixelIniziali="1217">
+    <Gioco>
+      <Titolo>The Witcher 3: Wild Hunt</Titolo>
+      <IDGioco>2</IDGioco>
+      <Importo>47.49</Importo>
     </Gioco>
   </Transazione>
 </LogTransazioniGiochi>
