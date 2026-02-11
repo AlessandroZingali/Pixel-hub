@@ -287,7 +287,7 @@ if(isset($_POST['buttonRimuovi'])){
             $flagCarrelloVuoto = true;
             $noCarrello = false;
             $isSetCarrelli = false;
-            var_dump($elemCarrello);
+            
             if($service==1){ 
                     foreach($elemCarrello as $carrello){
                         $isSetCarrelli = true;

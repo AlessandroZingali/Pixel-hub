@@ -59,7 +59,7 @@ if(isset($_SESSION['tipoUtente'])){
 <?xml version="1.0" encoding="UTF-8"?>
 <?php //Inizio della logica per le API della pagina gioco, ovvero l'invio di commenti e recensioni
 
-    if(isset($_POST["invioCommento"])){ //Gestione Commenti
+    if(isset($_POST["invioCommento"])&& !empty($_POST["commentoUtente"])){ //Gestione Commenti
         $doc = getDoc("XML/Commenti.xml");
         $root = $doc->documentElement;
         $elem = $root->childNodes;
@@ -148,7 +148,7 @@ if(isset($_SESSION['tipoUtente'])){
         $idGame = 0;
     }
 
-    if(isset($_POST["invioRecensione"])){//Gestione Recensioni
+    if(isset($_POST["invioRecensione"])&& !empty($_POST["recensioneUtente"])){//Gestione Recensioni
 
         $doc = getDoc("XML/Recensioni.xml");
         $root = $doc->documentElement;
@@ -829,14 +829,15 @@ if(isset($_SESSION['tipoUtente'])){
 
                         echo "<h4>Commenti:</h4>";
                         $elem = xmlPointer("XML/Commenti.xml");
-                        foreach($elem as $i){
+                        $vuoto=true;
+                            foreach($elem as $i){
+                            
                             // Scorriamo i nodi commento, prendendo solo quelli in cui l'attributo id gioco metcha con l'id gioco attuale
                             if($i->getAttribute("id_gioco")==$idGioco){
-                                if (($i->hasChildNodes())){
-                                    echo"Nessun commento";
-                                }
+                               
                                 
                                 $commentoId = $i->getElementsByTagName("Commento"); //Prendiamo il primo nodo Commento
+                                $vuoto=false;
 
                             
 
@@ -912,6 +913,7 @@ if(isset($_SESSION['tipoUtente'])){
                                 
                             }
                         }
+                        if($vuoto==true) echo"<h2>Nessun commento....</h2>";
                                        
 
                     ?>
@@ -938,10 +940,12 @@ if(isset($_SESSION['tipoUtente'])){
                       echo "<h4>Recensioni:</h4 >";
 
                         $elem = xmlPointer("XML/Recensioni.xml");
+                        $vuoto =true;
 
                         //Nel file xml di recensioni per ogni nodo gioco scorriamo la lista delle recensioni e ne scarichiamo le informazioni
                             foreach($elem as $i){
                                     if($i->getAttribute("id_gioco")==$idGioco){
+                                        $vuoto=false;
                                         $recensioneId = $i->getElementsByTagName("Recensione");
                                         foreach($recensioneId as $r){
                                             $idRecensione = $r->getAttribute('id_recensione');
@@ -960,6 +964,8 @@ if(isset($_SESSION['tipoUtente'])){
 
                                                 printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
                                             }
+
+                                            $table_users = "Tabella_Utenti";
                                             
 
                                             $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteRecensione'";
@@ -1009,6 +1015,7 @@ if(isset($_SESSION['tipoUtente'])){
                                         
                                     }
                                 }
+                                 if($vuoto==true) echo"<div><h2>Nessuna recensione....</h2></div>";
          
     
                     
@@ -1027,3 +1034,4 @@ if(isset($_SESSION['tipoUtente'])){
         </div>
     </body>
 </html>
+

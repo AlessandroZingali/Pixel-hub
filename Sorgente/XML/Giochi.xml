@@ -106,7 +106,7 @@
     <Generi>Sparatutto</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>85.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>20</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>3</idGiocoCorrelato>
@@ -409,7 +409,7 @@
     <Generi>Strategia</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>12</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>23</idGiocoCorrelato>
       <idGiocoCorrelato>11</idGiocoCorrelato>

@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="6">
-    <Commento id_commento="1" id_utente="3" data="17/01/2026" ore="11" minuti="38" like="1" dislike="0" segnalazioni="1">
-      <text>4 Democrazy</text>
-    </Commento>
-  </Gioco>
+  <Gioco id_gioco="6"/>
   <Gioco id_gioco="1">
     <Commento id_commento="2" id_utente="4" data="11/02/2026" ore="13" minuti="02" like="100" dislike="50" segnalazioni="0">
       <text>Tutti i nuovi eroi fanno pena, sembrano fatti con l'AI!</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="23" like="0" dislike="0" segnalazioni="1">
-      <text>Nerf This</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="7">
     <Commento id_commento="3" id_utente="2" data="05/02/2026" ore="12" minuti="43" like="0" dislike="0" segnalazioni="0">
       <text>Spettacolo&#13;</text>
-    </Commento>
-    <Commento id_commento="2" id_utente="3" data="22/01/2026" ore="11" minuti="14" like="1" dislike="0" segnalazioni="1">
-      <text>Yeeeee</text>
     </Commento>
     <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="04" like="100" dislike="40" segnalazioni="0">
       <text>Il big daddy è fighissimo</text>
