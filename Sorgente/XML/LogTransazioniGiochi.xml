@@ -70,4 +70,18 @@
       <Importo>47.49</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="11" ModCommentiUsato="1.08" IDGiocatore="4" DataOra="11/02/26 16:08" PixelIniziali="249">
+    <Gioco>
+      <Titolo>Doom Eternal</Titolo>
+      <IDGioco>10</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="12" ModCommentiUsato="1.08" IDGiocatore="4" DataOra="11/02/26 16:13" PixelIniziali="498">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>17.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

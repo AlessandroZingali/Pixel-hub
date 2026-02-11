@@ -247,18 +247,20 @@ if(isset($_POST["richiediRimborso"])){
         $elemUtente = $rootUtente->childNodes;
 
         foreach($elemUtente as $utente){
-            $listaGiochi = $utente->getElementsByTagName("listaGiochi");
-
-
-            foreach($listaGiochi as $gioco){
-                if($gioco->textContent == $_POST['id_gioco_rimborso']){
-                    $gioco->parentNode->removeChild($gioco);
-                    break;
+            if($utente->getAttribute('id_user') == $_POST['id_user_rimborso']){
+                $listaGiochi = $utente->getElementsByTagName("listaGiochi");
+                foreach($listaGiochi as $gioco){
+                    if($gioco->textContent == $_POST['id_gioco_rimborso']){
+                        $gioco->parentNode->removeChild($gioco);
+                        break;
+                    }
                 }
             }
+            
 
-            $docUtente->save('XML/utenti.xml');
+           
         }
+         $docUtente->save('XML/utenti.xml');
 
         $rootLog = $docLog->documentElement;
         $elemLog = $rootLog->childNodes;

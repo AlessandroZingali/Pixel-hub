@@ -30,8 +30,11 @@
       <idGiocoPosseduto data_acquisizione="01-02-2026" spesa="0">7</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="59.99">1</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="39.99">6</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="56.99">9</idGiocoPosseduto>
     </listaGiochi>
-    <listaPropic/>
+    <listaPropic>
+      <idPropic>6</idPropic>
+    </listaPropic>
   </Utente>
   <Utente id_user="3">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
@@ -71,6 +74,8 @@
       <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="29.99">22</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="53.99">3</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="47.49">2</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="49.99">10</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="17.99">7</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>5</idPropic>

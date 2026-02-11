@@ -11,8 +11,6 @@ $invalidFlag = 0;      // flag per gestire errori logici (email, password, acqui
 
 // Avvio sessione
 session_start();
-var_dump($_SESSION['Esperienza']);
-var_dump($_SESSION['modCommenti']);
 // Controllo se l’utente è loggato
 if (isset($_SESSION['userId'])) {
     $utente = $_SESSION['userName'];

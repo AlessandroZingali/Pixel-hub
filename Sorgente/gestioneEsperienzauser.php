@@ -46,9 +46,6 @@ require_once 'serverUtility.php';
             echo "pixel guadagnati " . $pocketPixelTotale;
             echo "mod commenti: " . $modcommenti;
             echo "Esperienza prima: " . $_SESSION['Esperienza'];
-            $_SESSION['Pixels'] = $_SESSION['Pixels'] + (int)$pocketPixelTotale;
-            $_SESSION['Esperienza'] = $_SESSION['Esperienza'] + $esperienzaGuadagnata;
-
             connectDB();
 
             if (mysqli_connect_errno()){
@@ -61,8 +58,10 @@ require_once 'serverUtility.php';
 
             if($num == 1){
                 $row = mysqli_fetch_array($resultQ);
-                $nuoviPixels = $_SESSION['Pixels'];
-                $nuovaEsperienza = $_SESSION['Esperienza'];
+                $nuoviPixels = $row["Pixels"]+(int)$pocketPixelTotale;
+                $_SESSION['Pixels'] = $nuoviPixels;
+                $nuovaEsperienza = $row['Esperienza'] + $esperienzaGuadagnata;
+                $_SESSION['Esperienza'] = $nuovaEsperienza;
                 $gradoAttuale = $row['Grado'];
 
                 switch($gradoAttuale > 0){
@@ -93,7 +92,7 @@ require_once 'serverUtility.php';
                 }
 
             }
-                var_dump($_SESSION['Esperienza']);
+                
                 echo "Esperienza guadagnata: " . $esperienzaGuadagnata;
                 $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE ID = $idUtenteLoggato;";
                 mysqli_query(connectDB(), $updateQuery);
