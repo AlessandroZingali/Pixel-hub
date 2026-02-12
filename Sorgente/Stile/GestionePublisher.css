@@ -127,13 +127,22 @@ input[type="text"],textarea{
         margin-bottom: 10px;
     }
 
-.imageAndToggleAgency form{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}    
+.imageAndToggleAgency{
+    form{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }   
+
+    h3{
+        font-size: 14px;
+        color: yellow;
+    }
+}
+
+   
 
 .switchLabel {
     display: flex;

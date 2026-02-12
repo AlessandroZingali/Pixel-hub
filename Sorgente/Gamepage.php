@@ -454,12 +454,10 @@ if(isset($_SESSION['tipoUtente'])){
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                                  
                             if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == '1')
-                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            }
-                            if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "2")
-                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                    if($_SESSION['tipoUtente'] == "1")
+                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                    if($_SESSION['tipoUtente'] == '2')
+                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             } 
                         ?>
@@ -520,16 +518,19 @@ if(isset($_SESSION['tipoUtente'])){
                                 </tr>
                                 <tr>
                                     <td>Prezzo</td>";
-                                    if(isset($_SESSION['tipoUtente'])){
-                                    $sconti = $scontoManager->percentualeScontoGioco($idGioco);
-                                    if(count($sconti) > 0){
-                                        $sommaSconti=array_sum($sconti);
-                                        $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
-                                        echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
-                                    }}
-                                    else{
-                                        echo "<td> $PrezzoGioco € </td> ";
-                                    }     
+                                        if(isset($_SESSION['tipoUtente'])){
+                                        $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                        if(count($sconti) > 0){
+                                            $sommaSconti=array_sum($sconti);
+                                            $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
+                                            echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
+                                        }
+                                        else{
+                                            echo "<td> $PrezzoGioco € </td> ";
+                                        }  
+                                    
+                                    }
+                                       
 
                                 echo "</tr>
                                 <tr>

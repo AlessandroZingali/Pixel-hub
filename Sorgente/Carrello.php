@@ -184,9 +184,10 @@ if(isset($_POST['buttonRimuoviAll'])){
         $pageCart->svuotaCarrello();
         $carrello->parentNode->removeChild($carrello);
         $doc->save('XML/Carrelli.xml');
+       
     }
     }
-
+ header("Location: Carrello.php");
 }
 
 if(isset($_POST['buttonRimuovi'])){
@@ -201,10 +202,14 @@ if(isset($_POST['buttonRimuovi'])){
             if($idGioco == $_POST['idGioco']){
                 $pageCart->rimuoviGioco($idGioco);
                 $carrello->removeChild($gioco);
-                $doc->save('XML/Carrelli.xml');
+                if(!$carrello->hasChildNodes()){
+                    $carrello->parentNode->removeChild($carrello);
+                }
+                
                 
             }
         }
+        $doc->save('XML/Carrelli.xml');
     }
     }
  header("Location: Carrello.php");
@@ -263,12 +268,11 @@ if(isset($_POST['buttonRimuovi'])){
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             
-                                if($_SESSION['tipoUtente'] == '1'){
-                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            }
-                            if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "2")
-                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                if(isset($_SESSION['tipoUtente'])){
+                                    if($_SESSION['tipoUtente'] == "1")
+                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                    if($_SESSION['tipoUtente'] == '2')
+                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             }
                         ?>
@@ -284,21 +288,28 @@ if(isset($_POST['buttonRimuovi'])){
             <h1>Il mio Carrello</h1>
             <?php
             $elemCarrello = xmlPointer('XML/Carrelli.xml');
-            $flagCarrelloVuoto = true;
-            $noCarrello = false;
-            $isSetCarrelli = false;
+            $carrelloUtenteInSessione = null;
             
+           
+
             if($service==1){ 
+              
                     foreach($elemCarrello as $carrello){
-                        $isSetCarrelli = true;
                         if($carrello->getAttribute('id_user')==$_SESSION['userId']){
-                            $elemGioco = $carrello->getElementsByTagName('gioco');
-                            if($elemGioco->length == 0){
-                                $flagCarrelloVuoto = false;
-                                echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
+                            if($carrello->hasChildNodes()){
+                                $carrelloUtenteInSessione = $carrello;
+                                break;
                             }
-                            else{
-                                $flagCarrelloVuoto = false;
+                            else $carrello->parentNode->removeChild($carrello);
+                        }
+                    }
+                    // var_dump($carrelloUtenteInSessione);
+                    if($carrelloUtenteInSessione == null){
+                        echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
+                    }
+                    else if($carrelloUtenteInSessione->hasChildNodes()){
+                        
+                        
                                 echo "<h2>Ecco i giochi presenti nel tuo carrello:</h2>";
                                 
                                 echo "<div id=\"CarrelloMain\">
@@ -365,7 +376,7 @@ if(isset($_POST['buttonRimuovi'])){
                                                         // $tiposconto = $servizioSconti->tipoScontoApplicato($idGioco);
                                                         
 
-                                                        echo "<td><a href=\"Gamepage.php?titoloGioco= $titolo&idGioco=$idGioco\">$titolo</a></td>";
+                                                        echo "<td>$titolo</td>";
                                                         echo "<td>$prezzoIniziale €</td>";
                                                         echo "<td> $prezzoFinale €</td>";
                                                         // echo "<td> $tiposconto</td>";
@@ -412,12 +423,7 @@ if(isset($_POST['buttonRimuovi'])){
                                 
                         }
                     }
-                    else $noCarrello = true;
-                    
-                }
-
-                if($noCarrello || !$isSetCarrelli) echo "<h2 >Il tuo carrello e' vuoto! Torna al <a id=\"messageEmpty\" href='Catalogo.php'>catalogo</a> per aggiungere giochi!</h2>";
-            }
+                 
             else {
                 echo "<h2> Iscriviti al sito per aggiungere un gioco nel carrello</h2>";
             }

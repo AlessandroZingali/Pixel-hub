@@ -6,7 +6,7 @@ $service = 0;
 $utente = "";
 
 session_start();
-if($_SESSION['tipoUtente'] == '1'){
+if($_SESSION['tipoUtente'] == '2'){
     //l'admin puo accedere a questa pagina
 } else {
     //se non e admin lo reindirizzo alla homepage
@@ -843,7 +843,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                                 <label for=\"Saldo_attuale\" >Modifica saldo attuale :</label>   
                                 <input type=\"text\" id=\"Saldo_attuale\" name=\"Saldo_attuale\" value=\"".$row['Saldo_attuale']."\" ><br><br>
 
-                                <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=admin, 2=Publisher):</label>
+                                <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=Publisher, 2=Admin):</label>
                                 <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br><br>
 
                                 <label for=\"imgProfiloPath\" >Modifica il percorso dell immagine del profilo :</label>   

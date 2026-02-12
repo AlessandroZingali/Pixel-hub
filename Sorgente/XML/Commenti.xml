@@ -36,6 +36,9 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="9">
+    <Commento id_commento="2" id_utente="6" data="12/02/2026" ore="18" minuti="40" like="0" dislike="0" segnalazioni="0">
+      <text>noice</text>
+    </Commento>
     <Commento id_commento="1" id_utente="4" data="11/02/2026" ore="13" minuti="01" like="13" dislike="5" segnalazioni="0">
       <text>Bel gioco ma bisogna farmare troppe armi!</text>
     </Commento>

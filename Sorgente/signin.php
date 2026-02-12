@@ -94,9 +94,9 @@ if(isset($_POST['signin']) && $jumper==0){
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "1"){//Accesso come  publisher che possiede una partita iva con il campo PIVA non vuoto 
-                            $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath, PIVA)
+                            $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath,imgProfiloPathPub, PIVA)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 1,'ProfilePic/propicblank.png','{$_POST['PIVA']}')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
@@ -139,7 +139,8 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
                                 $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
                                 $utente->appendChild($doc->createElement("Descrizione"));
-                                if ($_COOKIE['tipoSignIn'] == "2") $utente->appendChild($doc->createElement("ToggleAgency", false));
+                                if ($_COOKIE['tipoSignIn'] == "1") $utente->appendChild($doc->createElement("ToggleAgency", false));
+                                if ($_COOKIE['tipoSignIn'] == "1") $utente->appendChild($doc->createElement("DescrizionePublisher"));
                                 $utente->appendChild($doc->createElement("listaGiochi"));
                                 
                                 $utente->appendChild($doc->createElement("listaPropic"));
@@ -254,7 +255,7 @@ if(isset($_POST['signin']) && $jumper==0){
                     <?php
                     // Questi appaiono solo nel caso si fa l'accesso come publisher o come admin
                     if($tipoSignIn == 1 || (isset($_COOKIE['tipoSignIn']) && $_COOKIE['tipoSignIn'] == "1")){
-                        echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\" required/>&#x2022;</div>";
+                        echo "<div id=\"Partitaiva\"> <p>Partita Iva</p> <input type=\"text\" title =\"Deve essere di 12 cifre \" placeholder=\"\" name=\"PIVA\" maxlenght=\"12\" required/>&#x2022;</div>";
                     }
                     ?>
 

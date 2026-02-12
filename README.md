@@ -57,7 +57,7 @@ Parte 3
 - [x] Aggiungere logo e presentazione dell'azienda
 - [x] Aggiungere consulto pagina acquisti giochi di un utente(lista dei giochi acquistati)
 - [x] Aggiungere visita pagina utenti da parte di altri utenti
-- [] Mostrare sconti su Home e Catalogo
+- [x] Mostrare sconti su Home e Catalogo
 
 
       

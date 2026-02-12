@@ -398,12 +398,12 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
-                            if($_SESSION['tipoUtente'] == '1'){
-                            echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            }
+                            
                             if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "2")
+                                if($_SESSION['tipoUtente'] == "1")
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                            if($_SESSION['tipoUtente'] == '2')
+                            echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                         ?>
                     </ul>
@@ -442,7 +442,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 echo "<div class=\"profilePicColum\"><div class=\"propic\"> 
                                 <img src=\"".$immagineProfilo."\" alt=\"Immagine di Default\"/>
                                 </div>";
-                            if($_SESSION['tipoUtente'] == '2' && $_SESSION['agencyMod']){
+                            if($_SESSION['tipoUtente'] == '1' && $_SESSION['agencyMod']){
                                 echo "<div class=\"shop\">
                                 <button onclick=\"swapperInPresentazione()\"><img src=\"Stile/Icone/IconaPublisher.png\" alt=\"Presentazione button\" ></button>
                                 <p>Cambia a vista Publisher</p>
@@ -660,8 +660,20 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                 <td>Modifica Descrizione</td>
                                 <td><textarea type="text" placeholder="Inserisci una tua descrizione!" name="newDescrizione" ></textarea>    </td>
                                 <td><input type="submit" name="cambiaDescrizione" value="Modifica la tua descrizione"/></td></form>
-                            </tr>  
+                            </tr>
+                            <?php  
+                            if($_SESSION['tipoUtente'] == "1" && $_SESSION['agencyMod']){
+                                echo"
+                                <tr>
+                                <form method=\"post\" action=\"Profilo.php\">
+                                <td>Modifica Descrizione Publisher</td>
+                                <td><textarea type=\"text\" placeholder=\"Inserisci una tua descrizione!\" name=\"newDescrizioneP\" ></textarea>    </td>
+                                <td><input type=\"submit\" name=\"cambiaDescrizioneP\" value=\"Modifica la tua descrizione\"/></td></form>
+                                </tr> ";
+                            }
+                        
                             
+                            ?>  
                             <tr> 
                                 <form method="post" action="Profilo.php">
                                     <td>Modifica Password</td>
@@ -793,16 +805,23 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                             <button onclick=\"swapperInLibreria()\"><img src=\"Stile/Icone/iconafreccia.png\" alt=\"settingbutton\" ></button>
                                             </div>";
                                     echo "<div id=\"libreria\">";
+
+                                  $listaGiochi = $u->getElementsByTagName("listaGiochi")->item(0);
+
+                                    if($listaGiochi == null || !$listaGiochi->hasChildNodes()){
+                                        echo "<h3>La tua libreria è vuota......Acquista un gioco dai!</h3>";
+                                    }
                                     
                                     
 
-                                    foreach($gameList as $idNode){
+                                    else foreach($gameList as $idNode){
 
                                         $idGiocoPosseduto = $idNode->textContent;
 
                                         for($j = 0; $j < $giochi->length; $j++){
 
                                             $g = $giochi->item($j);
+                                            
 
                                             if($idGiocoPosseduto == $g->getAttribute("id_gioco")){
 

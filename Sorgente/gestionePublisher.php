@@ -34,7 +34,7 @@ $inBound = true;
 $campiVuoti = false;
 
 session_start();
-if($_SESSION['tipoUtente'] == '2'){
+if($_SESSION['tipoUtente'] == '1'){
     //solo al publisher puo accedere a questa pagina
 } else {
     //se non e admin lo reindirizzo alla homepage
@@ -449,12 +449,13 @@ if (isset($_POST["agencyToggleSubmit"])){
                                 </li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             }
-                            if($_SESSION['tipoUtente'] == '1'){
-                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            }
+                            
                             if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "2")
+                                if($_SESSION['tipoUtente'] == "1")
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                            if($_SESSION['tipoUtente'] == '2')
+                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                            
                             }
                         ?>
                     </ul>
@@ -573,14 +574,14 @@ if (isset($_POST["agencyToggleSubmit"])){
                     </p>
                     
                     <p>
-                        <label for=\"nuova_requMin\">Nuovi requisiti raccomandati:</label>
-                        <textarea id=\"nuova_requMin\" name=\"nuovaRequiMin\"></textarea>
+                        <label for=\"nuova_requMin\" >Nuovi requisiti raccomandati:</label>
+                        <textarea id=\"nuova_requMin\" name=\"nuovaRequiMin\" rows=\"6\" cols=\"30\"> OS: ; Processor: ; Memory: ; Graphics: ; DirectX: ; Network: ; Storage: ; Sound Card: ;</textarea>
                         </br>
                     </p>
 
                     <p>
                         <label for=\"nuova_requRac\">Nuovi requisiti raccomandati:</label>
-                        <textarea id=\"nuova_requRac\" name=\"nuovaRequiRac\"></textarea>
+                        <textarea id=\"nuova_requRac\" name=\"nuovaRequiRac\" rows=\"6\" cols=\"30\" >OS: ; Processor: ; Memory: ; Graphics: ; DirectX: ; Network: ; Storage: ; Sound Card: ;</textarea>
                         </br>
                     </p>
 
@@ -930,6 +931,7 @@ if (isset($_POST["agencyToggleSubmit"])){
             
 
                 <div class="imageAndToggleAgency">
+                    <h3>Nel caso si vuole impostare un descrizione del publisher: Profilo->Impostazioni</h3>
                     <form method="post" action="gestionePublisher.php" enctype="multipart/form-data">
                     <div class="switchLabel">
                         <div class="switch">

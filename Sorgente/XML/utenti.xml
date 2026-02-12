@@ -64,6 +64,7 @@
     <CasaDiSviluppoPreferita>Bandai Namco Entertainment</CasaDiSviluppoPreferita>
     <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione/>
+    <DescrizionePublisher/>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="59.99">9</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="29.99">22</idGiocoPosseduto>
@@ -75,5 +76,27 @@
       <idPropic>5</idPropic>
       <idPropic>3</idPropic>
     </listaPropic>
+  </Utente>
+  <Utente id_user="5">
+    <linkEsterno/>
+    <DataIscrizione>12-02-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Pizza Fritta Entertainment</CasaDiSviluppoPreferita>
+    <GenerePreferito>Strategia</GenerePreferito>
+    <Descrizione/>
+    <DescrizionePublisher>La migliore casa di sviluppo Napoletana Uaglio!</DescrizionePublisher>
+    <ToggleAgency>true</ToggleAgency>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="6">
+    <linkEsterno/>
+    <DataIscrizione>12-02-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito/>
+    <Descrizione/>
+    <DescrizionePublisher>BELLO KINGHDOM HEARTSSSS</DescrizionePublisher>
+    <ToggleAgency>true</ToggleAgency>
+    <listaGiochi/>
+    <listaPropic/>
   </Utente>
 </listaUtenti>

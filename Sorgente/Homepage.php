@@ -90,11 +90,11 @@ if(isset($_SESSION['userId'])){
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             
                             
-                            if($_SESSION['tipoUtente'] == '1'){
+                            if($_SESSION['tipoUtente'] == '2'){
                                 echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
                             }
                             
-                                if($_SESSION['tipoUtente'] == "2"){
+                                if($_SESSION['tipoUtente'] == "1"){
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
                         }

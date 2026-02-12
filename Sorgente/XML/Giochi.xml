@@ -453,4 +453,22 @@
       <idGiocoCorrelato>2</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
+  <Gioco id_gioco="25">
+    <Titolo>Kingdom Hearts 4.13</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Square Enix</CasaSviluppo>
+    <Publisher>Re-Logic</Publisher>
+    <Descrizione>kh4 spade laserh</Descrizione>
+    <RequisitiMinimi>POTATO</RequisitiMinimi>
+    <RequisitiRaccomandati>Potato</RequisitiRaccomandati>
+    <DataDiUscita>16/05/2077</DataDiUscita>
+    <Immagine>ImmaginiGiochi\kh4-01.webp</Immagine>
+    <Generi>RPG</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>100</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>1</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
 </TabellaGiochi>
