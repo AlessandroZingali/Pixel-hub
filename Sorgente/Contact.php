@@ -93,36 +93,47 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul>
-                        <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="catalogo.php">Catalogo </a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
-                        <?php
-                            
-                            if($service == 0){
-                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                    echo "<script>";
-                                    echo "sessionStorage.removeItem(\"idUser\");";
-                                    echo "sessionStorage.removeItem(\"genPref\");";
-                                    echo "</script>"; 
+                        <ul>
+                            <li><a href="Homepage.php">Home</a></li>
+                            <li><a href="catalogo.php">Catalogo </a></li>
+                            <li><a href="carrello.php">Carrello </a></li>
+                            <?php
+
+
+                                
+                                if($service == 0){
+                                    if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                        echo "<script>";
+                                        echo "sessionStorage.removeItem(\"idUser\");";
+                                        echo "sessionStorage.removeItem(\"genPref\");";
+                                        echo "</script>"; 
+                                    }
+                                    echo "<li><a href=\"login.php\">Log in </a></li>";
                                 }
-                                echo "<li><a href=\"login.php\">Log in </a></li>";
+                                else if($service == 1){
+                                    
+                                    echo "<li><a href=\"login.php\">Log out </a></li>";
+                                    echo "<li>
+                                    <a href=\"Profilo.php\">Profilo </a>
+                                    </li> 
+                                    <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                                
+                                
+                                if($_SESSION['tipoUtente'] == '2'){
+                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                                }
+                                
+                                    if($_SESSION['tipoUtente'] == "1"){
+                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                }
                             }
-                            else if($service == 1){
-                                echo "<li><a href=\"login.php\">Log out </a></li>";
-                                echo "<li>
-                                <a href=\"Profilo.php\">Profilo</a>
-                                </li> 
-                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
-                        ?>
-                    </ul>
-                </div>
-                    
-                    <form id="searchBar" onsubmit="return false;">
-                        <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
-                        <div id="livesearch"></div>
-                    </form>
+                            ?>
+                        </ul>
+                    </div>
+                        <form id="searchBar" onsubmit="return false;">
+                            <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                            <div id="livesearch"></div>
+                        </form>
             </div>
 
          

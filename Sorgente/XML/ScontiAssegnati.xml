@@ -2,7 +2,6 @@
 <ListaAssegnazioneSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Sconti_Assegnati_XML_schema.xsd">
   <Utente id_user="3">
     <scontiAssegnati>
-      <Sconto>1</Sconto>
       <Sconto>5</Sconto>
       <Sconto>6</Sconto>
       <Sconto>3</Sconto>

@@ -34,10 +34,50 @@ if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST[
             break;
         }
     }
+     
+
+    header("Location: GestioneAdmin.php");
+    exit();
+
+}
+if (isset($_POST['rimuoviSconto']) && isset($_POST['id_user']) && !empty($_POST['sconto'])) {
+
+    $id_user = $_POST['id_user'];
+    $sconto = $_POST['sconto'];
+
+    $doc = getDoc('XML/ScontiAssegnati.xml');
+    $root = $doc->documentElement;
+
+    $utenti = $root->getElementsByTagName("Utente");
+
+    foreach ($utenti as $utenteNode) {
+
+        if ($utenteNode->getAttribute("id_user") == $id_user) {
+
+            $scontiAssegnati = $utenteNode->getElementsByTagName("scontiAssegnati")->item(0);
+
+            if ($scontiAssegnati) {
+
+                $listaSconti = $scontiAssegnati->getElementsByTagName("Sconto");
+
+                foreach ($listaSconti as $scontoNode) {
+
+                    if (trim($scontoNode->textContent) == $sconto) {
+                        $scontiAssegnati->removeChild($scontoNode);
+                        break;
+                    }
+                }
+            }
+
+            $doc->save("XML/ScontiAssegnati.xml");
+            break;
+        }
+    }
 
     header("Location: GestioneAdmin.php");
     exit();
 }
+
 if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     $idGioco = $_POST["id_gioco_da_sospendere"];
@@ -394,39 +434,47 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul>
-                        <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="catalogo.php">Catalogo </a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
-                        <?php
-                            
-                            if($service == 0){
-                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                    echo "<script>";
-                                    echo "sessionStorage.removeItem(\"idUser\");";
-                                    echo "sessionStorage.removeItem(\"genPref\");";
-                                    echo "</script>"; 
-                                }
-                                echo "<li><a href=\"login.php\">Log in </a></li>";
-                            }
-                            else if($service == 1){
-                                echo "<li><a href=\"login.php\">Log out </a></li>";
-                                echo "<li>
-                                <a href=\"Profilo.php\">Profilo</a>
-                                </li> 
-                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
-                            if($_SESSION['tipoUtente'] == '1'){
-                                echo "<li><a href=\"GestioneAdmin.php\">Gestione </a></li>";
-                            }
-                        ?>
-                    </ul>
-                </div>
+                        <ul>
+                            <li><a href="Homepage.php">Home</a></li>
+                            <li><a href="catalogo.php">Catalogo </a></li>
+                            <li><a href="carrello.php">Carrello </a></li>
+                            <?php
 
-                    <form id="searchBar" onsubmit="return false;">
-                        <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
-                        <div id="livesearch"></div>
-                    </form>
+
+                                
+                                if($service == 0){
+                                    if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                        echo "<script>";
+                                        echo "sessionStorage.removeItem(\"idUser\");";
+                                        echo "sessionStorage.removeItem(\"genPref\");";
+                                        echo "</script>"; 
+                                    }
+                                    echo "<li><a href=\"login.php\">Log in </a></li>";
+                                }
+                                else if($service == 1){
+                                    
+                                    echo "<li><a href=\"login.php\">Log out </a></li>";
+                                    echo "<li>
+                                    <a href=\"Profilo.php\">Profilo </a>
+                                    </li> 
+                                    <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                                
+                                
+                                if($_SESSION['tipoUtente'] == '2'){
+                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                                }
+                                
+                                    if($_SESSION['tipoUtente'] == "1"){
+                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                        <form id="searchBar" onsubmit="return false;">
+                            <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                            <div id="livesearch"></div>
+                        </form>
             </div>
             <div class="adminFunctions" id="card0">
                 <!-- card 0 di menu -->
@@ -567,12 +615,21 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
                 echo "</p><br><br>";
 
-                echo "<form method='post' action='GestioneAdmin.php'>
+                echo "<p><form method='post' action='GestioneAdmin.php'>
                         <input type='hidden' name='id_user' value='$id'>
                         <label for='sconto_$id'>Assegna nuovo sconto:</label>
                         <input type='text' id='sconto_$id' name='sconto' >
                         <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
+
+                      </form></p>";
+                echo "<form method='post' action='GestioneAdmin.php'>
+                        <input type='hidden' name='id_user' value='$id'>
+                        <label for='sconto_$id'>Rimuovi Sconto:</label>
+                        <input type='text' id='sconto_$id' name='sconto' >
+                        <input type='submit' name='rimuoviSconto' value='Rimuovi Sconto'>
+
                       </form><br><hr><br>";
+                      
                     
             }
             ?>
@@ -622,7 +679,12 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                         
                         
                         foreach($elemGiochi as $gioco){
+                         
                             if($gioco->getAttribute('id_gioco') == $_POST['id_gioco_modifica']){
+
+                      
+
+                                
                                 $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                                 $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
                                 $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;

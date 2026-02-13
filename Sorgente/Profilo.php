@@ -229,6 +229,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     $doc->save("XML/utenti.xml");
 }
 
+// CAMBIO IMMAGINE PROFILO
 if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
     $idUtente = $_SESSION["userId"];
 
@@ -332,6 +333,31 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
     }
     
    
+}
+
+
+// CAMBIO IMMAGINE PROFILO
+if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
+    $idUtente = $_SESSION["userId"];
+
+    $newPath = $_POST['newPropicPub'];
+    connectDB();
+
+    if (mysqli_connect_errno()){
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
+    $sql = "
+        UPDATE $table_users
+        SET imgProfiloPathPub = '$newPath'
+        WHERE ID = ".(int)$_SESSION['userId'].";
+    ";
+    $resultQ = mysqli_query(connectDB(), $sql);
+    if($resultQ){
+        header("Location:Profilo.php");
+    }
+    else {
+        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    }
 }
 
 ?>
@@ -745,7 +771,48 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                                     
                                     </td>
                                 </form>
+                                </tr>
+
                             <tr>
+                            <?php 
+
+                            if($_SESSION['tipoUtente']==1){
+
+                                echo"
+                                <form method=\"post\" action=\"Profilo.php\">
+                                    <td>Modifica Immagine Profilo Publisher</td>
+                                    <td>
+
+                                       <select name=\"newPropicPub\">";
+
+                                    
+                                        $cartella = "loghiPub";
+                                        $files = scandir($cartella);
+
+                                        foreach($files as $file){
+                                            if($file != "." && $file != ".."){
+
+                                                $estensione = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+                                                if(in_array($estensione, ["png","jpg","jpeg","webp","gif"])){
+                                                echo "<option value='".$cartella."/".$file."'>" .$file."</option>";
+                                                }
+
+                                            }
+                                        }
+                                    echo"
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type=\"submit\" name=\"cambiaImmaginePub\" value=\"Modifica la Publisher ProPic \"/>
+                                    
+                                    </td>
+                                </form>
+                            </tr>";
+                                
+                            }
+                            ?>
+                                
 
 
 
@@ -876,7 +943,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                         echo "<div id=\"titoloPub\"><h1>Presentazione Publisher: ".$_SESSION['userName']."</h1></div>";
                         echo "<div class=\"containerPresentazione\"><div id=\"Presentazione\">";
                         echo "<div class=\"publisherPropic\"> 
-                                <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di Default\"/>
+                                <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di .$immagineProfiloPub.\"/>
                                 </div>";
                     
                         $elemUtenti = xmlPointer("XML/utenti.xml");

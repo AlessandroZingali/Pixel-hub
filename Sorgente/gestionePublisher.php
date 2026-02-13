@@ -55,8 +55,55 @@ if(isset($_POST['aggiungiGioco'])){
     $target_file = $target_dir .$_FILES["fileToUpload"]["name"];
 
     // Controlla se il file è stato effettivamente caricato
-    
-    if (isset($_FILES["fileToUpload"]["name"]) && isset($_POST['nuovo_nome']) && isset($_POST['nuovo_prezzo']) && isset($_POST['nuova_casa']) && isset($_POST['nuovo_publisher']) && isset($_POST['nuova_descrizione']) && isset($_POST['nuovaRequiMin']) && isset($_POST['nuovaRequiRac']) && isset($_POST['nuova_dataUscita']) && isset($_POST['nuovo_genere']) && isset($_POST['MediaRecensioniAdmin']) && !empty($_FILES["fileToUpload"]["name"]) && !empty($_POST['nuovo_nome']) && !empty($_POST['nuovo_prezzo']) && !empty($_POST['nuova_casa']) && !empty($_POST['nuovo_publisher']) && !empty($_POST['nuova_descrizione']) && !empty($_POST['nuovaRequiMin']) && !empty($_POST['nuovaRequiRac']) && !empty($_POST['nuova_dataUscita']) && !empty($_POST['nuovo_genere']) && !empty($_POST['MediaRecensioniAdmin'])) {
+
+    // Inserisce i vari campi per i requisiti
+        $os = $_POST["req_osm"];
+        $cpu = $_POST["req_cpum"];
+        $ram = $_POST["req_ramm"];
+        $gpu = $_POST["req_gpum"];
+        $dx = $_POST["req_dxm"];
+        $net = $_POST["req_netm"];
+        $storage = $_POST["req_storagem"];
+        $sound = $_POST["req_soundm"];
+
+        $_POST['nuovaRequiMin'] = "OS: $os; Processor: $cpu; Memory: $ram; Graphics: $gpu; DirectX: $dx; Network: $net; Storage: $storage; Sound Card: $sound;";            
+        
+        $os = $_POST["req_osr"];
+        $cpu = $_POST["req_cpur"];
+        $ram = $_POST["req_ramr"];
+        $gpu = $_POST["req_gpur"];
+        $dx = $_POST["req_dxr"];
+        $net = $_POST["req_netr"];
+        $storage = $_POST["req_storager"];
+        $sound = $_POST["req_soundr"];
+
+        $_POST['nuovaRequiRac'] = "OS: $os; Processor: $cpu; Memory: $ram; Graphics: $gpu; DirectX: $dx; Network: $net; Storage: $storage; Sound Card: $sound;";
+        
+    if (isset($_FILES["fileToUpload"]["name"]) 
+        && isset($_POST['nuovo_nome']) 
+        && isset($_POST['nuovo_prezzo'])   
+        && isset($_POST['nuova_casa']) 
+        && isset($_POST['nuovo_publisher']) 
+        && isset($_POST['nuova_descrizione']) 
+        && isset($_POST['nuovaRequiMin']) 
+        && isset($_POST['nuovaRequiRac']) 
+        && isset($_POST['nuova_dataUscita']) 
+        && isset($_POST['nuovo_genere']) 
+        && isset($_POST['MediaRecensioniAdmin']) 
+        && !empty($_FILES["fileToUpload"]["name"]) 
+        && !empty($_POST['nuovo_nome']) 
+        && !empty($_POST['nuovo_prezzo']) 
+        && !empty($_POST['nuova_casa']) 
+        && !empty($_POST['nuovo_publisher']) 
+        && !empty($_POST['nuova_descrizione']) 
+        && !empty($_POST['nuovaRequiMin']) 
+        && !empty($_POST['nuovaRequiRac']) 
+        && !empty($_POST['nuova_dataUscita']) 
+        && !empty($_POST['nuovo_genere'])
+        && !empty($_POST['MediaRecensioniAdmin'])) {
+
+
+
         // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
             $docGiochi= getDoc('XML/Giochi.xml');
@@ -73,6 +120,8 @@ if(isset($_POST['aggiungiGioco'])){
 
             $nuovoGioco = $docGiochi->createElement("Gioco");
             $nuovoGioco->setAttribute('id_gioco', $nuovoIdGioco);
+
+            
 
             $nuovoNodoTitolo = $docGiochi->createElement("Titolo",$_POST['nuovo_nome']);
             $nuovoNodoPrezzo = $docGiochi->createElement("Prezzo",$_POST['nuovo_prezzo']);
@@ -427,44 +476,47 @@ if (isset($_POST["agencyToggleSubmit"])){
             <div id="navigation">
                 <div class="dropMenu">
                     <button class="botMenu"><img src="Stile/Icone/iconamenu.png" alt=""></button>
-                    <ul>
-                        <li><a href="Homepage.php">Home</a></li>
-                        <li><a href="catalogo.php">Catalogo </a></li>
-                        <li><a href="carrello.php">Carrello </a></li>
-                        <?php
-                            
-                            if($service == 0){
-                                if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
-                                    echo "<script>";
-                                    echo "sessionStorage.removeItem(\"idUser\");";
-                                    echo "sessionStorage.removeItem(\"genPref\");";
-                                    echo "</script>"; 
-                                }
-                                echo "<li><a href=\"login.php\">Log in </a></li>";
-                            }
-                            else if($service == 1){
-                                echo "<li><a href=\"login.php\">Log out </a></li>";
-                                echo "<li>
-                                <a href=\"Profilo.php\">Profilo</a>
-                                </li> 
-                                <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                            }
-                            
-                            if(isset($_SESSION['tipoUtente'])){
-                                if($_SESSION['tipoUtente'] == "1")
-                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
-                            if($_SESSION['tipoUtente'] == '2')
-                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            
-                            }
-                        ?>
-                    </ul>
-                </div>
+                        <ul>
+                            <li><a href="Homepage.php">Home</a></li>
+                            <li><a href="catalogo.php">Catalogo </a></li>
+                            <li><a href="carrello.php">Carrello </a></li>
+                            <?php
 
-                    <form id="searchBar" onsubmit="return false;">
-                        <input type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
-                        <div id="livesearch"></div>
-                    </form>
+
+                                
+                                if($service == 0){
+                                    if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
+                                        echo "<script>";
+                                        echo "sessionStorage.removeItem(\"idUser\");";
+                                        echo "sessionStorage.removeItem(\"genPref\");";
+                                        echo "</script>"; 
+                                    }
+                                    echo "<li><a href=\"login.php\">Log in </a></li>";
+                                }
+                                else if($service == 1){
+                                    
+                                    echo "<li><a href=\"login.php\">Log out </a></li>";
+                                    echo "<li>
+                                    <a href=\"Profilo.php\">Profilo </a>
+                                    </li> 
+                                    <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
+                                
+                                
+                                if($_SESSION['tipoUtente'] == '2'){
+                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                                }
+                                
+                                    if($_SESSION['tipoUtente'] == "1"){
+                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                        <form id="searchBar" onsubmit="return false;">
+                            <input id="searchBarInput" type="text" placeholder="Search" onkeyup="mostraRisultati(this.value)">
+                            <div id="livesearch"></div>
+                        </form>
             </div>
 
              <div class="publisherFunctions" id="card0">
@@ -572,18 +624,89 @@ if (isset($_POST["agencyToggleSubmit"])){
                         <input type=\"text\" id=\"MediaRecensioniAdmin\" name=\"MediaRecensioniAdmin\" >
                         </br>
                     </p>
-                    
+
                     <p>
-                        <label for=\"nuova_requMin\" >Nuovi requisiti raccomandati:</label>
-                        <textarea id=\"nuova_requMin\" name=\"nuovaRequiMin\" rows=\"6\" cols=\"30\"> OS: ; Processor: ; Memory: ; Graphics: ; DirectX: ; Network: ; Storage: ; Sound Card: ;</textarea>
-                        </br>
+                        <label for=\"req_os\">Requisiti Minimi OS:</label>
+                        <input type=\"text\" id=\"req_os\" name=\"req_osm\" placeholder=\"Es: Windows 10 64-bit\">
                     </p>
 
                     <p>
-                        <label for=\"nuova_requRac\">Nuovi requisiti raccomandati:</label>
-                        <textarea id=\"nuova_requRac\" name=\"nuovaRequiRac\" rows=\"6\" cols=\"30\" >OS: ; Processor: ; Memory: ; Graphics: ; DirectX: ; Network: ; Storage: ; Sound Card: ;</textarea>
-                        </br>
+                        <label for=\"req_cpu\">Processor:</label>
+                        <input type=\"text\" id=\"req_cpu\" name=\"req_cpum\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
                     </p>
+
+                    <p>
+                        <label for=\"req_ram\">Memory:</label>
+                        <input type=\"text\" id=\"req_ram\" name=\"req_ramm\" placeholder=\"Es: 16 GB RAM\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_gpu\">Graphics:</label>
+                        <input type=\"text\" id=\"req_gpu\" name=\"req_gpum\" placeholder=\"Es: GTX 1060 / RX 580\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_dx\">DirectX:</label>
+                        <input type=\"text\" id=\"req_dx\" name=\"req_dxm\" placeholder=\"Es: Version 12\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_net\">Network:</label>
+                        <input type=\"text\" id=\"req_net\" name=\"req_netm\" placeholder=\"Es: Broadband Internet connection\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_storage\">Storage:</label>
+                        <input type=\"text\" id=\"req_storage\" name=\"req_storagem\" placeholder=\"Es: 50 GB available space\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_sound\">Sound Card:</label>
+                        <input type=\"text\" id=\"req_sound\" name=\"req_soundm\" placeholder=\"Es: DirectX compatible\">
+                    </p>
+                    
+                    <p>
+                        <label for=\"req_os\">Requisiti Raccomandati OS:</label>
+                        <input type=\"text\" id=\"req_os\" name=\"req_osr\" placeholder=\"Es: Windows 10 64-bit\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_cpu\">Processor:</label>
+                        <input type=\"text\" id=\"req_cpu\" name=\"req_cpur\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_ram\">Memory:</label>
+                        <input type=\"text\" id=\"req_ram\" name=\"req_ramr\" placeholder=\"Es: 16 GB RAM\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_gpu\">Graphics:</label>
+                        <input type=\"text\" id=\"req_gpu\" name=\"req_gpur\" placeholder=\"Es: GTX 1060 / RX 580\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_dx\">DirectX:</label>
+                        <input type=\"text\" id=\"req_dx\" name=\"req_dxr\" placeholder=\"Es: Version 12\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_net\">Network:</label>
+                        <input type=\"text\" id=\"req_net\" name=\"req_netr\" placeholder=\"Es: Broadband Internet connection\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_storage\">Storage:</label>
+                        <input type=\"text\" id=\"req_storage\" name=\"req_storager\" placeholder=\"Es: 50 GB available space\">
+                    </p>
+
+                    <p>
+                        <label for=\"req_sound\">Sound Card:</label>
+                        <input type=\"text\" id=\"req_sound\" name=\"req_soundr\" placeholder=\"Es: DirectX compatible\">
+                    </p>
+
+
+
 
                     <p>
                         <label for=\"DataUscita\"> Nuova data di uscita:</label>
