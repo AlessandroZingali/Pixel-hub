@@ -1,13 +1,15 @@
 <?php 
-// Pagina del profilo utente:
-// permette di modificare dati personali, acquistare immagini profilo
-// e aggiornare informazioni salvate sia su DB che su XML
+// Pagina profilo di un utente che si mostra quando si clicca su un commento e una recensione lasciato da quest'ultimo 
+// concettualmente è una versione piu slim della pagina profilo personale che puo mostrare solo l'icona profilo le sue informazioni principali e gli ultimi quattro giochi acquistati
+// parallelamente se quest'utente è un publisher ed ha attivato la modalità agency quando si visita il suo profilo lo si vedra come pagina di presentazione publisher che mostrerà
+// i giochi pubblicati il logo da publisher e una descrzione dell'azienda
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
 
 $service = 0;          // indica se l'utente è loggato
 $utente = "";          // username dell'utente
 $invalidFlag = 0;      // flag per gestire errori logici (email, password, acquisti ecc.)
+
 
 // Avvio sessione
 session_start();
@@ -19,6 +21,10 @@ if (isset($_SESSION['userId'])) {
 }
 
 $idUtenteEsterno = $_GET['idUtenteExt'];
+// se non si è fatto l'accesso si ritorna alla home page
+if($service == 0 || !isset($_GET['idUtenteExt'])) header('Location: Homepage.php');
+// quando si accede alla pagina si passa l'id dell'utente dalla quale(normalmente si )
+
 $table_users = "Tabella_Utenti";
 $tipoUtente = null;
 $toggleState = 'false';
@@ -28,7 +34,7 @@ connectDB();
 if (mysqli_connect_errno()) {
     printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
 }
-
+// passati i primi check ci si connette al DB per prendere le informazioni di base del utente
 $sql = "
     SELECT * FROM $table_users WHERE ID=$idUtenteEsterno
 ";
@@ -38,7 +44,7 @@ if (mysqli_num_rows($res) > 0) {
     $row = mysqli_fetch_array($res);
     $tipoUtente = $row['Tipologia_utente'];
 }
-
+// dopo aver trovato l'utente di rifermento si prenderanno le informazioni dal file xml 
 if($tipoUtente != null && $tipoUtente == '1') {
     $elem = xmlPointer('XML/utenti.xml');
     foreach ($elem as $utente) {
@@ -114,6 +120,9 @@ if($tipoUtente != null && $tipoUtente == '1') {
                         <li><a href="catalogo.php">Catalogo </a></li>
                         <li><a href="carrello.php">Carrello </a></li>
                         <?php
+
+                        // in base all'aver fatto l'accesso si potra visualizzare la pagina profilo e in base al tipo utente si potra entrare nella pagina di gestione 
+                        // publisher e admin che avranno diverse funzioni
                             
                             if($service == 0){
                                 if(isset($_SESSION['userId']) && isset($_SESSION['generePreferito'])){
@@ -126,19 +135,17 @@ if($tipoUtente != null && $tipoUtente == '1') {
                             }
                             else if($service == 1){
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
-                                echo "<li>
-                                <a href=\"Profilo.php\">Profilo</a>
-                                </li> 
+                                echo "<li><a href=\"Profilo.php\">Profilo</a></li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
                             
-                                                        if($_SESSION['tipoUtente'] == '1'){
+                                if($_SESSION['tipoUtente'] == '1')
                                 echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
-                            }
-                            if(isset($_SESSION['tipoUtente'])){
+                            
+                            
                                 if($_SESSION['tipoUtente'] == "2")
                                 echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
-                            }
+                            
                         ?>
                     </ul>
                 </div>
@@ -147,7 +154,7 @@ if($tipoUtente != null && $tipoUtente == '1') {
                     <div id="livesearch"></div>
                 </form>
             </div>
-            <!-- all'interno del wrapper che sara il divisore principale ci saranno contenuti la card profilo dove saranno mostrate tutte le informazioni principali del l'account con gli ultimi 4 giochi acquistati e due pulsanti  -->
+            <!-- all'interno del wrapper che sara il divisore principale ci saranno contenuti la card profilo dove saranno mostrate tutte le informazioni principali del l'account con gli ultimi 4 giochi acquistati e l'altra card dove sara presente le informazioni principali del publisher e i giochi pubblicati  -->
 
             <div class="wrapper">
                 <div class="cardProfilo" id="card1">
@@ -332,7 +339,10 @@ if($tipoUtente != null && $tipoUtente == '1') {
 
                 </div> <!-- div di chiusura del cardProfilo card1 -->
 
-            <?php
+ 
+                <div class="cardProfilo2" id="card2" >
+                    <!-- div per il profilo publisher -->
+                <?php
                 connectDB();
 
                 if (mysqli_connect_errno()){
@@ -342,22 +352,21 @@ if($tipoUtente != null && $tipoUtente == '1') {
                 $queryLogin = "SELECT * FROM $table_users WHERE (ID='$idUtenteEsterno')";
                 $resultQ = mysqli_query(connectDB(), $queryLogin);
                 $num = mysqli_num_rows($resultQ); 
+                // Si prende l'username e la path dell'immagine profilo da publisher
                 if($num == 1){
                     $flag=1;
                     
                     $row = mysqli_fetch_array($resultQ);
+                    
 
                     $username = $row['Username'];
                     $immagineProfiloPub = $row['imgProfiloPathPub'];
                 } 
                 ?> 
-                <div class="cardProfilo2" id="card2" >
-                    <!-- div per il profilo publisher -->
-                   
                             
                     <?php
                                  
-                            echo "<div><h1>Presentazione Publisher: $username </h1></div>";
+                            echo "<h1 class=\"TitoloPub\">Presentazione Publisher: $username </h1>";
                             echo "<div id=\"Presentazione\">";
                             echo "<div class=\"publisherPropic\"> 
                                     <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di Default\"/>
@@ -420,7 +429,7 @@ if($tipoUtente != null && $tipoUtente == '1') {
             <ul>
                 <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
         

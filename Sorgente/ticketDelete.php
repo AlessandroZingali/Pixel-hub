@@ -1,7 +1,9 @@
 <?php 
+/* Questo file gestisce il funzionamento della cancellazione del file XML per i ticket. Questo script 
+viene chiamato da una doppia chiamata ajax indentata una dentro l'altra; cosi da gestire i casi di errore nell'invio */
     require_once 'serverUtility.php';
 
-    $doc = xmlPointer('XML/Ticket.xml');
+    $doc = getDoc('XML/Ticket.xml');
     $root = $doc->documentElement;
     $elem = $root->childNodes;
 

@@ -179,7 +179,7 @@ session_start();
             <ul>
                 <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li><br>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
                 </ul>
         </div>
     </body>

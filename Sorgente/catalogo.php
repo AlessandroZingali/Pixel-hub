@@ -35,6 +35,7 @@ if(isset($_SESSION['userId'])){
 }
 
 
+
 ?>
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -214,7 +215,7 @@ if(isset($_SESSION['userId'])){
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>

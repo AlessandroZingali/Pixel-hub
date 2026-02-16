@@ -7,17 +7,8 @@
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="19.99">7</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="14.99">5</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="59.99">9</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="49.99">10</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="39.99">6</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="59.99">1</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="03-02-2026" spesa="39.99">13</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
-      <idPropic>1</idPropic>
-      <idPropic>2</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="2">
@@ -28,8 +19,6 @@
     <Descrizione/>
     <listaGiochi/>
     <listaPropic>
-      <idPropic>6</idPropic>
-      <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="3">
@@ -41,22 +30,8 @@
     <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.</DescrizionePublisher>
     <ToggleAgency>true</ToggleAgency>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="05-06-2024" spesa="39.99">1</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-06-2024" spesa="24.99">4</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="05-08-2024" spesa="39.99">6</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="01-02-2024" spesa="59.99">9</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="25-12-2025" spesa="29.99">11</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="23.99">22</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="37.99">16</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="44.99">2</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="24.99">12</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="02-02-2026" spesa="26.99">23</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
-      <idPropic>1</idPropic>
-      <idPropic>2</idPropic>
-      <idPropic>6</idPropic>
-      <idPropic>5</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="4">
@@ -67,15 +42,8 @@
     <Descrizione/>
     <DescrizionePublisher/>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="59.99">9</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="29.99">22</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="53.99">3</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="47.49">2</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="11-02-2026" spesa="17.99">7</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
-      <idPropic>5</idPropic>
-      <idPropic>3</idPropic>
     </listaPropic>
   </Utente>
   <Utente id_user="5">

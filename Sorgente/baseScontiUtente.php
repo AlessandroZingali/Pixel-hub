@@ -39,6 +39,9 @@
 
         function __construct($idUtente){
             $this->idUtente=$idUtente;
+            //Ad ogni creazione dello scanner (quindi ad ogni reload della pagina dove è inserito) 
+            // vengono ricalcolati gli sconti assegnati all'utente, 
+            // in modo da essere sempre aggiornati in base alle azioni dell'utente stesso
             $this->scanner($idUtente);
             $elem = new scontiAss();
             foreach($elem->elemAss as $user){

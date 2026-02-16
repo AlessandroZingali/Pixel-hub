@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaTicket xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Ticket_XML_schema.xsd">
-  <ticket id_ticket="1" id_utente="1" data="03/02/2026" ore="17" minuti="33">
-    <text>Segnalo un errore, i miei pixel sono troppo pochi!</text>
-  </ticket>
-  <ticket id_ticket="2" id_utente="4" data="10/02/2026" ore="17" minuti="12">
-    <text>Non mi piace doom eternale voglio un refound</text>
-  </ticket>
   <ticket id_ticket="3" id_utente="2" data="16/02/2026" ore="10" minuti="17">
     <text>Posso chiedere un rimborso?</text>
   </ticket>
+
 </listaTicket>

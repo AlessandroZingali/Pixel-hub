@@ -431,7 +431,7 @@ if(isset($_SESSION['tipoUtente'])){
                     <ul>                       
                         <li><a href="Homepage.php">Home</a></li>
                         <li><a href="catalogo.php">Catalogo </a></li>
-                        
+                        <li><a href="carrello.php">Carrello </a></li>
                         <?php
                             //Gestiamo la visualizzazione del link di login o logout in base allo stato di $service, il quale ricordiamo è la flag di stato dell'utente (guest o loggato).
                             // Come si può vedere se il service non è attivo (guest) eliminiamo anche le informazioni salvate in sessionStorage riguardo l'utente.
@@ -446,20 +446,17 @@ if(isset($_SESSION['tipoUtente'])){
                                 echo "<li><a href=\"login.php\">Log in </a></li>";
                             }
                             else if($service == 1){
-                                echo"<li><a href=\"carrello.php\">Carrello </a></li>";
                                 echo "<li><a href=\"login.php\">Log out </a></li>";
-                                echo "<li>
-                                <a href=\"Profilo.php\">Profilo</a>
-                                </li> 
+                                echo "<li><a href=\"Profilo.php\">Profilo</a></li> 
                                 <p id=\"saldo\"> Pixels: ".$_SESSION['Pixels']." </br> Saldo attuale: ".$_SESSION['Saldo']." € </p>";
-                                 
-                            if(isset($_SESSION['tipoUtente'])){
-                                    if($_SESSION['tipoUtente'] == "1")
-                                    echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
-                                    if($_SESSION['tipoUtente'] == '2')
-                                    echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                            
+                                if($_SESSION['tipoUtente'] == '1')
+                                echo "<li><a href=\"GestioneAdmin.php\">Gestione</a></li>";
+                            
+                            
+                                if($_SESSION['tipoUtente'] == "2")
+                                echo "<li><a href=\"gestionePublisher.php\">Gestione</a></li>";
                             }
-                            } 
                         ?>
                     </ul>
                 </div> <!--Barra di ricerca dei giochi, mostra in modo dinamico una lista dei giochi in base al nome. Abbiamo gestito il comportamento nel file Script/Searchgame.js -->
@@ -518,18 +515,19 @@ if(isset($_SESSION['tipoUtente'])){
                                 </tr>
                                 <tr>
                                     <td>Prezzo</td>";
-                                        if(isset($_SESSION['tipoUtente'])){
-                                        $sconti = $scontoManager->percentualeScontoGioco($idGioco);
-                                        if(count($sconti) > 0){
+                                        if($service==1){
+                                            $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                            if(count($sconti) > 0){
                                             $sommaSconti=array_sum($sconti);
                                             $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
                                             echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
+                                            }
                                         }
-                                        else{
+                                        else if($service==0){
                                             echo "<td> $PrezzoGioco € </td> ";
                                         }  
                                     
-                                    }
+                                    
                                        
 
                                 echo "</tr>
@@ -1030,7 +1028,7 @@ if(isset($_SESSION['tipoUtente'])){
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>

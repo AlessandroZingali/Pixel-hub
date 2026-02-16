@@ -67,7 +67,7 @@
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/hades_logo.png</Immagine>
     <Generi>Rogue-like</Generi>
-    <Disponibile>0</Disponibile>
+    <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>92.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
@@ -147,7 +147,7 @@
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
-      <idGiocoCorrelato>10</idGiocoCorrelato>
+      <idGiocoCorrelato>15</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="9">
@@ -426,7 +426,7 @@
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/Final_Fantasy_Tactics_-_The_Ivalice_Chronicles_cover.jpg</Immagine>
     <Generi>Strategia</Generi>
-    <Disponibile>0</Disponibile>
+    <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
@@ -453,5 +453,4 @@
       <idGiocoCorrelato>2</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
-
 </TabellaGiochi>

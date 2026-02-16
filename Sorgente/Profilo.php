@@ -123,6 +123,39 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
     }
 }
 
+//    CAMBIO Partita IVA (DB)
+
+if (isset($_POST["cambiaPIVA"]) && !empty($_POST["newPIVA"])) {
+
+    // Controllo formato P.IVA
+    if (preg_match('/^[0-9]{12}$/', $_POST['newPIVA'])) {
+
+        
+        connectDB();
+
+        if (mysqli_connect_errno()) {
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        }
+
+        $new = mysqli_real_escape_string(connectDB(), $_POST["newPIVA"]);
+
+        // Aggiorna P.IVA
+        $sql = "
+            UPDATE $table_users
+            SET PIVA = '$new'
+            WHERE ID = ".(int)$_SESSION['userId']."
+        ";
+
+        if (mysqli_query(connectDB(), $sql)) {
+            header("Location:Profilo.php");
+        } else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        }
+
+    } else {
+        $invalidFlag = 1; // P.IVA non valida
+    }
+}
 
 
 //    CAMBIO GENERE PREFERITO (XML)
@@ -555,6 +588,10 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                     <tr>
                                         <td>I miei punti esperienza:</td><td>".$row['Esperienza']."</td>
                                     </tr>
+
+                                    <tr>
+                                    <td> Partita Iva:</td> <td>".$row['PIVA']."</td>
+                                    </tr>
         
                                 </table>
                             </div>";
@@ -695,6 +732,12 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                 <td>Modifica Descrizione Publisher</td>
                                 <td><textarea type=\"text\" placeholder=\"Inserisci una tua descrizione!\" name=\"newDescrizioneP\" ></textarea>    </td>
                                 <td><input type=\"submit\" name=\"cambiaDescrizioneP\" value=\"Modifica la tua descrizione\"/></td></form>
+                                </tr> 
+                                <tr>
+                                <form method=\"post\" action=\"Profilo.php\">
+                                <td>Modifica Partita IVA</td>
+                                <td><input type=\"text\" placeholder=\"Partita IVA\" name=\"newPIVA\" >    </td>
+                                <td><input type=\"submit\" name=\"cambiaPIVA\" value=\"Modifica la tua Partita IVA\"/></td></form>
                                 </tr> ";
                             }
                         
@@ -1013,7 +1056,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
             <ul>
                 <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
         

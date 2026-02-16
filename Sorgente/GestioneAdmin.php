@@ -1,5 +1,7 @@
 <?php
-
+/* Questa pagina è l'hub gestionale per gli admin Qui si può trovare la gestione degli sconti per ogni gioco. Si possono gestire le info
+degli utenti e i rimborsi ai vari giochi. Si può riposondere anche ai vari ticket. Ed alto.
+ Abbiamo diviso ogni sezione in varie card e quasi ogni card ha la sua card apposita di ricerca per giochi o utenti in vase ad un ID. */
 require 'serverUtility.php'; 
 
 $service = 0;
@@ -19,6 +21,10 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 
+if($service == 0) header('Location: Homepage.php'); //reindirizzo alla homepage se non c'è una sessione attiva
+
+
+// Funzione per assegnare o rimuovere sconti agli utenti
 if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST['sconto'])) {
     $id_user = $_POST['id_user'];
     $sconto = $_POST['sconto'];
@@ -78,6 +84,8 @@ if (isset($_POST['rimuoviSconto']) && isset($_POST['id_user']) && !empty($_POST[
     exit();
 }
 
+
+// Funzione per sospendere o riattivare un gioco
 if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     $idGioco = $_POST["id_gioco_da_sospendere"];
@@ -104,6 +112,8 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     header("Location: GestioneAdmin.php");
 }
+
+// Funzione per modificare i dettagli di un gioco
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $id_gioco = $_POST['id_da_modificare'];
 
@@ -161,6 +171,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     header("Location: GestioneAdmin.php");
 }
 
+// Funzione per rimuovere giochi correlati
 if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati']) && !empty($_POST['id_da_modificare'])){
     $id_gioco = $_POST['id_da_modificare'];
     $id_correlati_eliminati = $_POST['id_correlati_eliminati'];
@@ -189,6 +200,8 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
     header("Location: GestioneAdmin.php");
 }
 
+
+//
 if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 
 $table_users='Tabella_Utenti';
@@ -228,6 +241,7 @@ connectDB();
     }
 }
 
+// Funzione per sospendere un utente
 if(isset($_POST['sospensione'])){
     $table_users='Tabella_Utenti';
     $id_utente = $_POST['id_user_gestione'];
@@ -254,6 +268,7 @@ if(isset($_POST['sospensione'])){
     }
 }
 
+// Funzione per gestire i rimborsi
 if(isset($_POST["richiediRimborso"])){
 
     $table_users='Tabella_Utenti';
@@ -338,6 +353,8 @@ if(isset($_POST["richiediRimborso"])){
     
 }
 
+
+// Funzione per gestire le segnalazioni dei commenti e delle recensioni
 if(isset($_POST['formSegnalazioniCommenti'])){
     $docCommenti = getDoc("XML/Commenti.xml");
     $root = $docCommenti->documentElement;
@@ -413,6 +430,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
         <link rel="stylesheet" type="text/css" href="Stile/GestioneAdmin.css?v=3" />
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" />
         <?php 
+        /*Questo script serve per far cambiare le card presentate a ricaricamento in base ad errori o situazioni particolari*/
             if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
             else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
             else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione']) && !isset($erroreRicercaRim)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
@@ -480,6 +498,8 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                             <div id="livesearch"></div>
                         </form>
             </div>
+
+            <!--Card iniziale per la presentazione delle funzioni disponibili per l'admin  -->
             <div class="adminFunctions" id="card0">
                 <!-- card 0 di menu -->
 
@@ -534,7 +554,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                     </div>
                 </div>
             </div>
-
+            <!-- Card per la gestione dei Ticket -->
             <div class="cardSettings hideCard" id="card1">
 
                 <!-- Card di gestione ticket  -->
@@ -1191,7 +1211,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>

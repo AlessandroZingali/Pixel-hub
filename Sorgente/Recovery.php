@@ -6,25 +6,26 @@ require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore
 
 //Inizia la sessione
 session_start();
+$redirect = false;
 
 //Controlla se il form è stato inviato
 if (isset($_POST["invioRecovery"])) {
 
     // Carica il documento XML
-    $doc = getDoc("XML/Ticket.xml");
+    $doc = getDoc("XML/Recovery.xml");
     $root = $doc->documentElement;
 
     // Calcolo del nuovo id_ticket (incrementale)
     $newId = 1;
     foreach ($root->getElementsByTagName("Recovery") as $t) {
-        $id = (int)$t->getAttribute("id_Recovery");
+        $id = (int)$t->getAttribute("id_recovery");
         if ($id >= $newId) {
             $newId = $id + 1;
         }
     }
 
     //Creazione del nodo <ticket>
-    $ticket = $doc->createElement("ticket");
+    $ticket = $doc->createElement("Recovery");
 
     //Attributi del ticket
     $ticket->setAttribute("id_recovery", $newId);
@@ -47,9 +48,8 @@ if (isset($_POST["invioRecovery"])) {
     //Salva il file XML aggiornato
     $doc->save("XML/Recovery.xml");
 
-    //Redirect alla homepage
-    header("Location: Homepage.php");
-    exit;
+    $redirect = true;
+    
 }
 
 ?>
@@ -64,10 +64,22 @@ if (isset($_POST["invioRecovery"])) {
         <link rel="stylesheet" type="text/css" href="Stile/Contact.css?v=3" />
         <link rel="stylesheet" type="text/css" href="Stile/base.css?v=3" /> 
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
+        <script type="text/javascript" src="Script/scriptMail.js"></script>
 
       
     </head>
-    <body>    
+    <body>  
+        <?php  
+            if($redirect){
+                echo "<form id=\"redirectForm\" action=\"Recovery.php\" method=\"post\">
+                    <input type=\"hidden\" name=\"IDTicket\" value=\"$newId\" />
+                    <input type=\"hidden\" name=\"Email\" value=\"".$_POST['recoveryEmail']."\" />
+                </form>";
+                echo "<script type=\"text/javascript\">
+                    document.getElementById('redirectForm').submit()</script>";
+            }
+        
+        ?>
         <div id="container">
             <div id="header">
                 <div id="logo">
@@ -122,7 +134,7 @@ if (isset($_POST["invioRecovery"])) {
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>

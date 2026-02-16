@@ -1,28 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Associazione_Like_Recensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Recensioni_schema.xsd">
-  <ref_Recensioni flagLike="1" flagDislike="0">
-    <Id_Utente>3</Id_Utente>
-    <Id_Recensione>3</Id_Recensione>
-    <Id_Gioco>1</Id_Gioco>
-  </ref_Recensioni>
-  <ref_Recensioni flagLike="0" flagDislike="1">
-    <Id_Utente>3</Id_Utente>
-    <Id_Recensione>2</Id_Recensione>
-    <Id_Gioco>1</Id_Gioco>
-  </ref_Recensioni>
-  <ref_Recensioni flagLike="1" flagDislike="0">
-    <Id_Utente>3</Id_Utente>
-    <Id_Recensione>1</Id_Recensione>
-    <Id_Gioco>7</Id_Gioco>
-  </ref_Recensioni>
-  <ref_Recensioni flagLike="1" flagDislike="0">
-    <Id_Utente>3</Id_Utente>
-    <Id_Recensione>1</Id_Recensione>
-    <Id_Gioco>3</Id_Gioco>
-  </ref_Recensioni>
-  <ref_Recensioni flagLike="1" flagDislike="0">
-    <Id_Utente>3</Id_Utente>
-    <Id_Recensione>1</Id_Recensione>
-    <Id_Gioco>2</Id_Gioco>
-  </ref_Recensioni>
 </Associazione_Like_Recensioni>

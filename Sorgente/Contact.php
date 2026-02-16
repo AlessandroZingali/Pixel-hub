@@ -164,7 +164,7 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy;  Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>

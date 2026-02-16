@@ -4,6 +4,23 @@ error_reporting(E_ALL &~E_NOTICE);
 come la funzione che carica un file XML e lo restituisce come oggetto DOMDocument, o la funzione che restituisce la root di un file XML,
 la funzione che restituisce il primo livello di nodi figli della root di un file XML o la funzione che setta 
 il limite massimo di giochi da mostrare in ogni slider.*/
+
+/*La seguente classe contiene le variabili di base per la risposta dei ticket tramite Email. Se si vuole provare lo script 
+per la risposta via mail, basta cambiare il mittente insieme alla key del servizio SMTP, e cambiare anche il destinatario.
+Consigliamo di cambiare solo il destinatario, mettendo la propria mail*/ 
+class emailPointer{
+    public $mittente;
+    public $destinatario;
+    public $emailKey;
+   
+
+    function __construct()
+    {
+        $this->mittente = 'justfree609@gmail.com';
+        $this->destinatario = 'tuliniriccardo99@gmail.com'; //CAMBAIRE SOLO QUESTA PER VERIFICARE IL FUNZIONAMENTO
+        $this->emailKey = 'wmtb kgff vkfl acnj';
+    }
+}
 function getDoc($file){
     $xmlString="";
                                 

@@ -1,4 +1,6 @@
 <?php 
+// Questo file entra in gioco quando sotto un commento o una recensione si preme il pulsante per segnalarlo,questo portera l'aumento dell attributo  "segnalazioni" all'interno del
+// del file xml delle recensioni o dei commenti per quel commento/recensione questo sara indispensabile quando un admin nella pagnia gestione admin andra all'interno di gestisci segnalazioni per vedere quali sono stati gli elementi segnalati
 
 require_once 'serverUtility.php';
 

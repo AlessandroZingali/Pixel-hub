@@ -109,6 +109,10 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
 
 }
 
+.TitoloPub{
+    text-align: center;
+
+}
 
 /* Sotto elemento della card principale che mostra gli ultimi titoli aggiunti */
 
@@ -229,7 +233,7 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
 }
 
 .publisherDescrizione{
-    width: 700px;
+    width: 80%;
       /* border: teal solid; */
     
     padding:30px;
@@ -400,7 +404,7 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     }
 
     .publisherDescrizione{
-        width: 500px;
+        width: 70%;
     }
 }
 
@@ -412,8 +416,6 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     #Presentazione{
         border: none;
     }
-    #card2 h1{
-        display: none;
-    }
+
 }
 

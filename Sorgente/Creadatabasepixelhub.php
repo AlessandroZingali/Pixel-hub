@@ -95,8 +95,8 @@ else {
                 \"marcorossi\", 
                 1, 
                 0,
-                100, 
-                50.0, 
+                0, 
+                200.0, 
                 \"15-04-1990\", 
                 \"Marco\", 
                 \"Rossi\", 
@@ -108,13 +108,13 @@ else {
             (
                 \"gabibbo@gmail.com\", 
                 \"gabibbo123\", 
-                \"gabibbo\", 
+                \"MastroGabibbo\", 
                 2, 
                 0,
-                100, 
+                0, 
                 200.0, 
                 \"20-06-1985\", 
-                \"Gabriele\", 
+                \"Mauro\", 
                 \"Bianchi\", 
                 1, 
                 \"ProfilePic/propicblank.png\", 
@@ -122,20 +122,20 @@ else {
                 NULL
             ),
             (
-                \"lucabianchi@gmail.com\", 
-                \"luke4316\", 
+                \"bandasoft@gmail.com\", 
+                \"banda1234!\", 
                 \"Bandai Namco Entertaniment\", 
                 3, 
                 0,
-                100, 
+                0, 
                 200.0, 
                 \"30-02-1995\", 
                 \"Luca\", 
-                \"Bianchi\", 
+                \"Verdi\", 
                 2, 
                 \"ProfilePic/propicblank.png\", 
                 \"ProfilePic/propicblank.png\",
-                \"12345678901\"
+                \"123456789012\"
             );";
 
             // Esecuzione inserimento dati

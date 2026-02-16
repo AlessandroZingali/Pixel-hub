@@ -41,7 +41,9 @@
     <Gioco valoreSconto="5">16</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="7"/>
-  <Sconto id_tipoSconto="8"/>
+  <Sconto id_tipoSconto="8">
+    <Gioco valoreSconto="15">8</Gioco>
+  </Sconto>
   <Sconto id_tipoSconto="9">
     <Gioco valoreSconto="20">23</Gioco>
     <Gioco valoreSconto="5">20</Gioco>

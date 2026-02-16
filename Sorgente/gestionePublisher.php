@@ -1,5 +1,8 @@
 <?php
-
+/* Questa pagina viene usata per dare un Hub gestionale ai vari publisher. Fornisce funzioni per la publicazione di un gioco sul sito, tra cui
+l'inserimento sulla piattaforma e l'assegnazione del gioco in una o più delle varie "Pool" di sconti. Inoltre
+In questa sezione è fornita agli utenti la possibilita di essere visti come una pagina di un aziende più che come un utente (modalità Agency)
+permettendo di caricare il proprio logo*/
 require 'serverUtility.php'; 
 
 function scontoTranslate($id) {
@@ -47,7 +50,11 @@ if(isset($_SESSION['userId'])){
     $service = 1;
 }
 
-
+//Funzione per aggiungere un gioco al sito, viene usata la funzione move_uploaded_file per spostare 
+// l'immagine caricata nella cartella "ImmaginiGiochi" e poi viene creato un nuovo nodo "Gioco" nel file XML "Giochi.xml" 
+// con i dati inseriti dall'utente. Viene anche gestita la generazione di un nuovo ID per il gioco basato sull'ultimo ID presente nel file XML. 
+// Se il file viene caricato correttamente, il nuovo gioco viene aggiunto al file XML e salvato. 
+// In caso di errori durante il caricamento dell'immagine o dei dati, vengono visualizzati messaggi di errore appropriati.
 if(isset($_POST['aggiungiGioco'])){
 
     $target_dir ="ImmaginiGiochi\\";
@@ -177,6 +184,8 @@ if(isset($_POST['aggiungiGioco'])){
 
 }
 
+// Funzione per modificare un gioco presente sul sito, viene usata la funzione getDoc per caricare il file XML "Giochi.xml" 
+// e poi viene cercato il gioco con l'ID specificato dall'utente.
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $id_gioco = $_POST['id_da_modificare'];
 
@@ -241,6 +250,8 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     header("Location: gestionePublisher.php");
 }
 
+
+// Funzione per sospendere o riattivare un gioco presente sul sito, viene usata la funzione getDoc per caricare il file XML "Giochi.xml"
 if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
     $idGioco = $_POST["id_gioco_da_sospendere"];
@@ -268,6 +279,9 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
     header("Location: GestionePublisher.php");
 }
 
+
+// Funzione per aggiornare gli sconti di un gioco presente sul sito, viene usata la funzione getDoc per caricare il file XML "Sconti.xml"
+//  e poi viene cercato il gioco con l'ID specificato dall'utente.
 if(isset($_POST['aggiornaScontiPublisher'])){
     $idGioco = $_POST['id_gioco_sconto'];
     $sommaFinaleSconti = [];
@@ -327,6 +341,8 @@ if(isset($_POST['aggiornaScontiPublisher'])){
     
 }
 
+
+// Funzione per visualizzare gli sconti di un gioco presente sul sito
 if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
   
     $listaSconti = [];
@@ -367,6 +383,7 @@ if ((isset($_POST["gestioneScontiPublisher"])) || !$inBound) {
 
 }
 
+// Funzione per attivare o disattivare la modalità agency per un publisher
 if (isset($_POST["agencyToggleSubmit"])) {
 
     $idUtente = $_SESSION["userId"];
@@ -393,6 +410,8 @@ if (isset($_POST["agencyToggleSubmit"])) {
     $doc->save("XML/utenti.xml");
 }
 
+
+// Funzione per caricare il logo di un publisher in modalità agency
 if (isset($_POST["agencyToggleSubmit"])){
     $idUtente = $_SESSION["userId"];
     $target_dir ="loghiPub\\";
@@ -1095,7 +1114,7 @@ if (isset($_POST["agencyToggleSubmit"])){
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
                 <li><a href="Faq.php">F.A.Q</a></li>
-                <li>&copy; 2024 Pixel Hub. Tutti i diritti riservati.</li>
+                <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>
     </body>
