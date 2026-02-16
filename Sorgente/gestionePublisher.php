@@ -64,9 +64,9 @@ if(isset($_POST['aggiungiGioco'])){
         $dx = $_POST["req_dxm"];
         $net = $_POST["req_netm"];
         $storage = $_POST["req_storagem"];
-        $sound = $_POST["req_soundm"];
+        
 
-        $_POST['nuovaRequiMin'] = "OS: $os; Processor: $cpu; Memory: $ram; Graphics: $gpu; DirectX: $dx; Network: $net; Storage: $storage; Sound Card: $sound;";            
+        $_POST['nuovaRequiMin'] = "OS minimo : $os; Processore minimo: $cpu; Ram richiesta: $ram; GPU Minima: $gpu; DirectX: $dx; Banda di rete minima: $net; Spazio Minimo e memoria : $storage;";            
         
         $os = $_POST["req_osr"];
         $cpu = $_POST["req_cpur"];
@@ -75,9 +75,9 @@ if(isset($_POST['aggiungiGioco'])){
         $dx = $_POST["req_dxr"];
         $net = $_POST["req_netr"];
         $storage = $_POST["req_storager"];
-        $sound = $_POST["req_soundr"];
+        
 
-        $_POST['nuovaRequiRac'] = "OS: $os; Processor: $cpu; Memory: $ram; Graphics: $gpu; DirectX: $dx; Network: $net; Storage: $storage; Sound Card: $sound;";
+        $_POST['nuovaRequiRac'] = "OS: $os; Processore Consiato: $cpu; Ram Consigliata: $ram; GPU Consigliata: $gpu; DirectX: $dx; Network: $net; Spazio Raccomandato e t memoria: $storage; ";
         
     if (isset($_FILES["fileToUpload"]["name"]) 
         && isset($_POST['nuovo_nome']) 
@@ -572,16 +572,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                 <h1>Aggiungi un gioco al sito</h1>
 
                 <?php
-                    
-
-
-
-
-
-                        
-                    
-                
-
+ 
                 echo "<form method='post' action='gestionePublisher.php' enctype=\"multipart/form-data\">
                     
                     <p>
@@ -604,13 +595,14 @@ if (isset($_POST["agencyToggleSubmit"])){
                     
                     <p>
                         <label for=\"Publisher\"> Nuovo publisher :</label>
-                        <input type=\"text\" id=\"Publisher\" name=\"nuovo_publisher\" >
+                        <input type=\"text\" id=\"Publisher\" name=\"nuovo_publisher\">
                         </br>
                     </p>
                     
                     <p>
                         <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
-                        <textarea id=\"nuova_descrizione\" name=\"nuova_descrizione\"></textarea></br>
+                        <textarea rows=\"1\" id=\"nuova_descrizione\" name=\"nuova_descrizione\"></textarea>
+                        </br>
                     </p>
                     
                     <p>
@@ -625,85 +617,91 @@ if (isset($_POST["agencyToggleSubmit"])){
                         </br>
                     </p>
 
-                    <p>
-                        <label for=\"req_os\">Requisiti Minimi OS:</label>
-                        <input type=\"text\" id=\"req_os\" name=\"req_osm\" placeholder=\"Es: Windows 10 64-bit\">
-                    </p>
+                    <p>Requisiti Minimi</br></br></p>
+                    <ul>
+                        <li>
+                            <label for=\"req_os\"> OS:</label>
+                            <input type=\"text\" id=\"req_os\" name=\"req_osm\" placeholder=\"Es: Windows 10 64-bit\">
+                        </li></br>
+                        <li>
+                            <label for=\"req_cpu\">Processor:</label>
+                            <input type=\"text\" id=\"req_cpu\" name=\"req_cpum\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_cpu\">Processor:</label>
-                        <input type=\"text\" id=\"req_cpu\" name=\"req_cpum\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
-                    </p>
+                        <li>
+                            <label for=\"req_ram\">Memory:</label>
+                            <input type=\"text\" id=\"req_ram\" name=\"req_ramm\" placeholder=\"Es: 16 GB RAM\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_ram\">Memory:</label>
-                        <input type=\"text\" id=\"req_ram\" name=\"req_ramm\" placeholder=\"Es: 16 GB RAM\">
-                    </p>
+                        <li>
+                            <label for=\"req_gpu\">Graphics:</label>
+                            <input type=\"text\" id=\"req_gpu\" name=\"req_gpum\" placeholder=\"Es: GTX 1060 / RX 580\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_gpu\">Graphics:</label>
-                        <input type=\"text\" id=\"req_gpu\" name=\"req_gpum\" placeholder=\"Es: GTX 1060 / RX 580\">
-                    </p>
+                        <li>
+                            <label for=\"req_dx\">DirectX:</label>
+                            <input type=\"text\" id=\"req_dx\" name=\"req_dxm\" placeholder=\"Es: Version 12\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_dx\">DirectX:</label>
-                        <input type=\"text\" id=\"req_dx\" name=\"req_dxm\" placeholder=\"Es: Version 12\">
-                    </p>
+                        <li>
+                            <label for=\"req_net\">Network:</label>
+                            <input type=\"text\" id=\"req_net\" name=\"req_netm\" placeholder=\"Es: Broadband Internet connection\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_net\">Network:</label>
-                        <input type=\"text\" id=\"req_net\" name=\"req_netm\" placeholder=\"Es: Broadband Internet connection\">
-                    </p>
+                        <li>
+                            <label for=\"req_storage\">Storage:</label>
+                            <input type=\"text\" id=\"req_storage\" name=\"req_storagem\" placeholder=\"Es: 50 GB available space\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_storage\">Storage:</label>
-                        <input type=\"text\" id=\"req_storage\" name=\"req_storagem\" placeholder=\"Es: 50 GB available space\">
-                    </p>
+                        <li>
+                            <label for=\"req_sound\">Sound Card:</label>
+                            <input type=\"text\" id=\"req_sound\" name=\"req_soundm\" placeholder=\"Es: DirectX compatible\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_sound\">Sound Card:</label>
-                        <input type=\"text\" id=\"req_sound\" name=\"req_soundm\" placeholder=\"Es: DirectX compatible\">
-                    </p>
+                    </ul>
                     
-                    <p>
-                        <label for=\"req_os\">Requisiti Raccomandati OS:</label>
-                        <input type=\"text\" id=\"req_os\" name=\"req_osr\" placeholder=\"Es: Windows 10 64-bit\">
-                    </p>
+                    <p>Requisiti Raccomandati</p></br>
+                    <ul>
+                        <li>
+                            <label for=\"req_os\"> OS:</label>
+                            <input type=\"text\" id=\"req_os\" name=\"req_osr\" placeholder=\"Es: Windows 10 64-bit\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_cpu\">Processor:</label>
-                        <input type=\"text\" id=\"req_cpu\" name=\"req_cpur\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
-                    </p>
+                        <li>
+                            <label for=\"req_cpu\">Processor:</label>
+                            <input type=\"text\" id=\"req_cpu\" name=\"req_cpur\" placeholder=\"Es: Intel i5-8400 / Ryzen 5 2600\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_ram\">Memory:</label>
-                        <input type=\"text\" id=\"req_ram\" name=\"req_ramr\" placeholder=\"Es: 16 GB RAM\">
-                    </p>
+                        <li>
+                            <label for=\"req_ram\">Memory:</label>
+                            <input type=\"text\" id=\"req_ram\" name=\"req_ramr\" placeholder=\"Es: 16 GB RAM\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_gpu\">Graphics:</label>
-                        <input type=\"text\" id=\"req_gpu\" name=\"req_gpur\" placeholder=\"Es: GTX 1060 / RX 580\">
-                    </p>
+                        <li>
+                            <label for=\"req_gpu\">Graphics:</label>
+                            <input type=\"text\" id=\"req_gpu\" name=\"req_gpur\" placeholder=\"Es: GTX 1060 / RX 580\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_dx\">DirectX:</label>
-                        <input type=\"text\" id=\"req_dx\" name=\"req_dxr\" placeholder=\"Es: Version 12\">
-                    </p>
+                        <li>
+                            <label for=\"req_dx\">DirectX:</label>
+                            <input type=\"text\" id=\"req_dx\" name=\"req_dxr\" placeholder=\"Es: Version 12\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_net\">Network:</label>
-                        <input type=\"text\" id=\"req_net\" name=\"req_netr\" placeholder=\"Es: Broadband Internet connection\">
-                    </p>
+                        <li>
+                            <label for=\"req_net\">Network:</label>
+                            <input type=\"text\" id=\"req_net\" name=\"req_netr\" placeholder=\"Es: Broadband Internet connection\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_storage\">Storage:</label>
-                        <input type=\"text\" id=\"req_storage\" name=\"req_storager\" placeholder=\"Es: 50 GB available space\">
-                    </p>
+                        <li>
+                            <label for=\"req_storage\">Storage:</label>
+                            <input type=\"text\" id=\"req_storage\" name=\"req_storager\" placeholder=\"Es: 50 GB available space\">
+                        </li></br>
 
-                    <p>
-                        <label for=\"req_sound\">Sound Card:</label>
-                        <input type=\"text\" id=\"req_sound\" name=\"req_soundr\" placeholder=\"Es: DirectX compatible\">
-                    </p>
+                        <li>
+                            <label for=\"req_sound\">Sound Card:</label>
+                            <input type=\"text\" id=\"req_sound\" name=\"req_soundr\" placeholder=\"Es: DirectX compatible\">
+                        </li></br>
+                    </ul>
 
 
 
@@ -745,51 +743,57 @@ if (isset($_POST["agencyToggleSubmit"])){
             </div>
 
             <div class="cardSettings hideCard" id="card2">
+            
+            <!-- Div per la card di ricerca giochi -->
 
 
 
                          
-                <?php              
-                $elemGiochi = xmlPointer('XML/Giochi.xml');
-                 echo "<h1>Cerca Gioco</h1>";     
-                        
-                echo"Hai messo questi giochi nel sito: ";
-                foreach($elemGiochi as $gioco){
-                    $idGiocoInserito = $gioco->getAttribute('id_gioco');
-                    $idPosseduti = array();
+                            <?php              
+                            $elemGiochi = xmlPointer('XML/Giochi.xml');
 
-                    $publisherGiocoScanner = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
-                    if($publisherGiocoScanner == $_SESSION['userName']){
-                        $idPosseduti[] = $idGiocoInserito;
-                        if(empty($idPosseduti)){
-                            echo"Nessun gioco trovato";
-                        }
-                        else{echo "ID: $idGiocoInserito";
-                        
-                        echo "<form method=\"post\" action=\"gestionePublisher.php\">
-                        <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
-                        <select name=\"id_gioco_modifica\" id=\"id_gioco_modifica\">";
-                                
-                        foreach($idPosseduti as $id){ 
+                            echo "<h1>Cerca Gioco</h1>";     
+                            echo "Hai messo questi giochi nel sito: ";
 
-                            $elemGiochi = xmlPointer("XML/Giochi.xml");
+                            $idPosseduti = array(); // lo dichiari fuori dal foreach
+
                             foreach($elemGiochi as $gioco){
-                                 if($gioco->getElementsByTagName('Publisher')->item(0)->textContent == $_SESSION['userName'] && $gioco->getAttribute('id_gioco') == $id){
-                                    $idGiocoOption = $gioco->getAttribute('id_gioco');
-                                    echo "<option value=\"$id\">".$id." - ".$gioco->getElementsByTagName('Titolo')->item(0)->textContent."</option>
-    
-                                <input type=\"submit\" name=\"cercaGioco\" value=\"Ricerca\">
-                            </form>";
-                                 }
-                            }
-                        }
 
-                        }
-                        
-                    }
-                }
-                
-                ?>
+                                $publisherGiocoScanner = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
+
+                                if($publisherGiocoScanner == $_SESSION['userName']){
+                                    $idPosseduti[] = $gioco->getAttribute('id_gioco');
+                                }
+                            }
+
+                            if(empty($idPosseduti)){
+                                echo "Nessun gioco trovato";
+                            }
+                            else{
+
+                                echo "<form method=\"post\" action=\"gestionePublisher.php\">
+                                        <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
+                                        <select name=\"id_gioco_modifica\" id=\"id_gioco_modifica\">";
+
+                                foreach($elemGiochi as $gioco){
+
+                                    $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
+
+                                    if($publisher == $_SESSION['userName']){
+
+                                        $id = $gioco->getAttribute('id_gioco');
+                                        $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
+
+                                        echo "<option value=\"$id\">$id - $titolo</option>";
+                                    }
+                                }
+
+                                echo "  </select>
+                                        <input type=\"submit\" name=\"cercaGioco\" value=\"Ricerca\">
+                                    </form>";
+                            }
+                            ?>
+
                 <div class="buttons">
                     <div class="backarrow">
                         <button onclick="swapperInCercaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
@@ -813,7 +817,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                         
                         
                         foreach($elemGiochi as $gioco){
-                            if($gioco->getAttribute('id_gioco') == $_POST['id_gioco_modifica']){
+                            if(($gioco->getAttribute('id_gioco') == $_POST['id_gioco_modifica'])){
                                 $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                                 $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
                                 $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;

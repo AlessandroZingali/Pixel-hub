@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="6"/>
+  <Gioco id_gioco="6">
+    <Commento id_commento="3" id_utente="4" data="16/02/2026" ore="13" minuti="31" like="0" dislike="0" segnalazioni="0">
+      <text>libertà!</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="2" data="16/02/2026" ore="13" minuti="31" like="0" dislike="0" segnalazioni="0">
+      <text>daje roma daje</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="4" data="16/02/2026" ore="12" minuti="18" like="0" dislike="0" segnalazioni="0">
+      <text>Aho in sto gioco spari agli alieni!</text>
+    </Commento>
+  </Gioco>
   <Gioco id_gioco="1">
     <Commento id_commento="2" id_utente="4" data="11/02/2026" ore="13" minuti="02" like="100" dislike="50" segnalazioni="0">
       <text>Tutti i nuovi eroi fanno pena, sembrano fatti con l'AI!</text>
     </Commento>
   </Gioco>
   <Gioco id_gioco="7">
+    <Commento id_commento="4" id_utente="3" data="16/02/2026" ore="12" minuti="22" like="0" dislike="0" segnalazioni="0">
+      <text>Belloh</text>
+    </Commento>
     <Commento id_commento="3" id_utente="2" data="05/02/2026" ore="12" minuti="43" like="0" dislike="0" segnalazioni="0">
       <text>Spettacolo&#13;</text>
     </Commento>

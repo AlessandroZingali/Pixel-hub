@@ -335,6 +335,7 @@ if(isset($_POST["richiediRimborso"])){
         }
     }
     
+    
 }
 
 if(isset($_POST['formSegnalazioniCommenti'])){
@@ -414,8 +415,11 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
         <?php 
             if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
             else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
-            else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
+            else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione']) && !isset($erroreRicercaRim)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
             else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
+
+            if(isset($erroreRicercaRim)) echo "<script>document.addEventListener(\"DOMContentLoaded\", function() {
+   swapperInSearchUtenteRim()}</script>";
         ?> 
         
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
@@ -678,13 +682,15 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                         $elemPointer = $elemGiochi;
                         
                         
+
+                        $trovato = false;
+
                         foreach($elemGiochi as $gioco){
-                         
+
                             if($gioco->getAttribute('id_gioco') == $_POST['id_gioco_modifica']){
 
-                      
+                                $trovato = true;                         
 
-                                
                                 $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
                                 $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
                                 $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
@@ -706,14 +712,19 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
                                 $correlati = implode(", ", $ids);
 
+                                break;
+
                                  
                                 
 
                             }
                         }
-                
-                echo "<h2>Modifica i dettagli del gioco: $titolo</h2>";
-                echo "<form method='post' action='GestioneAdmin.php'>
+                        if(!$trovato){
+                            echo"<h1>Non trovato!</h1>";
+                        }
+                        else{
+                            echo "<h2>Modifica i dettagli del gioco: $titolo</h2>";
+                        echo "<form method='post' action='GestioneAdmin.php'>
                     <input type='hidden' name='id_da_modificare' value='".htmlspecialchars($_POST['id_gioco_modifica'])."'>
                     
                         
@@ -807,6 +818,8 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
                         
                 }
+                        }
+                
                             
                     ?>
                     
@@ -938,6 +951,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                 <h1>Gestione Rimborsi:Selezione Utente</h1>
 
                 <?php 
+                if(isset($erroreRicercaRim)) echo "<h2>".$erroreRicercaRim."</h2>";
                 echo "<form method='post' action='GestioneAdmin.php'>
                     <label for='id_user_gestione'>ID Utente da gestire:</label>
                     <input type='text' id='id_user_gestione' name='id_user_gestione' >
@@ -969,72 +983,85 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                         $query="SELECT * FROM $table_users WHERE ID=$id_utente";
 
                         $result = mysqli_query(connectDB(), $query);
+                        if($result) $num = mysqli_num_rows($result);
+                        
 
-                        if ($result) {
+                        if ($num == 1) {
+                            $trovatoRimborsi=false;
                             $row = mysqli_fetch_array($result);
                             $pixelAttuali = $row['Pixels'];
-                        } else {
-                            echo "<h2>Utente non trovato</h2>";
-                        }
-
-
-                        $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
-                        foreach($elem as $trans){
-                            if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
-                                echo "<table id=\"rimborsi\">";
-                                echo "<tr>
-                                        <th>ID Transazione</th>
-                                        <th>ID Giocatore</th>
-                                        <th>Data e Ora</th>
-                                        <th>Mod Utente</th>
-                                        <th>Pixel Iniziali</th>
-                                    </tr>";
-                                $idTransazione = $trans->getAttribute('IDTransazione');
-                                $idUser = $trans->getAttribute('IDGiocatore');
-                                $modCommenti = (float)$trans->getAttribute('ModCommentiUsato');
-                                echo "</br>";
-                                $pixels = $trans->getAttribute('PixelIniziali');
-                                echo "<tr id=\"transazione\">";
-                                echo '<td>'.$idTransazione.'</td>';
-                                echo '<td>'.$idUser.'</td>';
-                                echo '<td> '.$trans->getAttribute('DataOra').'</td>';
-                                echo '<td> '.(float)$modCommenti.' </td>';
-                                echo '<td>'.$pixels.'->'.$pixelAttuali.'</td>';
-
-                                $giochi = $trans->getElementsByTagName("Gioco");
-                                echo "</tr>
-                                        <tr>
-                                            <th>ID Gioco</th>
-                                            <th id=\"colTitolo\">Titolo</th>
-                                            <th>Importo(€)</th>
-                                            <th>Pixel Guadagnati</th>
-                                            <th>Annullare Acquisto?</th>
-                                        </tr>";
+                            $elem = xmlPointer("XML/LogTransazioniGiochi.xml");
+                            foreach($elem as $trans){
                                 
-                                foreach($giochi as $gioco){
-                                    echo "<tr id=\"giochiacquistati\">";
-                                    echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
-                                    echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";
-                                    $importo = (float)$gioco->getElementsByTagName("Importo")->item(0)->textContent;   
-                                    echo "<td>".$importo."€</td>";
-                                    $pixelGuadagnati = $importo*5;
-                                    echo"<td>$pixelGuadagnati</td>";
-                                    echo "<td><form method='post' action='GestioneAdmin.php'>
-                                            <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
-                                            <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
-                                            <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
-                                            <input type='hidden' name='pixels_da_togliere' value='".$pixelGuadagnati."'>
-                                            <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
-                                            <input type='hidden' name='importo' value='".$importo."'>
-                                            <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
-                                            </form></td>";
-                                    echo "</tr>";      
+                                if($_POST['id_user_gestione'] == $trans->getAttribute('IDGiocatore')){
+                                    $trovatoRimborsi=true;
+                                    echo "<table id=\"rimborsi\">";
+                                    echo "<tr>
+                                            <th>ID Transazione</th>
+                                            <th>ID Giocatore</th>
+                                            <th>Data e Ora</th>
+                                            <th>Mod Utente</th>
+                                            <th>Pixel Iniziali</th>
+                                        </tr>";
+                                    $idTransazione = $trans->getAttribute('IDTransazione');
+                                    $idUser = $trans->getAttribute('IDGiocatore');
+                                    $modCommenti = (float)$trans->getAttribute('ModCommentiUsato');
+                                    echo "</br>";
+                                    $pixels = $trans->getAttribute('PixelIniziali');
+                                    echo "<tr id=\"transazione\">";
+                                    echo '<td>'.$idTransazione.'</td>';
+                                    echo '<td>'.$idUser.'</td>';
+                                    echo '<td> '.$trans->getAttribute('DataOra').'</td>';
+                                    echo '<td> '.(float)$modCommenti.' </td>';
+                                    echo '<td>'.$pixels.'->'.$pixelAttuali.'</td>';
+
+                                    $giochi = $trans->getElementsByTagName("Gioco");
+                                    echo "</tr>
+                                            <tr>
+                                                <th>ID Gioco</th>
+                                                <th id=\"colTitolo\">Titolo</th>
+                                                <th>Importo(€)</th>
+                                                <th>Pixel Guadagnati</th>
+                                                <th>Annullare Acquisto?</th>
+                                            </tr>";
+                                    
+                                    foreach($giochi as $gioco){
+                                        echo "<tr id=\"giochiacquistati\">";
+                                        echo "<td>".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."</td>";
+                                        echo "<td>".$gioco->getElementsByTagName("Titolo")->item(0)->textContent."</td>";
+                                        $importo = (float)$gioco->getElementsByTagName("Importo")->item(0)->textContent;   
+                                        echo "<td>".$importo."€</td>";
+                                        $pixelGuadagnati = $importo*5;
+                                        echo"<td>$pixelGuadagnati</td>";
+                                        echo "<td><form method='post' action='GestioneAdmin.php'>
+                                                <input type='hidden' name='id_transazione_rimborso' value='".$idTransazione."'>
+                                                <input type='hidden' name='id_gioco_rimborso' value='".$gioco->getElementsByTagName("IDGioco")->item(0)->textContent."'>
+                                                <input type='hidden' name='id_user_rimborso' value='".$idUser."'>
+                                                <input type='hidden' name='pixels_da_togliere' value='".$pixelGuadagnati."'>
+                                                <input type='hidden' name='modCommentiPrecedente' value='".$modCommenti."'>
+                                                <input type='hidden' name='importo' value='".$importo."'>
+                                                <input type='submit' name='richiediRimborso' value='Annulla Acquisto'>
+                                                </form></td>";
+                                        echo "</tr>";      
+                                    }
+                                    
+                                    echo "</table>";
                                 }
                                 
-                                echo "</table>";
+                            } 
+
+                            if(!$trovatoRimborsi){
+                                echo "<h2>Non sono presenti rimborsi per questo utente</h2>";
                             }
-                            
-                        }
+
+                        } 
+                        else if ($num == 0) echo "<h2>Utente non trovato</h2>";
+
+
+                        
+
+
+                        
                 
                     }
                 

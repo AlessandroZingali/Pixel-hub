@@ -5,7 +5,10 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
 /* il wrapper si spostera in base a quale delle 3 sezioni saranno mostrate senza di questo le sezioni diverse non sarebbero posizionate correttamente */
 .wrapper{
     position: relative;
-    width: 60%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+
 }
 /* la principale card e quella del profilo che mostra i vari campi del profilo utente */
 .cardProfilo{
@@ -13,14 +16,30 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     flex-direction: column;
     margin-top: 2%;
     margin-bottom: 1%;
-    width:88%;
+    width:100%;
     height: 80%;
-    margin-left: 10%;
+    margin-left: 1%;
     border: solid rgb(241, 196, 204);
     border-radius: 5%;
     background-color: rgb(53, 49, 49);  
     box-shadow: 2px 10px 10px black;
 }
+
+.cardProfilo2{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    padding: 1%;
+    width:100%;
+    height: 80%;
+    border: solid rgb(241, 196, 204);
+    border-radius: 5%;
+    background-color: rgb(53, 49, 49);  
+    box-shadow: 2px 10px 10px black;
+}
+
+
 
 /* la seconda card che permette di modificare i campi. L'abbiamo creata sfruttando la table.*/
 
@@ -39,6 +58,7 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 2%;
     padding: 10%;
 
@@ -89,10 +109,12 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
 
 }
 
+
 /* Sotto elemento della card principale che mostra gli ultimi titoli aggiunti */
 
 #lastTitle{
     padding: 10px;
+    border-radius: 15px;
     color: rgb(255, 255, 255);
 }
 /* per il resize abbiamo utilizzato una griglia giustificando il row-gap messo in basso  */
@@ -143,9 +165,10 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     grid-template-columns: repeat( 4, minmax(220px, 1fr));
     grid-template-rows: auto;
     box-sizing: border-box;
+    width: 100%;
     gap: 20px;
     border-radius: 15px;
-    padding: 10%;
+    padding: 2%;
     border: white solid 3px;
     
 }
@@ -155,25 +178,38 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     flex-direction: row;
     border-radius: 5px;
     align-items: center;
+    padding: 4px;
     
     border: blue solid 1px;
     background-color: #414141;
  
 
     div{
-       /*border: green solid 1px;*/
+       /* border: green solid 1px; */
         display: flex;
-        flex-direction: row;
-        column-gap: 10px;
+        flex-direction: column;
+        p{
+            margin-left: 10%;
+        }
+       
 
     }
 
 }
 
 #libreriaBody img{
+    
     width: 200px;
     height: 280px;
     border-radius: 10px;
+    
+}
+
+.imageGame{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -181,17 +217,33 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
 
 
 #Presentazione{
-    border: none;
     border-radius: 15px;
 
-    display: grid;
-    grid-template-columns: repeat( 2, minmax(220px, 1fr));
-    grid-template-rows: auto;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     color: white;
-    padding: 10px;
+    padding: 1%;
+    border-radius: 15%;
     
 }
+
+.publisherDescrizione{
+    width: 700px;
+      /* border: teal solid; */
+    
+    padding:30px;
+    
+    background: linear-gradient(90deg,rgb(1, 9, 36) 0%, rgb(30, 47, 104) 50%, rgb(8, 83, 164) 100%);
+    border-radius: 10px;
+
+    p{
+        line-height: 20px;
+    }
+     
+    
+        
+    }
    
 
 .publisherPropic{
@@ -229,6 +281,16 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    #Presentazione{
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 1570px){
+    #libreria{
+    grid-template-columns: repeat( 3, minmax(220px, 1fr));
     }
 
 }
@@ -335,6 +397,10 @@ le conoscenze acquisite durante il corso in fatto di design e pagine web dinamic
     }
     #card2 h1{
         font-size: 15px;
+    }
+
+    .publisherDescrizione{
+        width: 500px;
     }
 }
 

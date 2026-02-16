@@ -39,7 +39,7 @@ if (mysqli_num_rows($res) > 0) {
     $tipoUtente = $row['Tipologia_utente'];
 }
 
-if($tipoUtente != null && $tipoUtente == '2') {
+if($tipoUtente != null && $tipoUtente == '1') {
     $elem = xmlPointer('XML/utenti.xml');
     foreach ($elem as $utente) {
         if ($utente->getAttribute('id_user') == $idUtenteEsterno){
@@ -269,7 +269,7 @@ if($tipoUtente != null && $tipoUtente == '2') {
                             ";
                         ?>
 
-             </div> <!-- div di chiusura del baseProfilo -->
+                    </div> <!-- div di chiusura del baseProfilo -->
 
 
 
@@ -348,10 +348,10 @@ if($tipoUtente != null && $tipoUtente == '2') {
                     $row = mysqli_fetch_array($resultQ);
 
                     $username = $row['Username'];
-                    $immagineProfilo = $row['imgProfiloPathPub'];
+                    $immagineProfiloPub = $row['imgProfiloPathPub'];
                 } 
                 ?> 
-                <div class="cardProfilo" id="card2" >
+                <div class="cardProfilo2" id="card2" >
                     <!-- div per il profilo publisher -->
                    
                             
@@ -360,7 +360,7 @@ if($tipoUtente != null && $tipoUtente == '2') {
                             echo "<div><h1>Presentazione Publisher: $username </h1></div>";
                             echo "<div id=\"Presentazione\">";
                             echo "<div class=\"publisherPropic\"> 
-                                    <img src=\"".$immagineProfilo."\" alt=\"Immagine di Default\"/>
+                                    <img src=\"".$immagineProfiloPub."\" alt=\"Immagine di Default\"/>
                                     </div>";
                         
                             $elemUtenti = xmlPointer("XML/utenti.xml");
@@ -378,7 +378,7 @@ if($tipoUtente != null && $tipoUtente == '2') {
                                     else $descrizione = "Nessuna Descrizione";
                                 }
                             }
-                            echo "<div><p>La mia Descrizione: $descrizione</p></div>";
+                            echo "<div class=\"publisherDescrizione\"><p>La mia Descrizione: $descrizione</p></div>";
                             echo "</div>"; // chiusura div Presentazione
                             
 
@@ -402,7 +402,7 @@ if($tipoUtente != null && $tipoUtente == '2') {
                                             <div><p>Titolo:</p><p> $titolo</p></div>
                                             <div><p>Genere:</p><p> $genere</p></div>
                                             <div><p>Voto:</p><p> $voto</p></div>
-                                            <div><p>Publisher: </p><p>$publisher</p></div>
+                                            <div><p>Publisher:</p><p>$publisher</p></div>
                                         </a></div>";
                                 }
                             }

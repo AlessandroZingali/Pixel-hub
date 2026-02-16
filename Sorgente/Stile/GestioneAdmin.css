@@ -38,6 +38,11 @@
         border-radius: 20px;
         width: 100%;
     }
+
+    textarea{
+        width: 200px;
+        height: 100px;
+    }
 }
 
 

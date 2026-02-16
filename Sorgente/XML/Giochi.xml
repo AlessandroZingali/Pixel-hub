@@ -6,8 +6,8 @@
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Overwatch è uno sparatutto in prima persona a squadre sviluppato da Blizzard Entertainment. Il gioco presenta una vasta gamma di eroi, ognuno con abilità uniche, e si concentra su partite multiplayer competitive in cui due squadre di sei giocatori si sfidano per completare obiettivi specifici su mappe diverse.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2016</DataDiUscita>
     <Immagine>ImmaginiGiochi/overwatch_logo.png</Immagine>
     <Generi>Sparatutto</Generi>
@@ -25,8 +25,8 @@
     <CasaSviluppo>CD Projekt Red</CasaSviluppo>
     <Publisher> CD Projekt Red </Publisher>
     <Descrizione> Il mondo di The Witcher 3: Wild Hunt è un mondo medievale-fantasy: ciò significa che sono presenti creature e razze fantastiche. Insieme agli uomini si ritrovano anche elfi, nani, witcher e mezzuomini.La situazione narrata nella storia ha come sfondo la terza guerra tra Nilfgaard e i regni settentrionali, ormai ridotti allo stremo.Le legioni nilfgaardiane imperversano in quella che era una volta la Temeria settentrionale, una regione chiamata Velen, dove l'offensiva si è fermata al fiume Pontar, che segna il confine con la Redania, ultimo vero baluardo alla totale conquista da parte del Sud.Contemporaneamente, nelle isole Skellige si svolge l'elezione del nuovo sovrano, scelto tra i vari clan.Dopo gli eventi di The Witcher 2: Assassins of Kings, nella Redania e soprattutto in Novigrad aleggia un clima di tensione: i non-umani e i maghi vengono perseguitati dalla chiesa del fuoco eterno e dai cacciatori di streghe, in quanto ritenuti ingiustamente responsabili dello scoppio del conflitto e delle possibilità di lucro derivate da esso. </Descrizione>
-    <RequisitiMinimi>OS: 64-bit Windows 7, 8.1, or 10; Processor: Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940; Memory: 6 GB RAM; Graphics: NVIDIA GPU GeForce GTX 660 / AMD GPU Radeon HD 7870; DirectX: Version 11; Network: Broadband internet connection; Storage: 35 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: 64-bit Windows 7, 8.1, or 10; Processor: Intel CPU Core i7 3770 3.4 GHz / AMD CPU AMD FX-8350 4 GHz; Memory: 8 GB RAM; Graphics: NVIDIA GPU GeForce GTX 770 / AMD GPU Radeon R9 290; DirectX: Version 11; Network: Broadband internet connection; Storage: 35 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: 64-bit Windows 7, 8.1, or 10; Processor: Intel CPU Core i5-2500K 3.3GHz / AMD CPU Phenom II X4 940; Memory: 6 GB RAM; Graphics: NVIDIA GPU GeForce GTX 660 / AMD GPU Radeon HD 7870; DirectX: Version 11; Network: Broadband internet connection; Storage: 35 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: 64-bit Windows 7, 8.1, or 10; Processor: Intel CPU Core i7 3770 3.4 GHz / AMD CPU AMD FX-8350 4 GHz; Memory: 8 GB RAM; Graphics: NVIDIA GPU GeForce GTX 770 / AMD GPU Radeon R9 290; DirectX: Version 11; Network: Broadband internet connection; Storage: 35 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2015</DataDiUscita>
     <Immagine>ImmaginiGiochi/witcher3_logo.png</Immagine>
     <Generi>RPG</Generi>
@@ -43,8 +43,8 @@
     <CasaSviluppo>CD Projekt Red</CasaSviluppo>
     <Publisher>Cd Projekt</Publisher>
     <Descrizione>Night City è una fittizia città americana della California, controllata da numerose corporazioni. Vede il conflitto tra le dilaganti guerre tra bande contendendosi il dominio. La città fa affidamento alla robotica per aspetti quotidiani come la raccolta dei rifiuti, la manutenzione e il trasporto pubblico. I senzatetto abbondano, ma non gli viene preclusa la modifica cibernetica, dando luogo a dipendenza cosmetica e conseguente estrema violenza. Queste minacce vengono affrontate dalle forze armate note come Max Tac. Viene invece impiegato il Trauma Team per i servizi medici rapidi. A causa delle costanti minacce e la criminalità dilagante, tutti i cittadini possono equipaggiarsi con armi da fuoco. Il progresso tecnologico rispetto alla nostra epoca è assai evidente. Praticamente tutti gli elementi del corpo umano (escludendo il cervello) sono ora rimpiazzabili da controparti meccaniche e rinnovabili. Questo aspetto, unito ai progressi medici e scientifici, ha consentito un notevole aumento dell’aspettativa di vita. Non è raro incontrare persone che noi definiremmo molto anziane in quanto a età, che però non dimostrano più di 30 o 40 anni. Vi è poi la possibilità di interfacciarsi ai dispositivi elettronici tramite il proprio cervello, utilizzando uno speciale cavo che fuoriesce da un polso. Le armi sono tecnologicamente avanzate. Un’opzione permette persino di installare lame retrattili e letali negli avambracci.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-3570K or AMD FX-8310; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 780 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4790 or AMD Ryzen 3 3200G; Memory: 12 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon R9 Fury; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-3570K or AMD FX-8310; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 780 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4790 or AMD Ryzen 3 3200G; Memory: 12 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon R9 Fury; DirectX: Version 12; Network: Broadband internet connection; Storage: 70 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/cyberpunk2077_logo.png</Immagine>
     <Generi>RPG</Generi>
@@ -62,8 +62,8 @@
     <CasaSviluppo>Supergiant Games</CasaSviluppo>
     <Publisher>Supergiant Games</Publisher>
     <Descrizione>Hades è un dungeon crawler rogue-like che sfoggia gli aspetti migliori dei titoli Supergiant acclamati dalla critica, come la rapida azione di Bastion, la profondità e l'atmosfera di Transistor e lo storytelling basato su personaggi memorabili di Pyre.Nei panni dell'immortale principe degli Inferi, brandirai i poteri e le mitologiche armi dell'Olimpo per liberarti dalle grinfie del dio dei morti, diventando sempre più forte e scoprendo nuove sfaccettature della storia a ogni tentativo di fuga.Lasciati aiutare dagli dei dell'Olimpo! Incontra Zeus, Atena, Poseidone e tanti altri, e scegli fra le decine di Benefici a disposizione per potenziare le tue abilità. Potrai sviluppare il tuo personaggio in migliaia di modi diversi.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7 SP1; Processor: Intel Core 2 Duo E8400; Memory: 4 GB RAM; Graphics: NVIDIA GeForce 8800 GT; DirectX: Version 10; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5-2300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 15 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7 SP1; Processor: Intel Core 2 Duo E8400; Memory: 4 GB RAM; Graphics: NVIDIA GeForce 8800 GT; DirectX: Version 10; Network: Broadband internet connection; Storage: 15 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5-2300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 15 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/hades_logo.png</Immagine>
     <Generi>Rogue-like</Generi>
@@ -81,8 +81,8 @@
     <CasaSviluppo>Sandville Interactive</CasaSviluppo>
     <Publisher>Kepler Interactive</Publisher>
     <Descrizione>Una volta all'anno, la Pittrice si risveglia e inizia a dipingere sul suo Monolito. Dipinge il numero maledetto. E tutti coloro che hanno più di quell'età si tramutano in fumo e svaniscono. Anno dopo anno il numero cambia, e altre persone vengono cancellate. Domani la Pittrice si sveglierà e dipingerà il numero "33". E domani noi partiremo per la missione finale: distruggere la Pittrice, in modo che non possa più dipingere la morte.Noi siamo la Spedizione 33.Clair Obscur: Expedition 33 è un innovativo GDR a turni con meccaniche di gioco in tempo reale che rendono le battaglie più immersive e coinvolgenti che mai. Esplora un mondo di fantasia ispirato alla Francia della Belle Époque, in cui dovrai affrontare nemici devastanti.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core 2 Duo; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 9600 GT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 560; DirectX: Version 11; Network: Broadband internet connection; Storage: 10 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core 2 Duo; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 9600 GT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 10 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 560; DirectX: Version 11; Network: Broadband internet connection; Storage: 10 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2018</DataDiUscita>
     <Immagine>ImmaginiGiochi/expedition33_cover.png</Immagine>
     <Generi>Avventura</Generi>
@@ -99,8 +99,8 @@
     <CasaSviluppo>Arrowhead Game Studios</CasaSviluppo>
     <Publisher>Sony Interactive Entertainment</Publisher>
     <Descrizione>Libertà. Pace. Democrazia.I tuoi diritti di nascita sulla Super Terra. I pilastri fondamentali della nostra civiltà.Della nostra stessa esistenza.Ma la guerra infuria. E ogni cosa è di nuovo sotto minaccia.Unisciti alla più grande forza militare della galassia e rendi questo luogo un posto sicuro e libero in cui vivere.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-2500K or AMD FX-6300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 770 or AMD Radeon R9 280; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4770K or AMD Ryzen 5 1500X; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1070 or AMD Radeon RX 580; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-2500K or AMD FX-6300; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 770 or AMD Radeon R9 280; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-4770K or AMD Ryzen 5 1500X; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1070 or AMD Radeon RX 580; DirectX: Version 11; Network: Broadband internet connection; Storage: 20 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2023</DataDiUscita>
     <Immagine>ImmaginiGiochi/helldivers2_logo.png</Immagine>
     <Generi>Sparatutto</Generi>
@@ -118,8 +118,8 @@
     <CasaSviluppo>2K Games</CasaSviluppo>
     <Publisher>2K Games</Publisher>
     <Descrizione>Nel 1960, il protagonista, Jack, è un passeggero di un aereo che precipita nell'Oceano Atlantico.Unico sopravvissuto, si dirige verso un faro che ospita un terminale di batisfere, che lo porta a Rapture.Jack viene contattato via radio da Atlas, che lo guida ad affrontare i pericoli della città in rovina.</Descrizione>
-    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2007</DataDiUscita>
     <Immagine>ImmaginiGiochi/Bioshock_Cover.png</Immagine>
     <Generi>Sparatutto</Generi>
@@ -137,8 +137,8 @@
     <CasaSviluppo>From Software</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>UN NUOVO ACTION RPG FANTASY. Alzati, Senzaluce, e lasciati guidare dalla grazia verso la conquista dell'Anello ancestrale, il cui potere ti renderà lord dell'Interregno.</Descrizione>
-    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2018</DataDiUscita>
     <Immagine>ImmaginiGiochi/Elden_ring_cover.jpg</Immagine>
     <Generi>Souls-like</Generi>
@@ -156,8 +156,8 @@
     <CasaSviluppo>Gearbox Software</CasaSviluppo>
     <Publisher>2K</Publisher>
     <Descrizione>In un lontano futuro in cui numerose navi colonizzatrici sono atterrate su Pandora, un pianeta ai margini della galassia,i coloni sono alla ricerca di una vita migliore e sperano di diventare ricchi sfruttando le risorse minerarie del loro nuovo mondo.Ben presto però capiscono che il pianeta ha ben poco da offrire e la situazione degenera quando le compagnie minerarie abbandonano il pianeta,lasciando gli abitanti degli insediamenti alla mercé dei criminali addetti ai lavori forzati.A quel punto alcuni coloni tentano di arricchirsi depredando le misteriose rovine aliene sparse su Pandora e così essi scoprono la Cripta,un gigantesco bunker alieno che si dice contenga preziosa tecnologia e segreti dal valore inestimabile.Nessuno sa come accedere nella Cripta ma forse un nuovo colono, appena giunto nella cittadina di Fyrestone, potrebbe risolvere il mistero.</Descrizione>
-    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows XP/Vista/7 ; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows XP/Vista/7 ; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2009</DataDiUscita>
     <Immagine>ImmaginiGiochi/Borderlands_Cover.jpg</Immagine>
     <Generi>Sparatutto</Generi>
@@ -175,8 +175,8 @@
     <CasaSviluppo>ID Software</CasaSviluppo>
     <Publisher>Bethesda</Publisher>
     <Descrizione>Le armate infernali hanno invaso la Terra. Diventa lo Slayer in un’epica campagna per giocatore singolo, conquista demoni attraverso le dimensioni e ferma la distruzione finale dell’umanità.L’unica Cosa Che Temono... Sei Tu.Vivi l’ultima combinazione di velocità e potenza in DOOM Eternal, un passo avanti nel combattimento aggressivo in prima persona.Minaccia Slayer Al Livello MassimoArmato di lanciafiamme da spalla, lama da polso retrattile, armi e moduli potenziati, nonché abilità come il Doppio scatto, sei più forte, veloce e versatile che mai.Trinità DemoniacaPrendi ciò che ti serve dai tuoi nemici: con le uccisioni epiche ottieni salute extra, incenerendoli ottieni armatura, mentre smembrandoli con la motosega ricavi munizioni a volontà.Arriva BattlemodeUna nuova esperienza multigiocatore 2 contro 1 ideata da id Software. Uno Slayer armato fino ai denti affronta due demoni controllati da giocatori in intensi combattimenti in prima persona al meglio dei cinque round.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-2400 / AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 670 / AMD Radeon HD 7870; DirectX: Version 11; Network: Broadband internet connection; Storage: 50 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-6700K / AMD Ryzen 7 1800X; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1080 / AMD Radeon RX Vega 64; DirectX: Version 11; Network: Broadband internet connection; Storage: 50 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i5-2400 / AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 670 / AMD Radeon HD 7870; DirectX: Version 11; Network: Broadband internet connection; Storage: 50 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i7-6700K / AMD Ryzen 7 1800X; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1080 / AMD Radeon RX Vega 64; DirectX: Version 11; Network: Broadband internet connection; Storage: 50 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/Doom_Eternal_Logo.png</Immagine>
     <Generi>Sparatutto</Generi>
@@ -194,8 +194,8 @@
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Combatti alla conquista della galassiaVivi il gioco che ha ridefinito il genere della strategia in tempo reale.Terran, Zerg o Protoss:Hai la stoffa per diventare il prossimo comandante supremo della galassia?</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/starcraft2_logo.png</Immagine>
     <Generi>Strategia</Generi>
@@ -213,8 +213,8 @@
     <CasaSviluppo>Motion Twin</CasaSviluppo>
     <Publisher>Motion Twin</Publisher>
     <Descrizione> Dead Cells è un roguelite d'azione a piattaforme ispirato al genere metroidvania.Esplora un vasto castello che muta continuamente... Nessun checkpoint. Uccidi, muori, impara, ripeti.Dead Cells ti cala nei panni di un esperimento alchemico finito male, mentre cerchi di capire cosa sta succedendo su un'isola in continua espansione,che muta sempre e apparentemente maledetta. Sei immortale ma decapitato.L'unico modo che hai per muoverti, esplorare e combattere è usare i corpi altrui.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core i3; Memory: 2 GB RAM; Graphics: Intel HD 4000; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 500 MB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 500 MB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core i3; Memory: 2 GB RAM; Graphics: Intel HD 4000; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 500 MB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 500 MB available space; </RequisitiRaccomandati>
     <DataDiUscita>2018</DataDiUscita>
     <Immagine>ImmaginiGiochi/dead_cells_logo.png</Immagine>
     <Generi>Rogue-like</Generi>
@@ -232,8 +232,8 @@
     <CasaSviluppo>Insomniac Games</CasaSviluppo>
     <Publisher>PlayStation Publishing</Publisher>
     <Descrizione>La vita di Peter Parker e quella di Spider-Man entrano in collisione in una storia originale. Gioca nel ruolo di un Peter Parker ormai esperto, impegnato a combattere i supercriminali della New York Marvel. Lanciati attraverso quartieri colmi di vita sconfiggendo i nemici con eliminazioni epiche.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/spiderman_remastered_logo.png</Immagine>
     <Generi>Avventura</Generi>
@@ -251,8 +251,8 @@
     <CasaSviluppo>From Software</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>E poi venne il Fuoco. Rivivi l'esperienza che ha rivoluzionato il mondo dei videogiochi e dato vita a un nuovo genere. Esplora la terra di Lordran in una splendida versione rimasterizzata in altissima definizione a 60 fps. Dark Souls Remastered include il gioco base e il DLC Artorias of the Abyss.Caratteristiche:• Un universo oscuro e misterioso• Ogni fine porta con sé un nuovo inizio• Padroneggia meccaniche di gioco complesse e variegate• Mettiti alla prova e supera i tuoi limiti• Modalità multigiocatore unica (fino a 6 giocatori con server dedicati)</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/dark_souls.png</Immagine>
     <Generi>Souls-like</Generi>
@@ -270,8 +270,8 @@
     <CasaSviluppo>From Software</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>I giocatori riceveranno una grande sorpresa con DARK SOULS™ II: Scholar of the First Sin.Ti attende un viaggio indimenticabile in un mondo oscuro, dove ogni angolo e ogni incontro inatteso metteranno a dura prova la tua determinazione.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/dark_souls2.png</Immagine>
     <Generi>Souls-like</Generi>
@@ -289,8 +289,8 @@
     <CasaSviluppo>From Software</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione> DARK SOULS™ continua il suo percorso di innovazione in questo ultimo, ambizioso capitolo della saga acclamata da pubblico e critica.Le fiamme si estinguono e il mondo è in rovina: esplora un universo ricco di nemici colossali e vaste ambientazioni, assaporando un'atmosfera epica e affrontando l'oscurità grazie a un sistema di combattimento sempre più frenetico e intenso. Vecchi e nuovi giocatori potranno immergersi nel mondo di DARK SOULS™ grazie alla spettacolare grafica e alle dinamiche di gioco che offrono un'esperienza unica.Del fuoco non rimangono che braci... preparati ad affrontare nuovamente l'oscurità!</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/dark_souls3.png</Immagine>
     <Generi>Souls-like</Generi>
@@ -308,8 +308,8 @@
     <CasaSviluppo>FromSoftware</CasaSviluppo>
     <Publisher>Activision</Publisher>
     <Descrizione>Gioco dell'anno - The Game Awards 2019 Miglior gioco d'azione del 2019 - IGN Intraprendi il cammino verso la vendetta nella premiata avventura di FromSoftware, gli sviluppatori di Bloodborne e della serie Dark Souls. Vendicati. Riscatta il tuo onore. Uccidi con astuzia</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/sekiro.png</Immagine>
     <Generi>Souls-like</Generi>
@@ -327,8 +327,8 @@
     <CasaSviluppo>NetherRealm Studio</CasaSviluppo>
     <Publisher>Warner Bros Games</Publisher>
     <Descrizione>Vivi l'esperienza di MK11 definitiva! Vesti i panni dei protettori della Terra in DUE storie avvincenti che sovvertono le leggi spazio-temporali e affronta una lotta contro il tempo per impedire a Kronika di riavviare la storia. Contiene l'elenco kompleto dei 37 kombattenti, inclusi gli ultimi arrivati: Rain, Mileena e Rambo.Include MK11, Kombat Pack 1, Espansione Aftermath e Kombat Pack 2.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2020</DataDiUscita>
     <Immagine>ImmaginiGiochi/mortal_kombat11.png</Immagine>
     <Generi>Picchiaduro</Generi>
@@ -345,8 +345,8 @@
     <CasaSviluppo>NetherRealm Studio</CasaSviluppo>
     <Publisher>Warner Bros Games</Publisher>
     <Descrizione>Una delle saghe più celebri dei picchiaduro torna sul ring con una grafica rinnovata, un'azione di gioco incessante e uno straordinario cast di protagonisti, oltre a musiche interattive e le immancabili ANTIC-C-COMBO!</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2016</DataDiUscita>
     <Immagine>ImmaginiGiochi/killer_instinct.png</Immagine>
     <Generi>Picchiaduro</Generi>
@@ -364,8 +364,8 @@
     <CasaSviluppo>Nicalis</CasaSviluppo>
     <Publisher>Nicalis</Publisher>
     <Descrizione> Quando la madre di Isaac inizia a sentire la voce di Dio che chiede un sacrificio per dimostrare la sua fede, Isaac scappa nel seminterrato affrontando orde di nemici folli, fratelli e sorelle perduti, le sue paure e, infine, sua madre.The Binding of Isaac è un gioco di ruolo d'azione sparatutto generato casualmente con forti elementi Rogue-like. Seguendo Isaac nel suo viaggio, i giocatori troveranno tesori bizzarri che cambiano la forma di Isaac, conferendogli abilità sovrumane e permettendogli di combattere contro ondate di creature misteriose, scoprire segreti e lottare per la propria sicurezza.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core i3; Memory: 2 GB RAM; Graphics: Intel HD 4000; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 500 MB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 500 MB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7; Processor: Intel Core i3; Memory: 2 GB RAM; Graphics: Intel HD 4000; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 500 MB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 660; DirectX: Version 11; Network: Broadband internet connection; Storage: 500 MB available space; </RequisitiRaccomandati>
     <DataDiUscita>2018</DataDiUscita>
     <Immagine>ImmaginiGiochi/The_Binding_of_Isaac_Rebirth_-_Cover.png</Immagine>
     <Generi>Rogue-like</Generi>
@@ -383,8 +383,8 @@
     <CasaSviluppo>Capcom</CasaSviluppo>
     <Publisher>Capcom</Publisher>
     <Descrizione>Arriva il nuovo sfidante di Capcom! Street Fighter™ 6 viene lanciato in tutto il mondo il 2 giugno 2023 e rappresenta la prossima evoluzione della serie. L'esperienza di Street Fighter 6 si estende su tre modalità di gioco: World Tour, Fighting Ground e Battle Hub.</Descrizione>
-    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 10 64-bit; Processor: Intel Core i3-4160 or AMD Ryzen 3 1200; Memory: 8 GB RAM; Graphics: NVIDIA GeForce GTX 950 or AMD Radeon RX 470; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5-4670 or AMD Ryzen 5 1600; Memory: 16 GB RAM; Graphics: NVIDIA GeForce GTX 1060 or AMD Radeon RX 580; DirectX: Version 12; Network: Broadband internet connection; Storage: 75 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2016</DataDiUscita>
     <Immagine>ImmaginiGiochi\Street_Fighter_6_cover.jpg</Immagine>
     <Generi>Picchiaduro</Generi>
@@ -402,8 +402,8 @@
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Espandi il tuo impero, accresci la tua cultura e affronta i più grandi leader della storia. La tua civiltà supererà la prova del tempo?Civilization VI ti offre nuovi modi per interagire con il tuo mondo: ora le città si espandono sulla mappa, la ricerca attiva in tecnologia e cultura sblocca nuove potenzialità, mentre i leader avversari porteranno avanti i propri programmi in base ai loro tratti storici. Il tutto, mentre punti a sfruttare uno dei cinque modi che ti garantiranno la vittoria nel gioco.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/Civilization_VI_cover.png</Immagine>
     <Generi>Strategia</Generi>
@@ -421,8 +421,8 @@
     <CasaSviluppo>Square Enix</CasaSviluppo>
     <Publisher>Square Enix</Publisher>
     <Descrizione>Combatti alla conquista della galassiaVivi il gioco che ha ridefinito il genere della strategia in tempo reale.Terran, Zerg o Protoss.Hai la stoffa per diventare il prossimo comandante supremo della galassia?</Descrizione>
-    <RequisitiMinimi>       OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible       </RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>       OS: Windows 7/8/10; Processor: Intel Core 2 Duo or AMD Athlon 64 X2; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 7600 GT or ATI Radeon HD 2600 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 30 GB available space;        </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10; Processor: Intel Core i5 or AMD FX Series; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 650 or AMD Radeon HD 7790; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2010</DataDiUscita>
     <Immagine>ImmaginiGiochi/Final_Fantasy_Tactics_-_The_Ivalice_Chronicles_cover.jpg</Immagine>
     <Generi>Strategia</Generi>
@@ -440,8 +440,8 @@
     <CasaSviluppo>Re-Logic</CasaSviluppo>
     <Publisher>Re-Logic</Publisher>
     <Descrizione>Meglio di minecraft</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiMinimi>
-    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; Sound Card: DirectX Compatible</RequisitiRaccomandati>
+    <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>16/05/2011</DataDiUscita>
     <Immagine>ImmaginiGiochi\Terraria_portrait_cover.jpg</Immagine>
     <Generi>Avventura</Generi>
@@ -451,24 +451,6 @@
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>2</idGiocoCorrelato>
-    </TitoliCorrelati>
-  </Gioco>
-  <Gioco id_gioco="25">
-    <Titolo>Kingdom Hearts 4.13</Titolo>
-    <Prezzo>39.99</Prezzo>
-    <CasaSviluppo>Square Enix</CasaSviluppo>
-    <Publisher>Re-Logic</Publisher>
-    <Descrizione>kh4 spade laserh</Descrizione>
-    <RequisitiMinimi>POTATO</RequisitiMinimi>
-    <RequisitiRaccomandati>Potato</RequisitiRaccomandati>
-    <DataDiUscita>16/05/2077</DataDiUscita>
-    <Immagine>ImmaginiGiochi\kh4-01.webp</Immagine>
-    <Generi>RPG</Generi>
-    <Disponibile>1</Disponibile>
-    <MediaRecensioniAdmin>100</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
-    <TitoliCorrelati>
-      <idGiocoCorrelato>1</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
 
