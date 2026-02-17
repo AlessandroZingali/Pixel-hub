@@ -71,6 +71,18 @@ session_start();
         $mod = calcoloModCommenti($commenti);
         $_SESSION['modCommenti'] = $mod;
 
+        $doc = getDoc("XML/Recovery.xml");
+        $root = $doc->documentElement;
+        $controllerRecovery = $root->childNodes;
+
+        foreach($controllerRecovery as $c){
+            if($c->getElementsByTagName('text')[0]->textContent == $_SESSION['Email']){
+                $root->removeChild($c);
+            }
+        }
+        $doc->save("XML/Recovery.xml");
+
+
         
         
 

@@ -7,11 +7,21 @@ require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore
 //Inizia la sessione
 session_start();
 $redirect = false;
+$counter = 0;
 
 //Controlla se il form è stato inviato
 if (isset($_POST["invioRecovery"])) {
+    $controller = xmlPointer("XML/Recovery.xml"); //Puntatore al file XML dei ticket
 
-    // Carica il documento XML
+    foreach ($controller as $t) {
+        if ($t->getElementsByTagName('text')[0]->textContent == $_POST["recoveryEmail"]) {
+            // Se l'email è già presente, non creare un nuovo ticket
+            $counter++;
+        }
+    }
+
+    if ($counter < 3) {
+         // Carica il documento XML
     $doc = getDoc("XML/Recovery.xml");
     $root = $doc->documentElement;
 
@@ -51,6 +61,12 @@ if (isset($_POST["invioRecovery"])) {
     $redirect = true;
     
 }
+else {
+    $redirect = false;
+    $errore = "Hai già inviato 3 segnalazioni con questa email, attendi la risposta degli amministratori prima di inviarne altre. Potrebbe essere che il tuo account non esista o sia stato eliminato. In caso di problemi contattare il Customer service attraverso la pagina Contact Us";
+}
+}
+   
 
 ?>
  
@@ -71,7 +87,7 @@ if (isset($_POST["invioRecovery"])) {
     <body>  
         <?php  
             if($redirect){
-                echo "<form id=\"redirectForm\" action=\"Recovery.php\" method=\"post\">
+                echo "<form id=\"redirectForm\" action=\"replyEmail.php\" method=\"post\">
                     <input type=\"hidden\" name=\"IDTicket\" value=\"$newId\" />
                     <input type=\"hidden\" name=\"Email\" value=\"".$_POST['recoveryEmail']."\" />
                 </form>";
@@ -116,13 +132,14 @@ if (isset($_POST["invioRecovery"])) {
                 </h2>
                 <p>Inserisci l'email qui sotto:</p>
                 <?php 
-                    
-                        echo "<form action=\"Recovery.php\" method=\"post\" id=\"RecoveryEmail\"> 
+                if (!$redirect && isset($errore)) {
+                    echo "<p class=\"errore\">$errore</p>";}
+                        echo "<form class=\"recoveryForm\" action=\"Recovery.php\" method=\"post\" id=\"RecoveryEmail\"> 
 
-                                <input type=\"text\" name=\"recoveryEmail\" placeholder=\"Inserisci la tua email\" required/>
+                               <input type=\"text\" name=\"recoveryEmail\" placeholder=\"Inserisci la tua email\" required/>
                                 
                             
-                                <input type=\"submit\" name=\"invioRecovery\" value=\"Invia la segnalazione\"/> 
+                                <input type=\"submit\" name=\"invioRecovery\" value=\"Invia email di recupero\"/> 
                             </form>"; 
                                             
                     

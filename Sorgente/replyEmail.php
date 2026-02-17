@@ -92,7 +92,7 @@ delo script) e la API key della mail che si vuole usare. Per il resto abbiamo us
 
             $mail->send();
 
-            if(!isset($_POST['IDUtente']) && isset($_POST['Email'])) header('Location: Homepage.php');
+            if(!isset($_POST['IDUtente']) && isset($_POST['Email'])) header('Location: Login.php');
 
             
             echo 'Email inviata!';

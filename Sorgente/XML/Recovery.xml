@@ -1,6 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recovery_XML_schema.xsd">
-  <ticket id_recovery="1" data="16/02/2026" ore="19" minuti="04">
-    <text>supebazinga@gmail.com</text>
-  </ticket>
 </listaRecovery>
