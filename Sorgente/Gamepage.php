@@ -819,7 +819,7 @@ if(isset($_SESSION['tipoUtente'])){
 
                                 echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formCommenti\">
                                         <textarea name=\"commentoUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi il tuo commento qui...\"></textarea>
-                                        <br/>
+                                        <br />/>
                                         <input type=\"submit\" name=\"invioCommento\" value=\"Invia\"/> 
                                     </form>"; 
                                                 
@@ -928,10 +928,10 @@ if(isset($_SESSION['tipoUtente'])){
                     else{
 
                             echo " <form action=\"Gamepage.php?titoloGioco=$titoloGioco&idGioco=$idGioco\" method=\"post\" id=\"formRecensioni\">
-                                    <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br/> 
+                                    <textarea name=\"recensioneUtente\" rows=\"4\" cols=\"65\" placeholder=\"Scrivi la tua recensione qui...\"></textarea><br />/> 
                                     <input type=\"number\" cols=\"10\"  min=\"0\" max=\"100\" name=\"votoUtente\" placeholder=\" Voto da 0 a 100...\">
                                     
-                                    <br/>
+                                    <br />/>
                                     <input type=\"submit\" name=\"invioRecensione\" value=\"Invia\"/> 
                                 </form>"; 
                                             

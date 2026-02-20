@@ -295,7 +295,7 @@ if(isset($_POST['signin']) && $jumper==0){
         <div id="footer">
             <ul>
                 <li><a href="Contact.php">Contact Us</a></li>
-                <li><a href="Faq.php">F.A.Q</a></li><br>
+                <li><a href="Faq.php">F.A.Q</a></li><br /> />
                 <li>&copy; 2026 Pixel Hub. Tutti i diritti riservati.</li>
             </ul>
         </div>

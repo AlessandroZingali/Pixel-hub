@@ -944,14 +944,14 @@ if (isset($_POST["agencyToggleSubmit"])){
                                                 $titolo = $giocoRicerca->getElementsByTagName("Titolo")->item(0)->textContent;
                                             }
                                         }
-                                        echo "<br> <input type='checkbox' name='id_correlati_eliminati[]' value='".htmlspecialchars($id->textContent)."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br>";
+                                        echo "<br /> /> <input type='checkbox' name='id_correlati_eliminati[]' value='".htmlspecialchars($id->textContent)."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br /> />";
                                     }
                                 }
                             }
                             
                     
                         }
-                        echo "<br><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
+                        echo "<br /> /><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
                     echo "</form>";
                     
 

@@ -151,7 +151,7 @@ if (isset($_POST["invioTicket"]) && $service === 1) {
 
                                 <textarea name=\"ticketUtente\" placeholder=\"Scrivi il tuo messaggio qui\"></textarea>
                                 
-                                <br/>
+                                <br />/>
                                 <input type=\"submit\" name=\"invioTicket\" value=\"Invia la segnalazione\"/> 
                             </form>"; 
                                             

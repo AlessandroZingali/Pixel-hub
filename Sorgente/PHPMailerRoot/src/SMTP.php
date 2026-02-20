@@ -131,7 +131,7 @@ class SMTP
      * How to handle debug output.
      * Options:
      * * `echo` Output plain-text as-is, appropriate for CLI
-     * * `html` Output escaped, line breaks converted to `<br>`, appropriate for browser output
+     * * `html` Output escaped, line breaks converted to `<br /> />`, appropriate for browser output
      * * `error_log` Output to error log as configured in php.ini
      * Alternatively, you can provide a callable expecting two params: a message string and the debug level:
      *
@@ -314,7 +314,7 @@ class SMTP
                     preg_replace('/[\r\n]+/', '', $str),
                     ENT_QUOTES,
                     'UTF-8'
-                ), "<br>\n";
+                ), "<br /> />\n";
                 break;
             case 'echo':
             default:
