@@ -21,7 +21,7 @@
         <xsd:element  ref="RequisitiMinimi"   minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="RequisitiRaccomandati" minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="DataDiUscita"  minOccurs="1" maxOccurs="1"/> 
-        <xsd:element  ref="Immagine"  minOccurs="1" maxOccurs="3"/>  
+        <xsd:element  ref="Immagine"  minOccurs="1" maxOccurs="1"/>  
         <xsd:element  ref="Generi"   minOccurs="1" maxOccurs="unbounded"/> 
         <xsd:element  ref="Disponibile"   minOccurs="1" maxOccurs="1"/>
         <xsd:element  ref="MediaRecensioniAdmin"  minOccurs="1" maxOccurs="1"/> 
