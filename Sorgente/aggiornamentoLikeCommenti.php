@@ -4,32 +4,49 @@ dei file Xml relativi ai Commenti e alla registrazione dei dislike e like per og
 per l'inserimento o il deinserimento del like o del dislike*/
 
 require 'serverUtility.php'; // Includo il file di utilità per ricavare gli elemneti dei file XML (tramite DOMDocument)
+session_start();
 
 $route="0"; // Flag per decidere quale operazione eseguire: 0=nuovo like/dislike, 1=cambio dislike->like, 2=cambio like->dislike, 3=rimozione like, 4=rimozione dislike
 // La route lavora insieme al tipo passato tramite POST (like o dislike), il caso 0 è in comune mentre poi i pari andranno con il dislike e i dispari con il like per gestire le varie operazioni
-
+$block = false; // Flag per bloccare l'inserimento di like o dislike se l'utente è l'autore del commento
 /* Il file Like Commenti tiene traccia dei like e dislike inseriti. Usa una chiave di 3 elementi, utente che ha messo like/dislike,
 l'id gioco e l'id commento che indentificano il commento stesso. Inoltre avremo 2 flag come attributi, per inserire la tipologia di valutazione inserita */
-
-        $root = getRoot('XML/LikeCommenti.xml');
-        if($root->hasChildNodes()){
-            $elem = $root->childNodes;
-            foreach($elem as $rc){
-                $utente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
-                $commento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
-                $gioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
-                if ($utente == $_POST['idUtente'] && $commento == $_POST['idCommento'] && $gioco == $_POST['idGioco']) {
-                    $flagLike = $rc->getAttribute("flagLike");
-                    $flagDislike = $rc->getAttribute("flagDislike");
-                    if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
-                    else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
-                    else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
-                    else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
-                    }
-                }   
+$pointerCommenti = xmlPointer('XML/Commenti.xml');
+foreach($pointerCommenti as $gioco){
+    if($gioco->getAttribute("id_gioco")==$_POST['idGioco']){
+        foreach($gioco->childNodes as $commento){
+            if($commento->getAttribute("id_commento")==$_POST['idCommento']){
+                if($commento->getAttribute("id_utente")==$_SESSION['userId']){
+                    $block = true; // Flag per bloccare l'inserimento di like o dislike se l'utente è l'autore del commento
+                }
+            }
         }
+    }
+}
+
+
+$root = getRoot('XML/LikeCommenti.xml');
+if($root->hasChildNodes()){
+    $elem = $root->childNodes;
+    foreach($elem as $rc){
+        $utente = $rc->getElementsByTagName("Id_Utente")->item(0)->textContent;
+        $commento = $rc->getElementsByTagName("Id_Commento")->item(0)->textContent;
+        $gioco = $rc->getElementsByTagName("Id_Gioco")->item(0)->textContent;
+        if ($utente == $_POST['idUtente'] && $commento == $_POST['idCommento'] && $gioco == $_POST['idGioco']) {
+            $flagLike = $rc->getAttribute("flagLike");
+            $flagDislike = $rc->getAttribute("flagDislike");
+            if ($flagDislike == "1" && $_POST['tipo'] == "like") $route = "1"; // ha messo like al posto di dislike
+            else if ($flagLike == "1" && $_POST['tipo'] == "dislike")   $route= "2"; // mette dislike al posto di like
+            else if ($flagLike == "1" && $_POST['tipo'] == "like") $route = "3"; // ha già messo like
+            else if ($flagDislike == "1" && $_POST['tipo'] == "dislike") $route= "4"; // ha già messo dislike
+            }
+        }   
+}
+else $route = "0"; // Non ha ancora messo like o dislike, inserimento nuovo like o dislike
 // Gestione like
-if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$commento) {
+
+
+if ($_POST['tipo'] == "like" && !$block /*&& $_SESSION['userId']!=$_POST['idUtente']*/) {
     if ($route == "0"){ // incremento like del commento in Commenti.xml se non ha ancora messo like o dislike
     
         $doc = getDoc('XML/Commenti.xml');
@@ -133,7 +150,7 @@ if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$commento) {
 }
 
 // Gestione dislike
-if ($_POST['tipo'] == "dislike" && $_SESSION['UserId']!=$commento) {
+if ($_POST['tipo'] == "dislike" && !$block /*&& $_SESSION['userId']!=$_POST['idUtente']*/) {
     
     if ($route == "0"){
         // incremento dislike del commento in Commenti.xml se non ha ancora messo like o dislike

@@ -1,64 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="6">
-    <Commento id_commento="3" id_utente="4" data="16/02/2026" ore="13" minuti="31" like="0" dislike="0" segnalazioni="0">
-      <text>libertà!</text>
-    </Commento>
-    <Commento id_commento="2" id_utente="2" data="16/02/2026" ore="13" minuti="31" like="0" dislike="0" segnalazioni="0">
-      <text>daje roma daje</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="4" data="16/02/2026" ore="12" minuti="18" like="0" dislike="0" segnalazioni="0">
-      <text>Aho in sto gioco spari agli alieni!</text>
-    </Commento>
-  </Gioco>
   <Gioco id_gioco="1">
-    <Commento id_commento="2" id_utente="4" data="11/02/2026" ore="13" minuti="02" like="100" dislike="50" segnalazioni="0">
-      <text>Tutti i nuovi eroi fanno pena, sembrano fatti con l'AI!</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="7">
-    <Commento id_commento="4" id_utente="3" data="16/02/2026" ore="12" minuti="22" like="0" dislike="0" segnalazioni="0">
-      <text>Belloh</text>
-    </Commento>
-    <Commento id_commento="3" id_utente="2" data="05/02/2026" ore="12" minuti="43" like="0" dislike="0" segnalazioni="0">
-      <text>Spettacolo&#13;</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="04" like="100" dislike="40" segnalazioni="0">
-      <text>Il big daddy è fighissimo</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="8">
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="05" like="20" dislike="60" segnalazioni="0">
-      <text>Halo</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="5"/>
-  <Gioco id_gioco="3">
-    <Commento id_commento="1" id_utente="3" data="22/01/2026" ore="11" minuti="35" like="0" dislike="1" segnalazioni="0">
-      <text>We have a city to Burn</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="2">
-    <Commento id_commento="1" id_utente="3" data="26/01/2026" ore="13" minuti="30" like="0" dislike="0" segnalazioni="0">
-      <text>bello</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="13">
-    <Commento id_commento="1" id_utente="4" data="10/02/2026" ore="13" minuti="03" like="0" dislike="0" segnalazioni="0">
-      <text>Viva i ragni</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="9">
-    <Commento id_commento="2" id_utente="6" data="12/02/2026" ore="18" minuti="40" like="0" dislike="0" segnalazioni="0">
-      <text>noice</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="4" data="11/02/2026" ore="13" minuti="01" like="13" dislike="5" segnalazioni="0">
-      <text>Bel gioco ma bisogna farmare troppe armi!</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="24">
-    <Commento id_commento="1" id_utente="4" data="11/02/2026" ore="13" minuti="03" like="14" dislike="3" segnalazioni="0">
-      <text>Meglio di Minecraft il mio culo 3D!!!</text>
+    <Commento id_commento="1" id_utente="4" data="03/03/2026" ore="19" minuti="08" like="0" dislike="0" segnalazioni="0">
+      <text>kkkkk</text>
     </Commento>
   </Gioco>
 </listaCommenti>

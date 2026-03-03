@@ -13,7 +13,7 @@
     <Generi>Sparatutto</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>1</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>6</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>6</idGiocoCorrelato>
       <idGiocoCorrelato>8</idGiocoCorrelato>
@@ -32,7 +32,7 @@
     <Generi>RPG</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>93.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>20</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>100</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>5</idGiocoCorrelato>
     </TitoliCorrelati>

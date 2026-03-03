@@ -314,7 +314,7 @@ class SMTP
                     preg_replace('/[\r\n]+/', '', $str),
                     ENT_QUOTES,
                     'UTF-8'
-                ), "<br /> />\n";
+                ), "<br  />\n";
                 break;
             case 'echo':
             default:

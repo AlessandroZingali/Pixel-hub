@@ -31,7 +31,7 @@ else {
 
     $queryControllo ="DROP DATABASE IF EXISTS $db_name"; 
     if ($resultQ = mysqli_query($mysqliConnection, $queryControllo)) {
-	printf("Database eliminato...<br /> /> ");
+	printf("Database eliminato...<br /> ");
   
     }
     else {

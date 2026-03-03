@@ -628,7 +628,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
             foreach ($utenti as $utente) {
                 $id = $utente->getAttribute("id_user");
-                echo "<p>ID utente: $id</p><br /> />";
+                echo "<p>ID utente: $id</p> <br />";
 
                 $sconti = $utente->getElementsByTagName("Sconto");
                 echo "<p>Sconti assegnati: ";
@@ -637,7 +637,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                     echo $sconto->nodeValue . " ";
                 }
 
-                echo "</p><br /> /><br /> />";
+                echo "</p>  <br />";
 
                 echo "<p><form method='post' action='GestioneAdmin.php'>
                         <input type='hidden' name='id_user' value='$id'>
@@ -652,7 +652,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                         <input type='text' id='sconto_$id' name='sconto' >
                         <input type='submit' name='rimuoviSconto' value='Rimuovi Sconto'>
 
-                      </form><br /> /><hr><br /> />";
+                      </form><hr><br  />";
                       
                     
             }
@@ -825,14 +825,14 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                                                 $titolo = $giocoRicerca->getElementsByTagName("Titolo")->item(0)->textContent;
                                             }
                                         }
-                                        echo "<br /> /> <input type='checkbox' name='id_correlati_eliminati[]' value='".htmlspecialchars($id->textContent)."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br /> />";
+                                        echo "<br /> <input type='checkbox' name='id_correlati_eliminati[]' value='".htmlspecialchars($id->textContent)."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br  />";
                                     }
                                 }
                             }
                             
                     
                         }
-                        echo "<br /> /><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
+                        echo "<br  /><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
                     echo "</form>";
                     
 
@@ -909,46 +909,45 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                     
                                 
                                 <label for=\"Email\" >Modifica Email:</label>
-                                <input type=\"text\" id=\"Email\" name=\"Email\" value=\"".$row['Email']."\"><br /> /><br /> />
+                                <input type=\"text\" id=\"Email\" name=\"Email\" value=\"".$row['Email']."\"><br />
 
                                 <label for=\"Password\" >Modifica Password:</label>
-                                <input type=\"text\" id=\"Password\" name=\"Password\" value=\"".$row['Password']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Password\" name=\"Password\" value=\"".$row['Password']."\" ><br />
 
                                 <label for=\"Username\" >Modifica Username:</label>
-                                <input type=\"text\" id=\"Username\" name=\"Username\" value=\"".$row['Username']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Username\" name=\"Username\" value=\"".$row['Username']."\" ><br />
 
                                 <label for=\"Esperienza\" >Modifica Esperienza:</label>
-                                <input type=\"text\" id=\"Esperienza\" name=\"Esperienza\" value=\"".$row['Esperienza']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Esperienza\" name=\"Esperienza\" value=\"".$row['Esperienza']."\" ><br /> 
 
                                 <label for=\"Grado\" >Modifica Grado:</label>   
-                                <input type=\"text\" id=\"Grado\" name=\"Grado\" value=\"".$row['Grado']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Grado\" name=\"Grado\" value=\"".$row['Grado']."\" ><br /> 
 
                                 <label for=\"Pixels\" >Modifica Pixels:</label>   
-                                <input type=\"text\" id=\"Pixels\" name=\"Pixels\" value=\"".$row['Pixels']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Pixels\" name=\"Pixels\" value=\"".$row['Pixels']."\" ><br /> 
 
                                 <label for=\"Nome\" >Modifica Nome:</label>   
-                                <input type=\"text\" id=\"Nome\" name=\"Nome\" value=\"".$row['Nome']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Nome\" name=\"Nome\" value=\"".$row['Nome']."\" ><br /> 
 
                                 <label for=\"Cognome\" >Modifica Cognome:</label>   
-                                <input type=\"text\" id=\"Cognome\" name=\"Cognome\" value=\"".$row['Cognome']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Cognome\" name=\"Cognome\" value=\"".$row['Cognome']."\" ><br /> 
 
                                 <label for=\"Data_di_Nascita\">Modifica Data di nascita:</label>
-                                <input type=\"text\" id=\"Data_di_Nascita\" name=\"Data_di_Nascita\" value=\"".$row['Data_di_Nascita']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Data_di_Nascita\" name=\"Data_di_Nascita\" value=\"".$row['Data_di_Nascita']."\" ><br /> 
 
                                 <label for=\"Saldo_attuale\" >Modifica saldo attuale :</label>   
-                                <input type=\"text\" id=\"Saldo_attuale\" name=\"Saldo_attuale\" value=\"".$row['Saldo_attuale']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Saldo_attuale\" name=\"Saldo_attuale\" value=\"".$row['Saldo_attuale']."\" ><br /> 
 
                                 <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=Publisher, 2=Admin):</label>
-                                <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br /> 
 
                                 <label for=\"imgProfiloPath\" >Modifica il percorso dell immagine del profilo :</label>   
-                                <input type=\"text\" id=\"imgProfiloPath\" name=\"imgProfiloPath\" value=\"".$row['imgProfiloPath']."\" ><br /> /><br /> />
-
+                                <input type=\"text\" id=\"imgProfiloPath\" name=\"imgProfiloPath\" value=\"".$row['imgProfiloPath']."\" ><br /> 
                                 <label for=\"PIVA\" >Modifica PIVA:</label>   
-                                <input type=\"text\" id=\"PIVA\" name=\"PIVA\" value=\"".$row['PIVA']."\" ><br /> /><br /> />
+                                <input type=\"text\" id=\"PIVA\" name=\"PIVA\" value=\"".$row['PIVA']."\" ><br /> 
 
                                 <label for=\"checkSopsensione\" >Sospendi utente?</label>   
-                                <input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" ><br /> /><br /> />
+                                <input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" ><br /> 
 
 
 

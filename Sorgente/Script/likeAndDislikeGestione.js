@@ -65,6 +65,7 @@ function LikeGestioneCommenti(idUtente, idCommento, idGioco, tipo) {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) { //Controllo dello stato della richiesta
 
             var response = xmlHttp.responseText; //Salvataggio della risposta in una variabile
+            console.log(response);
 
          if(response === "like" ) { //Gestione della risposta "like"
                     //Aggiornamento del contatore dei like e cambio colore del bottone da grigio a verde

@@ -4,10 +4,24 @@ dei file Xml relativi alle Recensioni e alla registrazione dei dislike e like pe
 per l'inserimento o il deinserimento del like o del dislike*/
 
 require 'serverUtility.php'; // Includo il file di utilità per ricavare gli elemneti dei file XML (tramite DOMDocument)
+session_start(); // Avvia la sessione per accedere all'id dell'utente
 
 $route = "0"; // Variabile di controllo del flusso 
+$block = false; // Variabile di controllo per bloccare l'inserimento di like/dislike se l'utente è l'autore della recensione
 
 // Legge LikeRecensioni, che tiene traccia dei like/dislike nelle varie recensioni
+$pointerRecensioni = xmlPointer('XML/Recensioni.xml');
+foreach($pointerRecensioni as $gioco){
+    if($gioco->getAttribute("id_gioco")==$_POST['idGioco']){
+        foreach($gioco->childNodes as $recensione){
+            if($recensione->getAttribute("id_recensione")==$_POST['idRecensione']){
+                if($recensione->getAttribute("id_utente")==$_SESSION['userId']){
+                    $block = true;
+                }
+            }
+        }
+    }
+}
 
 $root = getRoot('XML/LikeRecensioni.xml');
 
@@ -40,7 +54,9 @@ if ($root->hasChildNodes()) {
 }
 
 // Gestione del caso: richiesta LIKE
-if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$recensione) {
+if ($_POST['tipo'] == "like" && !$block
+// && $_SESSION['userId']!=$_POST['idUtente']
+) {
     // Caso 0: non aveva ancora messo like/dislike
     if ($route == "0") {
         $doc = getDoc('XML/Recensioni.xml');
@@ -179,7 +195,7 @@ if ($_POST['tipo'] == "like" && $_SESSION['UserId']!=$recensione) {
 }
 
 // Gestione del caso: richiesta DISLIKE
-if ($_POST['tipo'] == "dislike" && $_SESSION['UserId']!=$recensione) {
+if ($_POST['tipo'] == "dislike" && !$block /*&& $_SESSION['userId']!=$_POST['idUtente']*/) {
     // Caso 0: non aveva ancora messo like/dislike
     if ($route == "0") {
 

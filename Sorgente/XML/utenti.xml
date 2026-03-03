@@ -6,10 +6,8 @@
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
-    <listaGiochi>
-    </listaGiochi>
-    <listaPropic>
-    </listaPropic>
+    <listaGiochi/>
+    <listaPropic/>
   </Utente>
   <Utente id_user="2">
     <linkEsterno/>
@@ -18,8 +16,7 @@
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
     <listaGiochi/>
-    <listaPropic>
-    </listaPropic>
+    <listaPropic/>
   </Utente>
   <Utente id_user="3">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
@@ -30,8 +27,17 @@
     <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.</DescrizionePublisher>
     <ToggleAgency>true</ToggleAgency>
     <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="03-03-2026" spesa="42.49">2</idGiocoPosseduto>
     </listaGiochi>
-    <listaPropic>
-    </listaPropic>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>03-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Bethesda</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
   </Utente>
 </listaUtenti>
