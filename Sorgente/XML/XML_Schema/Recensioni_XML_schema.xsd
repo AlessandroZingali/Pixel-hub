@@ -20,7 +20,7 @@
   <xsd:element name="Recensione"> 
     <xsd:complexType> 
       <xsd:sequence> 
-        <xsd:element nome="text" type="xsd:string" minOccurs="1" maxOccurs="1"/> 
+        <xsd:element ref="text"  minOccurs="1" maxOccurs="1"/> 
       </xsd:sequence> 
       <xsd:attribute name="id_recensione" type="xsd:integer" use="required"/> 
       <xsd:attribute name="id_utente" type="xsd:integer" use="required"/> 
@@ -34,5 +34,5 @@
  
     </xsd:complexType> 
   </xsd:element> 
-    <xsd:element nome="text" type="xsd:string" />
+    <xsd:element name="text" type="xsd:string" />
 </xsd:schema>

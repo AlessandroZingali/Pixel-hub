@@ -15,13 +15,13 @@
       <xsd:sequence>
         <xsd:element ref="text"  minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="id_Recovery" type="xsd:interger" use="required"/>
+        <xsd:attribute name="id_Recovery" type="xsd:integer" use="required"/>
         <xsd:attribute name="data" type="xsd:string" use="required"/>
         <xsd:attribute name="ora" type="xsd:time" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="text" type="xsd:string" />
-  </xsd:element>
+
   
 </xsd:schema>
