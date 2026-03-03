@@ -97,6 +97,7 @@ delo script) e la API key della mail che si vuole usare. Per il resto abbiamo us
             
             echo 'Email inviata!';
         }
+        else header('Location: Login.php');
     } 
     catch (Exception $e) {
 
