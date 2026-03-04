@@ -263,7 +263,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     header("Location: gestionePublisher.php");
 }
 
-if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_da_modificare'])){
+if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati']) && !empty($_POST['id_da_modificare'])){
     $id_gioco = $_POST['id_da_modificare'];
     $doc = getDoc('XML/Giochi.xml');
     $root = $doc->documentElement;
@@ -272,17 +272,20 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_da_modificare'])){
         if ($gioco->getAttribute('id_gioco') == $id_gioco) {
             $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
             foreach ($_POST['id_correlati_eliminati'] as $id_correlato_eliminato) {
+                $nodiDaRimuovere = [];
                 foreach($correlatiNode->childNodes as $correlato){
-                    if($correlato->textContent == $id_correlato_eliminato){
-                        $correlatiNode->removeChild($correlato);
+                    if ($correlato->textContent == $id_correlato_eliminato) {
+                        array_push($nodiDaRimuovere, $correlato);
                     }
+                }
+                foreach ($nodiDaRimuovere as $nodo) {
+                    $correlatiNode->removeChild($nodo);
                 }
             }
         }
     }
     $doc->save('XML/Giochi.xml');
-     header("Location: gestionePublisher.php");
-
+    header("Location: gestionePublisher.php");
 }
 
 

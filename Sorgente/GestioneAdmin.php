@@ -167,16 +167,24 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
 
 
              // Aggiorna i giochi correlati
-             if(!empty($id_correlati)){ 
-                $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
-             while ($correlatiNode->firstChild) {
-                 $correlatiNode->removeChild($correlatiNode->firstChild);
-             }
-             foreach ($id_correlati as $id_correlato) {
-                 $newCorrelato = $xml->createElement("idGiocoCorrelato", trim(htmlspecialchars($id_correlato)));
-                 $correlatiNode->appendChild($newCorrelato);
-             }
-             }
+             if(isset($_POST['id_correlati'])){
+                    if(!empty($_POST['id_correlati'])){
+                    $id_correlati = explode(',', $_POST['id_correlati']);
+                    $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
+                    foreach ($id_correlati as $key => $id_correlato) {
+                        foreach ($correlatiNode->childNodes as $correlato){
+                            if($correlato->textContent == trim($id_correlato)){
+                                unset($id_correlati[$key]);
+                            }
+                        }
+                    }
+                    $id_correlati=array_map('trim', $id_correlati);
+                    foreach ($id_correlati as $id_correlato) {
+                        $newCorrelato = $xml->createElement("idGiocoCorrelato", $id_correlato);
+                        $correlatiNode->appendChild($newCorrelato);
+                    }
+                }
+            }
 
             
             
@@ -401,6 +409,24 @@ if(isset($_POST['formSegnalazioniCommenti'])){
 
 }
 
+if(isset($_POST['eliminaSegCom'])){
+    $docSegnalazioni = getDoc("XML/Commenti.xml");
+    $root = $docSegnalazioni->documentElement;
+    $elem =$root->childNodes;
+
+foreach($elem as $idGiocoCom){
+        if($idGiocoCom->getAttribute("id_gioco")==$_POST["idGiocoSegnalato"]){
+            $Commenti= $idGiocoCom->childNodes;
+            foreach($Commenti as $CommentoDaEliminare){
+                if($CommentoDaEliminare->getAttribute("id_commento")==$_POST['idCommentoSegnalato']){
+                    $CommentoDaEliminare->setAttribute("segnalazioni", "0");
+                }
+                }
+            }
+        }
+    $docSegnalazioni->save('XML/Commenti.xml');
+}
+
 if(isset($_POST['formSegnalazioniRecensioni'])){
         
 
@@ -419,7 +445,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
         }
        
     } 
-    // echo "<script type='text/javascript'>alert('ciaoh');</script>";
+
     $docRecensioni->save("XML/Recensioni.xml");
     $docLike = getDoc("XML/LikeRecensioni.xml");
     $root = $docLike->documentElement;
@@ -434,6 +460,22 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
 }
 
+if(isset($_POST['eliminaSegRec'])){
+    $docSegnalazioni = getDoc("XML/Recensioni.xml");
+    $root = $docSegnalazioni->documentElement;
+    $elem =$root->childNodes;
+
+    foreach($elem as $segnalazione){
+        if($segnalazione->getAttribute("id_gioco")==$_POST["idGiocoSegnalato"]){
+            $Recensioni= $segnalazione->childNodes;
+            foreach($Recensioni as $RecensioneDaEliminare){
+                if($RecensioneDaEliminare->getAttribute("id_recensione")==$_POST['idRecensioneSegnalato']){
+                    $RecensioneDaEliminare->setAttribute("segnalazioni", "0");
+                }
+            }
+        }
+    }
+}
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -745,12 +787,8 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                                     $ids[] = $nodo->nodeValue;
                                 }
 
-                                $correlati = implode(", ", $ids);
 
                                 break;
-
-                                 
-                                
 
                             }
                         }
@@ -814,7 +852,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                     
                     <p>
                         <label for=\"IdCorrelati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
-                        <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"$correlati\"></br>
+                        <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"\"></br>
                     </p>
 
                     
@@ -1150,6 +1188,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                                                 <input type=\"hidden\" name=\"idCommentoSegnalato\" value=".$commento->getAttribute('id_commento').">
                                                 <input type=\"hidden\" name=\"idGiocoSegnalato\" value=".$gioco->getAttribute('id_gioco').">
                                                 <input type=\"submit\" name=\"formSegnalazioniCommenti\"value=\"Elimina Commento \" />
+                                                <input type=\"submit\" name=\"eliminaSegCom\" value=\"Elimina Segnalazione\" />
                                                 </form>
                                                 </div>";
                                     }
@@ -1199,6 +1238,7 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
                                                 <input type=\"hidden\" name=\"idRecensioneSegnalato\" value=".$recensione->getAttribute('id_recensione').">
                                                 <input type=\"hidden\" name=\"idGiocoSegnalato\" value=".$gioco->getAttribute('id_gioco').">
                                                 <input type=\"submit\" name=\"formSegnalazioniRecensioni\" value=\"Elimina Recensione\" />
+                                                <input type=\"submit\" name=\"eliminaSegRec\" value=\"Elimina Segnalazione\" />
                                                 </form>
                                                 </div>";
                                     }

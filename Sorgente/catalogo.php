@@ -111,6 +111,7 @@ if(isset($_SESSION['userId'])){
 
                         $catalogo = [];
                         $titolo = "";
+                        $letteraMain="";
                         $elem = xmlPointer("XML/Giochi.xml");
 
                         //Scansione di tutti gli elementi gioco presenti nell'XML
@@ -125,11 +126,14 @@ if(isset($_SESSION['userId'])){
                         //caricando nell'array tutti i giochi usando usort per stabilire un ordine alfabetico
                         usort($catalogo, function($rA, $rB){ return $rA->titolo <=> $rB->titolo;});
                         
+                        
                         //Scansione dell'array catalogo per mostrare i giochi in ordine alfabetico con separazione per iniziale e lettera Maiuscola
                         foreach($catalogo as $c){
-                        if($titolo[0] !== $c->titolo[0]){
-                            $titolo=$c->titolo;
-                            echo "<div><h2>".strtoupper($titolo[0])."</h2><hr><pre>                                                          <pre></hr></div>";
+                        
+                        $letteraCorrente = strtoupper($c->titolo[0]);
+                        if($letteraCorrente !== $letteraMain){
+                            echo "<div><h2>".$letteraCorrente."</h2><hr><pre>                                                          <pre></hr></div>";
+                            $letteraMain = $letteraCorrente;
                         }
                         // all'cambiare dell'iniziale di un titolo si usa strtoupper($titolo[0]) per prendere la prima lettera dell titolo e metterla in maiuscolo
                         // si usa per mostrare una linea che fa da separazione tra una lettera all'altra il <pre> che mostra lo spazio come una linea

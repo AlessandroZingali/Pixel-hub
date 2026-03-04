@@ -1,10 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LogTransazioniGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Log_Transazioni_Giochi_XML_Schema.xsd">
-  <Transazione IDTransazione="1" ModCommentiUsato="1" IDGiocatore="3" DataOra="03/03/26 18:28" PixelIniziali="0">
-    <Gioco>
-      <Titolo>The Witcher 3: Wild Hunt</Titolo>
-      <IDGioco>2</IDGioco>
-      <Importo>42.49</Importo>
-    </Gioco>
-  </Transazione>
-</LogTransazioniGiochi>
+<LogTransazioniGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Log_Transazioni_Giochi_XML_Schema.xsd"/>
