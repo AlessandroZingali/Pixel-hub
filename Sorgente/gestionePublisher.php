@@ -144,11 +144,17 @@ if(isset($_POST['aggiungiGioco'])){
             $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
             $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
             $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
-            $id_correlati = explode(',',$_POST['id_correlati']);
 
-            foreach ($id_correlati as $id_correlato) {
-                $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
-                $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+            if(isset($_POST['id_correlati'])){
+                if(!empty($_POST['id_correlati'])){
+                    
+                    $id_correlati = explode(',',$_POST['id_correlati']);
+                    
+                    foreach ($id_correlati as $id_correlato) {
+                        $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
+                        $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+                    }
+                }
             }
             
             $nuovoGioco->appendChild($nuovoNodoTitolo);
@@ -228,19 +234,26 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 0;
                 }
             }
-            if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
-
-             // Aggiorna i giochi correlati
-             if(!empty($id_correlati)){ 
-                $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
-             while ($correlatiNode->firstChild) {
-                 $correlatiNode->removeChild($correlatiNode->firstChild);
-             }
-             foreach ($id_correlati as $id_correlato) {
-                 $newCorrelato = $xml->createElement("idGiocoCorrelato", trim(htmlspecialchars($id_correlato)));
-                 $correlatiNode->appendChild($newCorrelato);
-             }
-             }
+            
+            
+            if(isset($_POST['id_correlati'])){
+                    if(!empty($_POST['id_correlati'])){
+                    $id_correlati = explode(',', $_POST['id_correlati']);
+                    $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
+                    foreach ($id_correlati as $key => $id_correlato) {
+                        foreach ($correlatiNode->childNodes as $correlato){
+                            if($correlato->textContent == trim($id_correlato)){
+                                unset($id_correlati[$key]);
+                            }
+                        }
+                    }
+                    $id_correlati=array_map('trim', $id_correlati);
+                    foreach ($id_correlati as $id_correlato) {
+                        $newCorrelato = $xml->createElement("idGiocoCorrelato", $id_correlato);
+                        $correlatiNode->appendChild($newCorrelato);
+                    }
+                }
+            }
 
             
             
@@ -248,6 +261,28 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     }
     $xml->save('XML/Giochi.xml');
     header("Location: gestionePublisher.php");
+}
+
+if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_da_modificare'])){
+    $id_gioco = $_POST['id_da_modificare'];
+    $doc = getDoc('XML/Giochi.xml');
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+    foreach ($elem as $gioco) {
+        if ($gioco->getAttribute('id_gioco') == $id_gioco) {
+            $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
+            foreach ($_POST['id_correlati_eliminati'] as $id_correlato_eliminato) {
+                foreach($correlatiNode->childNodes as $correlato){
+                    if($correlato->textContent == $id_correlato_eliminato){
+                        $correlatiNode->removeChild($correlato);
+                    }
+                }
+            }
+        }
+    }
+    $doc->save('XML/Giochi.xml');
+     header("Location: gestionePublisher.php");
+
 }
 
 
@@ -857,7 +892,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                                     $ids[] = $nodo->nodeValue;
                                 }
 
-                                $correlati = implode(", ", $ids);
+                                
 
                                  
                                 
@@ -918,7 +953,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                     
                     <p>
                         <label for=\"IdCorrelati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
-                        <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"$correlati\"></br>
+                        <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"\"></br>
                     </p>
 
                     
@@ -944,7 +979,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                                                 $titolo = $giocoRicerca->getElementsByTagName("Titolo")->item(0)->textContent;
                                             }
                                         }
-                                        echo "<br/> <input type='checkbox' name='id_correlati_eliminati[]' value='".htmlspecialchars($id->textContent)."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br />";
+                                        echo "<br/> <input type='checkbox' name='id_correlati_eliminati[]' value='".$id->textContent."'> ID: ".htmlspecialchars($id->textContent)." - Titolo: ".htmlspecialchars($titolo)."<br />";
                                     }
                                 }
                             }

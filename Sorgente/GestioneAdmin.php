@@ -33,6 +33,21 @@ if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST[
     $elem = $root->childNodes;
     foreach ($elem as $utenteNode) {
         if ($utenteNode->getAttribute('id_user') == $id_user) {
+            if ($utenteNode->getElementsByTagName("scontiAssegnati")->length == 0) {
+                $scontiAssegnatiNode = $doc->createElement("scontiAssegnati");
+                $utenteNode->appendChild($scontiAssegnatiNode);
+                }
+                else if($utenteNode->getElementsByTagName("scontiAssegnati")->item(0)->getElementsByTagName("Sconto")->length > 0){
+                    $scontiEsistenti = $utenteNode->getElementsByTagName("scontiAssegnati")->item(0)->getElementsByTagName("Sconto");
+                    foreach($scontiEsistenti as $scontoEsistente){
+                        if(trim($scontoEsistente->textContent) == $sconto){
+                            header("Location: GestioneAdmin.php");
+                            exit();
+                        }
+                    }
+                }
+
+
             $newSconto = $doc->createElement("Sconto", htmlspecialchars($sconto));
             $utenteNode->getElementsByTagName("scontiAssegnati")->item(0)->appendChild($newSconto);
 
@@ -943,9 +958,14 @@ if(isset($_POST['formSegnalazioniRecensioni'])){
 
                                 <label for=\"imgProfiloPath\" >Modifica il percorso dell immagine del profilo :</label>   
                                 <input type=\"text\" id=\"imgProfiloPath\" name=\"imgProfiloPath\" value=\"".$row['imgProfiloPath']."\" ><br /> 
+                               ";
+                               if($row['Tipologia_utente'] == 1){
+                                echo "
                                 <label for=\"PIVA\" >Modifica PIVA:</label>   
                                 <input type=\"text\" id=\"PIVA\" name=\"PIVA\" value=\"".$row['PIVA']."\" ><br /> 
-
+                                    ";
+                                 }
+                                 echo "
                                 <label for=\"checkSopsensione\" >Sospendi utente?</label>   
                                 <input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" ><br /> 
 

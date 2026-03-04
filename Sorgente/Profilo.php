@@ -8,7 +8,6 @@ require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore
 $service = 0;          // indica se l’utente è loggato
 $utente = "";          // username dell’utente
 $invalidFlag = 0;      // flag per gestire errori logici (email, password, acquisti ecc.)
-
 // Avvio sessione
 session_start();
 // Controllo se l’utente è loggato
@@ -16,7 +15,7 @@ if (isset($_SESSION['userId'])) {
     $utente = $_SESSION['userName'];
     $service = 1;
 }
-
+echo $_SESSION['agencyMod'];
 // Nome tabella utenti
 $table_users = "Tabella_Utenti";
 

@@ -104,24 +104,7 @@ else {
                 \"ProfilePic/propicblank.png\", 
                 NULL,
                 NULL
-            ),
-            (
-                \"gabibbo@gmail.com\", 
-                \"gabibbo123\", 
-                \"MastroGabibbo\", 
-                2, 
-                0,
-                0, 
-                200.0, 
-                \"20-06-1985\", 
-                \"Mauro\", 
-                \"Bianchi\", 
-                1, 
-                \"ProfilePic/propicblank.png\", 
-                NULL,
-                NULL
-            ),
-            (
+            ),(
                 \"bandasoft@gmail.com\", 
                 \"banda1234!\", 
                 \"Bandai Namco Entertaniment\", 
@@ -132,10 +115,25 @@ else {
                 \"30-02-1995\", 
                 \"Luca\", 
                 \"Verdi\", 
-                2, 
+                1, 
                 \"ProfilePic/propicblank.png\", 
                 \"ProfilePic/propicblank.png\",
                 \"123456789012\"
+            ),(
+                \"gabibbo@gmail.com\", 
+                \"gabibbo123\", 
+                \"MastroGabibbo\", 
+                2, 
+                0,
+                0, 
+                200.0, 
+                \"20-06-1985\", 
+                \"Mauro\", 
+                \"Bianchi\", 
+                2, 
+                \"ProfilePic/propicblank.png\", 
+                NULL,
+                NULL
             );";
 
             // Esecuzione inserimento dati

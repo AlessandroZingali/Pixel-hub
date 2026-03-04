@@ -522,6 +522,9 @@ if(isset($_SESSION['tipoUtente'])){
                                             $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
                                             echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
                                             }
+                                             else{
+                                                echo "<td> $PrezzoGioco € </td> ";
+                                            }
                                         }
                                         else if($service==0){
                                             echo "<td> $PrezzoGioco € </td> ";

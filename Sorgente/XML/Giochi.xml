@@ -6,7 +6,7 @@
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Overwatch è uno sparatutto in prima persona a squadre sviluppato da Blizzard Entertainment. Il gioco presenta una vasta gamma di eroi, ognuno con abilità uniche, e si concentra su partite multiplayer competitive in cui due squadre di sei giocatori si sfidano per completare obiettivi specifici su mappe diverse.</Descrizione>
-    <RequisitiMinimi>OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiMinimi>
+    <RequisitiMinimi> OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space;  </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>2016</DataDiUscita>
     <Immagine>ImmaginiGiochi/overwatch_logo.png</Immagine>
@@ -451,6 +451,24 @@
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>2</idGiocoCorrelato>
+    </TitoliCorrelati>
+  </Gioco>
+  <Gioco id_gioco="25">
+    <Titolo>Ace Combat 8: wings of theve</Titolo>
+    <Prezzo>79.99</Prezzo>
+    <CasaSviluppo>Bandai Namco Entertaniment</CasaSviluppo>
+    <Publisher>Bandai Namco Entertaniment</Publisher>
+    <Descrizione>Solca i cieli e supera ogni sfida per guadagnarti un posto fra gli assi. Affronta intensi combattimenti aerei e domina il campo di battaglia con armi potenti. Vivi una campagna mozzafiato costellata di missioni ad alto rischio, scelte difficili e profondi legami con i tuoi compagni di squadra.</Descrizione>
+    <RequisitiMinimi>OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 50 GB;</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 7 / 8 / 8.1 / 10 64bit; Processore Consiato: Intel Core i5-7500; Ram Consigliata: 8 GB di RAM; GPU Consigliata: NVIDIA GeForce GTX 1060 (3GB); DirectX: Versione 12; Network: Connessione internet a banda larga; Spazio Raccomandato e t memoria: 50 GB; </RequisitiRaccomandati>
+    <DataDiUscita>03.03.2026</DataDiUscita>
+    <Immagine>ImmaginiGiochi\ace-combat-8-wings-of-theve__52265.jpg</Immagine>
+    <Generi>Sparatutto</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>70</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>1</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
 </TabellaGiochi>
