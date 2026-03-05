@@ -15,7 +15,10 @@ if (isset($_SESSION['userId'])) {
     $utente = $_SESSION['userName'];
     $service = 1;
 }
-echo $_SESSION['agencyMod'];
+else {
+    header("Location:login.php");
+}
+
 // Nome tabella utenti
 $table_users = "Tabella_Utenti";
 
