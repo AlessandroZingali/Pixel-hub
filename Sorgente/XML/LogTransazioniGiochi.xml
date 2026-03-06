@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LogTransazioniGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Log_Transazioni_Giochi_XML_Schema.xsd"/>
+<LogTransazioniGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Log_Transazioni_Giochi_XML_Schema.xsd">
+  <Transazione IDTransazione="1" ModCommentiUsato="1" IDGiocatore="4" DataOra="06/03/26 16:17" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Final Fantasy Tacticts: The Ivalice Chronicles</Titolo>
+      <IDGioco>23</IDGioco>
+      <Importo>23.99</Importo>
+    </Gioco>
+  </Transazione>
+</LogTransazioniGiochi>

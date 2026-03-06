@@ -24,6 +24,77 @@ if(isset($_SESSION['userId'])){
 if($service == 0) header('Location: Homepage.php'); //reindirizzo alla homepage se non c'è una sessione attiva
 
 
+// Funzione per modificare i parametri degli sconti
+if (isset($_POST['modificaMinimiSpesi']) && !empty($_POST['minimiSpesi'])) {
+    $minimiSpesi = $_POST['minimiSpesi'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('MinimiSpesi')->item(0)->textContent = $minimiSpesi;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+if (isset($_POST['modificaValoreSconto']) && !empty($_POST['valoreSconto'])) {
+    $valoreSconto = $_POST['valoreSconto'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('ValoreSconto')->item(0)->textContent = $valoreSconto;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+if (isset($_POST['modificaDataInizio']) && !empty($_POST['dataInizio'])) {
+    $dataInizio = $_POST['dataInizio'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('DataInizio')->item(0)->textContent = $dataInizio;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+
+if (isset($_POST['modificaReputazioneMin']) && !empty($_POST['reputazioneMin'])) {
+    $reputazioneMin = $_POST['reputazioneMin'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('ReputazioneMin')->item(0)->textContent = $reputazioneMin;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+
+if (isset($_POST['modificaTempoIscrizione'])&& !empty($_POST['anniMin']) || !empty($_POST['mesiMin']) || !empty($_POST['giorniMin'])) {
+    $anniMin = !empty($_POST['anniMin']) ? $_POST['anniMin'] : 0;
+    $mesiMin = !empty($_POST['mesiMin']) ? $_POST['mesiMin'] : 0;
+    $giorniMin = !empty($_POST['giorniMin']) ? $_POST['giorniMin'] : 0;
+
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('anni', $anniMin);
+    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('mesi', $mesiMin);
+    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('giorni', $giorniMin);
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+if (isset($_POST['modificaCasaSconto']) && !empty($_POST['casaSconto'])) {
+    $casaSconto = $_POST['casaSconto'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('CasaSconto')->item(0)->textContent = $casaSconto;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
+if (isset($_POST['modificaGenereSconto']) && !empty($_POST['genereSconto'])) {
+    $genereSconto = $_POST['genereSconto'];
+    $doc = getDoc('XML/SettingsSconti.xml');
+    $root = $doc->documentElement;
+    $root->getElementsByTagName('GenereSconto')->item(0)->textContent = $genereSconto;
+    $doc->save('XML/SettingsSconti.xml');
+    header("Location: GestioneAdmin.php");
+    exit();
+}
 // Funzione per assegnare o rimuovere sconti agli utenti
 if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST['sconto'])) {
     $id_user = $_POST['id_user'];
@@ -678,14 +749,87 @@ if(isset($_POST['eliminaSegRec'])){
 
 
         
-            <h2> Gestione sconti utente</h2>
-            <?php
+            
+
+            <h1> Settings Sconti</h1>
+
+            <?php 
+
+
+                $doc = new DOMDocument();
+                $doc->load("XML/SettingsSconti.xml");
+
+                $root = $doc->documentElement;
+
+                $minimiSpesi = $root->getElementsByTagName("MinimiSpesi")->item(0)->textContent;
+                $valore = $root->getElementsByTagName("Valore")->item(0)->textContent;
+                $dataInizio = $root->getElementsByTagName("DataInizio")->item(0)->textContent;
+                $reputazioneMin = $root->getElementsByTagName("ReputazioneMin")->item(0)->textContent;
+                $mesiMin = $root->getElementsByTagName("MesiMin")->item(0)->textContent;
+                $anniMin = $root->getElementsByTagName("AnniMin")->item(0)->textContent;
+                $casaSconto = $root->getElementsByTagName("CasaSconto")->item(0)->textContent;
+                $genereSconto = $root->getElementsByTagName("GenereSconto")->item(0)->textContent;
+                
+                echo "<p>Minimi spesi: $minimiSpesi €</p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"minimiSpesi\">Modifica Minimi Spesi:</label>
+                    <input type=\"text\" id=\"minimiSpesi\" name=\"minimiSpesi\" >
+                    <input type=\"submit\" name=\"modificaMinimiSpesi\" value=\"Modifica\">
+                </form>
+
+                <p>Valore sconto: $valore </p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"valoreSconto\">Modifica Valore Sconto:</label>
+                    <input type=\"text\" id=\"valoreSconto\" name=\"valoreSconto\" >
+                    <input type=\"submit\" name=\"modificaValoreSconto\" value=\"Modifica\">
+                </form>
+
+                <p>Data inizio: $dataInizio</p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"dataInizio\">Modifica Data Inizio:</label>
+                    <input type=\"text\" id=\"dataInizio\" name=\"dataInizio\" >
+                    <input type=\"submit\" name=\"modificaDataInizio\" value=\"Modifica\">
+                </form>
+
+                <p>Reputazione minima: $reputazioneMin</p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"reputazioneMin\">Modifica Reputazione Minima:</label>
+                    <input type=\"text\" id=\"reputazioneMin\" name=\"reputazioneMin\" >
+                    <input type=\"submit\" name=\"modificaReputazioneMin\" value=\"Modifica\">
+                </form>
+                <p>Tempo minimo iscrizione: $anniMin anni, $mesiMin mesi</p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"anniMin\">Modifica Anni Minimi:</label>
+                    <input type=\"text\" id=\"anniMin\" name=\"anniMin\" >
+                    <label for=\"mesiMin\">Modifica Mesi Minimi:</label>
+                    <input type=\"text\" id=\"mesiMin\" name=\"mesiMin\" >
+                    <input type=\"submit\" name=\"modificaTempoIscrizione\" value=\"Modifica\">
+                </form>
+                <p>Casa di sviluppo sconto: $casaSconto</p>
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"casaSconto\">Modifica Casa Sconto:</label>
+                    <input type=\"text\" id=\"casaSconto\" name=\"casaSconto\" >
+                    <input type=\"submit\" name=\"modificaCasaSconto\" value=\"Modifica\">
+                </form>
+                <p>Genere sconto: $genereSconto</p> 
+                <form method=\"post\" action=\"GestioneAdmin.php\">
+                    <label for=\"genereSconto\">Modifica Genere Sconto:</label>
+                    <input type=\"text\" id=\"genereSconto\" name=\"genereSconto\" >
+                    <input type=\"submit\" name=\"modificaGenereSconto\" value=\"Modifica\">    
+                </form>
+                
+
+               
+
+            ";
+            
             $elemSconti = xmlPointer('XML/ScontiAssegnati.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
             $utenti = $elemSconti;
+            echo "<h1> Gestione sconti utente</h1>";
 
             foreach ($utenti as $utente) {
                 $id = $utente->getAttribute("id_user");
-                echo "<p>ID utente: $id</p> <br />";
+                echo "<h2>ID utente: $id</h2> <br />";
 
                 $sconti = $utente->getElementsByTagName("Sconto");
                 echo "<p>Sconti assegnati: ";
