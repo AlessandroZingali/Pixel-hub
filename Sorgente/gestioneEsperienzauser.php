@@ -153,7 +153,7 @@ require_once 'serverUtility.php';
             $totaleInterazioni = $likeTotali + $dislikeTotali + (2*$forza);
 
             //il valore del ratio è impostato automaticamente alla meta in caso di assenza di interazioni (doppia sicurezza)
-            if($totaleInterazioni >0) $ratio = $AdLike / $totaleInterazioni;
+            if($totaleInterazioni > (2*$forza)) $ratio = $AdLike / $totaleInterazioni;
             else $ratio = 0.5;
             
             //Calcolo dell'engament "COMPLESSIVO" dei commenti dell'utente

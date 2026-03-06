@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListaAssegnazioneSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Sconti_Assegnati_XML_schema.xsd">
+  <Utente id_user="1">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>6</Sconto>
+    </scontiAssegnati>
+  </Utente>
   <Utente id_user="3">
     <scontiAssegnati>
       <Sconto>5</Sconto>
