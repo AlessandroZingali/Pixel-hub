@@ -51,7 +51,7 @@
       <xsd:simpleContent>
         <xsd:extension base="xsd:integer">
           <xsd:attribute name="data_acquisizione" type="xsd:date" use="required" />
-          <xsd:attribute name="quantita_spesa" type="xsd:float" use="required"/>
+          <xsd:attribute name="spesa" type="xsd:float" use="required"/>
         </xsd:extension>
       </xsd:simpleContent>
     </xsd:complexType>

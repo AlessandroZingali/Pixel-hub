@@ -13,4 +13,9 @@
       <text>meglio street figter</text>
     </Commento>
   </Gioco>
+  <Gioco id_gioco="16">
+    <Commento id_commento="1" id_utente="3" data="06/03/2026" ore="20" minuti="59" like="0" dislike="0" segnalazioni="0">
+      <text>uah che giuoco</text>
+    </Commento>
+  </Gioco>
 </listaCommenti>

@@ -7,4 +7,11 @@
       <Importo>23.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="2" ModCommentiUsato="1" IDGiocatore="3" DataOra="06/03/26 20:56" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Dark Souls 3</Titolo>
+      <IDGioco>16</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

@@ -50,7 +50,7 @@ if(isset($_POST['Accedi']) ){
         foreach($elem as $i){
             if($i->getAttribute('id_user') == $row['ID']){
                 if($i->getElementsByTagName('GenerePreferito')->item(0)->textContent != '') $_SESSION['generePreferito'] = $i->getElementsByTagName('GenerePreferito')->item(0)->textContent;
-                if($row['Tipologia_utente'] == 1) $agencyElem = $i->getElementsByTagName('ToggleAgency')->item(0)->textContent; 
+                if($row['Tipologia_utente'] == 1) if($agencyElem = $i->getElementsByTagName('ToggleAgency')->length>0)$agencyElem = $i->getElementsByTagName('ToggleAgency')->item(0)->textContent; 
                 }
             }
 

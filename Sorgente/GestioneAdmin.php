@@ -301,11 +301,23 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 $pointDB = new connectionDB();
 $mysqliConnection = $pointDB->connectDB();
 $id_utente = $_POST['id_user_gestione'];
-connectDB();
+
 
     if (mysqli_connect_errno()) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
+
+    if(isset($_POST['sospensione'])){
+        $grado = 0;
+    } else {
+        $grado = $_POST['Grado'];
+    }
+
+    if(!isset($_POST['sospensione']) && $_POST['grado_precedente'] == '0'){
+        $grado = 1;
+    }
+
+    
 
     $sql = "
         UPDATE {$pointDB->getTableUsers()}
@@ -313,7 +325,7 @@ connectDB();
         Password = '".$_POST['Password']."',
         Username = '".$_POST['Username']."',
         Esperienza = '".$_POST['Esperienza']."',
-        Grado = '".$_POST['Grado']."',
+        Grado = '".$grado."',
         Pixels = '".$_POST['Pixels']."',
         Saldo_attuale = '".$_POST['Saldo_attuale']."',
         Data_di_Nascita = '".$_POST['Data_di_Nascita']."',
@@ -336,33 +348,7 @@ connectDB();
     }
 }
 
-// Funzione per sospendere un utente
-if(isset($_POST['sospensione'])){
-    $pointDB = new connectionDB();
-    $mysqliConnection = $pointDB->connectDB();
-    $id_utente = $_POST['id_user_gestione'];
-    connectDB();
 
-    if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-
-
-    $sql = "
-        UPDATE {$pointDB->getTableUsers()}
-        SET Grado = 0
-        WHERE ID = '$id_utente'
-    ;";
-
-    // Esecuzione query
-    if (mysqli_query($mysqliConnection, $sql)) {
-        echo"<script>console.log('sospensione eseguita')</script>";
-        // header("Location:GestioneAdmin.php"); 
-    } 
-    else{
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-}
 
 // Funzione per gestire i rimborsi
 if(isset($_POST["richiediRimborso"])){
@@ -1154,11 +1140,19 @@ if(isset($_POST['eliminaSegRec'])){
                                     ";
                                  }
                                  echo "
-                                <label for=\"checkSopsensione\" >Sospendi utente?</label>   
-                                <input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" ><br /> 
+                                <label for=\"checkSopsensione\" >Sospendi utente?</label>  "; 
+                                if($row['Grado'] == '0')
+                                {
+                                    echo "<input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\" checked=\"checked\"><br /> ";
+                                }
+                                else{
+                                    echo "<input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\"><br /> ";
+                                }
 
 
 
+                                echo "
+                                <input type=\"hidden\" name=\"grado_precedente\" value=\"".$row['Grado']."\">
                                 <input type=\"hidden\" name=\"id_user_gestione\" value=\"".$row['ID']."\">
                                 <input type=\"submit\" name=\"modificaUtente\" value=\"Applica modifiche\"></br>
                           </form>";
