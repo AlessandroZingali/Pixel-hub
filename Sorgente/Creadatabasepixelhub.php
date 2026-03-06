@@ -107,7 +107,7 @@ else {
             ),(
                 \"bandasoft@gmail.com\", 
                 \"banda1234!\", 
-                \"Bandai Namco Entertaniment\", 
+                \"Bandai Namco Entertainment\", 
                 3, 
                 0,
                 0, 

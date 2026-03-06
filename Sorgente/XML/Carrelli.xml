@@ -6,4 +6,10 @@
       <prezzo>79.99</prezzo>
     </gioco>
   </carrello>
+  <carrello id_user="2" id_cart="2">
+    <gioco id_gioco="25">
+      <Titolo>Ace Combat 8: wings of theve</Titolo>
+      <prezzo>79.99</prezzo>
+    </gioco>
+  </carrello>
 </listaCarrelli>
