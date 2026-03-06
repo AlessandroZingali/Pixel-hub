@@ -335,7 +335,7 @@ if(isset($_POST['aggiornaScontiPublisher'])){
         }
     }
     $ris=intval(array_sum($sommaFinaleSconti));
-    if($ris>70) $inBound = false;
+    if($ris>70) $inBound = false; // Se la somma totale degli sconti è maggiore di 70, considera i dati come non validi
 
     if($inBound){
         $docSconti = getDoc('XML/Sconti.xml');
@@ -456,29 +456,28 @@ if (isset($_POST["agencyToggleSubmit"])){
     var_dump($_FILES["agencyImageUpload"]);
     $nameLogo = $_SESSION['userName']."_logo.png";
     $target_file = $target_dir.$nameLogo;
-    $table_users = "tabella_utenti";
+    $pointDB = new connectionDB();
 
     // Controlla se il file è stato effettivamente caricato
-    var_dump($target_file);
     if (move_uploaded_file($_FILES["agencyImageUpload"]["tmp_name"], $target_file)) {
         
         $newPath = "loghiPub/$nameLogo";
-        connectDB();
+        $mysqliConnection = $pointDB->connectDB();
 
         if (mysqli_connect_errno()){
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
         $sql = "
-            UPDATE $table_users
+            UPDATE {$pointDB->getTableUsers()}
             SET imgProfiloPathPub = '$newPath'
             WHERE ID = ".(int)$_SESSION['userId'].";
         ";
-        $resultQ = mysqli_query(connectDB(), $sql);
+        $resultQ = mysqli_query($mysqliConnection, $sql);
         if($resultQ){
             header("Location:gestionePublisher.php");
         }
         else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
     }
 

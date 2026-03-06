@@ -24,26 +24,25 @@ $flag=1; // variabile di controllo per gli esiti
 
 // Se viene premuto il tasto accedi si effettua la connessione al DB e si fa partire la query di login
 if(isset($_POST['Accedi']) ){
-session_start();
+    session_start();
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
 
-    
-    $table_users = "Tabella_Utenti";
 
     if (mysqli_connect_errno()){
 
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
     $emailNickname = $_POST['EmailNickname'];
     $password = $_POST['Password'];
     // Si effettua la connessione al database usando password e l'email/nickname e fa partire la query 
-    $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
-    $resultQ = mysqli_query(connectDB(), $queryLogin);
+    $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (Email='$emailNickname' OR Username='$emailNickname') AND Password='$password'";
+    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
     $num = mysqli_num_rows($resultQ);
 
     // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato
     if($num == 1){
         $flag=1;
-        session_start();
         $row=mysqli_fetch_array($resultQ);
         
         // Caricamento del genere preferito dell'utente dal suo file XML, sfruttando il suo ID e il risultato della query
@@ -81,19 +80,13 @@ session_start();
             }
         }
         $doc->save("XML/Recovery.xml");
+        $pointDB->close($mysqliConnection);
 
 
-        
-        
-
-        
-        
-        
         // Una volta fatto questo verremo reindirizzati alla Homepage
         if($_SESSION['Grado']>0) header("Location: Homepage.php");
-        else if ($_SESSION['Grado'] == 0){ // Controllo se l'utente ha grado 0
-        $flag=4;
-    }
+        else if ($_SESSION['Grado'] == 0) $flag=4;// Controllo se l'utente ha grado 0
+    
     }
     
     if($flag != 4){

@@ -19,8 +19,6 @@ else {
     header("Location:login.php");
 }
 
-// Nome tabella utenti
-$table_users = "Tabella_Utenti";
 
 
 //    CAMBIO USERNAME (DB)
@@ -28,28 +26,29 @@ $table_users = "Tabella_Utenti";
 if (isset($_POST["cambiaUsername"]) && !empty($_POST["newUsername"])) {
 
     // Connessione al database
-    connectDB();
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
 
     // Controllo errori di connessione
     if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
     // Sanificazione input
-    $new = mysqli_real_escape_string(connectDB(), $_POST["newUsername"]);
+    $new = mysqli_real_escape_string($mysqliConnection, $_POST["newUsername"]);
 
     // Query di aggiornamento username
     $sql = "
-        UPDATE $table_users
+        UPDATE {$pointDB->getTableUsers()}
         SET Username = '$new'
         WHERE ID = ".(int)$_SESSION['userId']."
     ";
 
     // Esecuzione query
-    if (mysqli_query(connectDB(), $sql)) {
+    if (mysqli_query($mysqliConnection, $sql)) {
         header("Location:login.php"); // forza nuovo login
     } else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
@@ -62,25 +61,26 @@ if (isset($_POST["cambiaEmail"]) && !empty($_POST["newEmail"])) {
     if (preg_match('/^.*@.*$/', $_POST['newEmail'])) {
 
         
-        connectDB();
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $new = mysqli_real_escape_string(connectDB(), $_POST["newEmail"]);
+        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newEmail"]);
 
         // Update email
         $sql = "
-            UPDATE $table_users
+            UPDATE {$pointDB->getTableUsers()}
             SET Email = '$new'
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query(connectDB(), $sql)) {
+        if (mysqli_query($mysqliConnection, $sql)) {
             header("Location:login.php");
         } else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
     } else {
@@ -99,22 +99,23 @@ if (isset($_POST["cambiaPass"]) && !empty($_POST["newPass"])) {
     if (preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['newPass'])) {
 
         
-        connectDB();
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $new = mysqli_real_escape_string(connectDB(), $_POST["newPass"]);
+        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPass"]);
 
         // Query di aggiornamento password
         $sql = "
-            UPDATE $table_users
+            UPDATE {$pointDB->getTableUsers()}
             SET Password = '$new'
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query(connectDB(), $sql)) {
+        if (mysqli_query($mysqliConnection, $sql)) {
             header("Location:login.php");
         } else {
             printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
@@ -133,25 +134,26 @@ if (isset($_POST["cambiaPIVA"]) && !empty($_POST["newPIVA"])) {
     if (preg_match('/^[0-9]{12}$/', $_POST['newPIVA'])) {
 
         
-        connectDB();
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $new = mysqli_real_escape_string(connectDB(), $_POST["newPIVA"]);
+        $new = mysqli_real_escape_string($mysqliConnection, $_POST["newPIVA"]);
 
         // Aggiorna P.IVA
         $sql = "
-            UPDATE $table_users
+            UPDATE {$pointDB->getTableUsers()}
             SET PIVA = '$new'
             WHERE ID = ".(int)$_SESSION['userId']."
         ";
 
-        if (mysqli_query(connectDB(), $sql)) {
+        if (mysqli_query($mysqliConnection, $sql)) {
             header("Location:Profilo.php");
         } else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
     } else {
@@ -269,22 +271,23 @@ if (isset($_POST["cambiaImmagine"]) && !empty($_POST["newPropic"])){
     $idUtente = $_SESSION["userId"];
 
     $newPath = $_POST['newPropic'];
-    connectDB();
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
 
     if (mysqli_connect_errno()){
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
     $sql = "
-        UPDATE $table_users
+        UPDATE {$pointDB->getTableUsers()}
         SET imgProfiloPath = '$newPath'
         WHERE ID = ".(int)$_SESSION['userId'].";
     ";
-    $resultQ = mysqli_query(connectDB(), $sql);
+    $resultQ = mysqli_query($mysqliConnection, $sql);
     if($resultQ){
         header("Location:Profilo.php");
     }
     else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
@@ -320,15 +323,16 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
             }
         }
 
-        connectDB();
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
 
         if (mysqli_connect_errno()){
 
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
 
-        $sql="SELECT Pixels FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
-        $resultQ = mysqli_query(connectDB(), $sql);
+        $sql="SELECT Pixels FROM {$pointDB->getTableUsers()} WHERE ID = ".(int)$_SESSION['userId'].";";
+        $resultQ = mysqli_query($mysqliConnection, $sql);
         
         if ($resultQ){
             $row = mysqli_fetch_array($resultQ);
@@ -338,12 +342,12 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
         if($invalidFlag == 0){
 
             $sql = "
-            UPDATE $table_users
+            UPDATE {$pointDB->getTableUsers()}
             SET  Pixels = Pixels - $prezzo, imgProfiloPath = \"$newPath\"
             WHERE ID = ".(int)$_SESSION['userId'].";
             ";
 
-            if (mysqli_query(connectDB(), $sql)) {
+            if (mysqli_query($mysqliConnection, $sql)) {
                 $doc = getDoc("XML/utenti.xml");
                 $root = $doc->documentElement;
                 $elem = $root->childNodes;
@@ -362,7 +366,7 @@ if (isset($_POST["AcquistoPic"]) && isset($_POST["scelta"])) {
                 $_SESSION['Pixels'] = $_SESSION['Pixels'] - $prezzo;
                 /*header("Location:Profilo.php");*/
             }
-            else printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            else printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         
         }
     }
@@ -376,22 +380,23 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
     $idUtente = $_SESSION["userId"];
 
     $newPath = $_POST['newPropicPub'];
-    connectDB();
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
 
     if (mysqli_connect_errno()){
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
     $sql = "
-        UPDATE $table_users
+        UPDATE {$pointDB->getTableUsers()}
         SET imgProfiloPathPub = '$newPath'
         WHERE ID = ".(int)$_SESSION['userId'].";
     ";
-    $resultQ = mysqli_query(connectDB(), $sql);
+    $resultQ = mysqli_query($mysqliConnection, $sql);
     if($resultQ){
         header("Location:Profilo.php");
     }
     else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
@@ -483,16 +488,17 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                     
                         <?php 
                             
-                            connectDB();
+                            $pointDB = new connectionDB();
+                            $mysqliConnection = $pointDB->connectDB();
 
                             if (mysqli_connect_errno()){
 
-                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                             }
                             $emailNickname = $_SESSION['Email'];
 
-                            $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname')";
-                            $resultQ = mysqli_query(connectDB(), $queryLogin);
+                            $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (Email='$emailNickname')";
+                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                             $num = mysqli_num_rows($resultQ); 
                             if($num == 1){
                                 $flag=1;
@@ -970,15 +976,15 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                             <button onclick="swapperInPresentazione()"><img src="Stile/Icone/iconafreccia.png" alt="settingbutton" ></button>
                         </div>
                         <?php
-                            $table_users = "tabella_utenti";
 
-                            connectDB();
+                            $pointDB = new connectionDB();
+                            $mysqliConnection = $pointDB->connectDB();
 
                             if (mysqli_connect_errno()){
-                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                             }
-                            $sql = "SELECT * FROM $table_users WHERE ID = ".(int)$_SESSION['userId'].";";
-                            $resultQ = mysqli_query(connectDB(), $sql);
+                            $sql = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID = ".(int)$_SESSION['userId'].";";
+                            $resultQ = mysqli_query($mysqliConnection, $sql);
                             if ($resultQ){
                                 $row = mysqli_fetch_array($resultQ);
                                 $immagineProfiloPub = $row['imgProfiloPathPub'];

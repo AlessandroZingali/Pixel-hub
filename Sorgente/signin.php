@@ -65,16 +65,16 @@ if(isset($_POST['signin']) && $jumper==0){
     if(preg_match('/^.*@.*$/', $_POST['Email']) &&
         preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita']) && 
         preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) ){
-        $table_users="Tabella_Utenti";
-        connectDB();
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
         $num=0;
 
         if (mysqli_connect_errno()){
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
         //Si controlla se l'utente non è gia presente sul database 
-        $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
-        $resultQ = mysqli_query(connectDB(), $queryLogin);
+        $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (Email='".$_POST['Email']."' OR Username='{$_POST['Nickname']}') AND Password='{$_POST['Password']}'";
+        $resultQ = mysqli_query($mysqliConnection, $queryLogin);
         $num = mysqli_num_rows($resultQ);
         // se il numero delle righe presente al controllo della tabella utenti è maggiore di zero vuol dire che c'è gia una riga corrispondente 
         //a l'utente che si sta registrando quindi imposta il messaggio d'alert come utente gia registrato
@@ -88,26 +88,26 @@ if(isset($_POST['signin']) && $jumper==0){
                 else{
                         if($_COOKIE['tipoSignIn'] == "0"){ //Controllando il cookie tipo Signin partono all'occorrenza 3 query sql che inseriscono nella tabella i dati scritti nella form
                         //in questo caso si inserisce un utente normale 
-                        $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
+                        $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 0,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "1"){//Accesso come  publisher che possiede una partita iva con il campo PIVA non vuoto 
-                            $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath,imgProfiloPathPub, PIVA)
+                            $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath,imgProfiloPathPub, PIVA)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
-                            $sql="INSERT INTO $table_users (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
+                            $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
                         VALUES
                         ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 2,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
 
                         // se non si connette da messaggio di errore
-                        if (!$resultQ = mysqli_query(connectDB(), $sql)) {
+                        if (!$resultQ = mysqli_query($mysqliConnection, $sql)) {
                         echo("Query non partita! \n");
                         exit();
                         }
@@ -115,14 +115,15 @@ if(isset($_POST['signin']) && $jumper==0){
 
                         // una volta fatto questo si prende l'id dell'utente appena generato e va a creare la seconda parte delle informazioni sotto forma di file XML
 
-                            connectDB();
+                            $pointDB = new connectionDB();
+                            $mysqliConnection = $pointDB->connectDB();
 
-                            if (mysqli_connect_errno()) printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                            if (mysqli_connect_errno()) printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                             
-                            $nickname = mysqli_real_escape_string(connectDB(), $_POST['Nickname']);
-                            $sql = "SELECT ID FROM $table_users WHERE username = '$nickname'";
+                            $nickname = mysqli_real_escape_string($mysqliConnection, $_POST['Nickname']);
+                            $sql = "SELECT ID FROM {$pointDB->getTableUsers()} WHERE username = '$nickname'";
 
-                            $resultQ = mysqli_query(connectDB(), $sql);
+                            $resultQ = mysqli_query($mysqliConnection, $sql);
 
                             if ($resultQ){
                                 $row = mysqli_fetch_array($resultQ);

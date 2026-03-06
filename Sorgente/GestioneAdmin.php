@@ -298,16 +298,17 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
 //
 if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 
-$table_users='Tabella_Utenti';
+$pointDB = new connectionDB();
+$mysqliConnection = $pointDB->connectDB();
 $id_utente = $_POST['id_user_gestione'];
 connectDB();
 
     if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
     $sql = "
-        UPDATE $table_users
+        UPDATE {$pointDB->getTableUsers()}
         SET Email = '".$_POST['Email']."' ,
         Password = '".$_POST['Password']."',
         Username = '".$_POST['Username']."',
@@ -326,57 +327,59 @@ connectDB();
 
 
     // Esecuzione query
-    if (mysqli_query(connectDB(), $sql)) {
+    if (mysqli_query($mysqliConnection, $sql)) {
 
         // header("Location:GestioneAdmin.php"); 
     } 
     else{
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
 // Funzione per sospendere un utente
 if(isset($_POST['sospensione'])){
-    $table_users='Tabella_Utenti';
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
     $id_utente = $_POST['id_user_gestione'];
     connectDB();
 
     if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
 
     $sql = "
-        UPDATE $table_users
+        UPDATE {$pointDB->getTableUsers()}
         SET Grado = 0
         WHERE ID = '$id_utente'
     ;";
 
     // Esecuzione query
-    if (mysqli_query(connectDB(), $sql)) {
+    if (mysqli_query($mysqliConnection, $sql)) {
         echo"<script>console.log('sospensione eseguita')</script>";
         // header("Location:GestioneAdmin.php"); 
     } 
     else{
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 }
 
 // Funzione per gestire i rimborsi
 if(isset($_POST["richiediRimborso"])){
 
-    $table_users='Tabella_Utenti';
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
     $id_utente = $_POST['id_user_rimborso'];
-    $baseDB = connectDB();
+
 
     if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
 
 
-    $sql ="SELECT * FROM $table_users WHERE ID=\"".$_POST['id_user_rimborso']."\";";
+    $sql ="SELECT * FROM {$pointDB->getTableUsers()} WHERE ID=\"".$_POST['id_user_rimborso']."\";";
     
-    $resultQ = mysqli_query($baseDB, $sql);
+    $resultQ = mysqli_query($mysqliConnection, $sql);
     $num = mysqli_num_rows($resultQ);
     if($num == 1){
         $row=mysqli_fetch_array($resultQ);
@@ -387,60 +390,62 @@ if(isset($_POST["richiediRimborso"])){
         
         $saldoDaAggiungere = $row['Saldo_attuale'] + $_POST['importo'];
         
-        $sql ="UPDATE $table_users SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere WHERE ID=\"".$_POST['id_user_rimborso']."\";";
-        if(mysqli_query($baseDB, $sql)){
-        $docUtente = getDoc("XML/utenti.xml");
-        $docLog = getDoc("XML/LogTransazioniGiochi.xml");
+        $sql ="UPDATE {$pointDB->getTableUsers()} SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere WHERE ID=\"".$_POST['id_user_rimborso']."\";";
+        
+        if(mysqli_query($mysqliConnection, $sql)){
+            $docUtente = getDoc("XML/utenti.xml");
+            $docLog = getDoc("XML/LogTransazioniGiochi.xml");
 
-        $rootUtente = $docUtente->documentElement;
-        $elemUtente = $rootUtente->childNodes;
+            $rootUtente = $docUtente->documentElement;
+            $elemUtente = $rootUtente->childNodes;
 
-        foreach($elemUtente as $utente){
-          if($utente->getAttribute('id_user') == $_POST['id_user_rimborso']){
+            foreach($elemUtente as $utente){
+            if($utente->getAttribute('id_user') == $_POST['id_user_rimborso']){
 
-            $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
+                $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
 
-            if($listaGiochi != null){
+                if($listaGiochi != null){
 
-                $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
+                    $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
 
-                foreach($giochiPosseduti as $gioco){
+                    foreach($giochiPosseduti as $gioco){
 
-                    if(trim($gioco->textContent) == $_POST['id_gioco_rimborso']){
-                        $listaGiochi->removeChild($gioco);
-                        
+                        if(trim($gioco->textContent) == $_POST['id_gioco_rimborso']){
+                            $listaGiochi->removeChild($gioco);
+                            
+                        }
+                    }
+                }
+                
+                }
+                
+
+            
+            }
+            $docUtente->save('XML/utenti.xml');
+
+            $rootLog = $docLog->documentElement;
+            $elemLog = $rootLog->childNodes;
+
+            foreach($elemLog as $log){
+                if($log->getAttribute('IDTransazione') == $_POST['id_transazione_rimborso'] && $log->getAttribute('IDGiocatore') == $_POST['id_user_rimborso']){
+                    $listaGiochi = $log->getElementsByTagName('Gioco');
+                    foreach($listaGiochi as $gioco){
+                        if($gioco->getElementsByTagName('IDGioco')->item(0)->textContent == $_POST['id_gioco_rimborso']){
+                            $gioco->parentNode->removeChild($gioco);
+                            break;
+                        }
+                    }
+                    if(!($log->hasChildNodes())){
+                        $log->parentNode->removeChild($log);
                     }
                 }
             }
-            
-            }
-            
-
-           
-        }
-         $docUtente->save('XML/utenti.xml');
-
-        $rootLog = $docLog->documentElement;
-        $elemLog = $rootLog->childNodes;
-
-        foreach($elemLog as $log){
-            if($log->getAttribute('IDTransazione') == $_POST['id_transazione_rimborso'] && $log->getAttribute('IDGiocatore') == $_POST['id_user_rimborso']){
-                $listaGiochi = $log->getElementsByTagName('Gioco');
-                foreach($listaGiochi as $gioco){
-                    if($gioco->getElementsByTagName('IDGioco')->item(0)->textContent == $_POST['id_gioco_rimborso']){
-                        $gioco->parentNode->removeChild($gioco);
-                        break;
-                    }
-                }
-                if(!($log->hasChildNodes())){
-                    $log->parentNode->removeChild($log);
-                }
-            }
-        }
-        $docLog->save('XML/LogTransazioniGiochi.xml');
-        header('Location: GestioneAdmin.php');
-        } else {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            $docLog->save('XML/LogTransazioniGiochi.xml');
+            header('Location: GestioneAdmin.php');
+        } 
+        else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
     }
     
@@ -1083,15 +1088,16 @@ if(isset($_POST['eliminaSegRec'])){
             <div class="cardSettings hideCard" id="card7">
 
             <?php 
-            $table_users = "Tabella_Utenti";
+            $pointDB = new connectionDB();
+            $mysqliConnection = $pointDB->connectDB();
 
             if (mysqli_connect_errno()){
-                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
             }
             
 
-                $queryLogin = "SELECT * FROM $table_users WHERE ID = '".$_POST['id_user_gestione']."'";
-                $resultQ = mysqli_query(connectDB(), $queryLogin);
+                $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID = '".$_POST['id_user_gestione']."'";
+                $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                 $num = mysqli_num_rows($resultQ);
 
                 // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato
@@ -1193,17 +1199,18 @@ if(isset($_POST['eliminaSegRec'])){
                 <h1>Lista Rimborsi </h1>
                 <?php 
                     if(isset($_POST["id_user_gestione"])){
-                        $table_users='Tabella_Utenti';
+                        $pointDB = new connectionDB();
+                        $mysqliConnection = $pointDB->connectDB();
                         $id_utente = $_POST['id_user_gestione'];
                         connectDB();
 
                         if (mysqli_connect_errno()) {
-                            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                         }
 
-                        $query="SELECT * FROM $table_users WHERE ID=$id_utente";
+                        $query="SELECT * FROM {$pointDB->getTableUsers()} WHERE ID=$id_utente";
 
-                        $result = mysqli_query(connectDB(), $query);
+                        $result = mysqli_query($mysqliConnection, $query);
                         if($result) $num = mysqli_num_rows($result);
                         
 
@@ -1354,7 +1361,7 @@ if(isset($_POST['eliminaSegRec'])){
                 <div><h2>Segnalazioni Recensioni</h2></div>
                 
                 <?php
-           $trovataSegnalazione= false;
+                    $trovataSegnalazione= false;
                     $elem = xmlPointer("XML/Recensioni.xml");
                     foreach($elem as $gioco){
                         $isSegnalato = false;

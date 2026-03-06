@@ -25,21 +25,22 @@ $idUtenteEsterno = $_GET['idUtenteExt'];
 if($service == 0 || !isset($_GET['idUtenteExt'])) header('Location: Homepage.php');
 // quando si accede alla pagina si passa l'id dell'utente dalla quale(normalmente si )
 
-$table_users = "Tabella_Utenti";
+
 $tipoUtente = null;
 $toggleState = 'false';
-connectDB();
+$pointDB = new connectionDB();
+$mysqliConnection = $pointDB->connectDB();
 
 
 if (mysqli_connect_errno()) {
-    printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
 }
 // passati i primi check ci si connette al DB per prendere le informazioni di base del utente
 $sql = "
-    SELECT * FROM $table_users WHERE ID=$idUtenteEsterno
+    SELECT * FROM {$pointDB->getTableUsers()} WHERE ID=$idUtenteEsterno
 ";
 
-$res = mysqli_query(connectDB(), $sql);
+$res = mysqli_query($mysqliConnection, $sql);
 if (mysqli_num_rows($res) > 0) {
     $row = mysqli_fetch_array($res);
     $tipoUtente = $row['Tipologia_utente'];
@@ -164,16 +165,17 @@ if($tipoUtente != null && $tipoUtente == '1') {
                     
                         <?php 
                             
-                            connectDB();
+                            $pointDB = new connectionDB();
+                            $mysqliConnection = $pointDB->connectDB();
 
                             if (mysqli_connect_errno()){
 
-                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                             }
                             
 
-                            $queryLogin = "SELECT * FROM $table_users WHERE (ID='$idUtenteEsterno')";
-                            $resultQ = mysqli_query(connectDB(), $queryLogin);
+                            $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (ID='$idUtenteEsterno')";
+                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                             $num = mysqli_num_rows($resultQ); 
                             if($num == 1){
                                 $flag=1;
@@ -343,14 +345,15 @@ if($tipoUtente != null && $tipoUtente == '1') {
                 <div class="cardProfilo2" id="card2" >
                     <!-- div per il profilo publisher -->
                 <?php
-                connectDB();
+                    $pointDB = new connectionDB();
+                    $mysqliConnection = $pointDB->connectDB();
 
                 if (mysqli_connect_errno()){
-                    printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                    printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                 }
                 
-                $queryLogin = "SELECT * FROM $table_users WHERE (ID='$idUtenteEsterno')";
-                $resultQ = mysqli_query(connectDB(), $queryLogin);
+                $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (ID='$idUtenteEsterno')";
+                $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                 $num = mysqli_num_rows($resultQ); 
                 // Si prende l'username e la path dell'immagine profilo da publisher
                 if($num == 1){

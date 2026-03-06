@@ -5,6 +5,40 @@ come la funzione che carica un file XML e lo restituisce come oggetto DOMDocumen
 la funzione che restituisce il primo livello di nodi figli della root di un file XML o la funzione che setta 
 il limite massimo di giochi da mostrare in ogni slider.*/
 
+
+
+
+class connectionDB{
+    private $db_name;
+    private $table_users;
+    private $usernameDB;
+    private $passwordDB;
+
+    function __construct()
+    {
+        $this->db_name = "Database_Pixel_Hub";
+        $this->table_users = "Tabella_Utenti";
+        $this->usernameDB = "Alessandro";
+        $this->passwordDB = "belandi";
+    }
+    function connectDB(){
+        $mysqliConnection = new mysqli("localhost", $this->usernameDB, $this->passwordDB, $this->db_name);
+        return $mysqliConnection;
+    }
+
+    function getDbName(){
+        return $this->db_name;
+    }
+
+    function getTableUsers(){
+        return $this->table_users;
+    }
+    function close($mysqliConnection){
+        $mysqliConnection->close();
+    }
+
+}
+
 /*La seguente classe contiene le variabili di base per la risposta dei ticket tramite Email. Se si vuole provare lo script 
 per la risposta via mail, basta cambiare il mittente insieme alla key del servizio SMTP, e cambiare anche il destinatario.
 Consigliamo di cambiare solo il destinatario, mettendo la propria mail*/ 
@@ -53,17 +87,7 @@ function setLimiteSlider($elem){
     return $limite;
 }
 
-function connectDB(){
-    //nome del database ovviamente dovra essere uguale in crea database 
-    $db_name = "Database_Pixel_Hub";
-    $table_users = "Tabella_Utenti";
-    // inserire per una nuova installazione il nome utente per il mariaDB e la password
-    $usernameDB = "Alessandro";
-    $passwordDB = "belandi";
 
-    $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB, $db_name);
-    return $mysqliConnection;
-}
 
 
 ?>

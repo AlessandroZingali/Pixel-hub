@@ -19,11 +19,11 @@ require_once 'serverUtility.php';
 
 
     session_start();
-
+    
     
 
     function calcoloEsperienza(){
-        $table_users = "Tabella_Utenti";
+        $pointDB = new connectionDB(); // Creo un oggetto per la connessione al database, se necessario in futuro
         $pixelIniziali= $_SESSION['Pixels'];
 
         //var_dump($_SESSION['gameList']);
@@ -53,16 +53,16 @@ require_once 'serverUtility.php';
             echo "pixel guadagnati " . $pocketPixelTotale;
             echo "mod commenti: " . $modcommenti;
             echo "Esperienza prima: " . $_SESSION['Esperienza'];
-            connectDB();
+            $sqlConnection = $pointDB->connectDB();
 
             //Viene chiamato il DB per inserire la nuova esperienza e in caso modificatore il grado dell'utente.
             //Questo script corregge anche il grado portandolo ad un valore rapportato alla propria esperienza.
             if (mysqli_connect_errno()){
 
-                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                printf("problemi di connessione : %s\n", mysqli_connect_error($sqlConnection));
             }
-            $queryLogin = "SELECT * FROM $table_users WHERE (Email='".$_SESSION['Email']."' OR Username='".$_SESSION['userName']."');";
-            $resultQ = mysqli_query(connectDB(), $queryLogin);
+            $queryLogin = "SELECT * FROM ".$pointDB->getTableUsers()." WHERE (Email='".$_SESSION['Email']."' OR Username='".$_SESSION['userName']."');";
+            $resultQ = mysqli_query($sqlConnection, $queryLogin);
             $num = mysqli_num_rows($resultQ);
 
             if($num == 1){
@@ -96,8 +96,8 @@ require_once 'serverUtility.php';
                 //Se la nuova esperienza supera il cap di esperienza per il grado attuale, l'utente viene promosso al grado successivo.
                 if($nuovaEsperienza >= $capEsperienza){
                     $nuovoGrado = $gradoAttuale + 1;
-                    $updateGradoQuery = "UPDATE $table_users SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
-                    mysqli_query(connectDB(), $updateGradoQuery);
+                    $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
+                    mysqli_query($pointDB->connectDB(), $updateGradoQuery);
                 }
 
             }
@@ -106,8 +106,8 @@ require_once 'serverUtility.php';
                 
                 //Viene aggiornato il DB con i nuovi pixel e la nuova esperienza, 
                 // e viene loggato l'acquisto con il modificatore dei commenti usato, i pixel iniziali e i giochi acquistati.
-                $updateQuery = "UPDATE $table_users SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE ID = $idUtenteLoggato;";
-                mysqli_query(connectDB(), $updateQuery);
+                $updateQuery = "UPDATE ".$pointDB->getTableUsers()." SET Pixels = $nuoviPixels, Esperienza = $nuovaEsperienza WHERE ID = $idUtenteLoggato;";
+                mysqli_query($pointDB->connectDB(), $updateQuery);
 
                 //Viene loggato l'acquisto nel file XML apposito con il modificatore dei commenti usato, i pixel iniziali e i giochi acquistati.
                 logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti, $pixelIniziali); 

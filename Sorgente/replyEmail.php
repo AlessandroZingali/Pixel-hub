@@ -15,20 +15,20 @@ delo script) e la API key della mail che si vuole usare. Per il resto abbiamo us
     try {
         
         //Connessione al database per recuperare i dati dell'utente a cui inviare la mail
-        $table_users="Tabella_Utenti";
-        $baseDB = connectDB();
+
+        $pointDB = new connectionDB();
 
         if (mysqli_connect_errno()) {
-            printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+            printf("problemi di connessione : %s\n", mysqli_connect_error());
         }
 
         if(!isset($_POST['IDUtente']) && isset($_POST['Email'])){
-            $sql ="SELECT * FROM $table_users WHERE Email=\"".$_POST['Email']."\";";
+            $sql ="SELECT * FROM ".$pointDB->getTableUsers()." WHERE Email=\"".$_POST['Email']."\";";
         }
-        else $sql ="SELECT * FROM $table_users WHERE ID=\"".$_POST['IDUtente']."\";";
+        else $sql ="SELECT * FROM ".$pointDB->getTableUsers()." WHERE ID=\"".$_POST['IDUtente']."\";";
 
         
-        $resultQ = mysqli_query($baseDB, $sql);
+        $resultQ = mysqli_query($pointDB->connectDB(), $sql);
         $num = mysqli_num_rows($resultQ);
         if($num == 1){
             $row=mysqli_fetch_array($resultQ);

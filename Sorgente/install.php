@@ -3,18 +3,11 @@
 // Mostra tutti gli errori tranne i NOTICE (come ad esempio variabili non inizializzate)
 error_reporting(E_ALL & ~E_NOTICE);
 
-// Nome del database
-$db_name = "Database_Pixel_Hub";
+include 'serverUtility.php'; // Includo il file di utilità per la connessione al database e altre funzioni utili
 
-// inserire per una nuova installazione il nome utente per il mariaDB
-$usernameDB = "Alessandro";
-$passwordDB = "belandi";
+$pointDB = new connectionDB(); // Creo un oggetto per la connessione al database, se necessario in futuro
 
-// Nome della tabella utenti
-$table_users = "Tabella_Utenti";
-
-// Connessione al server MySQL (senza selezionare il database)
-$mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB);
+$mysqliConnection = $pointDB->connectDB(); // Connessione al database
 
 
 // Controllo errori di connessione
@@ -27,22 +20,22 @@ else {
 
 
     //Per debug/necessita di resettare il server per una modifica nella sua struttura
-    $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB);
+    $mysqliConnection = $pointDB->connectDB(); // Connessione al database
 
-    $queryControllo ="DROP DATABASE IF EXISTS $db_name"; 
+    $queryControllo ="DROP DATABASE IF EXISTS {$pointDB->getDbName()}"; // Query per eliminare il database se esiste già, in modo da poterlo ricreare da zero (utile per test o modifiche alla struttura del databa
     if ($resultQ = mysqli_query($mysqliConnection, $queryControllo)) {
 	printf("Database eliminato...<br /> ");
   
     }
     else {
-        printf("Errore eliminazione Database.");
+        printf("Database non esistente.");
     }
 
     // Connessione riuscita
     printf("Connessione avvenuta con successo ...\n");
 
     // Query per creare il database
-    $queryCreazioneDatabase = "CREATE DATABASE $db_name";
+    $queryCreazioneDatabase = "CREATE DATABASE {$pointDB->getDbName()}";
 
     // Esecuzione della query di creazione database
     if ($resultQ = mysqli_query($mysqliConnection, $queryCreazioneDatabase)) {
@@ -50,7 +43,7 @@ else {
         printf("Database creato ...\n");
 
         // Query per creare la tabella utenti
-        $sqlQuery = "CREATE TABLE $table_users ( 
+        $sqlQuery = "CREATE TABLE {$pointDB->getTableUsers()} ( 
             ID INT AUTO_INCREMENT,                 -- ID univoco utente
             Email VARCHAR(100),                   -- Email utente
             Password VARCHAR(100),                -- Password utente
@@ -71,12 +64,12 @@ else {
         );";
 
         // Chiudo la connessione senza database
-        $mysqliConnection->close();
+        $pointDB->close($mysqliConnection);
+        
 
         // Nuova connessione, questa volta al database appena creato
-        $mysqliConnection = new mysqli("localhost", $usernameDB, $passwordDB, $db_name);
-        // alternativa:
-        // $mysqliConnection = new mysqli("localhost","archer","archer",$db_name);
+        $mysqliConnection = $pointDB->connectDB(); 
+        
 
         // Creazione della tabella
         if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)) {
@@ -84,7 +77,7 @@ else {
             printf("Ho creato la tabella Utenti ...\n");
 
             // Query di inserimento utenti di esempio
-            $sqlQuery = "INSERT INTO $table_users 
+            $sqlQuery = "INSERT INTO {$pointDB->getTableUsers()} 
             (Email, Password, Username, Grado,Esperienza, Pixels, Saldo_attuale, Data_di_Nascita, Nome, Cognome, Tipologia_utente, imgProfiloPath,imgProfiloPathPub, PIVA) 
             VALUES 
             (
@@ -151,7 +144,7 @@ else {
 
 // Chiusura connessione se ancora aperta
 if ($mysqliConnection) {
-    $mysqliConnection->close();
+    $pointDB->close($mysqliConnection);
 }
 ?>
 

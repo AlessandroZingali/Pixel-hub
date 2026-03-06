@@ -3,14 +3,14 @@
 <?php 
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso,
+require_once 'baseScontiUtente.php';
+
 $service = 0;
 $utente = "";
 $titoloGioco = "";
 $idGame = 0;
 $userSet = false;
 
-
-require_once 'baseScontiUtente.php';
 //Logica per verificare che siano stati passati in GET il titolo e l'id del gioco dalla pagina precedente
 if(isset($_GET['titoloGioco']) && isset($_GET['idGioco'])){
     $titoloGioco = $_GET['titoloGioco'];
@@ -856,17 +856,18 @@ if(isset($_SESSION['tipoUtente'])){
                                     $dislikeCommento = $c->getAttribute('dislike');
                                    
                                     //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto il commento
-                                    connectDB();
+                                    $pointDB = new connectionDB();
+                                    $mysqliConnection = $pointDB->connectDB();
                                     
 
                                     if (mysqli_connect_errno()){
 
-                                        printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                                        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                                     }
-                                       $table_users = "Tabella_Utenti";
+                              
 
-                                    $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteCommento'";
-                                    $resultQ = mysqli_query(connectDB(), $queryLogin);
+                                    $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID = '$idUtenteCommento'";
+                                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                                     $num = mysqli_num_rows($resultQ);
 
                                     if($num == 1){
@@ -960,18 +961,17 @@ if(isset($_SESSION['tipoUtente'])){
                                             $dislikeRecensione = $r->getAttribute('dislike');
 
                                             //Effettuiamo una query al database per recuperare lo username dell'utente che ha scritto la recensione
-                                            connectDB();
+                                            $pointDB = new connectionDB();
+                                            $mysqliConnection = $pointDB->connectDB();
 
                                             if (mysqli_connect_errno()){
 
-                                                printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
+                                                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
                                             }
-
-                                            $table_users = "Tabella_Utenti";
                                             
 
-                                            $queryLogin = "SELECT * FROM $table_users WHERE ID = '$idUtenteRecensione'";
-                                            $resultQ = mysqli_query(connectDB(), $queryLogin);
+                                            $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID = '$idUtenteRecensione'";
+                                            $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                                             $num = mysqli_num_rows($resultQ);
 
                                             if($num == 1){

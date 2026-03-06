@@ -86,18 +86,19 @@ if(isset($_SESSION['userId'])){
 
 
 if(isset($_POST['Acquista'])){
-    connectDB();
+    $pointDB = new connectionDB();
+    $mysqliConnection = $pointDB->connectDB();
     $listaGiochi_json = json_decode($_SESSION['gameList']);
     // var_dump($listaGiochi_json);
 
     if (mysqli_connect_errno()){
 
-        printf("problemi di connessione : %s", mysqli_connect_error(connectDB()));
+        printf("problemi di connessione : %s", mysqli_connect_error($mysqliConnection));
     }
     $emailNickname = $_SESSION['Email'];
 
-    $queryLogin = "SELECT * FROM $table_users WHERE Email='$emailNickname' ";
-    $resultQ = mysqli_query(connectDB(), $queryLogin);
+    $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE Email='$emailNickname' ";
+    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
     $num = mysqli_num_rows($resultQ); 
     if($num == 1){
         $row = mysqli_fetch_array($resultQ);
@@ -109,9 +110,9 @@ if(isset($_POST['Acquista'])){
             $nuovoSaldo = $saldoUtente - (float)$_POST['SaldoTotale'];
             echo "risultante: ".$nuovoSaldo;
 
-            $updateSaldoQuery = "UPDATE $table_users SET Saldo_attuale='$nuovoSaldo'  WHERE (Email='$emailNickname' OR Username='$emailNickname')";
+            $updateSaldoQuery = "UPDATE {$pointDB->getTableUsers()} SET Saldo_attuale='$nuovoSaldo'  WHERE (Email='$emailNickname' OR Username='$emailNickname')";
 
-            mysqli_query(connectDB(), $updateSaldoQuery);
+            mysqli_query($mysqliConnection, $updateSaldoQuery);
 
             // Aggiungo i giochi acquistati alla lista giochi posseduti dell'utente
             $doc = getDoc('XML/utenti.xml');
@@ -340,20 +341,17 @@ if(isset($_POST['buttonRimuovi'])){
                                                         $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
                                                         
 
-                                                        connectDB();
+                                                        $pointDB = new connectionDB();
+                                                        $mysqliConnection = $pointDB->connectDB();
 
                                                         if (mysqli_connect_errno()){
 
-                                                            printf("problemi di connessione : %s", mysqli_connect_error(connectDB()));
+                                                            printf("problemi di connessione : %s", mysqli_connect_error($mysqliConnection));
                                                         }
                                                         $emailNickname = $_SESSION['Email'];
 
-                                                        connectDB();
-
-                                                        
-
-                                                        $queryLogin = "SELECT * FROM $table_users WHERE (Email='$emailNickname')";
-                                                        $resultQ = mysqli_query(connectDB(), $queryLogin);
+                                                        $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE (Email='$emailNickname')";
+                                                        $resultQ = mysqli_query($mysqliConnection, $queryLogin);
                                                         $num = mysqli_num_rows($resultQ); 
                                                         if($num == 1){
                                                             $row = mysqli_fetch_array($resultQ);
