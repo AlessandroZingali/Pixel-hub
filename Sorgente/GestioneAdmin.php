@@ -348,6 +348,54 @@ $id_utente = $_POST['id_user_gestione'];
     }
 }
 
+if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
+
+    $xml = getDoc('XML/utenti.xml');
+    $root = $xml->documentElement;
+    $elem = $root->childNodes;
+    foreach ($elem as $utente) {
+        if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+            $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
+            if ($listaGiochi) {
+                $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
+                foreach ($giochiPosseduti as $gioco) {
+                    if (isset($_POST['gioco_' . trim($gioco->textContent)])) {
+                        $listaGiochi->removeChild($gioco);
+                    }
+                }
+            }
+        }
+    }
+    $xml->save('XML/utenti.xml');
+
+}
+
+if(isset($_POST['salvaGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
+
+    $xml = getDoc('XML/utenti.xml');
+    $root = $xml->documentElement;
+    $elem = $root->childNodes;
+    foreach ($elem as $utente) {
+        if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+            $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
+            
+                if(isset($_POST['id_gioco_posseduto'])){
+                    $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
+                    foreach ($giochiPosseduti as $gioco) {
+                        if (isset($_POST['gioco_' . trim($gioco->textContent)])) {
+                            $listaGiochi->removeChild($gioco);
+                        }
+                    }
+                    foreach($_POST['id_gioco_posseduto'] as $id_gioco_posseduto){
+                        $newGioco = $xml->createElement("idGiocoPosseduto", htmlspecialchars($id_gioco_posseduto));
+                        $listaGiochi->appendChild($newGioco);
+                    }
+                }
+        }
+    }
+    $xml->save('XML/utenti.xml');
+}
+
 
 
 // Funzione per gestire i rimborsi
@@ -1147,7 +1195,9 @@ if(isset($_POST['eliminaSegRec'])){
                                 }
                                 else{
                                     echo "<input type=\"checkbox\" id=\"checkSopsensione\" name=\"sospensione\"><br /> ";
-                                }
+                                } 
+                                
+
 
 
 
@@ -1158,6 +1208,60 @@ if(isset($_POST['eliminaSegRec'])){
                           </form>";
                 } else {
                     echo "<h1>Utente non trovato</h1>";
+                }
+
+                echo"<h2>Giochi acquistati:</h2>";
+
+            
+                echo"<p>Seleziona i giochi da rimuovere dalla lista dei giochi posseduti:</p>";
+
+                $elem = xmlPointer("XML/utenti.xml");
+
+                foreach ($elem as $utenteNode) {
+
+                if ($utenteNode->getAttribute('id_user') == $row['ID']) {
+
+                $id_utente = $utenteNode->getAttribute('id_user');
+
+                    $lista = $utenteNode->getElementsByTagName("listaGiochi")->item(0);
+
+                    echo "<form method='post' action='GestioneAdmin.php'>";
+
+                    
+
+                    if ($lista && $lista->hasChildNodes()) {
+
+                        foreach ($utenteNode->getElementsByTagName("idGiocoPosseduto") as $gioco) {
+
+                            $id = $gioco->textContent;
+
+                            echo "<div>";
+                            echo "<input type='checkbox' name='giochi_da_eliminare[]' value='$id'>";
+                            echo " Gioco ID: $id";
+                            echo "</div>";
+                        }
+
+                        echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
+                        echo "<br><input type='submit' name='rimuoviGiochiPosseduti' value='Rimuovi giochi selezionati'>";
+
+                    } else {
+                        echo "<p>Nessun gioco posseduto</p>";
+                    }
+                    
+
+                    echo "<br>";
+
+
+                    echo "<h3>Aggiungi gioco</h3>";
+                    echo "<p>Inserisci l'ID del gioco da aggiungere alla lista dei giochi posseduti separato da virgola:</p>";
+                    echo "<input type='text' name='giochi_da_aggiungere' placeholder='ID gioco 1, ID gioco 2, ...'>";
+                    echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
+
+                    echo "<input type='submit' name='salvaGiochiPosseduti' value='Modifica giochi posseduti'>";
+
+                    echo "</form>";
+
+                }
                 }
                 ?>
                 <div class="buttons">

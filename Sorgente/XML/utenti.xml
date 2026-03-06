@@ -41,6 +41,7 @@
     <Descrizione/>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="06-03-2026" spesa="23.99">23</idGiocoPosseduto>
+      <idGiocoPosseduto/>
     </listaGiochi>
     <listaPropic/>
   </Utente>

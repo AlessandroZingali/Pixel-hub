@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listaAssegnazioneSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Sconti_Assegnati_XML_Schema.xsd">
+<listaAssegnazioneSconti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Sconti_Assegnati_XML_Schema.xsd">
   <Utente id_user="1">
     <scontiAssegnati>
       <Sconto>6</Sconto>
       <Sconto>9</Sconto>
       <Sconto>5</Sconto>
-      <Sconto>3</Sconto>
     </scontiAssegnati>
   </Utente>
   <Utente id_user="3">
@@ -14,20 +13,17 @@
       <Sconto>6</Sconto>
       <Sconto>9</Sconto>
       <Sconto>7</Sconto>
-      <Sconto>3</Sconto>
       <Sconto>4</Sconto>
     </scontiAssegnati>
   </Utente>
   <Utente id_user="2">
     <scontiAssegnati>
       <Sconto>9</Sconto>
-      <Sconto>3</Sconto>
     </scontiAssegnati>
   </Utente>
   <Utente id_user="4">
     <scontiAssegnati>
       <Sconto>9</Sconto>
-      <Sconto>3</Sconto>
       <Sconto>4</Sconto>
     </scontiAssegnati>
   </Utente>

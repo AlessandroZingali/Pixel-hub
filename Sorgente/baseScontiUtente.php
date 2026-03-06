@@ -196,10 +196,102 @@
                 }
                 
            }
+           
+
+           //caso 3: clienti che hanno acquistato una certa offerta(giochi correlati)
+           $giochiCorrelati = [];
+           $giochiPos=[];
+           $alreadyAssigned=false;
+           $offertaFlag=false;
+           $assPointer->reset();
+           $utenti = xmlPointer('XML/utenti.xml');
+           $giochi = xmlPointer('XML/Giochi.xml');
+           $sconti = xmlPointer('XML/Sconti.xml');
+
+           foreach($assPointer->elemAss as $utente){
+                if($utente->getAttribute('id_user')==$idUtente){
+                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                        if($scontoRef->textContent==3){
+                            $alreadyAssigned=true;
+                        }
+                    }
+                }
+            }
+
+           
+            foreach($utenti as $utente){
+                if($utente->getAttribute('id_user')==$idUtente){
+                    if($utente->getElementsByTagName('listaGiochi')->length!=0){
+                        $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
+                        foreach($listaGiochi as $gioco){
+                            array_push($giochiPos, (int)$gioco->textContent);
+                        }
+                    }
+                }
+            }
+
+            foreach($giochi as $gioco){
+                if(!empty($giochiPos)){
+                    if(in_array((int)$gioco->getAttribute('id_gioco'), $giochiPos) ){
+                        if($gioco->getElementsByTagName('TitoliCorrelati')->length > 0){
+                            $correlati = $gioco->getElementsByTagName('TitoliCorrelati')[0]->getElementsByTagName('idGiocoCorrelato');
+                            foreach($correlati as $correlato){
+                                array_push($giochiCorrelati, (int)$correlato->textContent);
+                            }
+                        }
+                    }
+                }
+            }
 
 
-                       //3: sconti per generi correlati
-            $offertaFlag = false;
+            if(!empty($giochiCorrelati)){
+
+                $giochiCorrelati = array_unique($giochiCorrelati);
+
+                foreach($sconti as $sconto){
+                    if($sconto->getAttribute('id_tipoSconto')==3){
+                        foreach($sconto->getElementsByTagName('Gioco') as $giocoSconto){
+                            if(in_array((int)$giocoSconto->textContent, $giochiCorrelati)){
+                                $offertaFlag=true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            $assPointer->reset();
+            if($offertaFlag && !$alreadyAssigned){
+
+                foreach($assPointer->elemAss as $utente){
+                    if($utente->getAttribute('id_user')==$idUtente){
+                        if($offertaFlag){
+                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                            $sconto=$assPointer->doc->createElement('Sconto', '3');
+                            $listaSconti->appendChild($sconto);
+                            $assPointer->save();
+                        }
+                    }
+                }
+            }
+            else if(!$offertaFlag && $alreadyAssigned){
+                foreach($assPointer->elemAss as $utente){
+                    if($utente->getAttribute('id_user')==$idUtente){
+                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                            if($scontoRef->textContent==3){
+                                $scontoDaEliminare = $scontoRef;
+                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                $assPointer->save();
+                            }
+                        }
+                    }
+                } 
+            }
+            
+
+
+
+            //3: sconti per generi correlati
+            /*$offertaFlag = false;
             $giochiCor = [];
             
             $giochi = xmlPointer('XML/Giochi.xml');
@@ -284,7 +376,7 @@
                     }
                 }
                 
-           }
+           }*/
 
             //    caso 4: clienti che hanno una certa reputazione;
              $elemUtenti = xmlPointer('XML/utenti.xml');

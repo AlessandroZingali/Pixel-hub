@@ -20,7 +20,7 @@
     <Gioco valoreSconto="10">23</Gioco>
     <Gioco valoreSconto="5">15</Gioco>
   </Sconto>
-  <Sconto id_tipoSconto="3" valore_minimo="3000">
+  <Sconto id_tipoSconto="3">
     <Gioco valoreSconto="5">17</Gioco>
     <Gioco valoreSconto="3">13</Gioco>
     <Gioco valoreSconto="10">3</Gioco>
