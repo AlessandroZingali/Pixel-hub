@@ -13,10 +13,13 @@
     <linkEsterno/>
     <DataIscrizione>19-01-2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <Descrizione/>
+    <GenerePreferito>Avventura</GenerePreferito>
+    <Descrizione>Ciao sono luke il grande gamemaker</Descrizione>
+    <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.</DescrizionePublisher>
     <ToggleAgency>true</ToggleAgency>
-    <listaGiochi/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="07-03-2026" spesa="10">24</idGiocoPosseduto>
+    </listaGiochi>
     <listaPropic/>
   </Utente>
   <Utente id_user="3">
@@ -24,11 +27,8 @@
     <DataIscrizione>18-02-2016</DataIscrizione>
     <CasaDiSviluppoPreferita>From Software</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
-    <Descrizione>Ciao sono luke il grande gamemaker</Descrizione>
-    <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.</DescrizionePublisher>
+    <Descrizione/>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="06-03-2026" spesa="35.99">16</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="07-03-2026" spesa="59.99">1</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="07-03-2026" spesa="24.99">4</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>

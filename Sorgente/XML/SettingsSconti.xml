@@ -5,8 +5,13 @@
     <Valore>1000</Valore>
     <DataInizio>20-03-2000</DataInizio>
   </MinimiSpesiDa>
+  <listaGiochiAdmin>
+    <Gioco>1</Gioco>
+    <Gioco>20</Gioco>
+    <Gioco>8</Gioco>
+  </listaGiochiAdmin>
   <ReputazioneMin>100</ReputazioneMin>
-  <MesiMin>6</MesiMin>
+  <MesiMin>2</MesiMin>
   <AnniMin>1</AnniMin>
   <CasaSconto>From Software</CasaSconto>
   <GenereSconto>Avventura</GenereSconto>

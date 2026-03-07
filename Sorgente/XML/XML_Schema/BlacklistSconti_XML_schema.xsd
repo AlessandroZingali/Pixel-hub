@@ -11,17 +11,13 @@
     <xsd:element name="Utente">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element ref="Sconto" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="idSconto" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
             <xsd:attribute name="id_user" type="xsd:integer" use="required"/>
         </xsd:complexType>
     </xsd:element>
 
-    <xsd:element name="Sconto">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="id" type="xsd:integer"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
+    <xsd:element name="idSconto" type="xsd:integer" />
 </xsd:schema>
+      
+    

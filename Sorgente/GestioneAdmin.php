@@ -646,6 +646,131 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
     }
 }
 
+if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blacklist'])){
+    
+    $doc = getDoc('XML/BlacklistSconti.xml');
+    $docScontiAssegnati = getDoc('XML/ScontiAssegnati.xml');
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+
+    foreach ($elem as $utenteNode) {
+        if ($utenteNode->getAttribute('id_user') == $_POST['id_user_sconti_blacklist']) {
+            $nodoUtenteBlacklist = $utenteNode;
+        }
+    }
+
+    if(isset($nodoUtenteBlacklist)){
+        if($nodoUtenteBlacklist->hasChildNodes()){
+            
+            $attributeID = $nodoUtenteBlacklist->getAttribute('id_user');
+            $nodoUtenteBlacklist->parentNode->removeChild($nodoUtenteBlacklist);
+
+            $newNodoUtenteBlacklist = $doc->createElement("Utente");
+            $newNodoUtenteBlacklist->setAttribute("id_user", $attributeID);
+            foreach($_POST['sconto'] as $s){
+            $newSconto = $doc->createElement("idSconto", (int)$s);
+            $newNodoUtenteBlacklist->appendChild($newSconto);
+        }
+            $root->appendChild($newNodoUtenteBlacklist);
+        }
+        else if(!isset($_POST['sconto'])){
+            $nodoUtenteBlacklist->parentNode->removeChild($nodoUtenteBlacklist);
+        }
+        else{
+            $nodoUtenteBlacklist->parentNode->removeChild($nodoUtenteBlacklist);
+            $newNodoUtenteBlacklist = $doc->createElement("Utente");
+            $newNodoUtenteBlacklist->setAttribute("id_user", $_POST['id_user_sconti_blacklist']);
+            foreach($_POST['sconto'] as $s){
+                $newSconto = $doc->createElement("idSconto", (int)$s);
+                $newNodoUtenteBlacklist->appendChild($newSconto);
+            }
+            $root->appendChild($newNodoUtenteBlacklist);
+        }
+    }
+    else{
+        $newNodoUtenteBlacklist = $doc->createElement("Utente");
+        $newNodoUtenteBlacklist->setAttribute("id_user", $_POST['id_user_sconti_blacklist']);
+        foreach($_POST['sconto'] as $s){
+            $newSconto = $doc->createElement("idSconto", (int)$s);
+            $newNodoUtenteBlacklist->appendChild($newSconto);
+        }
+        $root->appendChild($newNodoUtenteBlacklist);
+    }
+    $doc->save('XML/BlacklistSconti.xml');
+
+
+    if(isset($_POST['sconto'])){
+        $scontiAssegnatiArray = [];
+        $scannerScontiAssegnati = xmlPointer("XML/ScontiAssegnati.xml");
+        $rootScontiAssegnati = $docScontiAssegnati->documentElement;
+        $elemScontiAssegnati = $rootScontiAssegnati->childNodes;
+        foreach($scannerScontiAssegnati as $utente){
+            if($utente->getAttribute("id_user") == $_POST['id_user_sconti_blacklist']){
+                $sconti = $utente->getElementsByTagName("scontiAssegnati")->item(0);
+                foreach($sconti->childNodes as $sconto){
+                    $idSconto = $sconto->textContent;
+                    $scontiAssegnatiArray[] = trim($idSconto);
+                }
+            }
+        }
+        $scontiAssegnatiArray = array_diff($scontiAssegnatiArray, $_POST['sconto']);
+
+        foreach($elemScontiAssegnati as $utente){
+            if($utente->getAttribute("id_user") == $_POST['id_user_sconti_blacklist']){
+                $nodoUtenteDaModificare = $utente;
+                $nodoScontiAssegnati = $utente->getElementsByTagName("scontiAssegnati")->item(0);
+                break;
+            }
+        }
+        $nodoScontiAssegnati->parentNode->removeChild($nodoScontiAssegnati);
+
+ 
+       
+        $newListaSconti = $docScontiAssegnati->createElement("scontiAssegnati");
+        foreach($scontiAssegnatiArray as $sconto){
+            $newSconto = $docScontiAssegnati->createElement("Sconto", $sconto);
+            $newListaSconti->appendChild($newSconto);
+        }
+        $nodoUtenteDaModificare->appendChild($newListaSconti);
+        $docScontiAssegnati->save('XML/ScontiAssegnati.xml');
+    }
+
+    header("Location: GestioneAdmin.php");
+        
+}
+
+if(isset($_POST['modificaGiochiAdmin'])){
+    if(isset($_POST['giochiAdmin']) && !empty($_POST['giochiAdmin'])){
+        $nodeRemoveSelector = [];
+        $settingsSelector = getDoc('XML/SettingsSconti.xml');
+        $rootSettings = $settingsSelector->documentElement;
+        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
+        foreach($gameListAdmin->childNodes as $gioco){
+            if(in_array(trim($gioco->textContent), $_POST['giochiAdmin'])){
+                array_push($nodeRemoveSelector, $gioco);
+            }
+        }
+        foreach($nodeRemoveSelector as $node){
+            $gameListAdmin->removeChild($node);
+        }
+        $settingsSelector->save('XML/SettingsSconti.xml');
+    }
+
+    if(isset($_POST['nuoviGiochiAdmin']) && !empty($_POST['nuoviGiochiAdmin'])){
+        $settingsSelector = getDoc('XML/SettingsSconti.xml');
+        $rootSettings = $settingsSelector->documentElement;
+        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
+        $arrayNuoviGiochiAdmin = explode(';', $_POST['nuoviGiochiAdmin']);
+        foreach($arrayNuoviGiochiAdmin as $gioco){
+            $newGioco = $settingsSelector->createElement("Gioco", (int)$gioco);
+            $gameListAdmin->appendChild($newGioco);
+        }
+        $settingsSelector->save('XML/SettingsSconti.xml');
+    }
+
+     header("Location: GestioneAdmin.php");
+}
+
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -662,6 +787,7 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
             else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
             else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione']) && !isset($erroreRicercaRim)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
             else if(isset($_POST['cercaUtenteScontoBlacklist']) && !empty($_POST['id_user_sconti_blacklist']) && !isset($erroreRicercaScontoBlacklist)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneScontiBlacklist\");</script>";
+            else if(isset($_POST['cercaUtenteScontoBlacklist']) && isset($erroreRicercaScontoBlacklist)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRicercaScontiBlacklist\");</script>";
             else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
 
             if(isset($erroreRicercaRim)) echo "<script>document.addEventListener(\"DOMContentLoaded\", function() {
@@ -856,13 +982,29 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
             <div class="cardSettings hideCard" id="card2">
                 <?php
                 if(isset($_POST['id_user_sconti_blacklist']) && !empty($_POST['id_user_sconti_blacklist']) && !isset($erroreRicercaScontoBlacklist)){
-                    
+                    $scontiBlacklistati = [];
+                    $utentiBlacklistati = xmlPointer("XML/BlacklistSconti.xml");
+                    foreach($utentiBlacklistati as $utente){
+                        foreach($utente->childNodes as $sconto){
+                            if($utente->getAttribute('id_user') == $_POST['id_user_sconti_blacklist']){
+                                array_push($scontiBlacklistati, $sconto->textContent);
+                            }
+                        }
+                    }
+
                     echo "<form method=\"post\" action=\"GestioneAdmin.php\">";
                     echo"<ul>";
                     foreach($tipologiaSconti as $key => $value){
+                        if(in_array($key, $scontiBlacklistati)){
+                            echo "<li><div class=\"switchAndScontoLabel\"><div class=\"switchLabel\"><div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$key\" name=\"sconto[]\" value=\"$key\" checked=\"checked\"/>";
+                            echo "<label for=\"switchSconto$key\"></label></div><div><p>".$value."</p></div></div></div></li>";
+                        }
+                        else{
+                            echo "<li><div class=\"switchAndScontoLabel\"><div class=\"switchLabel\"><div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$key\" name=\"sconto[]\" value=\"$key\"/>";
+                            echo "<label for=\"switchSconto$key\"></label></div><div><p>".$value."</p></div></div></div></li>";
+                        }
                         
-                        echo "<li><div class=\"switchAndScontoLabel\"><div class=\"switchLabel\"><div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$key\" name=\"sconto[]\"/>";
-                        echo "<label for=\"switchSconto$key\"></label></div><div><p>".$value."</p></div></div></div></li>";
+                        
                     }
                     echo "</ul>";
                     
@@ -872,43 +1014,6 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
                     echo "</form>";
                 }
 
-
-
-
-                    /*$elemSconti = xmlPointer('XML/ScontiAssegnati.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
-                    $utenti = $elemSconti;
-                    echo "<h1> Gestione sconti utente</h1>";
-
-                    foreach ($utenti as $utente) {
-                        $id = $utente->getAttribute("id_user");
-                        echo "<h2>ID utente: $id</h2> <br />";
-
-                        $sconti = $utente->getElementsByTagName("Sconto");
-                        echo "<p>Sconti assegnati: ";
-
-                        foreach ($sconti as $sconto) {
-                            echo $sconto->nodeValue . " ";
-                        }
-
-                        echo "</p>  <br />";
-
-                        echo "<p><form method='post' action='GestioneAdmin.php'>
-                                <input type='hidden' name='id_user' value='$id'>
-                                <label for='sconto_$id'>Assegna nuovo sconto:</label>
-                                <input type='text' id='sconto_$id' name='sconto' >
-                                <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
-
-                            </form></p>";
-                        echo "<form method='post' action='GestioneAdmin.php'>
-                                <input type='hidden' name='id_user' value='$id'>
-                                <label for='sconto_$id'>Rimuovi Sconto:</label>
-                                <input type='text' id='sconto_$id' name='sconto' >
-                                <input type='submit' name='rimuoviSconto' value='Rimuovi Sconto'>
-
-                            </form><hr><br  />";
-                            
-                            
-                    }*/
                 ?>
              <div class="buttons">
                     <div class="backarrow">
@@ -1518,7 +1623,7 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
 
                 <?php 
 
-
+                    $listaGiochiAdmin = [];
                     $doc = new DOMDocument();
                     $doc->load("XML/SettingsSconti.xml");
 
@@ -1532,6 +1637,13 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
                     $anniMin = $root->getElementsByTagName("AnniMin")->item(0)->textContent;
                     $casaSconto = $root->getElementsByTagName("CasaSconto")->item(0)->textContent;
                     $genereSconto = $root->getElementsByTagName("GenereSconto")->item(0)->textContent;
+                    $giochiDaAdmin = $root->getElementsByTagName("listaGiochiAdmin")->item(0)->getElementsByTagName("Gioco");
+                    var_dump($giochiDaAdmin);
+                    foreach($giochiDaAdmin as $giocoAdmin){
+                        array_push($listaGiochiAdmin, $giocoAdmin->textContent);
+                    }
+
+
                     
                     echo "<p>Minimi spesi: $minimiSpesi €</p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
@@ -1579,6 +1691,17 @@ if(isset($_POST['cercaUtenteScontoBlacklist'])){
                         <label for=\"genereSconto\">Modifica Genere Sconto:</label>
                         <input type=\"text\" id=\"genereSconto\" name=\"genereSconto\" >
                         <input type=\"submit\" name=\"modificaGenereSconto\" value=\"Modifica\">    
+                    </form>
+                    <p>Lista Giochi degli admin (spunta per eliminare)</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">";
+    
+                    foreach($listaGiochiAdmin as $giocoAdmin){
+                        echo "<label for=\"giochiAdmin\">ID Giochi Admin: $giocoAdmin</label>
+                        <input type=\"checkbox\" id=\"giochiAdmin\" name=\"giochiAdmin[]\" value=\"$giocoAdmin\" ><br />";
+                    }
+                    echo "<input type=\"text\" id=\"nuoviGiochiAdmin\" name=\"nuoviGiochiAdmin\" placeholder=\"Inserisci nuovi giochi separati da ;\" >";
+                        
+                    echo "<input type=\"submit\" name=\"modificaGiochiAdmin\" value=\"Modifica\">
                     </form>
                     
 

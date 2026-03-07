@@ -55,6 +55,17 @@
             }
 
         }
+        private function blacklistChecker($idUtente, $categoria){
+            $blacklistPointer = xmlPointer('XML/BlacklistSconti.xml');
+            foreach($blacklistPointer as $utente){
+                if($utente->getAttribute('id_user')== $idUtente){
+                    foreach($utente->childNodes as $sconto){
+                        if($sconto->textContent == $categoria) return true;
+                    }
+                }
+            }
+            return false;
+        }
         private function scanner($idUtente){
             $elemUtenti = xmlPointer('XML/utenti.xml');
             $SettingSelector = getRoot('XML/SettingsSconti.xml');
@@ -63,208 +74,175 @@
 
 
             // 1.  clienti che hanno speso N crediti finora,
-            $saldo = 0;
-            foreach($elemUtenti as $utente){
-                if($utente->getAttribute('id_user')== $idUtente){
-                    if($utente->getElementsByTagName('listaGiochi')->length!=0){
-                        $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
-                    foreach($listaGiochi as $gioco){
-                        $saldo+= (int)$gioco->getAttribute('spesa');
-                    }    
-                    }
-                    
-                }
-            }
+            if(!($this->blacklistChecker($idUtente, 1))){
 
-           $SpesaMinima=$SettingSelector->getElementsByTagName('MinimiSpesi')->item(0)->textContent;
-           if($saldo>=$SpesaMinima){
-                $alreadyAssigned=false;
                 
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==1){
-                                $alreadyAssigned=true;
-                            }
-                        }
-                    }
-                }
-                $assPointer->reset();
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                        if(!$alreadyAssigned){
-                            $sconto=$assPointer->doc->createElement('Sconto', '1');
-                            $listaSconti->appendChild($sconto);
-                            $assPointer->save();
-                        }
-                    }
-                }
-           }
-           else{
-                $assPointer->reset();
-                
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==1){
-                                $scontoDaEliminare = $scontoRef;
-                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                $assPointer->save();
-                            }
-                        }
-                    }
-                }
-                
-           }
-
-            // 2. spesa da una certa data
-            $saldo=0;
-            $alreadyAssigned=false;
-            $elemUtenti = xmlPointer('XML/utenti.xml');
-            $SettingSelector = getRoot('XML/SettingsSconti.xml');
-            $ValoreSpesa= $SettingSelector->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('Valore')->item(0)->textContent;
-            $SpesaData = trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementsByTagName('DataInizio')->item(0)->textContent);
-            $giorno = substr($SpesaData, 0, 2);
-            $mese  = substr($SpesaData, 3, 2);
-            $anno  = substr($SpesaData, 6, 4);
-        
-        
-        
-
-            foreach($elemUtenti as $utente){
-                if($utente->getAttribute('id_user')== $idUtente){
-                    if($utente->getElementsByTagName('listaGiochi')->length!=0){
-                        $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
+                $saldo = 0;
+                foreach($elemUtenti as $utente){
+                    if($utente->getAttribute('id_user')== $idUtente){
+                        if($utente->getElementsByTagName('listaGiochi')->length!=0){
+                            $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
                         foreach($listaGiochi as $gioco){
-                            
-                            $dataAcquisto=trim($gioco->getAttribute('data_acquisizione'));
-                            $giornoC = substr($dataAcquisto, 0, 2);
-                            $meseC  = substr($dataAcquisto, 3, 2);
-                            $annoC  = substr($dataAcquisto, 6, 4);
-                            
-                            if($annoC>$anno || ($annoC==$anno && $meseC>$mese) || ($annoC==$anno && $meseC==$mese && $giornoC>=$giorno)){
                             $saldo+= (int)$gioco->getAttribute('spesa');
-                            
-                            }    
+                        }    
                         }
                         
                     }
                 }
 
-            }
-
-        
-
-            if($saldo>=$ValoreSpesa){
-                $alreadyAssigned=false;
-                $assPointer->reset();
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==1){
-                                $alreadyAssigned=true;
+                $SpesaMinima=$SettingSelector->getElementsByTagName('MinimiSpesi')->item(0)->textContent;
+                if($saldo>=$SpesaMinima){
+                        $alreadyAssigned=false;
+                        
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==1){
+                                        $alreadyAssigned=true;
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                $assPointer->reset();
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                        if(!$alreadyAssigned){
-                            $sconto=$assPointer->doc->createElement('Sconto', '2');
-                            $listaSconti->appendChild($sconto);
-                            $assPointer->save();
-                        }
-                    }
-                }
-           }
-           else{
-                $assPointer->reset();
-                
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==2){
-                                $scontoDaEliminare = $scontoRef;
-                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                    $assPointer->reset();
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                            if(!$alreadyAssigned){
+                                $sconto=$assPointer->doc->createElement('Sconto', '1');
+                                $listaSconti->appendChild($sconto);
                                 $assPointer->save();
                             }
                         }
                     }
                 }
+                else{
+                        $assPointer->reset();
+                        
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==1){
+                                        $scontoDaEliminare = $scontoRef;
+                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                        $assPointer->save();
+                                    }
+                                }
+                            }
+                        }
+                        
+                }
+            }
+
+            if(!($this->blacklistChecker($idUtente, 2))){
+                    $saldo=0;
+                    $alreadyAssigned=false;
+                    $elemUtenti = xmlPointer('XML/utenti.xml');
+                    $SettingSelector = getRoot('XML/SettingsSconti.xml');
+                    $ValoreSpesa= $SettingSelector->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('Valore')->item(0)->textContent;
+                    $SpesaData = trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementsByTagName('DataInizio')->item(0)->textContent);
+                    $giorno = substr($SpesaData, 0, 2);
+                    $mese  = substr($SpesaData, 3, 2);
+                    $anno  = substr($SpesaData, 6, 4);
                 
-           }
-           
+                
+                
 
+                    foreach($elemUtenti as $utente){
+                        if($utente->getAttribute('id_user')== $idUtente){
+                            if($utente->getElementsByTagName('listaGiochi')->length!=0){
+                                $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
+                                foreach($listaGiochi as $gioco){
+                                    
+                                    $dataAcquisto=trim($gioco->getAttribute('data_acquisizione'));
+                                    $giornoC = substr($dataAcquisto, 0, 2);
+                                    $meseC  = substr($dataAcquisto, 3, 2);
+                                    $annoC  = substr($dataAcquisto, 6, 4);
+                                    
+                                    if($annoC>$anno || ($annoC==$anno && $meseC>$mese) || ($annoC==$anno && $meseC==$mese && $giornoC>=$giorno)){
+                                    $saldo+= (int)$gioco->getAttribute('spesa');
+                                    
+                                    }    
+                                }
+                                
+                            }
+                        }
+
+                    }
+
+                
+
+                    if($saldo>=$ValoreSpesa){
+                        $alreadyAssigned=false;
+                        $assPointer->reset();
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==1){
+                                        $alreadyAssigned=true;
+                                    }
+                                }
+                            }
+                        }
+                        $assPointer->reset();
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                if(!$alreadyAssigned){
+                                    $sconto=$assPointer->doc->createElement('Sconto', '2');
+                                    $listaSconti->appendChild($sconto);
+                                    $assPointer->save();
+                                }
+                            }
+                        }
+                }
+                else{
+                        $assPointer->reset();
+                        
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==2){
+                                        $scontoDaEliminare = $scontoRef;
+                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                        $assPointer->save();
+                                    }
+                                }
+                            }
+                        }
+                        
+                }
+            }
+           
+     
            //caso 3: clienti che hanno acquistato una certa offerta(giochi correlati)
-           $giochiCorrelati = [];
-           $giochiPos=[];
-           $alreadyAssigned=false;
-           $offertaFlag=false;
-           $assPointer->reset();
-           $utenti = xmlPointer('XML/utenti.xml');
-           $giochi = xmlPointer('XML/Giochi.xml');
-           $sconti = xmlPointer('XML/Sconti.xml');
+           if(!($this->blacklistChecker($idUtente, 3))){
+                $assPointer->reset();
+                $alreadyAssigned=false;
+                $listaGiochiUtente = [];
+                $giochiAdmin = [];
 
-           foreach($assPointer->elemAss as $utente){
-                if($utente->getAttribute('id_user')==$idUtente){
-                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                        if($scontoRef->textContent==3){
-                            $alreadyAssigned=true;
+                $SettingSelector = getRoot('XML/SettingsSconti.xml');
+                $listaGiochiAdmin = $SettingSelector->getElementsByTagName('listaGiochiAdmin')->item(0)->getElementsByTagName('Gioco');
+
+                foreach($listaGiochiAdmin as $gioco){
+                    array_push($giochiAdmin, $gioco->textContent);
+                }
+
+                $utenti = xmlPointer('XML/utenti.xml');
+                foreach($utenti as $utente){
+                    $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
+                    foreach($listaGiochi as $gioco){
+                        if($utente->getAttribute('id_user')== $idUtente){
+                            array_push($listaGiochiUtente, $gioco->textContent);
                         }
                     }
                 }
-            }
 
-           
-            foreach($utenti as $utente){
-                if($utente->getAttribute('id_user')==$idUtente){
-                    if($utente->getElementsByTagName('listaGiochi')->length!=0){
-                        $listaGiochi=$utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
-                        foreach($listaGiochi as $gioco){
-                            array_push($giochiPos, (int)$gioco->textContent);
-                        }
-                    }
-                }
-            }
-
-            foreach($giochi as $gioco){
-                if(!empty($giochiPos)){
-                    if(in_array((int)$gioco->getAttribute('id_gioco'), $giochiPos) ){
-                        if($gioco->getElementsByTagName('TitoliCorrelati')->length > 0){
-                            $correlati = $gioco->getElementsByTagName('TitoliCorrelati')[0]->getElementsByTagName('idGiocoCorrelato');
-                            foreach($correlati as $correlato){
-                                array_push($giochiCorrelati, (int)$correlato->textContent);
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            if(!empty($giochiCorrelati)){
-
-                $giochiCorrelati = array_unique($giochiCorrelati);
-
-                foreach($sconti as $sconto){
-                    if($sconto->getAttribute('id_tipoSconto')==3){
-                        foreach($sconto->getElementsByTagName('Gioco') as $giocoSconto){
-                            if(in_array((int)$giocoSconto->textContent, $giochiCorrelati)){
-                                $offertaFlag=true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            $assPointer->reset();
-            if($offertaFlag && !$alreadyAssigned){
-
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        if($offertaFlag){
+                $intersezione = array_intersect($giochiAdmin, $listaGiochiUtente);
+                if(!(empty($intersezione))){
+                    
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
                             $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
                             $sconto=$assPointer->doc->createElement('Sconto', '3');
                             $listaSconti->appendChild($sconto);
@@ -272,115 +250,28 @@
                         }
                     }
                 }
-            }
-            else if(!$offertaFlag && $alreadyAssigned){
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==3){
-                                $scontoDaEliminare = $scontoRef;
-                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                $assPointer->save();
+                else{
+    
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                if($scontoRef->textContent==3){
+                                    $scontoDaEliminare = $scontoRef;
+                                    $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                    $assPointer->save();
+                                }
                             }
                         }
-                    }
-                } 
-            }
-            
-
-
-
-            //3: sconti per generi correlati
-            /*$offertaFlag = false;
-            $giochiCor = [];
-            
-            $giochi = xmlPointer('XML/Giochi.xml');
-            $utenti = xmlPointer('XML/utenti.xml');
-            $sconti = xmlPointer('XML/Sconti.xml');
-            foreach($sconti as $sconto){
-                if($sconto->getAttribute('id_tipoSconto')==3) $scontoPointer = $sconto;
-            }
-            $scontoSel = $scontoPointer;
-            $assPointer->reset();
-            $isIn = false;
-            $alreadyAssigned=false;
-
-            foreach($giochi as $gioco){
-                if($gioco->getElementsByTagName('TitoliCorrelati')->length > 0){
-                    $correlati = $gioco->getElementsByTagName('TitoliCorrelati')[0]->getElementsByTagName('idGiocoCorrelato');
-                    foreach($scontoSel->getElementsByTagName('Gioco') as $giocoSconto){
-                        if($gioco->getAttribute('id_gioco') == $giocoSconto->textContent){
-                            $isIn = true;
-                            break;
-                        }
-                    }
-                    foreach($correlati as $correlato){
-                        array_push($giochiCor, (int)$correlato->textContent);
-                    }
+                    } 
                 }
-                
-                $isIn = false;
-            }
-            //var_dump($giochiCor);
-            $giochiCor = array_unique($giochiCor);
-            
+                    
 
-            foreach($utenti as $utente){
-                $giochiPosseduti = $utente->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
-                foreach($giochiPosseduti as $gp){
-                    foreach($giochiCor as $gc){
-                        if($gp->textContent == $gc){
-                            $offertaFlag = true;
-                            break;
-                        }
-                    }
-                }
             }
-            
-
-            if($offertaFlag){
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==3){
-                                $alreadyAssigned=true;
-                            }
-                        }
-                    }
-                }
-                
-                $assPointer->reset();
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                        if(!$alreadyAssigned){
-                            $sconto=$assPointer->doc->createElement('Sconto', '3');
-                            $listaSconti->appendChild($sconto);
-                            $assPointer->save();
-                        }
-                    }
-                }
-            }
-            else{
-                $assPointer->reset();
-                
-                foreach($assPointer->elemAss as $utente){
-                    if($utente->getAttribute('id_user')==$idUtente){
-                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                            if($scontoRef->textContent==3){
-                                $scontoDaEliminare = $scontoRef;
-                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                $assPointer->save();
-                            }
-                        }
-                    }
-                }
-                
-           }*/
 
             //    caso 4: clienti che hanno una certa reputazione;
-             $elemUtenti = xmlPointer('XML/utenti.xml');
-             $SettingSelector = getRoot('XML/SettingsSconti.xml');
+            if(!($this->blacklistChecker($idUtente, 4))){
+                $elemUtenti = xmlPointer('XML/utenti.xml');
+                $SettingSelector = getRoot('XML/SettingsSconti.xml');
                 $ReputazioneMin = $SettingSelector->getElementsByTagName('ReputazioneMin')->item(0)->textContent;
 
                 foreach($elemUtenti as $utente){
@@ -431,8 +322,10 @@
                     }
 
                 }
+            }
 
             // caso 5: clienti che sono con noi da X mesi && caso 6: ... da Y anni;
+            
             $elemUtenti = xmlPointer('XML/utenti.xml');
             $SettingSelector = getRoot('XML/SettingsSconti.xml');
 
@@ -450,209 +343,216 @@
                     $diffAnni = (int)date("Y") - (int)$annoC;
                     $diffMesi = ($diffAnni * 12) + ((int)date("m") - (int)$meseC);
 
-
-                    if($diffMesi >= (int)$mesiMin){
-                        $assPointer->reset();
-                        $alreadyAssignedTypeFive=false;
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==5){
-                                        $alreadyAssignedTypeFive=true;
+                    if(!($this->blacklistChecker($idUtente, 5))){
+                        if($diffMesi >= (int)$mesiMin){
+                            $assPointer->reset();
+                            $alreadyAssignedTypeFive=false;
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                        if($scontoRef->textContent==5){
+                                            $alreadyAssignedTypeFive=true;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        $assPointer->reset();
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                                if(!($alreadyAssignedTypeFive)){
-                                    $sconto=$assPointer->doc->createElement('Sconto', 5);
-                                    $listaSconti->appendChild($sconto);
-                                    $assPointer->save();
-                                }
-                            }
-                        }
-                    }
-                    else{
-                        $assPointer->reset();
-                
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==5){
-                                        $scontoDaEliminare = $scontoRef;
-                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                            $assPointer->reset();
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                    if(!($alreadyAssignedTypeFive)){
+                                        $sconto=$assPointer->doc->createElement('Sconto', 5);
+                                        $listaSconti->appendChild($sconto);
                                         $assPointer->save();
                                     }
                                 }
                             }
-                        } 
+                        }
+                        else{
+                            $assPointer->reset();
+                    
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                        if($scontoRef->textContent==5){
+                                            $scontoDaEliminare = $scontoRef;
+                                            $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                            $assPointer->save();
+                                        }
+                                    }
+                                }
+                            } 
+                        }
                     }
-
-                    if($diffAnni >= (int)$anniMin){
-                        $assPointer->reset();
-                        $alreadyAssignedTypeSix=false;
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==6){
-                                        $alreadyAssignedTypeSix=true;
+                    if(!($this->blacklistChecker($idUtente, 6))){
+                        if($diffAnni >= (int)$anniMin){
+                            $assPointer->reset();
+                            $alreadyAssignedTypeSix=false;
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                        if($scontoRef->textContent==6){
+                                            $alreadyAssignedTypeSix=true;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        $assPointer->reset();
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                                if(!($alreadyAssignedTypeSix)){
-                                    $sconto=$assPointer->doc->createElement('Sconto', 6);
-                                    $listaSconti->appendChild($sconto);
-                                    $assPointer->save();
-                                }
-                            }
-                        }
-                    }
-                    else{
-                        $assPointer->reset();
-                
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==6){
-                                        $scontoDaEliminare = $scontoRef;
-                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                            $assPointer->reset();
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                    if(!($alreadyAssignedTypeSix)){
+                                        $sconto=$assPointer->doc->createElement('Sconto', 6);
+                                        $listaSconti->appendChild($sconto);
                                         $assPointer->save();
                                     }
                                 }
                             }
-                        } 
+                        }
+                        else{
+                            $assPointer->reset();
+                    
+                            foreach($assPointer->elemAss as $utente){
+                                if($utente->getAttribute('id_user')==$idUtente){
+                                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                        if($scontoRef->textContent==6){
+                                            $scontoDaEliminare = $scontoRef;
+                                            $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                            $assPointer->save();
+                                        }
+                                    }
+                                }
+                            } 
+                        }
                     }
                 }
 
             }
 
             // caso 7 il gioco appartiene ad una casa di sviluppo
+            if(!($this->blacklistChecker($idUtente, 7))){
+                $alreadyAssigned=false;
+                $SettingSelector = getRoot('XML/SettingsSconti.xml');
+                $casaSviluppo = $SettingSelector->getElementsByTagName('CasaSconto')->item(0)->textContent;
+                $utenti = xmlPointer('XML/utenti.xml');
+                foreach($utenti as $utente){
+                        if($utente->getAttribute('id_user')== $idUtente){
+                            if($utente->getElementsByTagName('CasaDiSviluppoPreferita')->length!=0){
+                                $casaPreferita=trim($utente->getElementsByTagName('CasaDiSviluppoPreferita')[0]->textContent);
 
-            $alreadyAssigned=false;
-            $SettingSelector = getRoot('XML/SettingsSconti.xml');
-            $casaSviluppo = $SettingSelector->getElementsByTagName('CasaSconto')->item(0)->textContent;
-            $utenti = xmlPointer('XML/utenti.xml');
-            foreach($utenti as $utente){
-                    if($utente->getAttribute('id_user')== $idUtente){
-                        if($utente->getElementsByTagName('CasaDiSviluppoPreferita')->length!=0){
-                            $casaPreferita=trim($utente->getElementsByTagName('CasaDiSviluppoPreferita')[0]->textContent);
-
-                    }
-                }
-            }
-            $assPointer->reset();
-            foreach($assPointer->elemAss as $utente){
-                if($utente->getAttribute('id_user')==$idUtente){
-                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                        if($scontoRef->textContent==7){
-                            $alreadyAssigned=true;
                         }
                     }
                 }
-            }
-            if(isset($casaPreferita)){
-              if($casaPreferita == $casaSviluppo && !$alreadyAssigned){
-                    $assPointer->reset();
-                    foreach($assPointer->elemAss as $utente){
-                        if($utente->getAttribute('id_user')==$idUtente){
-                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                            $sconto=$assPointer->doc->createElement('Sconto', '7');
-                            $listaSconti->appendChild($sconto);
-                            $assPointer->save();
-                        }
-                    }
-                }
-                else if($casaPreferita != $casaSviluppo && $alreadyAssigned){
-                    $assPointer->reset();
-                    
-                    foreach($assPointer->elemAss as $utente){
-                        if($utente->getAttribute('id_user')==$idUtente){
-                            foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                if($scontoRef->textContent==7){
-                                    $scontoDaEliminare = $scontoRef;
-                                    $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                    $assPointer->save();
-                                }
+                $assPointer->reset();
+                foreach($assPointer->elemAss as $utente){
+                    if($utente->getAttribute('id_user')==$idUtente){
+                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                            if($scontoRef->textContent==7){
+                                $alreadyAssigned=true;
                             }
                         }
-                    } 
-                }  
+                    }
+                }
+                if(isset($casaPreferita)){
+                if($casaPreferita == $casaSviluppo && !$alreadyAssigned){
+                        $assPointer->reset();
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                $sconto=$assPointer->doc->createElement('Sconto', '7');
+                                $listaSconti->appendChild($sconto);
+                                $assPointer->save();
+                            }
+                        }
+                    }
+                    else if($casaPreferita != $casaSviluppo && $alreadyAssigned){
+                        $assPointer->reset();
+                        
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==7){
+                                        $scontoDaEliminare = $scontoRef;
+                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                        $assPointer->save();
+                                    }
+                                }
+                            }
+                        } 
+                    }  
+                }
             }
             
 
 
             
             // caso 8 il gioco appartiene ad un certo genere
-            $alreadyAssigned=false;
-            $SettingSelector = getRoot('XML/SettingsSconti.xml');
-            $genereSelezionato = $SettingSelector->getElementsByTagName('GenereSconto')->item(0)->textContent;
-            $utenti = xmlPointer('XML/utenti.xml');
-            foreach($utenti as $u){
-                $refGiochi = $u->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
-                foreach($refGiochi as $rg){
-                    $giochiPointer = xmlPointer('XML/Giochi.xml');
-                    foreach($giochiPointer as $g){
-                        if($g->getAttribute('id_gioco') == $rg->textContent){
-                            $genereDaConfrontare = $g->getElementsByTagName('Generi')->item(0)->textContent;
-                            if($genereDaConfrontare == $genereSelezionato){
-                            $assPointer->reset();
-                            $alreadyAssigned=false;
-                            foreach($assPointer->elemAss as $utente){
-                                if($utente->getAttribute('id_user')==$idUtente){
-                                    foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                        if($scontoRef->textContent==8){
-                                            $alreadyAssigned=true;
-                                        }
+            if(!($this->blacklistChecker($idUtente, 8))){
+                $alreadyAssigned=false;
+                $SettingSelector = getRoot('XML/SettingsSconti.xml');
+                $genereSelezionato = $SettingSelector->getElementsByTagName('GenereSconto')->item(0)->textContent;
+                $utenti = xmlPointer('XML/utenti.xml');
+                foreach($utenti as $u){
+                    $refGiochi = $u->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto');
+                    foreach($refGiochi as $rg){
+                        $giochiPointer = xmlPointer('XML/Giochi.xml');
+                        foreach($giochiPointer as $g){
+                            if($g->getAttribute('id_gioco') == $rg->textContent){
+                                $genereDaConfrontare = $g->getElementsByTagName('Generi')->item(0)->textContent;
+                                if($genereDaConfrontare == $genereSelezionato){
+                                $assPointer->reset();
+                                $alreadyAssigned=false;
+                                foreach($assPointer->elemAss as $utente){
+                                    if($utente->getAttribute('id_user')==$idUtente){
+                                        foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                            if($scontoRef->textContent==8){
+                                                $alreadyAssigned=true;
+                                            }
+                                }
+                            }
+                        }
+                        $assPointer->reset();
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                if(!$alreadyAssigned){
+                                    $sconto=$assPointer->doc->createElement('Sconto', '8');
+                                    $listaSconti->appendChild($sconto);
+                                    $assPointer->save();
+                                }
                             }
                         }
                     }
-                    $assPointer->reset();
-                    foreach($assPointer->elemAss as $utente){
-                        if($utente->getAttribute('id_user')==$idUtente){
-                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                            if(!$alreadyAssigned){
-                                $sconto=$assPointer->doc->createElement('Sconto', '8');
-                                $listaSconti->appendChild($sconto);
-                                $assPointer->save();
                             }
                         }
-                    }
-                }
-                        }
+                        
                     }
                     
                 }
-                
             }
             // caso 9 sconto indipendente
-            $alreadyAssigned=false;
-            $assPointer->reset();
-            foreach($assPointer->elemAss as $utente){
-                if($utente->getAttribute('id_user')==$idUtente){
-                    $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                    foreach($listaSconti->getElementsByTagName('Sconto') as $scontoRef){
-                        $scontoId = (int)$scontoRef->textContent;
-                        if($scontoId == 9) $alreadyAssigned=true;
-                        
-                    }
-                }
-            }
-            if(!$alreadyAssigned){
+            if(!($this->blacklistChecker($idUtente, 9))){
+                $alreadyAssigned=false;
                 $assPointer->reset();
                 foreach($assPointer->elemAss as $utente){
                     if($utente->getAttribute('id_user')==$idUtente){
                         $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                        $sconto=$assPointer->doc->createElement('Sconto', '9');
-                        $listaSconti->appendChild($sconto);
-                        $assPointer->save();
+                        foreach($listaSconti->getElementsByTagName('Sconto') as $scontoRef){
+                            $scontoId = (int)$scontoRef->textContent;
+                            if($scontoId == 9) $alreadyAssigned=true;
+                            
+                        }
+                    }
+                }
+                if(!$alreadyAssigned){
+                    $assPointer->reset();
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                            $sconto=$assPointer->doc->createElement('Sconto', '9');
+                            $listaSconti->appendChild($sconto);
+                            $assPointer->save();
+                        }
                     }
                 }
             }

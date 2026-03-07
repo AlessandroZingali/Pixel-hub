@@ -14,4 +14,11 @@
       <Importo>35.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="3" ModCommentiUsato="1" IDGiocatore="2" DataOra="07/03/26 17:17" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Terraria</Titolo>
+      <IDGioco>24</IDGioco>
+      <Importo>10</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>
