@@ -6,6 +6,17 @@ require 'serverUtility.php';
 
 $service = 0;
 $utente = "";
+$tipologiaSconti = [
+    1=>"clienti che hanno speso N crediti finora", 
+    2=>"clienti che hanno speso M crediti da una certa data", 
+    3=>"clienti che hanno acquistato un gioco nella lista giochi consigliati dall'admin",
+    4=>"clienti che hanno una certa reputazione", 
+    5=>"clienti che sono con noi da X mesi",
+    6=>"clienti che sono con noi da Y anni",
+    7=>"il gioco appartiene ad una certa casa di sviluppo",
+    8=>"il gioco appartiene ad un certo genere (magari tra quelli più apprezzati dal cliente)",
+    9=>"sconto indipendente(esempio saldi invernali o festivi o altro)",
+];
 
 session_start();
 if($_SESSION['tipoUtente'] == '2'){
@@ -353,49 +364,80 @@ if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])
     $xml = getDoc('XML/utenti.xml');
     $root = $xml->documentElement;
     $elem = $root->childNodes;
+
     foreach ($elem as $utente) {
+
         if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+
             $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
-            if ($listaGiochi) {
+
+            if ($listaGiochi && isset($_POST['giochi_da_rimuovere'])) {
+
                 $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
-                foreach ($giochiPosseduti as $gioco) {
-                    if (isset($_POST['gioco_' . trim($gioco->textContent)])) {
+
+                for ($i = $giochiPosseduti->length - 1; $i >= 0; $i--) {
+
+                    $gioco = $giochiPosseduti->item($i);
+
+                    if (in_array(trim($gioco->textContent), $_POST['giochi_da_rimuovere'])) {
+
                         $listaGiochi->removeChild($gioco);
+
                     }
                 }
             }
         }
     }
-    $xml->save('XML/utenti.xml');
 
+    $xml->save('XML/utenti.xml');
 }
 
-if(isset($_POST['salvaGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
+
+
+if(isset($_POST['aggiungiGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
 
     $xml = getDoc('XML/utenti.xml');
-    $root = $xml->documentElement;
-    $elem = $root->childNodes;
-    foreach ($elem as $utente) {
+    $utenti = $xml->getElementsByTagName("Utente");
+
+    foreach ($utenti as $utente) {
+
         if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+
             $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
-            
-                if(isset($_POST['id_gioco_posseduto'])){
-                    $giochiPosseduti = $listaGiochi->getElementsByTagName("idGiocoPosseduto");
-                    foreach ($giochiPosseduti as $gioco) {
-                        if (isset($_POST['gioco_' . trim($gioco->textContent)])) {
-                            $listaGiochi->removeChild($gioco);
+
+            if ($listaGiochi && isset($_POST['id_gioco_posseduto'])) {
+
+                $giochiDaAggiungere = explode(',', $_POST['id_gioco_posseduto']);
+                $giochiDaAggiungere = array_map('trim', $giochiDaAggiungere);
+
+                foreach ($giochiDaAggiungere as $giocoId) {
+
+                    if (!empty($giocoId)) {
+
+                        $newGioco = $xml->createElement("idGiocoPosseduto", $giocoId);
+                        $newGioco->setAttribute("data_acquisizione", date("d-m-Y"));
+
+                        $giochi = xmlPointer("XML/Giochi.xml");
+                        foreach ($giochi as $gioco) {
+                            if ($gioco->getAttribute("id_gioco") == $giocoId) {
+                                $prezzoGioco = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                                break;
+                            }
                         }
-                    }
-                    foreach($_POST['id_gioco_posseduto'] as $id_gioco_posseduto){
-                        $newGioco = $xml->createElement("idGiocoPosseduto", htmlspecialchars($id_gioco_posseduto));
+                        $newGioco->setAttribute("spesa", $prezzoGioco);
                         $listaGiochi->appendChild($newGioco);
+
+
                     }
                 }
+            }
+
+            break;
         }
     }
+
     $xml->save('XML/utenti.xml');
 }
-
 
 
 // Funzione per gestire i rimborsi
@@ -586,6 +628,24 @@ if(isset($_POST['eliminaSegRec'])){
         }
     }
 }
+
+
+if(isset($_POST['cercaUtenteScontoBlacklist'])){
+    if(isset($erroreRicercaScontoBlacklist)) unset($erroreRicercaScontoBlacklist);
+    $id_user = $_POST['id_user_sconti_blacklist'];
+    $utentiBlacklist = xmlPointer("XML/utenti.xml");
+    $trovato = false;
+    foreach ($utentiBlacklist as $utenteNode) {
+        if ($utenteNode->getAttribute('id_user') == $id_user) {
+            $trovato = true;
+            break;
+        }
+    }
+    if (!$trovato) {
+        $erroreRicercaScontoBlacklist = "Utente non trovato";
+    }
+}
+
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -601,6 +661,7 @@ if(isset($_POST['eliminaSegRec'])){
             if(isset($_POST['cercaGioco']) && !empty($_POST['id_gioco_modifica'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"ricercaGioco\");</script>";
             else if (isset($_POST['cercaUtente']) && !empty($_POST['id_user_gestione'])) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneUtente\");</script>";
             else if (isset($_POST['cercaUtenteRimborso']) && !empty($_POST['id_user_gestione']) && !isset($erroreRicercaRim)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneRimborso\");</script>";
+            else if(isset($_POST['cercaUtenteScontoBlacklist']) && !empty($_POST['id_user_sconti_blacklist']) && !isset($erroreRicercaScontoBlacklist)) echo "<script>sessionStorage.setItem(\"activeChange\", \"gestioneScontiBlacklist\");</script>";
             else echo "<script>sessionStorage.setItem(\"activeChange\", \"vuoto\");</script>";
 
             if(isset($erroreRicercaRim)) echo "<script>document.addEventListener(\"DOMContentLoaded\", function() {
@@ -673,14 +734,18 @@ if(isset($_POST['eliminaSegRec'])){
                 <h1>Menu Funzioni admin</h1>
                 
                 <div class="buttons">
+                    
+
                     <div class="sconti">
                     <p> - Vai alla pagina gestione sconti per gli utenti
-                        <!-- accedi alla card 2 nascondi la card 0 -->
-                        <button onclick="swapperInSettings()">  
+                        <!-- accedi alla card 12 nascondi la card 0 -->
+                        <button onclick="swapperInSearchUtentiSco()">  
                             <img src="Stile/Icone/scontoicon.png" alt="sconticonbutton" > 
                         </button>
                     </p>
                     </div>
+
+
                     <div class="modifica">
                         <p>- Modifica un gioco presente - >
                         <!-- accedi alla card 4 nascondi la card 0 -->
@@ -717,6 +782,13 @@ if(isset($_POST['eliminaSegRec'])){
                         <p>- Gestisci Le segnalazioni - >
                             <button onclick="swapperInGestioneSegnalazioni()"> <img src="Stile/Icone/segnalaicon.png" alt="Segnalzionibutton" >
                         </button>  
+                        </p>
+                    </div>
+                    <div class="settings">
+                        <p> - Modifica le regole per l'assegnazione degli sconti - >
+                            <!-- accedi alla card 11 nascondi la card 0 -->
+                            <button onclick="swapperInSettingsSconti()">   <img src="Stile/Icone/settingsicon.png" alt="settingsbutton" > 
+                            </button>
                         </p>
                     </div>
                 </div>
@@ -774,129 +846,70 @@ if(isset($_POST['eliminaSegRec'])){
                 </table>
                  <div class="buttons">
                     <div class="backarrow">
-                        <button onclick="swapperInTickets()">  <img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
+                        <button onclick="swapperInTickets()">  <img src="Stile/Icone/iconafreccia.png" alt="sospendigiocobutton" ></button>
                     </div>
                 </div>
             
             
             </div>
 
-
             <div class="cardSettings hideCard" id="card2">
-                
-            
-
-
-        
-            
-
-            <h1> Settings Sconti</h1>
-
-            <?php 
-
-
-                $doc = new DOMDocument();
-                $doc->load("XML/SettingsSconti.xml");
-
-                $root = $doc->documentElement;
-
-                $minimiSpesi = $root->getElementsByTagName("MinimiSpesi")->item(0)->textContent;
-                $valore = $root->getElementsByTagName("Valore")->item(0)->textContent;
-                $dataInizio = $root->getElementsByTagName("DataInizio")->item(0)->textContent;
-                $reputazioneMin = $root->getElementsByTagName("ReputazioneMin")->item(0)->textContent;
-                $mesiMin = $root->getElementsByTagName("MesiMin")->item(0)->textContent;
-                $anniMin = $root->getElementsByTagName("AnniMin")->item(0)->textContent;
-                $casaSconto = $root->getElementsByTagName("CasaSconto")->item(0)->textContent;
-                $genereSconto = $root->getElementsByTagName("GenereSconto")->item(0)->textContent;
-                
-                echo "<p>Minimi spesi: $minimiSpesi €</p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"minimiSpesi\">Modifica Minimi Spesi:</label>
-                    <input type=\"text\" id=\"minimiSpesi\" name=\"minimiSpesi\" >
-                    <input type=\"submit\" name=\"modificaMinimiSpesi\" value=\"Modifica\">
-                </form>
-
-                <p>Valore sconto: $valore </p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"valoreSconto\">Modifica Valore Sconto:</label>
-                    <input type=\"text\" id=\"valoreSconto\" name=\"valoreSconto\" >
-                    <input type=\"submit\" name=\"modificaValoreSconto\" value=\"Modifica\">
-                </form>
-
-                <p>Data inizio: $dataInizio</p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"dataInizio\">Modifica Data Inizio:</label>
-                    <input type=\"text\" id=\"dataInizio\" name=\"dataInizio\" >
-                    <input type=\"submit\" name=\"modificaDataInizio\" value=\"Modifica\">
-                </form>
-
-                <p>Reputazione minima: $reputazioneMin</p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"reputazioneMin\">Modifica Reputazione Minima:</label>
-                    <input type=\"text\" id=\"reputazioneMin\" name=\"reputazioneMin\" >
-                    <input type=\"submit\" name=\"modificaReputazioneMin\" value=\"Modifica\">
-                </form>
-                <p>Tempo minimo iscrizione: $anniMin anni, $mesiMin mesi</p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"anniMin\">Modifica Anni Minimi:</label>
-                    <input type=\"text\" id=\"anniMin\" name=\"anniMin\" >
-                    <label for=\"mesiMin\">Modifica Mesi Minimi:</label>
-                    <input type=\"text\" id=\"mesiMin\" name=\"mesiMin\" >
-                    <input type=\"submit\" name=\"modificaTempoIscrizione\" value=\"Modifica\">
-                </form>
-                <p>Casa di sviluppo sconto: $casaSconto</p>
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"casaSconto\">Modifica Casa Sconto:</label>
-                    <input type=\"text\" id=\"casaSconto\" name=\"casaSconto\" >
-                    <input type=\"submit\" name=\"modificaCasaSconto\" value=\"Modifica\">
-                </form>
-                <p>Genere sconto: $genereSconto</p> 
-                <form method=\"post\" action=\"GestioneAdmin.php\">
-                    <label for=\"genereSconto\">Modifica Genere Sconto:</label>
-                    <input type=\"text\" id=\"genereSconto\" name=\"genereSconto\" >
-                    <input type=\"submit\" name=\"modificaGenereSconto\" value=\"Modifica\">    
-                </form>
-                
-
-               
-
-            ";
-            
-            $elemSconti = xmlPointer('XML/ScontiAssegnati.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
-            $utenti = $elemSconti;
-            echo "<h1> Gestione sconti utente</h1>";
-
-            foreach ($utenti as $utente) {
-                $id = $utente->getAttribute("id_user");
-                echo "<h2>ID utente: $id</h2> <br />";
-
-                $sconti = $utente->getElementsByTagName("Sconto");
-                echo "<p>Sconti assegnati: ";
-
-                foreach ($sconti as $sconto) {
-                    echo $sconto->nodeValue . " ";
+                <?php
+                if(isset($_POST['id_user_sconti_blacklist']) && !empty($_POST['id_user_sconti_blacklist']) && !isset($erroreRicercaScontoBlacklist)){
+                    
+                    echo "<form method=\"post\" action=\"GestioneAdmin.php\">";
+                    echo"<ul>";
+                    foreach($tipologiaSconti as $key => $value){
+                        
+                        echo "<li><div class=\"switchAndScontoLabel\"><div class=\"switchLabel\"><div class=\"switch\"><input type=\"checkbox\" id=\"switchSconto$key\" name=\"sconto[]\"/>";
+                        echo "<label for=\"switchSconto$key\"></label></div><div><p>".$value."</p></div></div></div></li>";
+                    }
+                    echo "</ul>";
+                    
+                        echo "<input type=\"hidden\" name=\"id_user_sconti_blacklist\" value=\"".$_POST['id_user_sconti_blacklist']."\">";
+                    
+                    echo "<input type=\"submit\" name=\"impostaBlacklistSconti\" value=\"Imposta Sconti\">";
+                    echo "</form>";
                 }
 
-                echo "</p>  <br />";
 
-                echo "<p><form method='post' action='GestioneAdmin.php'>
-                        <input type='hidden' name='id_user' value='$id'>
-                        <label for='sconto_$id'>Assegna nuovo sconto:</label>
-                        <input type='text' id='sconto_$id' name='sconto' >
-                        <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
 
-                      </form></p>";
-                echo "<form method='post' action='GestioneAdmin.php'>
-                        <input type='hidden' name='id_user' value='$id'>
-                        <label for='sconto_$id'>Rimuovi Sconto:</label>
-                        <input type='text' id='sconto_$id' name='sconto' >
-                        <input type='submit' name='rimuoviSconto' value='Rimuovi Sconto'>
 
-                      </form><hr><br  />";
-                      
-                    
-            }
-            ?>
+                    /*$elemSconti = xmlPointer('XML/ScontiAssegnati.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
+                    $utenti = $elemSconti;
+                    echo "<h1> Gestione sconti utente</h1>";
+
+                    foreach ($utenti as $utente) {
+                        $id = $utente->getAttribute("id_user");
+                        echo "<h2>ID utente: $id</h2> <br />";
+
+                        $sconti = $utente->getElementsByTagName("Sconto");
+                        echo "<p>Sconti assegnati: ";
+
+                        foreach ($sconti as $sconto) {
+                            echo $sconto->nodeValue . " ";
+                        }
+
+                        echo "</p>  <br />";
+
+                        echo "<p><form method='post' action='GestioneAdmin.php'>
+                                <input type='hidden' name='id_user' value='$id'>
+                                <label for='sconto_$id'>Assegna nuovo sconto:</label>
+                                <input type='text' id='sconto_$id' name='sconto' >
+                                <input type='submit' name='assegnaSconto' value='Assegna Sconto'>
+
+                            </form></p>";
+                        echo "<form method='post' action='GestioneAdmin.php'>
+                                <input type='hidden' name='id_user' value='$id'>
+                                <label for='sconto_$id'>Rimuovi Sconto:</label>
+                                <input type='text' id='sconto_$id' name='sconto' >
+                                <input type='submit' name='rimuoviSconto' value='Rimuovi Sconto'>
+
+                            </form><hr><br  />";
+                            
+                            
+                    }*/
+                ?>
              <div class="buttons">
                     <div class="backarrow">
                         <button onclick="swapperInSettings()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
@@ -904,9 +917,11 @@ if(isset($_POST['eliminaSegRec'])){
                 </div>
 
 
-            <!-- Funzione admin:rimborso  -->
+            
 
             </div>
+
+            <!-- Funzione admin:rimborso  -->
             <div class="cardSettings hideCard" id="card4">
 
                          
@@ -1227,42 +1242,27 @@ if(isset($_POST['eliminaSegRec'])){
 
                     echo "<form method='post' action='GestioneAdmin.php'>";
 
-                    
-
-                    if ($lista && $lista->hasChildNodes()) {
-
-                        foreach ($utenteNode->getElementsByTagName("idGiocoPosseduto") as $gioco) {
-
-                            $id = $gioco->textContent;
-
-                            echo "<div>";
-                            echo "<input type='checkbox' name='giochi_da_eliminare[]' value='$id'>";
-                            echo " Gioco ID: $id";
-                            echo "</div>";
-                        }
-
-                        echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
-                        echo "<br><input type='submit' name='rimuoviGiochiPosseduti' value='Rimuovi giochi selezionati'>";
-
-                    } else {
-                        echo "<p>Nessun gioco posseduto</p>";
+                    $giochi = $lista->getElementsByTagName("idGiocoPosseduto");
+                    foreach ($giochi as $gioco) {
+                        echo "<input type='checkbox' name='giochi_da_rimuovere[]' value='".htmlspecialchars($gioco->textContent)."'> ID Gioco: ".htmlspecialchars($gioco->textContent)."<br>";
                     }
-                    
 
-                    echo "<br>";
-
-
-                    echo "<h3>Aggiungi gioco</h3>";
-                    echo "<p>Inserisci l'ID del gioco da aggiungere alla lista dei giochi posseduti separato da virgola:</p>";
-                    echo "<input type='text' name='giochi_da_aggiungere' placeholder='ID gioco 1, ID gioco 2, ...'>";
                     echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
-
-                    echo "<input type='submit' name='salvaGiochiPosseduti' value='Modifica giochi posseduti'>";
-
+                    echo "<input type='submit' name='rimuoviGiochiPosseduti' value='Modifica giochi posseduti'><br><br>";
                     echo "</form>";
 
+                    }
                 }
-                }
+
+                echo"<h2> Aggiungi gioco alla lista dei giochi posseduti:</h2>";
+                echo "<form method='post' action='GestioneAdmin.php'>
+                        <label for='id_gioco_posseduto'>inserisci gli id dei giochi da aggiungere alla lista dei giochi posseduti (separati da virgola):</label>
+                        <input type='text' id='id_gioco_posseduto' name='id_gioco_posseduto' >
+                        <input type='hidden' name='id_user_gestione' value='$id_utente'>
+                        <input type='submit' name='aggiungiGiochiPosseduti' value='Modifica giochi posseduti'><br><br>
+                      </form>";
+
+                
                 ?>
                 <div class="buttons">
                     <div class="backarrow">
@@ -1300,7 +1300,7 @@ if(isset($_POST['eliminaSegRec'])){
                         $pointDB = new connectionDB();
                         $mysqliConnection = $pointDB->connectDB();
                         $id_utente = $_POST['id_user_gestione'];
-                        connectDB();
+                        // connectDB();
 
                         if (mysqli_connect_errno()) {
                             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
@@ -1399,10 +1399,11 @@ if(isset($_POST['eliminaSegRec'])){
                     </div>
                 </div>
             </div>
+            
             <div class="cardSettings hideCard" id="card10">
                  <div class="buttons">
                     <div class="backarrow">
-                        <button onclick="swapperInGestioneSegnalazioni()"><img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
+                        <button onclick="swapperInGestioneSegnalazioni()"><img src="Stile/Icone/iconafreccia.png" alt="sospendigiocobutton" ></button>
                     </div>
                 </div>
                 
@@ -1510,8 +1511,119 @@ if(isset($_POST['eliminaSegRec'])){
                 
                 </div>
             </div>
+
+            <!-- card di setting sconti -->
+            <div class="cardSettings hideCard" id="card11">
+                <h1> Settings Sconti</h1>
+
+                <?php 
+
+
+                    $doc = new DOMDocument();
+                    $doc->load("XML/SettingsSconti.xml");
+
+                    $root = $doc->documentElement;
+
+                    $minimiSpesi = $root->getElementsByTagName("MinimiSpesi")->item(0)->textContent;
+                    $valore = $root->getElementsByTagName("Valore")->item(0)->textContent;
+                    $dataInizio = $root->getElementsByTagName("DataInizio")->item(0)->textContent;
+                    $reputazioneMin = $root->getElementsByTagName("ReputazioneMin")->item(0)->textContent;
+                    $mesiMin = $root->getElementsByTagName("MesiMin")->item(0)->textContent;
+                    $anniMin = $root->getElementsByTagName("AnniMin")->item(0)->textContent;
+                    $casaSconto = $root->getElementsByTagName("CasaSconto")->item(0)->textContent;
+                    $genereSconto = $root->getElementsByTagName("GenereSconto")->item(0)->textContent;
+                    
+                    echo "<p>Minimi spesi: $minimiSpesi €</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"minimiSpesi\">Modifica Minimi Spesi:</label>
+                        <input type=\"text\" id=\"minimiSpesi\" name=\"minimiSpesi\" >
+                        <input type=\"submit\" name=\"modificaMinimiSpesi\" value=\"Modifica\">
+                    </form>
+
+                    <p>Valore sconto: $valore </p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"valoreSconto\">Modifica Valore Sconto:</label>
+                        <input type=\"text\" id=\"valoreSconto\" name=\"valoreSconto\" >
+                        <input type=\"submit\" name=\"modificaValoreSconto\" value=\"Modifica\">
+                    </form>
+
+                    <p>Data inizio: $dataInizio</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"dataInizio\">Modifica Data Inizio:</label>
+                        <input type=\"text\" id=\"dataInizio\" name=\"dataInizio\" >
+                        <input type=\"submit\" name=\"modificaDataInizio\" value=\"Modifica\">
+                    </form>
+
+                    <p>Reputazione minima: $reputazioneMin</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"reputazioneMin\">Modifica Reputazione Minima:</label>
+                        <input type=\"text\" id=\"reputazioneMin\" name=\"reputazioneMin\" >
+                        <input type=\"submit\" name=\"modificaReputazioneMin\" value=\"Modifica\">
+                    </form>
+                    <p>Tempo minimo iscrizione: $anniMin anni, $mesiMin mesi</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"anniMin\">Modifica Anni Minimi:</label>
+                        <input type=\"text\" id=\"anniMin\" name=\"anniMin\" >
+                        <label for=\"mesiMin\">Modifica Mesi Minimi:</label>
+                        <input type=\"text\" id=\"mesiMin\" name=\"mesiMin\" >
+                        <input type=\"submit\" name=\"modificaTempoIscrizione\" value=\"Modifica\">
+                    </form>
+                    <p>Casa di sviluppo sconto: $casaSconto</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"casaSconto\">Modifica Casa Sconto:</label>
+                        <input type=\"text\" id=\"casaSconto\" name=\"casaSconto\" >
+                        <input type=\"submit\" name=\"modificaCasaSconto\" value=\"Modifica\">
+                    </form>
+                    <p>Genere sconto: $genereSconto</p> 
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"genereSconto\">Modifica Genere Sconto:</label>
+                        <input type=\"text\" id=\"genereSconto\" name=\"genereSconto\" >
+                        <input type=\"submit\" name=\"modificaGenereSconto\" value=\"Modifica\">    
+                    </form>
+                    
+
+                    <hr><br />
+                    <div class=\"buttons\">
+                        <div class=\"backarrow\">
+                            <button onclick=\"swapperInSettingsSconti()\"><img src=\"Stile/Icone/iconafreccia.png\" alt=\"ricercagiocobutton\" ></button>
+                        </div>
+                    </div>
+
+                
+
+                ";
+                ?>
+                </div>
+                
+                <div class="cardSettings hideCard" id="card12">
+                
+                    <div class="buttons">
+                            <div class="backarrow">
+                                <button onclick="swapperInSearchUtentiSco()"><img src="Stile/Icone/iconafreccia.png" alt="ricercagiocobutton" ></button>
+                            </div>
+                        </div>
+                        
+                        <h2>Inserisci l'id dell'utente di cui vuoi impostare gli sconti</h2>
+                        <?php 
+                         
+                
+                
+                    echo "<form method='post' action='GestioneAdmin.php'>
+                    <label for='id_user_gestione'>ID Utente da gestire:</label>
+                    <input type='text' id='id_user_gestione' name='id_user_sconti_blacklist' >
+                    <input type='submit' name='cercaUtenteScontoBlacklist' value='Cerca Utente'>
+                    </form>";
+                
+                    if(isset($erroreRicercaScontoBlacklist)) echo "<h2>".$erroreRicercaScontoBlacklist."</h2>";
+                ?>
+
+                       
+                     
+                </div>
             </div>
 
+
+        </div>
 
         </div>
 

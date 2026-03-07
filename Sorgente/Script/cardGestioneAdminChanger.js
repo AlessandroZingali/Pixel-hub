@@ -93,6 +93,24 @@ function swapperInGestioneSegnalazioni(){
     cardSegnalazioni.classList.toggle("hideCard");
     
 }
+
+function swapperInSettingsSconti(){
+    var cardPrincipale = document.getElementById("card0"); //Prendo la card del profilo tramite il document
+    var cardGestioneSconti = document.getElementById("card11"); //Prendo la card dello store tramite il document
+    //Uso classList.toggle per aggiungere/rimuovere la classe hideCard
+    cardPrincipale.classList.toggle("hideCard");
+    cardGestioneSconti.classList.toggle("hideCard");
+}
+
+function swapperInSearchUtentiSco(){
+    var cardPrincipale = document.getElementById("card0"); //Prendo la card del profilo tramite il document
+    var cardGestioneSconti = document.getElementById("card12");
+    //Uso classList.toggle per aggiungere/rimuovere la classe hideCard
+    cardPrincipale.classList.toggle("hideCard");
+    cardGestioneSconti.classList.toggle("hideCard");
+}
+
+
 function modificaGiocoPreset(){
     console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
     if(sessionStorage.getItem("activeChange") == "ricercaGioco"){
@@ -144,7 +162,7 @@ function modificaGiocoPreset(){
         sessionStorage.setItem("activeChange", "vuoto");
 
     }
-    if(sessionStorage.getItem("activeChange") == "gestioneRimborso"){
+    else if(sessionStorage.getItem("activeChange") == "gestioneRimborso"){
         var cards = document.querySelectorAll("div[id^='card']");
         console.log(cards);
 
@@ -167,6 +185,29 @@ function modificaGiocoPreset(){
         console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
         sessionStorage.setItem("activeChange", "vuoto");
     }
+    else if(sessionStorage.getItem("activeChange") == "gestioneScontiBlacklist"){
+        var cards = document.querySelectorAll("div[id^='card']");
+        console.log(cards);
+        var cardsArray = Array.from(cards).filter(div => /^card\d+$/.test(div.id)).sort((a, b) => {
+                // Estrai i numeri dagli id e ordina
+                var numA = parseInt(a.id.replace("card", ""));
+                var numB = parseInt(b.id.replace("card", ""));
+                return numA - numB;
+            });
+        console.log(cardsArray);
+
+        cardsArray.forEach(card => {
+            if(!(card.classList.contains("hideCard")) && card.id !== "card2"){
+                card.classList.add("hideCard");
+            }
+            else if(card.id === "card2" && card.classList.contains("hideCard")){
+                card.classList.remove("hideCard");
+            }
+        });
+        console.log("activeStatus: " + sessionStorage.getItem("activeChange"));
+        sessionStorage.setItem("activeChange", "vuoto");
+    }
+    
 }
 
 document.addEventListener("DOMContentLoaded", function() {

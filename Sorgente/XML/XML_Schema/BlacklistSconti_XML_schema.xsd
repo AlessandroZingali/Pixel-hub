@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+    <xsd:element name="Blacklist">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="Utente" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Utente">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="Sconto" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="id_user" type="xsd:integer" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Sconto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:integer"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/SettingsSconti_XML_Schema.xsd">
-  <MinimiSpesi>220</MinimiSpesi>
+  <MinimiSpesi>50</MinimiSpesi>
   <MinimiSpesiDa>
     <Valore>1000</Valore>
     <DataInizio>20-03-2000</DataInizio>
