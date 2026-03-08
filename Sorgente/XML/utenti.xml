@@ -2,11 +2,14 @@
 <listaUtenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Utenti_XML_schema.xsd">
   <Utente id_user="1">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
-    <DataIscrizione>18-02-2016</DataIscrizione>
+    <DataIscrizione>18-03-2025</DataIscrizione>
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
-    <listaGiochi/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="2">4</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="56.99">9</idGiocoPosseduto>
+    </listaGiochi>
     <listaPropic/>
   </Utente>
   <Utente id_user="2">
@@ -25,11 +28,12 @@
   <Utente id_user="3">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
     <DataIscrizione>18-02-2016</DataIscrizione>
-    <CasaDiSviluppoPreferita>From Software</CasaDiSviluppoPreferita>
+    <CasaDiSviluppoPreferita>Bungie</CasaDiSviluppoPreferita>
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="07-03-2026" spesa="24.99">4</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="10">24</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>3</idPropic>

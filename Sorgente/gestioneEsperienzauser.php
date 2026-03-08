@@ -5,6 +5,7 @@ deriva anche dal mod commenti. Il mod commenti è calcolato attraverso uan media
 rapportata ad un engament con il commento da parte degli alti utenti del sito, e sfruttando un divaitore in modo che il tasso del modificatore possa salire o scendere.
 Abbiamo anche impostato dei bound per il tasso del modificatore, in modo che non possa variare oltre certi limiti e stabilizzare l'algoritmo */
 require_once 'serverUtility.php';
+require_once 'baseScontiUtente.php';
     class GameAcquistato{
         public $titolo;
         public $id_gioco;
@@ -111,6 +112,7 @@ require_once 'serverUtility.php';
 
                 //Viene loggato l'acquisto nel file XML apposito con il modificatore dei commenti usato, i pixel iniziali e i giochi acquistati.
                 logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti, $pixelIniziali); 
+                $baseScanner = new scontiUtente($idUtenteLoggato);
                 return;
             
         }

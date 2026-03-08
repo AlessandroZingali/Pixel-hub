@@ -4,6 +4,7 @@
 // e aggiornare informazioni salvate sia su DB che su XML
 
 require 'serverUtility.php'; //Inclusione del file per la gestione del puntatore XML, il quale restituira la lista dei nodi figli della root all'interno del file XML stesso
+require_once 'baseScontiUtente.php';
 
 $service = 0;          // indica se l’utente è loggato
 $utente = "";          // username dell’utente
@@ -264,6 +265,7 @@ if (isset($_POST["cambiaCasa"]) && !empty($_POST["newCasa"])) {
     }
 
     $doc->save("XML/utenti.xml");
+    $baseScanner = new scontiUtente($idUtente);
 }
 
 // CAMBIO IMMAGINE PROFILO

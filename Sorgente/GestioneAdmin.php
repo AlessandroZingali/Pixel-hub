@@ -2,7 +2,8 @@
 /* Questa pagina è l'hub gestionale per gli admin Qui si può trovare la gestione degli sconti per ogni gioco. Si possono gestire le info
 degli utenti e i rimborsi ai vari giochi. Si può riposondere anche ai vari ticket. Ed alto.
  Abbiamo diviso ogni sezione in varie card e quasi ogni card ha la sua card apposita di ricerca per giochi o utenti in vase ad un ID. */
-require 'serverUtility.php'; 
+require 'serverUtility.php';
+require_once 'baseScontiUtente.php'; 
 
 $service = 0;
 $utente = "";
@@ -328,9 +329,21 @@ $id_utente = $_POST['id_user_gestione'];
         $grado = 1;
     }
 
-    
+    $sql = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID='$id_utente';";
+    if(mysqli_query($mysqliConnection, $sql)){
+        $resultQ = mysqli_query($mysqliConnection, $sql);
+        $num = mysqli_num_rows($resultQ);
+        if($num == 1){
+            $row=mysqli_fetch_array($resultQ);
+            $tipoUtente = $row['Tipologia_utente'];
+        }
+    } else {
+        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+    }
 
-    $sql = "
+    $sql2 = "";
+
+    $sql1 = "
         UPDATE {$pointDB->getTableUsers()}
         SET Email = '".$_POST['Email']."' ,
         Password = '".$_POST['Password']."',
@@ -343,20 +356,25 @@ $id_utente = $_POST['id_user_gestione'];
         Nome = '".$_POST['Nome']."',
         Cognome = '".$_POST['Cognome']."',
         Tipologia_utente = '".$_POST['Tipologia_utente']."',
-        imgProfiloPath = '".$_POST['imgProfiloPath']."',
-        PIVA = '".$_POST['PIVA']."'
-        WHERE ID = '$id_utente'
-    ;";
+        imgProfiloPath = '".$_POST['imgProfiloPath']."'";
+        
+    if($tipoUtente == '1') {
+        $sql2 = ", PIVA = '".$_POST['PIVA']."',";
+    }
+    
+    $sql3 = " WHERE ID = '$id_utente';";
+
+    $sql = $sql1 . $sql2 . $sql3;
 
 
     // Esecuzione query
     if (mysqli_query($mysqliConnection, $sql)) {
 
-        // header("Location:GestioneAdmin.php"); 
     } 
     else{
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
+    $baseScontiUtente = new ScontiUtente($id_utente);
 }
 
 if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
@@ -390,6 +408,7 @@ if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])
     }
 
     $xml->save('XML/utenti.xml');
+    $baseScontiUtente = new ScontiUtente($id_utente);
 }
 
 
@@ -405,38 +424,40 @@ if(isset($_POST['aggiungiGiochiPosseduti']) && !empty($_POST['id_user_gestione']
 
             $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
 
-            if ($listaGiochi && isset($_POST['id_gioco_posseduto'])) {
+            $giocoId = $_POST['id_gioco_posseduto'];
+            $newGioco = $xml->createElement("idGiocoPosseduto", $giocoId);
 
-                $giochiDaAggiungere = explode(',', $_POST['id_gioco_posseduto']);
-                $giochiDaAggiungere = array_map('trim', $giochiDaAggiungere);
+            if(isset($_POST['data_acquisto']) && !empty($_POST['data_acquisto'])){
+                $newGioco->setAttribute("data_acquisizione", $_POST['data_acquisto']);
+            }else{
+                $newGioco->setAttribute("data_acquisizione", date("d-m-Y"));
+            }
 
-                foreach ($giochiDaAggiungere as $giocoId) {
+            if(isset($_POST['prezzo']) && !empty($_POST['prezzo'])){
+                $newGioco->setAttribute("spesa", $_POST['prezzo']);
+            }else{
 
-                    if (!empty($giocoId)) {
+                $giochi = xmlPointer("XML/Giochi.xml");
+                $prezzoGioco = 0;
 
-                        $newGioco = $xml->createElement("idGiocoPosseduto", $giocoId);
-                        $newGioco->setAttribute("data_acquisizione", date("d-m-Y"));
-
-                        $giochi = xmlPointer("XML/Giochi.xml");
-                        foreach ($giochi as $gioco) {
-                            if ($gioco->getAttribute("id_gioco") == $giocoId) {
-                                $prezzoGioco = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
-                                break;
-                            }
-                        }
-                        $newGioco->setAttribute("spesa", $prezzoGioco);
-                        $listaGiochi->appendChild($newGioco);
-
-
+                foreach ($giochi as $gioco) {
+                    if ($gioco->getAttribute("id_gioco") == $giocoId) {
+                        $prezzoGioco = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                        break;
                     }
                 }
+
+                $newGioco->setAttribute("spesa", $prezzoGioco);
             }
+
+            $listaGiochi->appendChild($newGioco);
 
             break;
         }
     }
 
     $xml->save('XML/utenti.xml');
+    $baseScontiUtente = new ScontiUtente($id_utente);
 }
 
 
@@ -1353,18 +1374,22 @@ if(isset($_POST['modificaGiochiAdmin'])){
                     }
 
                     echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
-                    echo "<input type='submit' name='rimuoviGiochiPosseduti' value='Modifica giochi posseduti'><br><br>";
+                    echo "<input type='submit' name='rimuoviGiochiPosseduti' value='Rimuovi giochi posseduti'><br><br>";
                     echo "</form>";
 
                     }
                 }
 
-                echo"<h2> Aggiungi gioco alla lista dei giochi posseduti:</h2>";
+                echo"<p> Inserisci i campi per aggiungere un gioco:</p>";
                 echo "<form method='post' action='GestioneAdmin.php'>
-                        <label for='id_gioco_posseduto'>inserisci gli id dei giochi da aggiungere alla lista dei giochi posseduti (separati da virgola):</label>
-                        <input type='text' id='id_gioco_posseduto' name='id_gioco_posseduto' >
+                        <p><label for='id_gioco_posseduto'>Inserisci gli id del gioco da aggiungere:</label>
+                        <input type='text' id='id_gioco_posseduto' name='id_gioco_posseduto' ></p>
+                       <p> <label for='data_acquisto'>Inserisci la data di acquisto (formato DD-MM-AAAA):</label>
+                        <input type='text' id='data_acquisto' name='data_acquisto' ></p>
+                        <p><label for='prezzo'>Inserisci il prezzo di acquisto:</label>
+                        <input type='text' id='prezzo' name='prezzo' > </p>
                         <input type='hidden' name='id_user_gestione' value='$id_utente'>
-                        <input type='submit' name='aggiungiGiochiPosseduti' value='Modifica giochi posseduti'><br><br>
+                        <input type='submit' name='aggiungiGiochiPosseduti' value='Aggiungi ai giochi posseduti'><br><br>
                       </form>";
 
                 
@@ -1638,7 +1663,7 @@ if(isset($_POST['modificaGiochiAdmin'])){
                     $casaSconto = $root->getElementsByTagName("CasaSconto")->item(0)->textContent;
                     $genereSconto = $root->getElementsByTagName("GenereSconto")->item(0)->textContent;
                     $giochiDaAdmin = $root->getElementsByTagName("listaGiochiAdmin")->item(0)->getElementsByTagName("Gioco");
-                    var_dump($giochiDaAdmin);
+                    // var_dump($giochiDaAdmin);
                     foreach($giochiDaAdmin as $giocoAdmin){
                         array_push($listaGiochiAdmin, $giocoAdmin->textContent);
                     }

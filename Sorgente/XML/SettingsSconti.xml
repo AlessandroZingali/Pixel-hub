@@ -11,7 +11,7 @@
     <Gioco>8</Gioco>
   </listaGiochiAdmin>
   <ReputazioneMin>100</ReputazioneMin>
-  <MesiMin>2</MesiMin>
+  <MesiMin>6</MesiMin>
   <AnniMin>1</AnniMin>
   <CasaSconto>From Software</CasaSconto>
   <GenereSconto>Avventura</GenereSconto>

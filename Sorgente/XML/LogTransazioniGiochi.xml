@@ -21,4 +21,18 @@
       <Importo>10</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="4" ModCommentiUsato="1" IDGiocatore="3" DataOra="08/03/26 13:18" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Terraria</Titolo>
+      <IDGioco>24</IDGioco>
+      <Importo>10</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="5" ModCommentiUsato="1" IDGiocatore="1" DataOra="08/03/26 13:19" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
+      <Importo>56.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>
