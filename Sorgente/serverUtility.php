@@ -26,6 +26,11 @@ class connectionDB{
         return $mysqliConnection;
     }
 
+    function installDB(){
+        $mysqliConnection = new mysqli("localhost", $this->usernameDB, $this->passwordDB);
+        return $mysqliConnection;
+    }
+
     function getDbName(){
         return $this->db_name;
     }
