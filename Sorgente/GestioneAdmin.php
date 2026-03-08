@@ -35,7 +35,9 @@ if(isset($_SESSION['userId'])){
 
 if($service == 0) header('Location: Homepage.php'); //reindirizzo alla homepage se non c'è una sessione attiva
 
-
+if(isset($error)){
+    echo "<script type='text/javascript'>alert('Campi inseriti scorrettmente');</script>";
+}
 // Funzione per modificare i parametri degli sconti
 if (isset($_POST['modificaMinimiSpesi']) && !empty($_POST['minimiSpesi'])) {
     $minimiSpesi = $_POST['minimiSpesi'];
@@ -211,6 +213,8 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
     header("Location: GestioneAdmin.php");
 }
 
+
+
 // Funzione per modificare i dettagli di un gioco
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $id_gioco = $_POST['id_da_modificare'];
@@ -315,6 +319,7 @@ $mysqliConnection = $pointDB->connectDB();
 $id_utente = $_POST['id_user_gestione'];
 
 
+
     if (mysqli_connect_errno()) {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
@@ -340,7 +345,7 @@ $id_utente = $_POST['id_user_gestione'];
     } else {
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
-
+    if(preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST['Email']) && preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $_POST['Password'])){
     $sql2 = "";
 
     $sql1 = "
@@ -375,6 +380,41 @@ $id_utente = $_POST['id_user_gestione'];
         printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
     }
     $baseScontiUtente = new ScontiUtente($id_utente);
+        // I dati sono validi
+    } else {
+
+        $message = "Email o password non rispettano i requisiti richiesti.";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+
+}
+
+if(isset($_POST['modificaInfoExtraUtente']) && !empty($_POST['id_user_gestione'])){
+
+    $xml = getDoc('XML/utenti.xml');
+    $root = $xml->documentElement;
+    $elem = $root->childNodes;
+
+    foreach ($elem as $utente) {
+
+        if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+
+            $utente->getElementsByTagName("linkEsterno")->item(0)->textContent = $_POST['linkProfiloSocial'];
+            $utente->getElementsByTagName("DataIscrizione")->item(0)->textContent = $_POST['DataIscrizione'];
+            $utente->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['Descrizione'];
+            $utente->getElementsByTagName("GenerePreferito")->item(0)->textContent = $_POST['GenerePreferito'];
+            $utente->getElementsByTagName("CasaDiSviluppoPreferita")->item(0)->textContent = $_POST['CasaDiSviluppoPreferita'];
+            if($_POST['tipologia_utente'] == '1'){
+                $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = $_POST['toggleAgency'] == 'on' ? '1' : '0';
+                $utente->getElementsByTagName("DescrizionePublisher")->item(0)->textContent = $_POST['DescrizionePublisher'];
+            }
+            
+            break;
+        }
+    }
+
+    $xml->save('XML/utenti.xml');
+    // $baseScontiUtente = new ScontiUtente($id_utente);
 }
 
 if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
@@ -1299,8 +1339,15 @@ if(isset($_POST['modificaGiochiAdmin'])){
                                 <input type=\"text\" id=\"Esperienza\" name=\"Esperienza\" value=\"".$row['Esperienza']."\" ><br /> 
 
                                 <label for=\"Grado\" >Modifica Grado:</label>   
-                                <input type=\"text\" id=\"Grado\" name=\"Grado\" value=\"".$row['Grado']."\" ><br /> 
-
+                                <select id=\"Grado\" name=\"Grado\">
+                                    <option value=\"1\" ".($row['Grado'] == '1' ? 'selected' : '').">Grado 1</option>
+                                    <option value=\"2\" ".($row['Grado'] == '2' ? 'selected' : '').">Grado 2</option>
+                                    <option value=\"3\" ".($row['Grado'] == '3' ? 'selected' : '').">Grado 3</option>
+                                    <option value=\"4\" ".($row['Grado'] == '4' ? 'selected' : '').">Grado 4</option>
+                                    <option value=\"5\" ".($row['Grado'] == '5' ? 'selected' : '').">Grado 5</option>
+                                    <option value=\"6\" ".($row['Grado'] == '6' ? 'selected' : '').">Grado 6</option>
+                                </select><br />
+                                
                                 <label for=\"Pixels\" >Modifica Pixels:</label>   
                                 <input type=\"text\" id=\"Pixels\" name=\"Pixels\" value=\"".$row['Pixels']."\" ><br /> 
 
@@ -1316,11 +1363,16 @@ if(isset($_POST['modificaGiochiAdmin'])){
                                 <label for=\"Saldo_attuale\" >Modifica saldo attuale :</label>   
                                 <input type=\"text\" id=\"Saldo_attuale\" name=\"Saldo_attuale\" value=\"".$row['Saldo_attuale']."\" ><br /> 
 
-                                <label for=\"Tipologia_utente\" >Modifica Tipo Utente (0=normale, 1=Publisher, 2=Admin):</label>
-                                <input type=\"text\" id=\"Tipologia_utente\" name=\"Tipologia_utente\" value=\"".$row['Tipologia_utente']."\" ><br /> 
+                                <label for=\"Tipologia_utente\">Modifica Tipo Utente</label>
+                                <select id=\"Tipologia_utente\" name=\"Tipologia_utente\">
+                                    <option value=\"0\" ".($row['Tipologia_utente'] == '0' ? 'selected' : '').">Utente standard</option>
+                                    <option value=\"1\" ".($row['Tipologia_utente'] == '1' ? 'selected' : '').">Publisher</option>
+                                    <option value=\"2\" ".($row['Tipologia_utente'] == '2' ? 'selected' : '').">Admin</option>
+                                </select><br />
 
-                                <label for=\"imgProfiloPath\" >Modifica il percorso dell immagine del profilo :</label>   
-                                <input type=\"text\" id=\"imgProfiloPath\" name=\"imgProfiloPath\" value=\"".$row['imgProfiloPath']."\" ><br /> 
+
+
+
                                ";
                                if($row['Tipologia_utente'] == 1){
                                 echo "
@@ -1350,6 +1402,94 @@ if(isset($_POST['modificaGiochiAdmin'])){
                 } else {
                     echo "<h1>Utente non trovato</h1>";
                 }
+
+                echo"<h2> Altre informazioni: </h2>";
+                $elem = xmlPointer("XML/utenti.xml");
+                foreach ($elem as $utenteNode) {
+
+                    if ($utenteNode->getAttribute('id_user') == $row['ID']) {
+
+                        $id_utente = $utenteNode->getAttribute('id_user');
+
+                        echo"<form method='post' action='GestioneAdmin.php'>
+                        
+
+                        <label for=\"DataIscrizione\"> Data di iscrizione: </label>
+                        <input type=\"text\" id=\"DataIscrizione\" name=\"DataIscrizione\" value=\"".htmlspecialchars($utenteNode->getElementsByTagName("DataIscrizione")->item(0)->textContent)."\"><br />
+
+                        <label for=\"CasaDiSviluppoPreferita\"> Casa di sviluppo preferita: </label>
+                        <input type=\"text\" id=\"CasaDiSviluppoPreferita\" name=\"CasaDiSviluppoPreferita\" value=\"".htmlspecialchars($utenteNode->getElementsByTagName("CasaDiSviluppoPreferita")->item(0)->textContent)."\"><br />
+                        
+                        <label for=\"GenerePreferito\"> Genere preferito: </label>
+                         <select name=\"GenerePreferito\" id=\"GenerePreferito\">
+                                            <option value=\"Nessuno\">Nessuno</option>
+                                            <option value=\"Sparatutto\">Sparatutto</option> 
+                                            <option value=\"RPG\">RPG</option>
+                                            <option value=\"Avventura\">Avventura</option>
+                                            <option value=\"Souls-like\">Souls-like</option>
+                                            <option value=\"Strategia\">Strategia</option>
+                                            <option value=\"Rouge-like\">Rouge-like</option>
+                                            <option value=\"Picchiaduro\">Picchiaduro</option>
+                                        </select>  <br />
+                        
+                        <label for=\"Descrizione\"> Descrizione: </label>
+                        <textarea id=\"Descrizione\" name=\"Descrizione\" >".htmlspecialchars($utenteNode->getElementsByTagName("Descrizione")->item(0)->textContent)."</textarea><br />
+                       
+                        <label for=\"linkProfiloSocial\"> Link profilo social: </label>"
+                        . "<input type=\"text\" id=\"linkProfiloSocial\" name=\"linkProfiloSocial\" value=\"".htmlspecialchars($utenteNode->getElementsByTagName("linkEsterno")->item(0)->textContent)."\"><br />";
+
+                        if($row['Tipologia_utente']  == "1"){
+
+                        echo "<label for=\"DescrizionePublisher\"> Descrizione publisher: </label>
+                        <textarea id=\"DescrizionePublisher\" name=\"DescrizionePublisher\" >".htmlspecialchars($utenteNode->getElementsByTagName("DescrizionePublisher")->item(0)->textContent)."</textarea><br />";
+
+                            echo "<label for=\"toggleAgency\"> Utente è un'agenzia di vendita?: </label>";
+                        if($utenteNode->getElementsByTagName("ToggleAgency")->item(0)->textContent == "true"){
+                            echo "<input type=\"checkbox\" id=\"toggleAgency\" name=\"toggleAgency\" checked=\"checked\"><br />";
+                        }
+                        else{
+                            echo "<input type=\"checkbox\" id=\"toggleAgency\" name=\"toggleAgency\"><br />";
+                        }
+                        }
+
+                        
+
+                        echo "<label for=\"ImmagineProfilo\"> Immagine profilo: </label>
+                        <select name=\"newPropic\" id=\"ImmagineProfilo\">";
+                                        
+                                            $elem = xmlPointer("XML/utenti.xml");
+
+
+                                            foreach($elem as $userNode){
+                                                if($userNode->getAttribute('id_user') == $id_utente){
+                                                    if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
+                                                        $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+
+                                                 
+                                                        foreach($pics as $pic){
+
+                                                            $imgs = xmlPointer("XML/ProfilePic.xml");
+                                                            foreach($imgs as $img){ 
+                                                                if($pic->textContent == $img->getAttribute('id_pic')) 
+                                                                    echo "<option value=\"".$img->getElementsByTagName('path')->item(0)->textContent."\">".$img->getElementsByTagName('nome')->item(0)->textContent."</option>";
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        
+                        echo "</select><br />
+
+                        <input type=\"hidden\" name=\"id_user_gestione\" value=\"".$row['ID']."\">
+                        <input type=\"hidden\" name=\"tipologia_utente\" value=\"".$row['Tipologia_utente']."\">
+                        <input type=\"submit\" name=\"modificaInfoExtraUtente\" value=\"Modifica info extra utente\"></br>
+                            </form>";
+                            break;
+
+                    }
+                }
+
 
                 echo"<h2>Giochi acquistati:</h2>";
 
