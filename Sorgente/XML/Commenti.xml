@@ -18,4 +18,19 @@
       <text>uah che giuoco</text>
     </Commento>
   </Gioco>
+  <Gioco id_gioco="25">
+    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="48" like="3" dislike="0" segnalazioni="0">
+      <text>Bellissimo</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="3">
+    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="49" like="3" dislike="0" segnalazioni="1">
+      <text>TECNOSBUROOOOOOO</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="24">
+    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="50" like="3" dislike="0" segnalazioni="0">
+      <text>MEGLIO DI MINEKAMPS</text>
+    </Commento>
+  </Gioco>
 </listaCommenti>

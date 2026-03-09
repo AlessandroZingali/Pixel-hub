@@ -7,7 +7,7 @@ include 'serverUtility.php'; // Includo il file di utilità per la connessione a
 
 $pointDB = new connectionDB(); // Creo un oggetto per la connessione al database, se necessario in futuro
 
-$mysqliConnection = $pointDB->connectDB(); // Connessione al database
+$mysqliConnection = $pointDB->installDB(); // Connessione al database
 
 
 // Controllo errori di connessione
@@ -20,7 +20,7 @@ else {
 
 
     //Per debug/necessita di resettare il server per una modifica nella sua struttura
-    $mysqliConnection = $pointDB->connectDB(); // Connessione al database
+    $mysqliConnection = $pointDB->installDB(); // Connessione al database
 
     $queryControllo ="DROP DATABASE IF EXISTS {$pointDB->getDbName()}"; // Query per eliminare il database se esiste già, in modo da poterlo ricreare da zero (utile per test o modifiche alla struttura del databa
     if ($resultQ = mysqli_query($mysqliConnection, $queryControllo)) {

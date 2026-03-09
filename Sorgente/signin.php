@@ -90,19 +90,19 @@ if(isset($_POST['signin']) && $jumper==0){
                         //in questo caso si inserisce un utente normale 
                         $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 0,'ProfilePic/propicblank.png')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 0,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "1"){//Accesso come  publisher che possiede una partita iva con il campo PIVA non vuoto 
                             $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath,imgProfiloPathPub, PIVA)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
                             $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 0, 2,'ProfilePic/propicblank.png')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 2,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
 

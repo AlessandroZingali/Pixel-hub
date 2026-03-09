@@ -85,10 +85,10 @@ require_once 'baseScontiUtente.php';
                         $capEsperienza = 3000;
                         break;
                     case $gradoAttuale == 4:
-                        $capEsperienza = 5000;
+                        $capEsperienza = 4000;
                         break;
                     case $gradoAttuale == 5:
-                        $capEsperienza = 10000;
+                        $capEsperienza = 8000;
                         break;
                     default:
                         $capEsperienza = 0;

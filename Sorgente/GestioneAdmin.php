@@ -313,78 +313,93 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
 
 //
 if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
-
-$pointDB = new connectionDB();
-$mysqliConnection = $pointDB->connectDB();
-$id_utente = $_POST['id_user_gestione'];
-
-
-
-    if (mysqli_connect_errno()) {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-
-    if(isset($_POST['sospensione'])){
-        $grado = 0;
-    } else {
-        $grado = $_POST['Grado'];
-    }
-
-    if(!isset($_POST['sospensione']) && $_POST['grado_precedente'] == '0'){
-        $grado = 1;
-    }
-
-    $sql = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID='$id_utente';";
-    if(mysqli_query($mysqliConnection, $sql)){
-        $resultQ = mysqli_query($mysqliConnection, $sql);
-        $num = mysqli_num_rows($resultQ);
-        if($num == 1){
-            $row=mysqli_fetch_array($resultQ);
-            $tipoUtente = $row['Tipologia_utente'];
-        }
-    } else {
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-    if(preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST['Email']) && preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $_POST['Password'])){
-    $sql2 = "";
-
-    $sql1 = "
-        UPDATE {$pointDB->getTableUsers()}
-        SET Email = '".$_POST['Email']."' ,
-        Password = '".$_POST['Password']."',
-        Username = '".$_POST['Username']."',
-        Esperienza = '".$_POST['Esperienza']."',
-        Grado = '".$grado."',
-        Pixels = '".$_POST['Pixels']."',
-        Saldo_attuale = '".$_POST['Saldo_attuale']."',
-        Data_di_Nascita = '".$_POST['Data_di_Nascita']."',
-        Nome = '".$_POST['Nome']."',
-        Cognome = '".$_POST['Cognome']."',
-        Tipologia_utente = '".$_POST['Tipologia_utente']."',
-        imgProfiloPath = '".$_POST['imgProfiloPath']."'";
-        
-    if($tipoUtente == '1') {
-        $sql2 = ", PIVA = '".$_POST['PIVA']."',";
-    }
     
-    $sql3 = " WHERE ID = '$id_utente';";
+    if(preg_match('/^.*@.*$/',$_POST['Email']) && 
+    preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) &&
+    preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita'])){
 
-    $sql = $sql1 . $sql2 . $sql3;
+        $pointDB = new connectionDB();
+        $mysqliConnection = $pointDB->connectDB();
+        $id_utente = $_POST['id_user_gestione'];
+
+        
+
+        if (mysqli_connect_errno()) {
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+
+        if(isset($_POST['sospensione'])){
+            $grado = 0;
+        } else {
+            $grado = $_POST['Grado'];
+        }
+
+        if(!isset($_POST['sospensione']) && $_POST['grado_precedente'] == '0'){
+            $grado = 1;
+        }
+
+        $sql = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID='$id_utente';";
+        if(mysqli_query($mysqliConnection, $sql)){
+            $resultQ = mysqli_query($mysqliConnection, $sql);
+            $num = mysqli_num_rows($resultQ);
+            if($num == 1){
+                $row=mysqli_fetch_array($resultQ);
+                $tipoUtente = $row['Tipologia_utente'];
+            }
+        } else {
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+        
+        $sql2 = "";
+
+        $sql1 = "
+            UPDATE {$pointDB->getTableUsers()}
+            SET Email = '".$_POST['Email']."' ,
+            Password = '".$_POST['Password']."',
+            Username = '".$_POST['Username']."',
+            Esperienza = '".$_POST['Esperienza']."',
+            Grado = '".$grado."',
+            Pixels = '".$_POST['Pixels']."',
+            Saldo_attuale = '".$_POST['Saldo_attuale']."',
+            Data_di_Nascita = '".$_POST['Data_di_Nascita']."',
+            Nome = '".$_POST['Nome']."',
+            Cognome = '".$_POST['Cognome']."',
+            Tipologia_utente = '".$_POST['Tipologia_utente']."',
+            imgProfiloPath = '".$_POST['imgProfiloPath']."'";
+            
+        if($tipoUtente == '1') {
+            $sql2 = ", PIVA = '".$_POST['PIVA']."'";
+        }
+        
+        $sql3 = " WHERE ID = '$id_utente';";
+
+        $sql = $sql1 . $sql2 . $sql3;
 
 
-    // Esecuzione query
-    if (mysqli_query($mysqliConnection, $sql)) {
+        // Esecuzione query
+        if (mysqli_query($mysqliConnection, $sql)) {
 
+        } 
+        else{
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+        $baseScontiUtente = new ScontiUtente($id_utente);
+            // I dati sono validi
     } 
-    else{
-        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
-    }
-    $baseScontiUtente = new ScontiUtente($id_utente);
-        // I dati sono validi
-    } else {
+    else {
 
-        $message = "Email o password non rispettano i requisiti richiesti.";
-        echo "<script type='text/javascript'>alert('$message');</script>";
+        $errorepasword = !preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']);
+        $erroreemail = !preg_match('/^.*@.*$/',$_POST['Email']);
+        $erroreDataNascita = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita']);
+        if($errorepasword){
+            echo "<script type='text/javascript'>alert('Formato password non valido. Deve contenere almeno 8 caratteri, una lettera maiuscola e un carattere speciale tra !@=&');</script>";
+        }
+        else if($erroreemail){
+            echo "<script type='text/javascript'>alert('Formato email non valido. Deve contenere una @');</script>";
+        }
+        else if($erroreDataNascita){
+            echo "<script type='text/javascript'>alert('Formato data di nascita non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+    }
     }
 
 }
@@ -405,7 +420,12 @@ if(isset($_POST['modificaInfoExtraUtente']) && !empty($_POST['id_user_gestione']
             $utente->getElementsByTagName("GenerePreferito")->item(0)->textContent = $_POST['GenerePreferito'];
             $utente->getElementsByTagName("CasaDiSviluppoPreferita")->item(0)->textContent = $_POST['CasaDiSviluppoPreferita'];
             if($_POST['tipologia_utente'] == '1'){
-                $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = $_POST['toggleAgency'] == 'on' ? '1' : '0';
+                if(isset($_POST['toggleAgency'])) {
+                    $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "true";
+                } else {
+                    $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "false";
+                }
+                
                 $utente->getElementsByTagName("DescrizionePublisher")->item(0)->textContent = $_POST['DescrizionePublisher'];
             }
             
@@ -414,7 +434,7 @@ if(isset($_POST['modificaInfoExtraUtente']) && !empty($_POST['id_user_gestione']
     }
 
     $xml->save('XML/utenti.xml');
-    // $baseScontiUtente = new ScontiUtente($id_utente);
+    $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
 }
 
 if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
@@ -448,7 +468,7 @@ if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])
     }
 
     $xml->save('XML/utenti.xml');
-    $baseScontiUtente = new ScontiUtente($id_utente);
+    $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
 }
 
 
@@ -497,7 +517,7 @@ if(isset($_POST['aggiungiGiochiPosseduti']) && !empty($_POST['id_user_gestione']
     }
 
     $xml->save('XML/utenti.xml');
-    $baseScontiUtente = new ScontiUtente($id_utente);
+    $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
 }
 
 
@@ -1320,7 +1340,7 @@ if(isset($_POST['modificaGiochiAdmin'])){
                     $flag=1;
                     
                     $row=mysqli_fetch_array($resultQ);
-                    echo "<h1>Gestione utente: ".$row['Username']." ID: ".$row['ID']."</h1>";
+                    echo "<h1>Gestione utente: <br /> ".$row['Username']." ID: ".$row['ID']."</h1>";
 
                     
                     echo "<form method=\"post\" action=\"GestioneAdmin.php\" >
@@ -1369,6 +1389,37 @@ if(isset($_POST['modificaGiochiAdmin'])){
                                     <option value=\"1\" ".($row['Tipologia_utente'] == '1' ? 'selected' : '').">Publisher</option>
                                     <option value=\"2\" ".($row['Tipologia_utente'] == '2' ? 'selected' : '').">Admin</option>
                                 </select><br />
+
+                                <label for=\"ImmagineProfilo\"> Immagine profilo: </label>
+                                <select name=\"imgProfiloPath\" id=\"ImmagineProfilo\">";
+
+                                echo "<option value=\"ProfilePic/propicblank.png\">Nessuna</option>";
+                                        
+                                            $elem = xmlPointer("XML/utenti.xml");
+
+                                            
+
+
+                                            foreach($elem as $userNode){
+                                                if($userNode->getAttribute('id_user') == $id_utente){
+                                                    if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
+                                                        $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
+
+                                                 
+                                                        foreach($pics as $pic){
+
+                                                            $imgs = xmlPointer("XML/ProfilePic.xml");
+                                                            foreach($imgs as $img){ 
+                                                                if($pic->textContent == $img->getAttribute('id_pic')) 
+                                                                    echo "<option value=\"".$img->getElementsByTagName('path')->item(0)->textContent."\">".$img->getElementsByTagName('nome')->item(0)->textContent."</option>";
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        
+                                 echo "</select><br />
 
 
 
@@ -1445,7 +1496,7 @@ if(isset($_POST['modificaGiochiAdmin'])){
 
                             echo "<label for=\"toggleAgency\"> Utente è un'agenzia di vendita?: </label>";
                         if($utenteNode->getElementsByTagName("ToggleAgency")->item(0)->textContent == "true"){
-                            echo "<input type=\"checkbox\" id=\"toggleAgency\" name=\"toggleAgency\" checked=\"checked\"><br />";
+                            echo "<input type=\"checkbox\"  id=\"toggleAgency\" name=\"toggleAgency\" checked=\"checked\"><br />";
                         }
                         else{
                             echo "<input type=\"checkbox\" id=\"toggleAgency\" name=\"toggleAgency\"><br />";
@@ -1454,33 +1505,8 @@ if(isset($_POST['modificaGiochiAdmin'])){
 
                         
 
-                        echo "<label for=\"ImmagineProfilo\"> Immagine profilo: </label>
-                        <select name=\"newPropic\" id=\"ImmagineProfilo\">";
-                                        
-                                            $elem = xmlPointer("XML/utenti.xml");
 
-
-                                            foreach($elem as $userNode){
-                                                if($userNode->getAttribute('id_user') == $id_utente){
-                                                    if($userNode->getElementsByTagName('listaPropic')->item(0) != null){
-                                                        $pics= $userNode->getElementsByTagName('listaPropic')->item(0)->getElementsByTagName('idPropic');
-
-                                                 
-                                                        foreach($pics as $pic){
-
-                                                            $imgs = xmlPointer("XML/ProfilePic.xml");
-                                                            foreach($imgs as $img){ 
-                                                                if($pic->textContent == $img->getAttribute('id_pic')) 
-                                                                    echo "<option value=\"".$img->getElementsByTagName('path')->item(0)->textContent."\">".$img->getElementsByTagName('nome')->item(0)->textContent."</option>";
-                                                            }
-                                                        }
-                                                    }
-                                                    
-                                                }
-                                            }
-                                        
-                        echo "</select><br />
-
+                    echo "
                         <input type=\"hidden\" name=\"id_user_gestione\" value=\"".$row['ID']."\">
                         <input type=\"hidden\" name=\"tipologia_utente\" value=\"".$row['Tipologia_utente']."\">
                         <input type=\"submit\" name=\"modificaInfoExtraUtente\" value=\"Modifica info extra utente\"></br>

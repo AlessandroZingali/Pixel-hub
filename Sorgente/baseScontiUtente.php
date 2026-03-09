@@ -240,16 +240,29 @@
 
                 $intersezione = array_intersect($giochiAdmin, $listaGiochiUtente);
                 if(!(empty($intersezione))){
-                    
+
                     foreach($assPointer->elemAss as $utente){
-                        if($utente->getAttribute('id_user')==$idUtente){
-                            $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
-                            $sconto=$assPointer->doc->createElement('Sconto', '3');
-                            $listaSconti->appendChild($sconto);
-                            $assPointer->save();
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                    if($scontoRef->textContent==3){
+                                        $alreadyAssigned=true;
+                                    }
+                                }
+                            }
+                        }
+                    $assPointer->reset();    
+                    if(!$alreadyAssigned){
+                        foreach($assPointer->elemAss as $utente){
+                            if($utente->getAttribute('id_user')==$idUtente){
+                                $listaSconti=$utente->getElementsByTagName('scontiAssegnati')[0];
+                                $sconto=$assPointer->doc->createElement('Sconto', '3');
+                                $listaSconti->appendChild($sconto);
+                                $assPointer->save();
+                            }
                         }
                     }
                 }
+                
                 else{
     
                     foreach($assPointer->elemAss as $utente){
@@ -257,12 +270,16 @@
                             foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
                                 if($scontoRef->textContent==3){
                                     $scontoDaEliminare = $scontoRef;
-                                    $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                    $assPointer->save();
                                 }
                             }
                         }
-                    } 
+                    }
+                    if(isset($scontoDaEliminare)){ 
+                        if($scontoDaEliminare != null && $scontoDaEliminare->parentNode != null){
+                            $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                            $assPointer->save();
+                        }
+                    }
                 }
                     
 

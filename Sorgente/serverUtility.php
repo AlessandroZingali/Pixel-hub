@@ -16,10 +16,10 @@ class connectionDB{
 
     function __construct()
     {
-        $this->db_name = "Database_Pixel_Hub";
+        $this->db_name = "Dabello";
         $this->table_users = "Tabella_Utenti";
-        $this->usernameDB = "Alessandro";
-        $this->passwordDB = "belandi";
+        $this->usernameDB = "archer";
+        $this->passwordDB = "archer";
     }
     function connectDB(){
         $mysqliConnection = new mysqli("localhost", $this->usernameDB, $this->passwordDB, $this->db_name);

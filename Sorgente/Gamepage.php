@@ -40,13 +40,33 @@ if(isset($_SESSION['userId'])){
     $service = 1; //La variabile service come in Home Page indica se l'utente è loggato o meno, getsendo 2 tipi di display differenti del sito
 }
 
+if($service == 0 && $disponibilita=='0'){
+    echo "<script>
+    
+        alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');
+        setTimeout(function() {
+        
+        }, 1000);
+        window.location.href = 'Homepage.php';
+
+    </script>";
+
+}
+
 if(isset($_SESSION['tipoUtente'])){
 
     if($_SESSION['tipoUtente']==0 && $disponibilita=='0'){
-        echo "<script>alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');</script>";
-        header("Location: Homepage.php");
+        echo "<script>
+    
+        alert('Il gioco selezionato non è attualmente disponibile per l\'acquisto. Verrai reindirizzato alla homepage.');
+        setTimeout(function() {
+        
+        }, 1000);
+        window.location.href = 'Homepage.php';
+
+    </script>";
     }
-    else if(($_SESSION['tipoUtente']==1 && $disponibilita=='0')) {
+    else if(($_SESSION['tipoUtente']==1 && $disponibilita=='0' )) {
         header("Location: GestioneAdmin.php"); 
     }
 }
@@ -903,11 +923,14 @@ if(isset($_SESSION['tipoUtente'])){
                                                     }
                                             
                                                 else echo "onclick=\"userAlert(0)\"";
-
+                                                
+                                               
                                                 echo">&#128078;</button>
-                                                    </div> 
-                                                   <div class=\"buttonSegnalazioni\"><button  onclick=\"segnala($idCommento, $idGioco, 'com')\">!</button></div>                                                                                
-                                                </div>
+                                                    </div>"; 
+                                                    if(isset ($_SESSION['userId'])){ //Gestione del pulsante di segnalazione, visibile solo se l'utente è loggato
+                                                   echo "<div class=\"buttonSegnalazioni\"><button  onclick=\"segnala($idCommento, $idGioco, 'com')\">!</button></div>";
+                                                    }                                                                                
+                                                echo "</div>
                                                 </div>
                                             </div>";          
                                     }

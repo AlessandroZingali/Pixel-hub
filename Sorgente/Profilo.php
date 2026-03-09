@@ -597,12 +597,19 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                           
                                     <tr>
                                         <td>I miei punti esperienza:</td><td>".$row['Esperienza']."</td>
-                                    </tr>
+                                    </tr>";
+
+                                    if($_SESSION['tipoUtente'] == '1'){
+                                        echo "
+                                    
 
                                     <tr>
                                     <td> Partita Iva:</td> <td>".$row['PIVA']."</td>
                                     </tr>
-        
+                                    ";
+
+                                    }
+                                    echo "
                                 </table>
                             </div>";
                         ?>

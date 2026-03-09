@@ -58,7 +58,7 @@ function invalidation(){
 
         //Mostro l'alert dopo mezzo secondo per permettere il caricamento della pagina
         setTimeout(function () {
-         alert('Email Errata'); }, 500);
+         alert('Email Errata: inserire una formattazione per una mail valida => esempio@tipo.com'); }, 500);
         
         localStorage.removeItem("invalidFlag"); //Rimuovo il flag dal localStorage
 
@@ -67,7 +67,7 @@ function invalidation(){
         swapperInSettings();
 
         setTimeout(function () {
-         alert('Password Errata'); }, 500);
+         alert('Password Errata: ricorda almeno una Maiuscola e almeno un simbolo come !,@,=,&'); }, 500);
         
         localStorage.removeItem("invalidFlag");
     } 
