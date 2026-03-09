@@ -16,9 +16,10 @@ function mailSender(idTicket, idUtente){
                 var xmlHttp2 = new XMLHttpRequest();
                 xmlHttp2.onreadystatechange = function() {    
                     if (xmlHttp2.readyState === 4 && xmlHttp2.status === 200) {
-                        risposta.style.display='none';
+                        console.log('Risposta ricevuta dal server per la richiesta di eliminazione del ticket: ' + xmlHttp2.responseText);
+                        if(xmlHttp2.responseText=='true') risposta.style.display='none';
+                        else if(xmlHttp2.responseText=='false') alert('Errore invio Email: ticket non eliminato, contattare l\'amministratore del sistema');
                     }
-                    else alert('Errore invio Email');
                 };
                 xmlHttp2.open("POST", "ticketDelete.php", true);
                 xmlHttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

@@ -206,17 +206,17 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             // echo "<script>console.log($gioco);</script>";
 
              
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovo_nome'];
-
+            if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
             
             if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
-
 
             if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
 
             if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
             
             if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
+
+            if(isset($_POST['nuoviReqRac'])) $gioco->getElementsByTagName("RequisitiRaccomandati")->item(0)->textContent = $_POST['nuoviReqRac'];
             
             if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
 
@@ -934,7 +934,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                         <textarea id=\"nuovi_requisiti_min\" name=\"nuoviReqMin\">$requisitiMin</textarea></br>
                     </p>
                     <p>
-                        <label for=\"nuovi_requisiti_rac\">Nuovi Requisiti minimi:</label>
+                        <label for=\"nuovi_requisiti_rac\">Nuovi Requisiti raccomandati:</label>
                         <textarea id=\"nuovi_requisiti_rac\" name=\"nuoviReqRac\">$requisitiRac</textarea></br>
                     </p>
 
@@ -946,6 +946,11 @@ if (isset($_POST["agencyToggleSubmit"])){
                     <p>
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
                         <input type=\"text\" id=\"nuovo_genere\" name=\"nuovoGenere\" value=\"$generi\"></br>
+                    </p>
+
+                    <p>
+                        <label for=\"nuovo_media_admin\"> Inserisci media Admin :</label>
+                        <input type=\"text\" id=\"nuovo_media_admin\" name=\"nuovaMediaAdmin\" value=\"$mediaAdmin\"></br>
                     </p>
 
                     <p>

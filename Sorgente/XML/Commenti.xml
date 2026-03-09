@@ -1,36 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="1">
-    <Commento id_commento="2" id_utente="3" data="04/03/2026" ore="11" minuti="54" like="0" dislike="0" segnalazioni="0">
-      <text>Bello</text>
-    </Commento>
-    <Commento id_commento="1" id_utente="4" data="03/03/2026" ore="19" minuti="08" like="1" dislike="0" segnalazioni="0">
-      <text>kkkkk</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="2">
-    <Commento id_commento="1" id_utente="3" data="04/03/2026" ore="11" minuti="51" like="0" dislike="0" segnalazioni="0">
-      <text>meglio street figter</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="16">
-    <Commento id_commento="1" id_utente="3" data="06/03/2026" ore="20" minuti="59" like="0" dislike="0" segnalazioni="0">
-      <text>uah che giuoco</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="25">
-    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="48" like="3" dislike="0" segnalazioni="0">
-      <text>Bellissimo</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="3">
-    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="49" like="3" dislike="0" segnalazioni="1">
-      <text>TECNOSBUROOOOOOO</text>
-    </Commento>
-  </Gioco>
-  <Gioco id_gioco="24">
-    <Commento id_commento="1" id_utente="5" data="09/03/2026" ore="10" minuti="50" like="3" dislike="0" segnalazioni="0">
-      <text>MEGLIO DI MINEKAMPS</text>
-    </Commento>
-  </Gioco>
 </listaCommenti>

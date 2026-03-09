@@ -52,7 +52,7 @@ if (isset($_POST['modificaValoreSconto']) && !empty($_POST['valoreSconto'])) {
     $valoreSconto = $_POST['valoreSconto'];
     $doc = getDoc('XML/SettingsSconti.xml');
     $root = $doc->documentElement;
-    $root->getElementsByTagName('ValoreSconto')->item(0)->textContent = $valoreSconto;
+    $root->getElementsByTagName('Valore')->item(0)->textContent = $valoreSconto;
     $doc->save('XML/SettingsSconti.xml');
     header("Location: GestioneAdmin.php");
     exit();
@@ -77,16 +77,13 @@ if (isset($_POST['modificaReputazioneMin']) && !empty($_POST['reputazioneMin']))
     exit();
 }
 
-if (isset($_POST['modificaTempoIscrizione'])&& !empty($_POST['anniMin']) || !empty($_POST['mesiMin']) || !empty($_POST['giorniMin'])) {
-    $anniMin = !empty($_POST['anniMin']) ? $_POST['anniMin'] : 0;
-    $mesiMin = !empty($_POST['mesiMin']) ? $_POST['mesiMin'] : 0;
-    $giorniMin = !empty($_POST['giorniMin']) ? $_POST['giorniMin'] : 0;
-
+if (isset($_POST['modificaTempoIscrizione'])&& !empty($_POST['anniMin']&& !empty($_POST['mesiMin']))) {
+    $anniMin = $_POST['anniMin'];
+    $mesiMin = $_POST['mesiMin'];
     $doc = getDoc('XML/SettingsSconti.xml');
     $root = $doc->documentElement;
-    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('anni', $anniMin);
-    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('mesi', $mesiMin);
-    $root->getElementsByTagName('TempoIscrizione')->item(0)->setAttribute('giorni', $giorniMin);
+    $root->getElementsByTagName('AnniMin')->item(0)->textContent = $anniMin;
+    $root->getElementsByTagName('MesiMin')->item(0)->textContent = $mesiMin;
     $doc->save('XML/SettingsSconti.xml');
     header("Location: GestioneAdmin.php");
     exit();
@@ -108,6 +105,45 @@ if (isset($_POST['modificaGenereSconto']) && !empty($_POST['genereSconto'])) {
     $doc->save('XML/SettingsSconti.xml');
     header("Location: GestioneAdmin.php");
     exit();
+}
+if(isset($_POST['modificaGiochiAdmin'])){
+    if(isset($_POST['giochiAdmin']) && !empty($_POST['giochiAdmin'])){
+        $nodeRemoveSelector = [];
+        $settingsSelector = getDoc('XML/SettingsSconti.xml');
+        $rootSettings = $settingsSelector->documentElement;
+        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
+        foreach($gameListAdmin->childNodes as $gioco){
+            if(in_array(trim($gioco->textContent), $_POST['giochiAdmin'])){
+                array_push($nodeRemoveSelector, $gioco);
+            }
+        }
+        foreach($nodeRemoveSelector as $node){
+            $gameListAdmin->removeChild($node);
+        }
+        $settingsSelector->save('XML/SettingsSconti.xml');
+    }
+
+    if(isset($_POST['nuoviGiochiAdmin']) && !empty($_POST['nuoviGiochiAdmin'])){
+        $settingsSelector = getDoc('XML/SettingsSconti.xml');
+        $rootSettings = $settingsSelector->documentElement;
+        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
+        $giochiEsistenti = [];
+        foreach($gameListAdmin->getElementsByTagName("Gioco") as $giocoNode){
+            $giochiEsistenti[] = trim($giocoNode->textContent);
+        }
+        $arrayNuoviGiochiAdmin = explode(',', $_POST['nuoviGiochiAdmin']);
+
+        foreach($arrayNuoviGiochiAdmin as $gioco){
+            if(!in_array(trim($gioco), $giochiEsistenti)){
+                $newGiocoNode = $settingsSelector->createElement("Gioco", trim($gioco));
+                $gameListAdmin->appendChild($newGiocoNode);
+            }
+        }
+
+        $settingsSelector->save('XML/SettingsSconti.xml');
+    }
+
+    header("Location: GestioneAdmin.php");
 }
 // Funzione per assegnare o rimuovere sconti agli utenti
 if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST['sconto'])) {
@@ -230,7 +266,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             // echo "<script>console.log($gioco);</script>";
 
              
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovo_nome'];
+            if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
 
             
             if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
@@ -546,8 +582,36 @@ if(isset($_POST["richiediRimborso"])){
         $pixelsDedotti = $row['Pixels'] - $_POST['pixels_da_togliere'];
         
         $saldoDaAggiungere = $row['Saldo_attuale'] + $_POST['importo'];
+
+        $gradoAttuale = $row['Grado'];
+
+        switch($gradoAttuale > 0){
+            case $gradoAttuale == 1:
+                $capEsperienza = 0;
+                break;
+            case $gradoAttuale == 2:
+                $capEsperienza = 500;
+                break;
+            case $gradoAttuale == 3:
+                $capEsperienza = 1000;
+                break;
+            case $gradoAttuale == 4:
+                $capEsperienza = 3000;
+                break;
+            case $gradoAttuale == 5:
+                $capEsperienza = 4000;
+                break;
+            default:
+                $capEsperienza = 0;
+                break;
+        }
+
+        if($esperienzaDedotta < $capEsperienza && $gradoAttuale > 0){
+            $gradoDaAssegnare = $gradoAttuale - 1;
+            $sql ="UPDATE {$pointDB->getTableUsers()} SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere, Grado=$gradoDaAssegnare WHERE ID=\"".$_POST['id_user_rimborso']."\";";
         
-        $sql ="UPDATE {$pointDB->getTableUsers()} SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere WHERE ID=\"".$_POST['id_user_rimborso']."\";";
+        }
+        else $sql ="UPDATE {$pointDB->getTableUsers()} SET Esperienza=$esperienzaDedotta, Pixels=$pixelsDedotti, Saldo_attuale=$saldoDaAggiungere WHERE ID=\"".$_POST['id_user_rimborso']."\";";
         
         if(mysqli_query($mysqliConnection, $sql)){
             $docUtente = getDoc("XML/utenti.xml");
@@ -708,6 +772,7 @@ if(isset($_POST['eliminaSegRec'])){
             }
         }
     }
+    $docSegnalazioni->save('XML/Recensioni.xml');
 }
 
 
@@ -820,37 +885,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
         
 }
 
-if(isset($_POST['modificaGiochiAdmin'])){
-    if(isset($_POST['giochiAdmin']) && !empty($_POST['giochiAdmin'])){
-        $nodeRemoveSelector = [];
-        $settingsSelector = getDoc('XML/SettingsSconti.xml');
-        $rootSettings = $settingsSelector->documentElement;
-        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
-        foreach($gameListAdmin->childNodes as $gioco){
-            if(in_array(trim($gioco->textContent), $_POST['giochiAdmin'])){
-                array_push($nodeRemoveSelector, $gioco);
-            }
-        }
-        foreach($nodeRemoveSelector as $node){
-            $gameListAdmin->removeChild($node);
-        }
-        $settingsSelector->save('XML/SettingsSconti.xml');
-    }
 
-    if(isset($_POST['nuoviGiochiAdmin']) && !empty($_POST['nuoviGiochiAdmin'])){
-        $settingsSelector = getDoc('XML/SettingsSconti.xml');
-        $rootSettings = $settingsSelector->documentElement;
-        $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
-        $arrayNuoviGiochiAdmin = explode(';', $_POST['nuoviGiochiAdmin']);
-        foreach($arrayNuoviGiochiAdmin as $gioco){
-            $newGioco = $settingsSelector->createElement("Gioco", (int)$gioco);
-            $gameListAdmin->appendChild($newGioco);
-        }
-        $settingsSelector->save('XML/SettingsSconti.xml');
-    }
-
-     header("Location: GestioneAdmin.php");
-}
 
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1006,6 +1041,8 @@ if(isset($_POST['modificaGiochiAdmin'])){
                 <!-- Card di gestione ticket  -->
                 <h1>Gestione Ticket Utenti</h1>
 
+                
+
                 <table id="TabellaTicket">
                     <tr>
                       
@@ -1028,6 +1065,7 @@ if(isset($_POST['modificaGiochiAdmin'])){
                         
                     </tr>
                     <!-- Ciclo PHP per l'estrazione delle domande e risposte dal file XML -->
+                     
                     <?php
                         $elem = xmlPointer('XML/Ticket.xml'); //Richiama la funzione che restituisce il puntatore ai nodi figli della root del file XML
                 
@@ -1836,34 +1874,34 @@ if(isset($_POST['modificaGiochiAdmin'])){
 
 
                     
-                    echo "<p>Minimi spesi: $minimiSpesi €</p>
+                    echo "<p>Euro minimi spesi attuali: $minimiSpesi €</p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"minimiSpesi\">Modifica Minimi Spesi:</label>
                         <input type=\"text\" id=\"minimiSpesi\" name=\"minimiSpesi\" >
                         <input type=\"submit\" name=\"modificaMinimiSpesi\" value=\"Modifica\">
                     </form>
 
-                    <p>Valore sconto: $valore </p>
+                    <p>Euro minimi spesi da una certa data attuali: $valore € </p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"valoreSconto\">Modifica Valore Sconto:</label>
                         <input type=\"text\" id=\"valoreSconto\" name=\"valoreSconto\" >
                         <input type=\"submit\" name=\"modificaValoreSconto\" value=\"Modifica\">
                     </form>
 
-                    <p>Data inizio: $dataInizio</p>
+                    <p>Data di inizio per spesa minima attuale: $dataInizio</p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"dataInizio\">Modifica Data Inizio:</label>
                         <input type=\"text\" id=\"dataInizio\" name=\"dataInizio\" >
                         <input type=\"submit\" name=\"modificaDataInizio\" value=\"Modifica\">
                     </form>
 
-                    <p>Reputazione minima: $reputazioneMin</p>
+                    <p>Reputazione minima attuale: $reputazioneMin</p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"reputazioneMin\">Modifica Reputazione Minima:</label>
                         <input type=\"text\" id=\"reputazioneMin\" name=\"reputazioneMin\" >
                         <input type=\"submit\" name=\"modificaReputazioneMin\" value=\"Modifica\">
                     </form>
-                    <p>Tempo minimo iscrizione: $anniMin anni, $mesiMin mesi</p>
+                    <p>Tempo minimo d'iscrizione attuale: $anniMin anni, $mesiMin mesi</p>
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"anniMin\">Modifica Anni Minimi:</label>
                         <input type=\"text\" id=\"anniMin\" name=\"anniMin\" >

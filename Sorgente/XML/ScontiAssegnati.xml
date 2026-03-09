@@ -12,9 +12,10 @@
     <scontiAssegnati>
       <Sconto>5</Sconto>
       <Sconto>6</Sconto>
-      <Sconto>8</Sconto>
       <Sconto>1</Sconto>
       <Sconto>4</Sconto>
+      <Sconto>8</Sconto>
+      <Sconto>9</Sconto>
     </scontiAssegnati>
   </Utente>
   <Utente id_user="2">
@@ -22,23 +23,6 @@
       <Sconto>9</Sconto>
       <Sconto>4</Sconto>
       <Sconto>3</Sconto>
-    </scontiAssegnati>
-  </Utente>
-  <Utente id_user="5">
-    <scontiAssegnati>
-      <Sconto>9</Sconto>
-      <Sconto>1</Sconto>
-      <Sconto>4</Sconto>
-      <Sconto>8</Sconto>
-      <Sconto>3</Sconto>
-    </scontiAssegnati>
-  </Utente>
-  <Utente id_user="6">
-    <scontiAssegnati>
-      <Sconto>7</Sconto>
-      <Sconto>9</Sconto>
-      <Sconto>1</Sconto>
-      <Sconto>4</Sconto>
     </scontiAssegnati>
   </Utente>
 </listaAssegnazioneSconti>

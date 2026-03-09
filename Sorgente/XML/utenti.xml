@@ -41,45 +41,4 @@
       <idPropic>3</idPropic>
     </listaPropic>
   </Utente>
-  <Utente id_user="5">
-    <linkEsterno/>
-    <DataIscrizione>09-03-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>Square Enix</CasaDiSviluppoPreferita>
-    <GenerePreferito>RPG</GenerePreferito>
-    <Descrizione>SONO SUUUUUUUUUUUUUUUUUUUUPER FRANKY</Descrizione>
-    <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="59.99">9</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="17.99">7</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="35.99">14</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="49.99">10</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="11.99">5</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="67.99">25</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="59.99">3</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="39.99">16</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="38.99">8</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="50.99">1</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="39.99">21</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="47.49">2</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="24.99">4</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="35.99">6</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="29.99">22</idGiocoPosseduto>
-    </listaGiochi>
-    <listaPropic>
-      <idPropic>5</idPropic>
-      <idPropic>2</idPropic>
-    </listaPropic>
-  </Utente>
-  <Utente id_user="6">
-    <linkEsterno/>
-    <DataIscrizione>09-03-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>From Software</CasaDiSviluppoPreferita>
-    <GenerePreferito>RPG</GenerePreferito>
-    <Descrizione/>
-    <ToggleAgency>true</ToggleAgency>
-    <DescrizionePublisher>Square Enix Holdings Co.&#13;Kabushiki-gaisha Sukuwea Enikkusu Hōrudingusu) è una holding giapponese multimedia nota per produrre le serie di videogiochi di ruolo alla giapponese: Final Fantasy, Dragon Quest e Kingdom Hearts. L'azienda è nota anche per aver prodotto serie manga e anime, come Fullmetal Alchemist, Black Butler e Soul Eater.&#13;&#13;Nasce dalla fusione, nell'aprile 2003, di due delle più grandi protagoniste del mondo dell'industria dei mass media: Square e Enix.</DescrizionePublisher>
-    <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="59.99">9</idGiocoPosseduto>
-    </listaGiochi>
-    <listaPropic/>
-  </Utente>
 </listaUtenti>

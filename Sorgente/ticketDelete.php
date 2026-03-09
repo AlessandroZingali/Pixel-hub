@@ -6,13 +6,22 @@ viene chiamato da una doppia chiamata ajax indentata una dentro l'altra; cosi da
     $doc = getDoc('XML/Ticket.xml');
     $root = $doc->documentElement;
     $elem = $root->childNodes;
+    $esito = 'false';
 
     foreach ($elem as $ticket) {
         if($ticket->getAttribute('id_ticket') == $_POST['IDTicket'] && $ticket->getAttribute('id_utente') == $_POST['IDUtente']) {
-            $ticket->parentNode->removeChild($ticket);
+            $ticketToDelete = $ticket;
             break;
         }
     }
+    if(isset($ticketToDelete)) {
+        if($ticketToDelete !== null && $ticketToDelete->parentNode != null) {
+            $ticketToDelete->parentNode->removeChild($ticketToDelete);
+            $esito = 'true';
+        } 
+    }
     $doc->save('XML/Ticket.xml');
+    echo $esito;
+    
 
 ?>

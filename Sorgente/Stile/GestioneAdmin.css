@@ -68,6 +68,10 @@ input[type="submit"]{
     
 }
 
+button[type="button"]{
+    font-family: "font pixeloso",monospace;;
+}
+
     
 input[type="text"],textarea{
     width: 20%;

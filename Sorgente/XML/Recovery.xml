@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listaRecovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recovery_XML_schema.xsd">
-  <Recovery id_recovery="1" data="03/03/2026" ore="16" minuti="40">
-    <text>heveti2868@him6.com</text>
-  </Recovery>
-  <Recovery id_recovery="2" data="03/03/2026" ore="16" minuti="51">
-    <text>mailprova@gmail.com</text>
-  </Recovery>
-  <Recovery id_recovery="3" data="03/03/2026" ore="16" minuti="54">
-    <text>mailprova@gmail.com</text>
-  </Recovery>
-  <Recovery id_recovery="5" data="03/03/2026" ore="16" minuti="59">
-    <text>besughis@gmail.cer</text>
-  </Recovery>
-</listaRecovery>
+<listaRecovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recovery_XML_schema.xsd"/>

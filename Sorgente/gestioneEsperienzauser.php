@@ -100,8 +100,13 @@ require_once 'baseScontiUtente.php';
                     $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
                     mysqli_query($pointDB->connectDB(), $updateGradoQuery);
                 }
+                else if($nuovaEsperienza < $capEsperienza && $gradoAttuale > 0){
+                    //Se la nuova esperienza è inferiore al cap di esperienza per il grado attuale, ma l'utente ha già un grado, viene retrocesso al grado precedente.
+                    $nuovoGrado = $gradoAttuale - 1;
+                    $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
+                    mysqli_query($pointDB->connectDB(), $updateGradoQuery);
 
-            }
+                }
                 
                 echo "Esperienza guadagnata: " . $esperienzaGuadagnata;
                 
@@ -114,6 +119,8 @@ require_once 'baseScontiUtente.php';
                 logAcquistiRegister($idUtenteLoggato, $logAcquisti, $modcommenti, $pixelIniziali); 
                 $baseScanner = new scontiUtente($idUtenteLoggato);
                 return;
+
+            }
             
         }
     }
