@@ -1082,6 +1082,8 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
         <script type="text/javascript" src="Script/Searchgame.js?v=3"> </script>
         <script type="text/javascript" src="Script/cardGestioneAdminChanger.js"></script>
         <script type="text/javascript" src="Script/scriptMail.js"></script>
+        <script type="text/javascript" src="Script/SearchUsers.js?v=3"> </script>
+        <script type="text/javascript" src="Script/SearchGameAdmin.js?v=3"> </script>
 
     </head>
     <body>    
@@ -1323,7 +1325,13 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 echo "<form method=\"post\" action=\"GestioneAdmin.php\">
                     <!-- Aggiungi qui i campi per modificare il gioco -->
                     <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
-                    <input type=\"text\" id=\"id_gioco_modifica\" name=\"id_gioco_modifica\" >
+                    <div class=\"ricercaUtente\">
+                    <div><input type='text' id=\"id_gioco_modifica\" name=\"id_gioco_modifica\"/></div>
+                    <div id=\"ContainerliveSearchGiochi\">
+                        <div><label for='liveSearchInputGiochi'>Cerca gioco per nome: </label></br><input type='text' id='liveSearchInputGiochi' onkeyup='mostraRisultatiGiochi(this.value)'></div>
+                        <div class=\"liveSearchGiochi\"></div>
+                    </div>
+                    </div>
                     <input type=\"submit\" name=\"cercaGioco\" value=\"Ricerca\">
                     
                 </form>";
@@ -1556,7 +1564,13 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 <?php 
                 echo "<form method='post' action='GestioneAdmin.php'>
                     <label for='id_user_gestione'>ID Utente da gestire:</label>
-                    <input type='text' id='id_user_gestione' name='id_user_gestione' >
+                    <div class=\"ricercaUtente\">
+                    <div><input type='text' id='id_user_gestione' name='id_user_gestione'/></div>
+                    <div id=\"ContainerliveSearchUtenti\">
+                        <div><label for='liveSearchInputUtenti'>Cerca utente per username: </label></br><input type='text' id='liveSearchInputUtenti' onkeyup='mostraRisultatiUtenti(this.value)'></div>
+                        <div class=\"liveSearchUtenti\"></div>
+                    </div>
+                    </div>
                     <input type='submit' name='cercaUtente' value='Cerca Utente'>
                 </form>";
                 ?>
@@ -1869,7 +1883,13 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 if(isset($erroreRicercaRim)) echo "<h2>".$erroreRicercaRim."</h2>";
                 echo "<form method='post' action='GestioneAdmin.php'>
                     <label for='id_user_gestione'>ID Utente da gestire:</label>
-                    <input type='text' id='id_user_gestione' name='id_user_gestione' >
+                    <div class=\"ricercaUtente\">
+                    <div><input type='text' id='id_user_gestione'  name='id_user_gestione'/></div>
+                    <div id=\"ContainerliveSearchUtenti\">
+                        <div><label for='liveSearchInputUtenti'>Cerca utente per username: </label></br><input type='text' id='liveSearchInputUtenti' onkeyup='mostraRisultatiUtenti(this.value)'></div>
+                        <div class=\"liveSearchUtenti\"></div>
+                    </div>
+                    </div>
                     <input type='submit' name='cercaUtenteRimborso' value='Cerca Utente'>
                 </form>";
                 ?>
@@ -2263,7 +2283,13 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 
                     echo "<form method='post' action='GestioneAdmin.php'>
                     <label for='id_user_gestione'>ID Utente da gestire:</label>
-                    <input type='text' id='id_user_gestione' name='id_user_sconti_blacklist' >
+                    <div class=\"ricercaUtente\">
+                    <div><input type='text' id='id_user_gestione'  name='id_user_sconti_blacklist'/></div>
+                    <div id=\"ContainerliveSearchUtenti\">
+                        <div><label for='liveSearchInputUtenti'>Cerca utente per username: </label></br><input type='text' id='liveSearchInputUtenti' onkeyup='mostraRisultatiUtenti(this.value)'></div>
+                        <div class=\"liveSearchUtenti\"></div>
+                    </div>
+                    </div>
                     <input type='submit' name='cercaUtenteScontoBlacklist' value='Cerca Utente'>
                     </form>";
                 
