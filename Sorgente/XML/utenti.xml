@@ -2,13 +2,14 @@
 <listaUtenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Utenti_XML_schema.xsd">
   <Utente id_user="1">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
-    <DataIscrizione>18-03-2020</DataIscrizione>
-    <CasaDiSviluppoPreferita>ArrowHeadcsdad</CasaDiSviluppoPreferita>
-    <GenerePreferito>Souls-like</GenerePreferito>
+    <DataIscrizione>19-03-2020</DataIscrizione>
+    <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
+    <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione>Besygug</Descrizione>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="2">4</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="56.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-02-2010" spesa="29.99">60</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-12-2025" spesa="39.99">10</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic/>
   </Utente>

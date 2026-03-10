@@ -110,79 +110,102 @@ if(isset($_POST['aggiungiGioco'])){
         && !empty($_POST['MediaRecensioniAdmin'])) {
 
 
-
-        // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
-            $docGiochi= getDoc('XML/Giochi.xml');
-            $root = $docGiochi->documentElement;
-            $elemGiochi = $root->childNodes;
-                
-            if ($elemGiochi->length > 0) {
-                $ultimoGioco = $elemGiochi->item($elemGiochi->length - 1);
-                $ultimoId = $ultimoGioco->getAttribute("id_gioco");
-                $nuovoIdGioco = $ultimoId + 1;
-            }
-            else if (!($root->hasChildNodes())) $nuovoIdGioco = 1;
+        if(preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']) &&
+                preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']) &&
+                preg_match('/^[0-9]+$/', $_POST['MediaRecensioniAdmin']) &&
+                preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita'])){
+             // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
             
-
-            $nuovoGioco = $docGiochi->createElement("Gioco");
-            $nuovoGioco->setAttribute('id_gioco', $nuovoIdGioco);
-
-            
-
-            $nuovoNodoTitolo = $docGiochi->createElement("Titolo",$_POST['nuovo_nome']);
-            $nuovoNodoPrezzo = $docGiochi->createElement("Prezzo",$_POST['nuovo_prezzo']);
-            $nuovoNodoCasaDiSviluppo = $docGiochi->createElement("CasaSviluppo",$_POST['nuova_casa']);
-            $nuovoNodoPublisher = $docGiochi->createElement("Publisher",$_POST['nuovo_publisher']);
-            $nuovoNodoDescrizione = $docGiochi->createElement("Descrizione",$_POST['nuova_descrizione']);
-            $nuovoNodoRequisitiMinimi = $docGiochi->createElement("RequisitiMinimi",$_POST['nuovaRequiMin']);
-            $nuovoNodoRequisitiRaccomandati=$docGiochi->createElement("RequisitiRaccomandati",$_POST['nuovaRequiRac']);
-            $nuovoNodoDataUscita=$docGiochi->createElement("DataDiUscita",$_POST['nuova_dataUscita']);
-            $nuovoNodoImmagine=$docGiochi->createElement("Immagine", $target_file);
-            $nuovoNodoGenere=$docGiochi->createElement("Generi",$_POST['nuovo_genere']);
-            $nuovoNodoDisponibilie=$docGiochi->createElement("Disponibile",1);
-            $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
-            $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
-            $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
-
-            if(isset($_POST['id_correlati'])){
-                if(!empty($_POST['id_correlati'])){
-                    
-                    $id_correlati = explode(',',$_POST['id_correlati']);
-                    
-                    foreach ($id_correlati as $id_correlato) {
-                        $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
-                        $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+                    $docGiochi= getDoc('XML/Giochi.xml');
+                    $root = $docGiochi->documentElement;
+                    $elemGiochi = $root->childNodes;
+                        
+                    if ($elemGiochi->length > 0) {
+                        $ultimoGioco = $elemGiochi->item($elemGiochi->length - 1);
+                        $ultimoId = $ultimoGioco->getAttribute("id_gioco");
+                        $nuovoIdGioco = $ultimoId + 1;
                     }
+                    else if (!($root->hasChildNodes())) $nuovoIdGioco = 1;
+                    
+
+                    $nuovoGioco = $docGiochi->createElement("Gioco");
+                    $nuovoGioco->setAttribute('id_gioco', $nuovoIdGioco);
+
+                    
+
+                    $nuovoNodoTitolo = $docGiochi->createElement("Titolo",$_POST['nuovo_nome']);
+                    $nuovoNodoPrezzo = $docGiochi->createElement("Prezzo",$_POST['nuovo_prezzo']);
+                    $nuovoNodoCasaDiSviluppo = $docGiochi->createElement("CasaSviluppo",$_POST['nuova_casa']);
+                    $nuovoNodoPublisher = $docGiochi->createElement("Publisher",$_POST['nuovo_publisher']);
+                    $nuovoNodoDescrizione = $docGiochi->createElement("Descrizione",$_POST['nuova_descrizione']);
+                    $nuovoNodoRequisitiMinimi = $docGiochi->createElement("RequisitiMinimi",$_POST['nuovaRequiMin']);
+                    $nuovoNodoRequisitiRaccomandati=$docGiochi->createElement("RequisitiRaccomandati",$_POST['nuovaRequiRac']);
+                    $nuovoNodoDataUscita=$docGiochi->createElement("DataDiUscita",$_POST['nuova_dataUscita']);
+                    $nuovoNodoImmagine=$docGiochi->createElement("Immagine", $target_file);
+                    $nuovoNodoGenere=$docGiochi->createElement("Generi",$_POST['nuovo_genere']);
+                    $nuovoNodoDisponibilie=$docGiochi->createElement("Disponibile",1);
+                    $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
+                    $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
+                    $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
+
+                    if(isset($_POST['id_correlati'])){
+                        if(!empty($_POST['id_correlati'])){
+                            
+                            $id_correlati = explode(',',$_POST['id_correlati']);
+                            
+                            foreach ($id_correlati as $id_correlato) {
+                                $newCorrelato = $docGiochi->createElement("idGiocoCorrelato", trim($id_correlato));
+                                $nuovoNodoTitoliCorrelati->appendChild($newCorrelato);
+                            }
+                        }
+                    }
+                    
+                    $nuovoGioco->appendChild($nuovoNodoTitolo);
+                    $nuovoGioco->appendChild($nuovoNodoPrezzo);
+                    $nuovoGioco->appendChild($nuovoNodoCasaDiSviluppo);
+                    $nuovoGioco->appendChild($nuovoNodoPublisher);
+                    $nuovoGioco->appendChild($nuovoNodoDescrizione);
+                    $nuovoGioco->appendChild($nuovoNodoRequisitiMinimi);
+                    $nuovoGioco->appendChild($nuovoNodoRequisitiRaccomandati);
+                    $nuovoGioco->appendChild($nuovoNodoDataUscita);
+                    $nuovoGioco->appendChild($nuovoNodoImmagine);
+                    $nuovoGioco->appendChild($nuovoNodoGenere); 
+                    $nuovoGioco->appendChild($nuovoNodoDisponibilie);
+                    $nuovoGioco->appendChild($nuovoNodoMediaAdmin);
+                    $nuovoGioco->appendChild($nuovoNodoMediaUtenti);
+                    $nuovoGioco->appendChild($nuovoNodoTitoliCorrelati);
+                    
+                    $root->appendChild($nuovoGioco);
+                    
+                    $docGiochi->save('XML/Giochi.xml');
+                    
                 }
+            else{
+                echo "Si è verificato un errore durante il caricamento dell'immagine.";
             }
-            
-            $nuovoGioco->appendChild($nuovoNodoTitolo);
-            $nuovoGioco->appendChild($nuovoNodoPrezzo);
-            $nuovoGioco->appendChild($nuovoNodoCasaDiSviluppo);
-            $nuovoGioco->appendChild($nuovoNodoPublisher);
-            $nuovoGioco->appendChild($nuovoNodoDescrizione);
-            $nuovoGioco->appendChild($nuovoNodoRequisitiMinimi);
-            $nuovoGioco->appendChild($nuovoNodoRequisitiRaccomandati);
-            $nuovoGioco->appendChild($nuovoNodoDataUscita);
-            $nuovoGioco->appendChild($nuovoNodoImmagine);
-            $nuovoGioco->appendChild($nuovoNodoGenere); 
-            $nuovoGioco->appendChild($nuovoNodoDisponibilie);
-            $nuovoGioco->appendChild($nuovoNodoMediaAdmin);
-            $nuovoGioco->appendChild($nuovoNodoMediaUtenti);
-            $nuovoGioco->appendChild($nuovoNodoTitoliCorrelati);
-            
-            $root->appendChild($nuovoGioco);
-            
-            $docGiochi->save('XML/Giochi.xml');
         }
         else{
-            echo "Si è verificato un errore durante il caricamento dell'immagine.";
-        }
-       
-
-
-    } else {
+            $esitoCorrelati = !preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']);
+            $esitoPrezzo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']);
+            $esitoMediaAdmin = !preg_match('/^[0-9]+$/', $_POST['MediaRecensioniAdmin']);
+            $esitoData = !preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita']);
+            if($esitoCorrelati){
+                echo "<script type='text/javascript'>alert('Formato ID correlati non valido. Deve essere una lista di numeri separati da una virgola');</script>";
+            }
+            else if($esitoPrezzo){
+                echo "<script type='text/javascript'>alert('Formato prezzo non valido. Deve essere un numero decimale');</script>";
+            }
+            else if($esitoMediaAdmin){
+                echo "<script type='text/javascript'>alert('Formato media admin non valido. Deve essere un numero intero');</script>";
+            }
+            else if($esitoData){
+                echo "<script type='text/javascript'>alert('Formato data non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+            }
+        } 
+        
+    }
+   else {
         echo "Si è verificato un errore durante il caricamento.";
     }
 
@@ -628,6 +651,19 @@ if (isset($_POST["agencyToggleSubmit"])){
                 <h1>Aggiungi un gioco al sito</h1>
 
                 <?php
+
+                $setValoriGenere = [
+                            'Nessuno',
+                            'Sparatutto',
+                            'RPG',
+                            'Avventura',
+                            'Souls-like',
+                            'Strategia',
+                            'Rouge-like',
+                            'Picchiaduro',
+                            'Azione',
+                            'Simulazione'
+                        ];
  
                 echo "<form method='post' action='gestionePublisher.php' enctype=\"multipart/form-data\">
                     
@@ -649,11 +685,10 @@ if (isset($_POST["agencyToggleSubmit"])){
                         </br>
                     </p>
                     
-                    <p>
-                        <label for=\"Publisher\"> Nuovo publisher :</label>
-                        <input type=\"text\" id=\"Publisher\" name=\"nuovo_publisher\">
-                        </br>
-                    </p>
+                    
+                        
+                        <input type=\"hidden\" id=\"Publisher\" name=\"nuovo_publisher\" value=\"{$_SESSION['userName']}\">
+                        
                     
                     <p>
                         <label for=\"nuova_descrizione\">Nuova Descrizione:</label>
@@ -663,7 +698,38 @@ if (isset($_POST["agencyToggleSubmit"])){
                     
                     <p>
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
-                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovo_genere\" ></br>
+                        <select id=\"nuovo_genere\" name=\"nuovo_genere\" ></br>
+                            <option value=\"{$setValoriGenere[0]}\" ";
+                            
+                            echo ">{$setValoriGenere[0]}</option>
+                            <option value=\"{$setValoriGenere[1]}\"";
+                            
+                            echo ">{$setValoriGenere[1]}</option> 
+                            <option value=\"{$setValoriGenere[2]}\" ";
+                            
+                            echo ">{$setValoriGenere[2]}</option>
+                            <option value=\"{$setValoriGenere[3]}\" ";
+                            
+                            echo ">{$setValoriGenere[3]}</option>
+                            <option value=\"{$setValoriGenere[4]}\" ";
+                           
+                            echo ">{$setValoriGenere[4]}</option>
+                            <option value=\"{$setValoriGenere[5]}\" ";
+                            
+                            echo ">{$setValoriGenere[5]}</option>
+                            <option value=\"{$setValoriGenere[6]}\" ";
+                            
+                            echo ">{$setValoriGenere[6]}</option>
+                            <option value=\"{$setValoriGenere[7]}\" ";
+                            
+                            echo ">{$setValoriGenere[7]}</option>
+                            <option value=\"{$setValoriGenere[8]}\" ";
+                            
+                            echo ">{$setValoriGenere[8]}</option>
+                            <option value=\"{$setValoriGenere[9]}\" ";
+                            
+                            echo ">{$setValoriGenere[9]}</option>
+                        </select>
                     </p>
 
 
@@ -945,7 +1011,39 @@ if (isset($_POST["agencyToggleSubmit"])){
 
                     <p>
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
-                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovoGenere\" value=\"$generi\"></br>
+                        <select id=\"nuovo_genere\" name=\"nuovoGenere\">
+                            <option value=\"{$setValoriGenere[0]}\" ";
+                            if($generi == $setValoriGenere[0]) echo " selected";
+                            echo ">{$setValoriGenere[0]}</option>
+                            <option value=\"{$setValoriGenere[1]}\"";
+                            if($generi == $setValoriGenere[1]) echo " selected";
+                            echo ">{$setValoriGenere[1]}</option> 
+                            <option value=\"{$setValoriGenere[2]}\" ";
+                            if($generi == $setValoriGenere[2]) echo " selected";
+                            echo ">{$setValoriGenere[2]}</option>
+                            <option value=\"{$setValoriGenere[3]}\" ";
+                            if($generi == $setValoriGenere[3]) echo " selected";
+                            echo ">{$setValoriGenere[3]}</option>
+                            <option value=\"{$setValoriGenere[4]}\" ";
+                            if($generi == $setValoriGenere[4]) echo " selected";
+                            echo ">{$setValoriGenere[4]}</option>
+                            <option value=\"{$setValoriGenere[5]}\" ";
+                            if($generi == $setValoriGenere[5]) echo " selected";
+                            echo ">{$setValoriGenere[5]}</option>
+                            <option value=\"{$setValoriGenere[6]}\" ";
+                            if($generi == $setValoriGenere[6]) echo " selected";
+                            echo ">{$setValoriGenere[6]}</option>
+                            <option value=\"{$setValoriGenere[7]}\" ";
+                            if($generi == $setValoriGenere[7]) echo " selected";
+                            echo ">{$setValoriGenere[7]}</option>
+                            <option value=\"{$setValoriGenere[8]}\" ";
+                            if($generi == $setValoriGenere[8]) echo " selected";
+                            echo ">{$setValoriGenere[8]}</option>
+                            <option value=\"{$setValoriGenere[9]}\" ";
+                            if($generi == $setValoriGenere[9]) echo " selected";
+                            echo ">{$setValoriGenere[9]}</option>
+                        </select>
+                        </br>
                     </p>
 
                     <p>
@@ -955,7 +1053,12 @@ if (isset($_POST["agencyToggleSubmit"])){
 
                     <p>
                         <label for=\"disponibile\"> Cambia la disponibilita nel sito :</label>
-                        <input type=\"checkbox\" id=\"disponibile\" name=\"nuovaDisponibilità\" value=\"$disponibile\"></br>
+                        <input type=\"checkbox\" id=\"disponibile\" name=\"nuovaDisponibilità\" value=\"$disponibile\" ";
+
+                        if($disponibile == "1") echo " checked=\"checked\"> Disponibile </input>";
+                        else echo "> Non disponibile </input>";
+                        
+                    echo "</br>
                     </p>
                     
                     <p>

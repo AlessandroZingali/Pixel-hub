@@ -40,53 +40,96 @@ if(isset($error)){
 }
 // Funzione per modificare i parametri degli sconti
 if (isset($_POST['modificaMinimiSpesi']) && !empty($_POST['minimiSpesi'])) {
-    $minimiSpesi = $_POST['minimiSpesi'];
-    $doc = getDoc('XML/SettingsSconti.xml');
-    $root = $doc->documentElement;
-    $root->getElementsByTagName('MinimiSpesi')->item(0)->textContent = $minimiSpesi;
-    $doc->save('XML/SettingsSconti.xml');
-    header("Location: GestioneAdmin.php");
-    exit();
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['minimiSpesi'])){
+        $minimiSpesi = $_POST['minimiSpesi'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('MinimiSpesi')->item(0)->textContent = $minimiSpesi;
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato minimo speso non valido. Deve essere un numero decimale');</script>";
+    }
+    
 }
 if (isset($_POST['modificaValoreSconto']) && !empty($_POST['valoreSconto'])) {
-    $valoreSconto = $_POST['valoreSconto'];
-    $doc = getDoc('XML/SettingsSconti.xml');
-    $root = $doc->documentElement;
-    $root->getElementsByTagName('Valore')->item(0)->textContent = $valoreSconto;
-    $doc->save('XML/SettingsSconti.xml');
-    header("Location: GestioneAdmin.php");
-    exit();
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['valoreSconto'])){
+        $valoreSconto = $_POST['valoreSconto'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('Valore')->item(0)->textContent = $valoreSconto;
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato valore sconto non valido. Deve essere un numero decimale');</script>";
+    }
+    
 }
 if (isset($_POST['modificaDataInizio']) && !empty($_POST['dataInizio'])) {
-    $dataInizio = $_POST['dataInizio'];
-    $doc = getDoc('XML/SettingsSconti.xml');
-    $root = $doc->documentElement;
-    $root->getElementsByTagName('DataInizio')->item(0)->textContent = $dataInizio;
-    $doc->save('XML/SettingsSconti.xml');
-    header("Location: GestioneAdmin.php");
-    exit();
+    $dataOdierna = new DateTime('today');
+    $dataDaConfrontare = new DateTime($_POST['dataInizio']);
+    if(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['dataInizio']) && $dataDaConfrontare <= $dataOdierna){   
+        $dataInizio = $_POST['dataInizio'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('DataInizio')->item(0)->textContent = $dataInizio;
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        $esitoDataInizio = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['dataInizio']);
+        if($esitoDataInizio){
+            echo "<script type='text/javascript'>alert('Formato data di inizio non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+        }
+        else if($dataDaConfrontare > $dataOdierna){
+            echo "<script type='text/javascript'>alert('La data di inizio non può essere futura');</script>";
+        }
+    }
 }
 
-if (isset($_POST['modificaReputazioneMin']) && !empty($_POST['reputazioneMin'])) {
-    $reputazioneMin = $_POST['reputazioneMin'];
-    $doc = getDoc('XML/SettingsSconti.xml');
-    $root = $doc->documentElement;
-    $root->getElementsByTagName('ReputazioneMin')->item(0)->textContent = $reputazioneMin;
-    $doc->save('XML/SettingsSconti.xml');
-    header("Location: GestioneAdmin.php");
-    exit();
+if (isset($_POST['modificaReputazioneMin']) && !empty($_POST['reputazioneMin'])){
+    if(preg_match('/^[0-9]+$/', $_POST['reputazioneMin'])){
+        $reputazioneMin = $_POST['reputazioneMin'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('ReputazioneMin')->item(0)->textContent = $reputazioneMin;
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+        }
+    else{
+        echo "<script type='text/javascript'>alert('Formato reputazione minima non valido. Deve essere un numero intero');</script>";
+    }
+    
 }
 
 if (isset($_POST['modificaTempoIscrizione'])&& !empty($_POST['anniMin']&& !empty($_POST['mesiMin']))) {
-    $anniMin = $_POST['anniMin'];
-    $mesiMin = $_POST['mesiMin'];
-    $doc = getDoc('XML/SettingsSconti.xml');
-    $root = $doc->documentElement;
-    $root->getElementsByTagName('AnniMin')->item(0)->textContent = $anniMin;
-    $root->getElementsByTagName('MesiMin')->item(0)->textContent = $mesiMin;
-    $doc->save('XML/SettingsSconti.xml');
-    header("Location: GestioneAdmin.php");
-    exit();
+    $esitoAnniDiIscr = false;
+    $esitoMesiDiIscr = false;
+    if(preg_match('/^[1-9]+$/', $_POST['anniMin'])){
+        if(!empty($_POST['anniMin'])) $esitoAnniDiIscr = true;
+    }
+    if(preg_match('/^[1-9]+$/', $_POST['mesiMin'])){
+        if(!empty($_POST['anniMin'])) $esitoMesiDiIscr = true;
+    }
+        
+    if($esitoAnniDiIscr && $esitoMesiDiIscr){ 
+        $anniMin = $_POST['anniMin'];
+        $mesiMin = $_POST['mesiMin'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('AnniMin')->item(0)->textContent = $anniMin;
+        $root->getElementsByTagName('MesiMin')->item(0)->textContent = $mesiMin;
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        if(!$esitoAnniDiIscr) echo "<script type='text/javascript'>alert('Attenzione: inserire un numero intero Maggiore di 0 per gli anni minimi');</script>";
+        else if(!$esitoMesiDiIscr) echo "<script type='text/javascript'>alert('Attenzione: inserire un numero intero Maggiore di 0 per i mesi minimi');</script>";
+        else if(!$esitoAnniDiIscr && !$esitoMesiDiIscr) echo "<script type='text/javascript'>alert('Attenzione: inserire un numero intero Maggiore di 0 per gli anni e i mesi minimi');</script>";
+    }
+    
 }
 if (isset($_POST['modificaCasaSconto']) && !empty($_POST['casaSconto'])) {
     $casaSconto = $_POST['casaSconto'];
@@ -95,7 +138,7 @@ if (isset($_POST['modificaCasaSconto']) && !empty($_POST['casaSconto'])) {
     $root->getElementsByTagName('CasaSconto')->item(0)->textContent = $casaSconto;
     $doc->save('XML/SettingsSconti.xml');
     header("Location: GestioneAdmin.php");
-    exit();
+    
 }
 if (isset($_POST['modificaGenereSconto']) && !empty($_POST['genereSconto'])) {
     $genereSconto = $_POST['genereSconto'];
@@ -104,7 +147,7 @@ if (isset($_POST['modificaGenereSconto']) && !empty($_POST['genereSconto'])) {
     $root->getElementsByTagName('GenereSconto')->item(0)->textContent = $genereSconto;
     $doc->save('XML/SettingsSconti.xml');
     header("Location: GestioneAdmin.php");
-    exit();
+    
 }
 if(isset($_POST['modificaGiochiAdmin'])){
     if(isset($_POST['giochiAdmin']) && !empty($_POST['giochiAdmin'])){
@@ -124,23 +167,37 @@ if(isset($_POST['modificaGiochiAdmin'])){
     }
 
     if(isset($_POST['nuoviGiochiAdmin']) && !empty($_POST['nuoviGiochiAdmin'])){
+
+        $listaGiochiEsitentiInCatalogo = [];
+        $erroreGiocoInesistente = false;
         $settingsSelector = getDoc('XML/SettingsSconti.xml');
+        $elemGicohiEsistenti = xmlPointer('XML/Giochi.xml');
         $rootSettings = $settingsSelector->documentElement;
         $gameListAdmin = $rootSettings->getElementsByTagName("listaGiochiAdmin")->item(0);
         $giochiEsistenti = [];
+        foreach($elemGicohiEsistenti as $idgiocoNode){
+            $listaGiochiEsitentiInCatalogo[] = $idgiocoNode->getAttribute('id_gioco');
+        }
         foreach($gameListAdmin->getElementsByTagName("Gioco") as $giocoNode){
             $giochiEsistenti[] = trim($giocoNode->textContent);
         }
         $arrayNuoviGiochiAdmin = explode(',', $_POST['nuoviGiochiAdmin']);
 
         foreach($arrayNuoviGiochiAdmin as $gioco){
-            if(!in_array(trim($gioco), $giochiEsistenti)){
+            if(!in_array(trim($gioco), $giochiEsistenti) && in_array(trim($gioco), $listaGiochiEsitentiInCatalogo)){
                 $newGiocoNode = $settingsSelector->createElement("Gioco", trim($gioco));
                 $gameListAdmin->appendChild($newGiocoNode);
+            }
+            else if(!in_array(trim($gioco), $listaGiochiEsitentiInCatalogo)){
+               $erroreGiocoInesistente = true;
             }
         }
 
         $settingsSelector->save('XML/SettingsSconti.xml');
+
+        if($erroreGiocoInesistente){
+            echo "<script type='text/javascript'>alert('Attenzione: alcuni giochi inseriti non sono stati aggiunti alla lista dei giochi consigliati perchè non esistono nel catalogo');</script>";
+        }
     }
 
     header("Location: GestioneAdmin.php");
@@ -253,68 +310,94 @@ if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
 
 // Funzione per modificare i dettagli di un gioco
 if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
-    $id_gioco = $_POST['id_da_modificare'];
+    
+
+    if(preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']) &&
+    preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']) &&
+    preg_match('/^[0-9]+$/', $_POST['nuovaMediaAdmin']) &&
+    preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuovaData'])){
+        $id_gioco = $_POST['id_da_modificare'];
 
 
-    $xml = getDoc('XML/Giochi.xml');
-    $root = $xml->documentElement;
-    $elem = $root->childNodes;
+        $xml = getDoc('XML/Giochi.xml');
+        $root = $xml->documentElement;
+        $elem = $root->childNodes;
 
-    foreach ($elem as $gioco) {
-        if ($gioco->getAttribute('id_gioco') == $id_gioco) {
-            // var_dump($gioco);
-            // echo "<script>console.log($gioco);</script>";
+        foreach ($elem as $gioco) {
+            if ($gioco->getAttribute('id_gioco') == $id_gioco) {
+                // var_dump($gioco);
+                // echo "<script>console.log($gioco);</script>";
 
-             
-            if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
+                
+                if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
 
-            
-            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
-
-
-            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
-
-            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
-            
-            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
-            
-            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
-
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovaMediaAdmin'];
-
-            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
-
-            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
-            
-            if(isset($_POST['id_correlati']))$id_correlati = explode(',', $_POST['id_correlati']);
+                
+                if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
 
 
-             // Aggiorna i giochi correlati
-             if(isset($_POST['id_correlati'])){
-                    if(!empty($_POST['id_correlati'])){
-                    $id_correlati = explode(',', $_POST['id_correlati']);
-                    $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
-                    foreach ($id_correlati as $key => $id_correlato) {
-                        foreach ($correlatiNode->childNodes as $correlato){
-                            if($correlato->textContent == trim($id_correlato)){
-                                unset($id_correlati[$key]);
+                if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
+
+                if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
+                
+                if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
+                
+                if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
+
+                if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovaMediaAdmin'];
+
+                if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
+
+                if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
+                
+                
+                
+
+                // Aggiorna i giochi correlati
+                if(isset($_POST['id_correlati'])){
+                        if(!empty($_POST['id_correlati'])){
+                        $id_correlati = explode(',', $_POST['id_correlati']);
+                        $correlatiNode = $gioco->getElementsByTagName("TitoliCorrelati")[0];
+                        foreach ($id_correlati as $key => $id_correlato) {
+                            foreach ($correlatiNode->childNodes as $correlato){
+                                if($correlato->textContent == trim($id_correlato)){
+                                    unset($id_correlati[$key]);
+                                }
                             }
                         }
-                    }
-                    $id_correlati=array_map('trim', $id_correlati);
-                    foreach ($id_correlati as $id_correlato) {
-                        $newCorrelato = $xml->createElement("idGiocoCorrelato", $id_correlato);
-                        $correlatiNode->appendChild($newCorrelato);
+                        $id_correlati=array_map('trim', $id_correlati);
+                        foreach ($id_correlati as $id_correlato) {
+                            $newCorrelato = $xml->createElement("idGiocoCorrelato", $id_correlato);
+                            $correlatiNode->appendChild($newCorrelato);
+                        }
                     }
                 }
-            }
 
-            
-            
+                
+                
+            }
         }
+        $xml->save('XML/Giochi.xml');
+        header("Location: GestioneAdmin.php");
     }
-    $xml->save('XML/Giochi.xml');
-    header("Location: GestioneAdmin.php");
+    else
+        {
+            $esitoCorrelati = !preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']);
+            $esitoPrezzo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']);
+            $esitoMediaAdmin = !preg_match('/^[0-9]+$/', $_POST['nuovaMediaAdmin']);
+            $esitoData = !preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuovaData']);
+            if($esitoCorrelati){
+                echo "<script type='text/javascript'>alert('Formato ID correlati non valido. Deve essere una lista di numeri separati da una virgola');</script>";
+            }
+            else if($esitoPrezzo){
+                echo "<script type='text/javascript'>alert('Formato prezzo non valido. Deve essere un numero decimale');</script>";
+            }
+            else if($esitoMediaAdmin){
+                echo "<script type='text/javascript'>alert('Formato media admin non valido. Deve essere un numero intero');</script>";
+            }
+            else if($esitoData){
+                echo "<script type='text/javascript'>alert('Formato data non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+            }
+    }
 }
 
 // Funzione per rimuovere giochi correlati
@@ -349,10 +432,18 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
 
 //
 if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
+    $dataOdierna = new DateTime('today');
+    $dataDaConfrontare = new DateTime($_POST['Data_di_Nascita']);
     
+
     if(preg_match('/^.*@.*$/',$_POST['Email']) && 
     preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) &&
-    preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita'])){
+    preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita']) && 
+    preg_match('/^[0-9]+$/', $_POST['Esperienza']) && 
+    preg_match('/^[0-9]+$/', $_POST['Pixels']) && 
+    preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['Saldo_attuale']) &&
+    $dataDaConfrontare <= $dataOdierna
+    ){
 
         $pointDB = new connectionDB();
         $mysqliConnection = $pointDB->connectDB();
@@ -427,6 +518,9 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
         $errorepasword = !preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']);
         $erroreemail = !preg_match('/^.*@.*$/',$_POST['Email']);
         $erroreDataNascita = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita']);
+        $erroreExperienza = !preg_match('/^[0-9]+$/', $_POST['Esperienza']);
+        $errorePixels = !preg_match('/^[0-9]+$/', $_POST['Pixels']);
+        $erroreSaldo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['Saldo_attuale']);
         if($errorepasword){
             echo "<script type='text/javascript'>alert('Formato password non valido. Deve contenere almeno 8 caratteri, una lettera maiuscola e un carattere speciale tra !@=&');</script>";
         }
@@ -435,42 +529,68 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
         }
         else if($erroreDataNascita){
             echo "<script type='text/javascript'>alert('Formato data di nascita non valido. Deve essere nel formato GG-MM-AAAA');</script>";
-    }
+        }
+        else if($erroreExperienza){
+            echo "<script type='text/javascript'>alert('Formato esperienza non valido. Deve essere un numero intero');</script>";
+        }
+        else if($errorePixels){
+            echo "<script type='text/javascript'>alert('Formato pixels non valido. Deve essere un numero intero');</script>";
+        }
+        else if($erroreSaldo){
+            echo "<script type='text/javascript'>alert('Formato saldo non valido. Deve essere un numero decimale');</script>";
+        }
+        else if($dataDaConfrontare > $dataOdierna){
+            echo "<script type='text/javascript'>alert('La data di nascita non può essere futura');</script>";
+        }
     }
 
 }
 
 if(isset($_POST['modificaInfoExtraUtente']) && !empty($_POST['id_user_gestione'])){
+    $dataOdierna = new DateTime('today');
+    $dataDaConfrontare = new DateTime($_POST['DataIscrizione']);
+    if(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataIscrizione']) && $dataDaConfrontare <= $dataOdierna){
 
-    $xml = getDoc('XML/utenti.xml');
-    $root = $xml->documentElement;
-    $elem = $root->childNodes;
+        $xml = getDoc('XML/utenti.xml');
+        $root = $xml->documentElement;
+        $elem = $root->childNodes;
 
-    foreach ($elem as $utente) {
+        foreach ($elem as $utente) {
 
-        if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+            if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
 
-            $utente->getElementsByTagName("linkEsterno")->item(0)->textContent = $_POST['linkProfiloSocial'];
-            $utente->getElementsByTagName("DataIscrizione")->item(0)->textContent = $_POST['DataIscrizione'];
-            $utente->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['Descrizione'];
-            $utente->getElementsByTagName("GenerePreferito")->item(0)->textContent = $_POST['GenerePreferito'];
-            $utente->getElementsByTagName("CasaDiSviluppoPreferita")->item(0)->textContent = $_POST['CasaDiSviluppoPreferita'];
-            if($_POST['tipologia_utente'] == '1'){
-                if(isset($_POST['toggleAgency'])) {
-                    $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "true";
-                } else {
-                    $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "false";
+                $utente->getElementsByTagName("linkEsterno")->item(0)->textContent = $_POST['linkProfiloSocial'];
+                $utente->getElementsByTagName("DataIscrizione")->item(0)->textContent = $_POST['DataIscrizione'];
+                $utente->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['Descrizione'];
+                $utente->getElementsByTagName("GenerePreferito")->item(0)->textContent = $_POST['GenerePreferito'];
+                $utente->getElementsByTagName("CasaDiSviluppoPreferita")->item(0)->textContent = $_POST['CasaDiSviluppoPreferita'];
+                if($_POST['tipologia_utente'] == '1'){
+                    if(isset($_POST['toggleAgency'])) {
+                        $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "true";
+                    } else {
+                        $utente->getElementsByTagName("ToggleAgency")->item(0)->textContent = "false";
+                    }
+                    
+                    $utente->getElementsByTagName("DescrizionePublisher")->item(0)->textContent = $_POST['DescrizionePublisher'];
                 }
                 
-                $utente->getElementsByTagName("DescrizionePublisher")->item(0)->textContent = $_POST['DescrizionePublisher'];
+                break;
             }
-            
-            break;
+        }
+
+        $xml->save('XML/utenti.xml');
+        $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
+    }
+    else{
+        $esitoDataIscrizione = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataIscrizione']);
+        if($esitoDataIscrizione){
+            echo "<script type='text/javascript'>alert('Formato data di iscrizione non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+        }
+        else if($dataDaConfrontare > $dataOdierna){
+            echo "<script type='text/javascript'>alert('La data di iscrizione non può essere futura');</script>";
         }
     }
-
-    $xml->save('XML/utenti.xml');
-    $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
+    
 }
 
 if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
@@ -511,49 +631,98 @@ if(isset($_POST['rimuoviGiochiPosseduti']) && !empty($_POST['id_user_gestione'])
 
 if(isset($_POST['aggiungiGiochiPosseduti']) && !empty($_POST['id_user_gestione'])){
 
-    $xml = getDoc('XML/utenti.xml');
-    $utenti = $xml->getElementsByTagName("Utente");
+    $jumperGiochiPos = false;
+    $dataDiOggi = new DateTime('today');
+    $dataPerConfronto = new DateTime($_POST['data_acquisto_assegnazione_nuovo_gioco']);
+    $idCheckCond = true;
+    $catalogoGiochi = [];
+    $pointerAlCatalogo = xmlPointer('XML/Giochi.xml');
 
-    foreach ($utenti as $utente) {
-
-        if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
-
-            $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
-
-            $giocoId = $_POST['id_gioco_posseduto'];
-            $newGioco = $xml->createElement("idGiocoPosseduto", $giocoId);
-
-            if(isset($_POST['data_acquisto']) && !empty($_POST['data_acquisto'])){
-                $newGioco->setAttribute("data_acquisizione", $_POST['data_acquisto']);
-            }else{
-                $newGioco->setAttribute("data_acquisizione", date("d-m-Y"));
-            }
-
-            if(isset($_POST['prezzo']) && !empty($_POST['prezzo'])){
-                $newGioco->setAttribute("spesa", $_POST['prezzo']);
-            }else{
-
-                $giochi = xmlPointer("XML/Giochi.xml");
-                $prezzoGioco = 0;
-
-                foreach ($giochi as $gioco) {
-                    if ($gioco->getAttribute("id_gioco") == $giocoId) {
-                        $prezzoGioco = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
-                        break;
-                    }
-                }
-
-                $newGioco->setAttribute("spesa", $prezzoGioco);
-            }
-
-            $listaGiochi->appendChild($newGioco);
-
-            break;
-        }
+    foreach($pointerAlCatalogo as $gameInCatalogo){
+        $catalogoGiochi = $gameInCatalogo->getAttribute('id_gioco');
     }
 
-    $xml->save('XML/utenti.xml');
-    $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
+    if(!empty($_POST['id_assegnazione_nuovo_gioco']) && preg_match('/^[1-9]+$/', $_POST['id_assegnazione_nuovo_gioco'])){
+        if(!(in_array($_POST['id_assegnazione_nuovo_gioco'], $catalogoGiochi))) $idCheckCond = false;
+
+    }
+    
+    if((empty($_POST['id_assegnazione_nuovo_gioco'])) || 
+    (empty($_POST['data_acquisto_assegnazione_nuovo_gioco'])) ||
+    (empty($_POST['prezzo_assegnazione_nuovo_gioco']) )){
+        $jumperGiochiPos = true;
+
+        echo "<script type='text/javascript'>alert('Attenzione: per aggiungere un nuovo gioco bisogna completare TUTTI I CAMPI!');</script>";
+         
+    }
+    
+    if((preg_match('/^[0-9]+$/', $_POST['id_assegnazione_nuovo_gioco']) &&
+        preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['data_acquisto_assegnazione_nuovo_gioco']) &&
+        preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['prezzo_assegnazione_nuovo_gioco'])) &&
+        !$jumperGiochiPos && ($dataPerConfronto <= $dataDiOggi && $idCheckCond)
+        ){
+        $xml = getDoc('XML/utenti.xml');
+        $utenti = $xml->getElementsByTagName("Utente");
+
+        foreach ($utenti as $utente) {
+
+            if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+
+                $listaGiochi = $utente->getElementsByTagName("listaGiochi")->item(0);
+
+                $giocoId = $_POST['id_assegnazione_nuovo_gioco'];
+                $newGioco = $xml->createElement("idGiocoPosseduto", $giocoId);
+
+                if(isset($_POST['data_acquisto_assegnazione_nuovo_gioco']) && !empty($_POST['data_acquisto_assegnazione_nuovo_gioco'])){
+                    $newGioco->setAttribute("data_acquisizione", $_POST['data_acquisto_assegnazione_nuovo_gioco']);
+                }else{
+                    $newGioco->setAttribute("data_acquisizione", date("d-m-Y"));
+                }
+
+                if(isset($_POST['prezzo_assegnazione_nuovo_gioco']) && !empty($_POST['prezzo_assegnazione_nuovo_gioco'])){
+                    $newGioco->setAttribute("spesa", $_POST['prezzo_assegnazione_nuovo_gioco']);
+                }else{
+
+                    $giochi = xmlPointer("XML/Giochi.xml");
+                    $prezzoGioco = 0;
+
+                    foreach ($giochi as $gioco) {
+                        if ($gioco->getAttribute("id_gioco") == $giocoId) {
+                            $prezzoGioco = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
+                            break;
+                        }
+                    }
+
+                    $newGioco->setAttribute("spesa", $prezzoGioco);
+                }
+
+                $listaGiochi->appendChild($newGioco);
+
+                break;
+            }
+        }
+
+        $xml->save('XML/utenti.xml');
+        $baseScontiUtente = new ScontiUtente($_POST['id_user_gestione']);
+    }
+    else{
+        $esitoIdGioco = !preg_match('/^[1-9]+$/', $_POST['id_assegnazione_nuovo_gioco']);
+        $esitoDataAcquisto = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['data_acquisto_assegnazione_nuovo_gioco']);
+        $esitoPrezzo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['prezzo_assegnazione_nuovo_gioco']);
+        if($esitoIdGioco){
+            echo "<script type='text/javascript'>alert('Formato ID gioco non valido. Deve essere un numero intero positivo');</script>";
+        }
+        else if($esitoDataAcquisto){
+            echo "<script type='text/javascript'>alert('Formato data di acquisto non valido. Deve essere nel formato GG-MM-AAAA');</script>";
+        }
+        else if($esitoPrezzo){
+            echo "<script type='text/javascript'>alert('Formato prezzo non valido. Deve essere un numero decimale');</script>";
+        }
+        else if($dataPerConfronto > $dataDiOggi){
+            echo "<script type='text/javascript'>alert('La data di acquisto non può essere futura');</script>";
+        }
+        else if(!$idCheckCond) echo '<script type="text/javascript">alert("Il gioco che si sta cercando di assegnare non esiste nel catalogo");</script>';
+    }
 }
 
 
@@ -1179,9 +1348,18 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 if (isset($_POST['id_gioco_modifica']) && !empty($_POST['id_gioco_modifica'])) {
                     $elemGiochi = xmlPointer('XML/Giochi.xml');
                         $elemPointer = $elemGiochi;
-                        
-                        
-
+                        $setValoriGenere = [
+                            'Nessuno',
+                            'Sparatutto',
+                            'RPG',
+                            'Avventura',
+                            'Souls-like',
+                            'Strategia',
+                            'Rouge-like',
+                            'Picchiaduro',
+                            'Azione',
+                            'Simulazione'
+                        ];
                         $trovato = false;
 
                         foreach($elemGiochi as $gioco){
@@ -1269,7 +1447,38 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
 
                     <p>
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
-                        <input type=\"text\" id=\"nuovo_genere\" name=\"nuovoGenere\" value=\"$generi\"></br>
+                         <select name=\"nuovoGenere\" id=\"nuovo_genere\">
+                                            <option value=\"{$setValoriGenere[0]}\" ";
+                                            if($generi == $setValoriGenere[0]) echo " selected";
+                                            echo ">{$setValoriGenere[0]}</option>
+                                            <option value=\"{$setValoriGenere[1]}\"";
+                                            if($generi == $setValoriGenere[1]) echo " selected";
+                                            echo ">{$setValoriGenere[1]}</option> 
+                                            <option value=\"{$setValoriGenere[2]}\" ";
+                                            if($generi == $setValoriGenere[2]) echo " selected";
+                                            echo ">{$setValoriGenere[2]}</option>
+                                            <option value=\"{$setValoriGenere[3]}\" ";
+                                            if($generi == $setValoriGenere[3]) echo " selected";
+                                            echo ">{$setValoriGenere[3]}</option>
+                                            <option value=\"{$setValoriGenere[4]}\" ";
+                                            if($generi == $setValoriGenere[4]) echo " selected";
+                                            echo ">{$setValoriGenere[4]}</option>
+                                            <option value=\"{$setValoriGenere[5]}\" ";
+                                            if($generi == $setValoriGenere[5]) echo " selected";
+                                            echo ">{$setValoriGenere[5]}</option>
+                                            <option value=\"{$setValoriGenere[6]}\" ";
+                                            if($generi == $setValoriGenere[6]) echo " selected";
+                                            echo ">{$setValoriGenere[6]}</option>
+                                            <option value=\"{$setValoriGenere[7]}\" ";
+                                            if($generi == $setValoriGenere[7]) echo " selected";
+                                            echo ">{$setValoriGenere[7]}</option>
+                                            <option value=\"{$setValoriGenere[8]}\" ";
+                                            if($generi == $setValoriGenere[8]) echo " selected";
+                                            echo ">{$setValoriGenere[8]}</option>
+                                            <option value=\"{$setValoriGenere[9]}\" ";
+                                            if($generi == $setValoriGenere[9]) echo " selected";
+                                            echo ">{$setValoriGenere[9]}</option>
+                                        </select>  <br />
                     </p>
                     
                     <p>
@@ -1378,6 +1587,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     $flag=1;
                     
                     $row=mysqli_fetch_array($resultQ);
+                    
                     echo "<h1>Gestione utente: <br /> ".$row['Username']." ID: ".$row['ID']."</h1>";
 
                     
@@ -1493,12 +1703,25 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 }
 
                 echo"<h2> Altre informazioni: </h2>";
+                $setValoriGenerePreferito = [
+                            'Nessuno',
+                            'Sparatutto',
+                            'RPG',
+                            'Avventura',
+                            'Souls-like',
+                            'Strategia',
+                            'Rouge-like',
+                            'Picchiaduro',
+                            'Azione',
+                            'Simulazione'
+                        ];
                 $elem = xmlPointer("XML/utenti.xml");
                 foreach ($elem as $utenteNode) {
 
                     if ($utenteNode->getAttribute('id_user') == $row['ID']) {
 
                         $id_utente = $utenteNode->getAttribute('id_user');
+                        $generePreferitoUtente = $utenteNode->getElementsByTagName("GenerePreferito")->item(0)->textContent;
 
                         echo"<form method='post' action='GestioneAdmin.php'>
                         
@@ -1511,14 +1734,34 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         
                         <label for=\"GenerePreferito\"> Genere preferito: </label>
                          <select name=\"GenerePreferito\" id=\"GenerePreferito\">
-                                            <option value=\"Nessuno\">Nessuno</option>
-                                            <option value=\"Sparatutto\">Sparatutto</option> 
-                                            <option value=\"RPG\">RPG</option>
-                                            <option value=\"Avventura\">Avventura</option>
-                                            <option value=\"Souls-like\">Souls-like</option>
-                                            <option value=\"Strategia\">Strategia</option>
-                                            <option value=\"Rouge-like\">Rouge-like</option>
-                                            <option value=\"Picchiaduro\">Picchiaduro</option>
+                                            <option value=\"{$setValoriGenerePreferito[0]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[0]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[0]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[1]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[1]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[1]}</option> 
+                                            <option value=\"{$setValoriGenerePreferito[2]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[2]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[2]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[3]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[3]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[3]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[4]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[4]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[4]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[5]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[5]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[5]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[6]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[6]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[6]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[7]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[7]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[7]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[8]}\" ";
+                                            if($generePreferitoUtente == $setValoriGenerePreferito[8]) echo " selected";
+                                            echo ">{$setValoriGenerePreferito[8]}</option>
+                                            <option value=\"{$setValoriGenerePreferito[9]}\">{$setValoriGenerePreferito[9]}</option>
                                         </select>  <br />
                         
                         <label for=\"Descrizione\"> Descrizione: </label>
@@ -1561,6 +1804,9 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 echo"<p>Seleziona i giochi da rimuovere dalla lista dei giochi posseduti:</p>";
 
                 $elem = xmlPointer("XML/utenti.xml");
+                $elemGiochiCatalogo = xmlPointer("XML/Giochi.xml");
+                $giochiInIdPosseduti = [];
+                $elencoGiochiPresentazione = [];
 
                 foreach ($elem as $utenteNode) {
 
@@ -1574,7 +1820,17 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
 
                     $giochi = $lista->getElementsByTagName("idGiocoPosseduto");
                     foreach ($giochi as $gioco) {
-                        echo "<input type='checkbox' name='giochi_da_rimuovere[]' value='".htmlspecialchars($gioco->textContent)."'> ID Gioco: ".htmlspecialchars($gioco->textContent)."<br>";
+                        $giochiInIdPosseduti[] = $gioco->textContent;
+                    }
+                    foreach($elemGiochiCatalogo as $giocoCatalogo){
+                        foreach($giochiInIdPosseduti as $idGiocoPossedutoInPosseduti){
+                            if($giocoCatalogo->getAttribute('id_gioco') == $idGiocoPossedutoInPosseduti)
+                            $elencoGiochiPresentazione[$idGiocoPossedutoInPosseduti]=$giocoCatalogo->getElementsByTagName('Titolo')->item(0)->textContent;
+                        }
+                    }
+
+                    foreach($elencoGiochiPresentazione as $idGiocoDaPassare => $titoloGiocoDaPassare){
+                        echo "<input type='checkbox' name='giochi_da_rimuovere[]' value='".htmlspecialchars($idGiocoDaPassare)."'> ID Gioco: ".htmlspecialchars($idGiocoDaPassare)." - Titolo: ".htmlspecialchars($titoloGiocoDaPassare)."<br>";
                     }
 
                     echo "<input type='hidden' name='id_user_gestione' value='$id_utente'>";
@@ -1587,11 +1843,11 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 echo"<p> Inserisci i campi per aggiungere un gioco:</p>";
                 echo "<form method='post' action='GestioneAdmin.php'>
                         <p><label for='id_gioco_posseduto'>Inserisci gli id del gioco da aggiungere:</label>
-                        <input type='text' id='id_gioco_posseduto' name='id_gioco_posseduto' ></p>
+                        <input type='text' id='id_gioco_posseduto' name='id_assegnazione_nuovo_gioco' ></p>
                        <p> <label for='data_acquisto'>Inserisci la data di acquisto (formato DD-MM-AAAA):</label>
-                        <input type='text' id='data_acquisto' name='data_acquisto' ></p>
+                        <input type='text' id='data_acquisto' name='data_acquisto_assegnazione_nuovo_gioco' ></p>
                         <p><label for='prezzo'>Inserisci il prezzo di acquisto:</label>
-                        <input type='text' id='prezzo' name='prezzo' > </p>
+                        <input type='text' id='prezzo' name='prezzo_assegnazione_nuovo_gioco' > </p>
                         <input type='hidden' name='id_user_gestione' value='$id_utente'>
                         <input type='submit' name='aggiungiGiochiPosseduti' value='Aggiungi ai giochi posseduti'><br><br>
                       </form>";
@@ -1853,6 +2109,20 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 <?php 
 
                     $listaGiochiAdmin = [];
+
+                    $setValoriGenerePreferitoSettingsSconti = [
+                            'Nessuno',
+                            'Sparatutto',
+                            'RPG',
+                            'Avventura',
+                            'Souls-like',
+                            'Strategia',
+                            'Rouge-like',
+                            'Picchiaduro',
+                            'Azione',
+                            'Simulazione'
+                        ];
+
                     $doc = new DOMDocument();
                     $doc->load("XML/SettingsSconti.xml");
 
@@ -1918,7 +2188,38 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     <p>Genere sconto: $genereSconto</p> 
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"genereSconto\">Modifica Genere Sconto:</label>
-                        <input type=\"text\" id=\"genereSconto\" name=\"genereSconto\" >
+                        <select id=\"genereSconto\" name=\"genereSconto\" >
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[0]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[0]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[0]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[1]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[1]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[1]}</option> 
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[2]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[2]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[2]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[3]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[3]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[3]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[4]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[4]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[4]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[5]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[5]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[5]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[6]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[6]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[6]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[7]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[7]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[7]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[8]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[8]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[8]}</option>
+                            <option value=\"{$setValoriGenerePreferitoSettingsSconti[9]}\" ";
+                            if($genereSconto == $setValoriGenerePreferitoSettingsSconti[9]) echo " selected";
+                            echo ">{$setValoriGenerePreferitoSettingsSconti[9]}</option>
+                        </select>
                         <input type=\"submit\" name=\"modificaGenereSconto\" value=\"Modifica\">    
                     </form>
                     <p>Lista Giochi degli admin (spunta per eliminare)</p>

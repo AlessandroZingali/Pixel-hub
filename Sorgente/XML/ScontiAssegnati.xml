@@ -13,7 +13,6 @@
       <Sconto>5</Sconto>
       <Sconto>6</Sconto>
       <Sconto>1</Sconto>
-      <Sconto>4</Sconto>
       <Sconto>8</Sconto>
       <Sconto>9</Sconto>
     </scontiAssegnati>
@@ -21,7 +20,6 @@
   <Utente id_user="2">
     <scontiAssegnati>
       <Sconto>9</Sconto>
-      <Sconto>4</Sconto>
       <Sconto>3</Sconto>
     </scontiAssegnati>
   </Utente>

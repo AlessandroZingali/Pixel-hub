@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TabellaGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Giochi_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Titolo>Overwatch Origins</Titolo>
+    <Titolo>Overwatch Origin</Titolo>
     <Prezzo>59.99</Prezzo>
     <CasaSviluppo>Blizzard Ent.</CasaSviluppo>
     <Publisher>Blizzard Ent.</Publisher>
     <Descrizione>Overwatch è uno sparatutto in prima persona a squadre sviluppato da Blizzard Entertainment. Il gioco presenta una vasta gamma di eroi, ognuno con abilità uniche, e si concentra su partite multiplayer competitive in cui due squadre di sei giocatori si sfidano per completare obiettivi specifici su mappe diverse.</Descrizione>
-    <RequisitiMinimi> OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space;  </RequisitiMinimi>
+    <RequisitiMinimi>    OS: Windows 7/8/10 64-bit; Processor: Intel Core i3 or AMD Phenom X3 8650; Memory: 4 GB RAM; Graphics: NVIDIA GeForce GTX 460, ATI Radeon HD 4850, or Intel HD Graphics 4400; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space;     </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
-    <DataDiUscita>2016</DataDiUscita>
+    <DataDiUscita>12.08.2016</DataDiUscita>
     <Immagine>ImmaginiGiochi/overwatch_logo.png</Immagine>
     <Generi>Sparatutto</Generi>
-    <Disponibile>0</Disponibile>
+    <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>6</MediaRecensioniUtenti>
     <TitoliCorrelati>
-      <idGiocoCorrelato>6</idGiocoCorrelato>
       <idGiocoCorrelato>8</idGiocoCorrelato>
+      <idGiocoCorrelato>22</idGiocoCorrelato>
+      <idGiocoCorrelato>11</idGiocoCorrelato>
+      <idGiocoCorrelato>6</idGiocoCorrelato>
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="2">
@@ -454,21 +456,39 @@
     </TitoliCorrelati>
   </Gioco>
   <Gioco id_gioco="25">
-    <Titolo>Ace Combat 8: wings of theve</Titolo>
+    <Titolo>Ace Combat 8: Wings of theve</Titolo>
     <Prezzo>89.99</Prezzo>
     <CasaSviluppo>Air Fire Force</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>Solca i cieli e supera ogni sfida per guadagnarti un posto fra gli assi. Affronta intensi combattimenti aerei e domina il campo di battaglia con armi potenti. Vivi una campagna mozzafiato costellata di missioni ad alto rischio, scelte difficili e profondi legami con i tuoi compagni di squadra. Si vola</Descrizione>
-    <RequisitiMinimi>    OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 70 GB;    </RequisitiMinimi>
+    <RequisitiMinimi>         OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 70 GB;         </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 7 / 8 / 8.1 / 10 64bit; Processore Consiato: Intel Core i5-7500; Ram Consigliata: 8 GB di RAM; GPU Consigliata: NVIDIA GeForce GTX 1060 (3GB); DirectX: Versione 12; Network: Connessione internet a banda larga; Spazio Raccomandato e t memoria: 50 GB; </RequisitiRaccomandati>
     <DataDiUscita>04.03.2026</DataDiUscita>
     <Immagine>ImmaginiGiochi\ace-combat-8-wings-of-theve__52265.jpg</Immagine>
-    <Generi>Azione</Generi>
+    <Generi>Simulazione</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>75</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>
-      <idGiocoCorrelato>22</idGiocoCorrelato>
+      <idGiocoCorrelato>16</idGiocoCorrelato>
+      <idGiocoCorrelato>14</idGiocoCorrelato>
+      <idGiocoCorrelato>15</idGiocoCorrelato>
     </TitoliCorrelati>
+  </Gioco>
+  <Gioco id_gioco="26">
+    <Titolo>Marathon</Titolo>
+    <Prezzo>39.99</Prezzo>
+    <CasaSviluppo>Bungie</CasaSviluppo>
+    <Publisher>Bandai Namco Entertainment</Publisher>
+    <Descrizione>mmm</Descrizione>
+    <RequisitiMinimi>OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 50 GB;</RequisitiMinimi>
+    <RequisitiRaccomandati>OS: Windows 7 / 8 / 8.1 / 10 64bit; Processore Consiato: Intel Core i5-7500; Ram Consigliata: 8 GB di RAM; GPU Consigliata: NVIDIA GeForce GTX 1060 (3GB); DirectX: Versione 12; Network: Connessione internet a banda larga; Spazio Raccomandato e t memoria: 50 GB; </RequisitiRaccomandati>
+    <DataDiUscita>03.03.2026</DataDiUscita>
+    <Immagine>ImmaginiGiochi\marathon-v19-51848.jpg</Immagine>
+    <Generi>Sparatutto</Generi>
+    <Disponibile>1</Disponibile>
+    <MediaRecensioniAdmin>50</MediaRecensioniAdmin>
+    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <TitoliCorrelati/>
   </Gioco>
 </TabellaGiochi>

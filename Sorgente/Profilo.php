@@ -715,6 +715,8 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                             <option value="Strategia">Strategia</option>
                                             <option value="Rouge-like">Rouge-like</option>
                                             <option value="Picchiaduro">Picchiaduro</option>
+                                            <option value="Azione">Azione</option>
+                                            <option value="Simulazione">Simulazione</option>
                                         </select>  
                                     
                                 </td> 
