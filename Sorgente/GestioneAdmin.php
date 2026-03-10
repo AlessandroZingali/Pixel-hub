@@ -1325,7 +1325,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 echo "<form method=\"post\" action=\"GestioneAdmin.php\">
                     <!-- Aggiungi qui i campi per modificare il gioco -->
                     <label for=\"id_gioco_modifica\">ID Gioco da modificare:</label>
-                    <div class=\"ricercaUtente\">
+                    <div class=\"ricercaGiochi\">
                     <div><input type='text' id=\"id_gioco_modifica\" name=\"id_gioco_modifica\"/></div>
                     <div id=\"ContainerliveSearchGiochi\">
                         <div><label for='liveSearchInputGiochi'>Cerca gioco per nome: </label></br><input type='text' id='liveSearchInputGiochi' onkeyup='mostraRisultatiGiochi(this.value)'></div>
@@ -1545,11 +1545,19 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
             <div class="cardSettings hideCard" id="card5">
                 <!-- Funzione admin:sospensione gioco -->
               <h3> Sospendi gioco dal catalogo </h3>
-              <form method="post" action="GestioneAdmin.php">
-                <label for="id_gioco">ID Gioco da sospendere:</label>
-                <input type="text" id="id_gioco" name="id_gioco_da_sospendere"  >
-                <input type="submit" name="sospendi" value="Sospendi Gioco">
-            </form>
+              <?php
+              echo "<form method=\"post\" action=\"GestioneAdmin.php\">
+                <label for=\"id_gioco_modifica\">ID Gioco da sospendere:</label>
+                <div class=\"ricercaGiochi\">
+                    <div><input type='text' id=\"id_gioco_modifica\" name=\"id_gioco_modifica\"/></div>
+                    <div id=\"ContainerliveSearchGiochi\">
+                        <div><label for='liveSearchInputGiochi'>Cerca gioco per nome: </label></br><input type='text' id='liveSearchInputGiochi' onkeyup='mostraRisultatiGiochi(this.value)'></div>
+                        <div class=\"liveSearchGiochi\"></div>
+                    </div>
+                    </div>
+                <input type=\"submit\" name=\"sospendi\" value=\"Sospendi Gioco\">
+            </form>";
+            ?>
                 <div class="buttons">
                     <div class="backarrow">
                         <button onclick="swapperInSospensione()"><img src="Stile/Icone/iconafreccia.png" alt="sospendigiochobutton" ></button>
