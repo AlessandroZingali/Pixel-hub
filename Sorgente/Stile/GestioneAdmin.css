@@ -281,6 +281,10 @@ p.risultatoSearchGiochi {
 
     cursor: pointer;
 }
+p.risultatoSearchUtenti {
+
+    cursor: pointer;
+}
 input#elimina_gioco {
     background-color: rgba(255, 0, 0, 0.493);
     color: white;
