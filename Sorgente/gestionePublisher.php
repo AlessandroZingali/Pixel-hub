@@ -311,6 +311,22 @@ if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati'])
     header("Location: gestionePublisher.php");
 }
 
+if(isset($_POST['eliminaGioco']) && !empty($_POST['id_da_modificare'])){
+    $id_gioco = $_POST['id_da_modificare'];
+    $doc = getDoc('XML/Giochi.xml');
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+    
+    foreach ($elem as $gioco) {
+        if ($gioco->getAttribute('id_gioco') == $id_gioco) {
+            $root->removeChild($gioco);
+            break;
+        }
+    }
+    $doc->save('XML/Giochi.xml');
+    header("Location: gestionePublisher.php");
+}
+
 
 // Funzione per sospendere o riattivare un gioco presente sul sito, viene usata la funzione getDoc per caricare il file XML "Giochi.xml"
 if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
@@ -1060,10 +1076,41 @@ if (isset($_POST["agencyToggleSubmit"])){
                         
                     echo "</br>
                     </p>
-                    
+
                     <p>
                         <label for=\"IdCorrelati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
                         <input type=\"text\" id=\"IdCorrelati\" name=\"id_correlati\" value=\"\"></br>
+                    </p>
+
+                    <p>
+                        <label for=\"elimina_gioco\">Elimina gioco dallo store:</label>
+                        <input type=\"button\" id=\"elimina_gioco\" name=\"elimina_gioco\" value=\"Elimina\" onclick=\"eliminaGioco()\"></p>
+
+                    <script>
+                        function eliminaGioco() {
+                            if (confirm('Sei sicuro di voler eliminare questo gioco? Questa azione è irreversibile.')) {
+                                // Se l'utente conferma, invia un form nascosto per eliminare il gioco
+                                var form = document.createElement('form');
+                                form.method = 'post';
+                                form.action = 'gestionePublisher.php';
+
+                                var inputId = document.createElement('input');
+                                inputId.type = 'hidden';
+                                inputId.name = 'id_da_modificare';
+                                inputId.value = '".$_POST['id_gioco_modifica']."';
+                                form.appendChild(inputId);
+
+                                var inputElimina = document.createElement('input');
+                                inputElimina.type = 'hidden';
+                                inputElimina.name = 'eliminaGioco';
+                                inputElimina.value = 'true';
+                                form.appendChild(inputElimina);
+
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+                        }
+                    </script>
                     </p>
 
                     
@@ -1071,6 +1118,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                     
                     <input type=\"submit\" name=\"modificaGioco\" value=\"Modifica Gioco\"></br>
                     <p>
+                    
                     <label for=\"id_correlati_eliminati\">Rimuovi da ID Giochi Correlati:</label> ";
                     
                         $elemGiochi = xmlPointer('XML/Giochi.xml');
@@ -1098,13 +1146,9 @@ if (isset($_POST["agencyToggleSubmit"])){
                         }
                         echo "<br/><input type=\"submit\" name=\"rimuoviCorrelati\" value=\"Rimuovi Correlati\"></p>";
                     echo "</form>";
-                    
-
-                        
                 }
-                            
-                    ?>
-                    
+                ?>
+  
                   <div class="buttons">
                     <div class="backarrow">
                         <button onclick="swapperInModificaGioco()"><img src="Stile/Icone/iconafreccia.png" alt="modificagiocobutton" ></button>

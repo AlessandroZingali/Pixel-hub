@@ -245,4 +245,26 @@ input[type="text"],textarea{
     font-size: 18px;
 }
 
+input#liveSearchInputGiochi {
+    width: 95%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+p.risultatoSearchGiochi {
+
+    cursor: pointer;
+}
+input#elimina_gioco {
+    background-color: rgba(255, 0, 0, 0.493);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 20%;
+     font-family: "font pixeloso",monospace;
+}
+
 

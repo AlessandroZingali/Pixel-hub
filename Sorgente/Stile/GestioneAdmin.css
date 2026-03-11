@@ -69,7 +69,7 @@ input[type="submit"]{
 }
 
 button[type="button"]{
-    font-family: "font pixeloso",monospace;;
+    font-family: "font pixeloso",monospace;
 }
 
     
@@ -268,5 +268,29 @@ input[type="text"],textarea{
     list-style-type: none;
     padding: 0;
 }
+
+input#liveSearchInputGiochi {
+    width: 95%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+p.risultatoSearchGiochi {
+
+    cursor: pointer;
+}
+input#elimina_gioco {
+    background-color: rgba(255, 0, 0, 0.493);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    width: 20%;
+     font-family: "font pixeloso",monospace;
+}
+
+
 
 

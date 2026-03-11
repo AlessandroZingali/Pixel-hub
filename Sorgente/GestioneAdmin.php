@@ -276,7 +276,22 @@ if (isset($_POST['rimuoviSconto']) && isset($_POST['id_user']) && !empty($_POST[
     header("Location: GestioneAdmin.php");
     exit();
 }
-
+// Funzione per eliminare un gioco dal catalogo
+if(isset($_POST['eliminaGioco']) && !empty($_POST['id_da_modificare'])){
+    $id_gioco = $_POST['id_da_modificare'];
+    $doc = getDoc('XML/Giochi.xml');
+    $root = $doc->documentElement;
+    $elem = $root->childNodes;
+    
+    foreach ($elem as $gioco) {
+        if ($gioco->getAttribute('id_gioco') == $id_gioco) {
+            $root->removeChild($gioco);
+            break;
+        }
+    }
+    $doc->save('XML/Giochi.xml');
+    header("Location: GestioneAdmin.php");
+}
 
 // Funzione per sospendere o riattivare un gioco
 if (isset($_POST["sospendi"]) && !empty($_POST["id_gioco_da_sospendere"])) {
@@ -1488,6 +1503,36 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                                             echo ">{$setValoriGenere[9]}</option>
                                         </select>  <br />
                     </p>
+
+                    <p> 
+                    <label for=\"elimina_gioco\"> Elimina gioco dallo store:</label>
+                    <input type=\"button\" id=\"elimina_gioco\" name=\"elimina_gioco\" value=\"Elimina\" onclick=\"eliminaGioco()\"></p>
+
+                    <script>
+                        function eliminaGioco() {
+                            if (confirm('Sei sicuro di voler eliminare questo gioco? Questa azione è irreversibile.')) {
+                                // Se l'utente conferma, invia un form nascosto per eliminare il gioco
+                                var form = document.createElement('form');
+                                form.method = 'post';
+                                form.action = 'gestioneAdmin.php';
+
+                                var inputId = document.createElement('input');
+                                inputId.type = 'hidden';
+                                inputId.name = 'id_da_modificare';
+                                inputId.value = '".$_POST['id_gioco_modifica']."';
+                                form.appendChild(inputId);
+
+                                var inputElimina = document.createElement('input');
+                                inputElimina.type = 'hidden';
+                                inputElimina.name = 'eliminaGioco';
+                                inputElimina.value = 'true';
+                                form.appendChild(inputElimina);
+
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+                        }
+                    </script>
                     
                     <p>
                         <label for=\"IdCorrelati\">Aggiungi ad ID Giochi Correlati (separati da virgola):</label>
@@ -1551,7 +1596,8 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                 <div class=\"ricercaGiochi\">
                     <div><input type='text' id=\"id_gioco_modifica\" name=\"id_gioco_modifica\"/></div>
                     <div id=\"ContainerliveSearchGiochi\">
-                        <div><label for='liveSearchInputGiochi'>Cerca gioco per nome: </label></br><input type='text' id='liveSearchInputGiochi' onkeyup='mostraRisultatiGiochi(this.value)'></div>
+                        <div><label for='liveSearchInputGiochi'>Cerca gioco per nome: </label></br>
+                        <input type='text' id='liveSearchInputGiochi'  onkeyup='mostraRisultatiGiochi(this.value)'></div>
                         <div class=\"liveSearchGiochi\"></div>
                     </div>
                     </div>
