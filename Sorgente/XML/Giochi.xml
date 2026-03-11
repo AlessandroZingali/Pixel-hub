@@ -481,7 +481,7 @@
     <CasaSviluppo>Bungie</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>mmm</Descrizione>
-    <RequisitiMinimi>OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 50 GB;</RequisitiMinimi>
+    <RequisitiMinimi> OS minimo : Windows 7 / 8 / 8.1 / 10 64bit; Processore minimo: Intel Core i3-7100; Ram richiesta: 4 GB di RAM; GPU Minima: NVIDIA GeForce GTX 750Ti(2GB); DirectX: Versione 11; Banda di rete minima: Connessione internet a banda larga; Spazio Minimo e memoria : 50 GB; </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows 7 / 8 / 8.1 / 10 64bit; Processore Consiato: Intel Core i5-7500; Ram Consigliata: 8 GB di RAM; GPU Consigliata: NVIDIA GeForce GTX 1060 (3GB); DirectX: Versione 12; Network: Connessione internet a banda larga; Spazio Raccomandato e t memoria: 50 GB; </RequisitiRaccomandati>
     <DataDiUscita>03.03.2026</DataDiUscita>
     <Immagine>ImmaginiGiochi\marathon-v19-51848.jpg</Immagine>
@@ -489,6 +489,8 @@
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>50</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
-    <TitoliCorrelati/>
+    <TitoliCorrelati>
+      <idGiocoCorrelato>1</idGiocoCorrelato>
+    </TitoliCorrelati>
   </Gioco>
 </TabellaGiochi>

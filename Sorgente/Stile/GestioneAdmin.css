@@ -269,7 +269,7 @@ input[type="text"],textarea{
     padding: 0;
 }
 
-input#liveSearchInputGiochi {
+input#liveSearchInputGiochi,input#liveSearchInputUtenti{
     width: 95%;
     padding: 8px;
     margin-top: 5px;

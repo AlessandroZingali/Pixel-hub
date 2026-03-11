@@ -245,7 +245,7 @@ input[type="text"],textarea{
     font-size: 18px;
 }
 
-input#liveSearchInputGiochi {
+input#liveSearchInputGiochi{
     width: 95%;
     padding: 8px;
     margin-top: 5px;
