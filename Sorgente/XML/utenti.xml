@@ -42,4 +42,37 @@
       <idPropic>3</idPropic>
     </listaPropic>
   </Utente>
+  <Utente id_user="5">
+    <linkEsterno/>
+    <DataIscrizione>11-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <Descrizione/>
+    <ToggleAgency/>
+    <DescrizionePublisher/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="6">
+    <linkEsterno/>
+    <DataIscrizione>12-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <Descrizione/>
+    <ToggleAgency/>
+    <DescrizionePublisher/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="7">
+    <linkEsterno/>
+    <DataIscrizione>18-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Sparatutto</GenerePreferito>
+    <Descrizione/>
+    <ToggleAgency/>
+    <DescrizionePublisher/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>
