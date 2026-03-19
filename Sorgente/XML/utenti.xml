@@ -57,12 +57,14 @@
     <linkEsterno/>
     <DataIscrizione>12-03-2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Sparatutto</GenerePreferito>
+    <GenerePreferito>Rouge-like</GenerePreferito>
     <Descrizione/>
-    <ToggleAgency/>
-    <DescrizionePublisher/>
+    <ToggleAgency>true</ToggleAgency>
+    <DescrizionePublisher>SIAMO LA BANDAI NAMCO E FACCIAMO BEI GIOCHI</DescrizionePublisher>
     <listaGiochi/>
-    <listaPropic/>
+    <listaPropic>
+      <idPropic>1</idPropic>
+    </listaPropic>
   </Utente>
   <Utente id_user="7">
     <linkEsterno/>

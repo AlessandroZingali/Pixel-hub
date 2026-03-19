@@ -225,8 +225,6 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
 
     foreach ($elem as $gioco) {
         if ($gioco->getAttribute('id_gioco') == $id_gioco) {
-            // var_dump($gioco);
-            // echo "<script>console.log($gioco);</script>";
 
              
             if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
@@ -492,7 +490,6 @@ if (isset($_POST["agencyToggleSubmit"])) {
 if (isset($_POST["agencyToggleSubmit"])){
     $idUtente = $_SESSION["userId"];
     $target_dir ="loghiPub\\";
-    var_dump($_FILES["agencyImageUpload"]);
     $nameLogo = $_SESSION['userName']."_logo.png";
     $target_file = $target_dir.$nameLogo;
     $pointDB = new connectionDB();

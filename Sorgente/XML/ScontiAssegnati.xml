@@ -25,9 +25,10 @@
       <Sconto>4</Sconto>
     </scontiAssegnati>
   </Utente>
-  <Utente id_user="7">
+  <Utente id_user="6">
     <scontiAssegnati>
       <Sconto>9</Sconto>
+      <Sconto>4</Sconto>
     </scontiAssegnati>
   </Utente>
 </listaAssegnazioneSconti>
