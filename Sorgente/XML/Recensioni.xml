@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recensioni_XML_schema.xsd">
+  <Gioco id_gioco="1">
+    <Recensione id_recensione="1" id_utente="3" data="24/03/2026" ore="12" minuti="11" like="0" dislike="0" segnalazioni="0" voto="19">
+      <text>Bello</text>
+    </Recensione>
+  </Gioco>
 </listaRecensioni>

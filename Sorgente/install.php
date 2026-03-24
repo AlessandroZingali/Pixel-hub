@@ -84,7 +84,7 @@ else {
             -- i 3 utenti hanno rispettivamente grado uno due e tre 
             -- per test del sito e le varie sezioni che sono disponibibili o meno in base al comportamento dell'utente 
                 \"marcorossi@gmail.com\",  
-                \"marcorossi123\", 
+                \"marcorossi123!\", 
                 \"marcorossi\", 
                 1, 
                 0,
@@ -114,7 +114,7 @@ else {
                 \"123456789012\"
             ),(
                 \"gabibbo@gmail.com\", 
-                \"gabibbo123\", 
+                \"gabibbo123!\", 
                 \"MastroGabibbo\", 
                 3, 
                 0,

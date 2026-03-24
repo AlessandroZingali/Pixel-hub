@@ -579,7 +579,11 @@ if(isset($_SESSION['tipoUtente'])){
                                 </tr>
                                 <tr>
                                     <td>Voto degli admin</td>
-                                    <td>$VotoAdmin/100</td>
+                                    
+                                    <td>";
+                                    if ($VotoAdmin != '0') echo "$VotoAdmin/100";
+                                    else echo "Non ancora valutato";
+                                    echo "</td>
                                 </tr>
                               </table>";
                      ?>
@@ -1002,7 +1006,7 @@ if(isset($_SESSION['tipoUtente'])){
                                                 $row=mysqli_fetch_array($resultQ);
                                                 $nomeUtenteRecensione = $row['Username'];
                                                 echo "<div class=\"recensioneUtente\">
-                                                        <div><h4>$nomeUtenteRecensione</h4></div>
+                                                        <div><a href=\"ProfiloEsterno.php?idUtenteExt=$idUtenteRecensione\"><h4>$nomeUtenteRecensione</h4></a></div>
                                                         <div><p>$recensioneTesto</p></div>
                                                         <div class=\"votoRecensione\"><p> Voto: ".$r->getAttribute('voto')."/100 </p></div>
                                                         <div class=\"likeAndDateContainer\">

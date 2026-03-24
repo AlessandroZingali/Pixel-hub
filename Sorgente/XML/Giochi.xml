@@ -135,13 +135,13 @@
   </Gioco>
   <Gioco id_gioco="8">
     <Titolo>Elder Ring</Titolo>
-    <Prezzo>59.99</Prezzo>
+    <Prezzo>53</Prezzo>
     <CasaSviluppo>From Software</CasaSviluppo>
     <Publisher>Bandai Namco Entertainment</Publisher>
     <Descrizione>UN NUOVO ACTION RPG FANTASY. Alzati, Senzaluce, e lasciati guidare dalla grazia verso la conquista dell'Anello ancestrale, il cui potere ti renderà lord dell'Interregno.</Descrizione>
     <RequisitiMinimi>OS: Windows XP/Vista/7; Processor: Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+; Memory: 1.5 GB RAM; Graphics: NVIDIA GeForce 6600 / ATI Radeon 9800 Pro; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiMinimi>
     <RequisitiRaccomandati>OS: Windows XP/Vista/7; Processor: Intel Core 2 Duo 2.4 GHz / AMD Athlon 64 X2 4800+; Memory: 2 GB RAM; Graphics: NVIDIA GeForce 8800 GT / ATI Radeon HD 2900 XT; DirectX: Version 9.0c; Network: Broadband internet connection; Storage: 8 GB available space; </RequisitiRaccomandati>
-    <DataDiUscita>2018</DataDiUscita>
+    <DataDiUscita>2012</DataDiUscita>
     <Immagine>ImmaginiGiochi/Elden_ring_cover.jpg</Immagine>
     <Generi>Souls-like</Generi>
     <Disponibile>1</Disponibile>
@@ -466,7 +466,7 @@
     <DataDiUscita>04.03.2026</DataDiUscita>
     <Immagine>ImmaginiGiochi\ace-combat-8-wings-of-theve__52265.jpg</Immagine>
     <Generi>Simulazione</Generi>
-    <Disponibile>1</Disponibile>
+    <Disponibile>0</Disponibile>
     <MediaRecensioniAdmin>75</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
     <TitoliCorrelati>

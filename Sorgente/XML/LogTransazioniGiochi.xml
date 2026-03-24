@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LogTransazioniGiochi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Log_Transazioni_Giochi_XML_Schema.xsd">
+  <Transazione IDTransazione="1" ModCommentiUsato="1" IDGiocatore="3" DataOra="24/03/26 16:13" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>17.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

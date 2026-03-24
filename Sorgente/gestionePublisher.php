@@ -95,8 +95,7 @@ if(isset($_POST['aggiungiGioco'])){
         && isset($_POST['nuovaRequiMin']) 
         && isset($_POST['nuovaRequiRac']) 
         && isset($_POST['nuova_dataUscita']) 
-        && isset($_POST['nuovo_genere']) 
-        && isset($_POST['MediaRecensioniAdmin']) 
+        && isset($_POST['nuovo_genere'])  
         && !empty($_FILES["fileToUpload"]["name"]) 
         && !empty($_POST['nuovo_nome']) 
         && !empty($_POST['nuovo_prezzo']) 
@@ -106,13 +105,11 @@ if(isset($_POST['aggiungiGioco'])){
         && !empty($_POST['nuovaRequiMin']) 
         && !empty($_POST['nuovaRequiRac']) 
         && !empty($_POST['nuova_dataUscita']) 
-        && !empty($_POST['nuovo_genere'])
-        && !empty($_POST['MediaRecensioniAdmin'])) {
+        && !empty($_POST['nuovo_genere'])) {
 
 
         if(preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']) &&
                 preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']) &&
-                preg_match('/^[0-9]+$/', $_POST['MediaRecensioniAdmin']) &&
                 preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita'])){
              // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
@@ -145,7 +142,7 @@ if(isset($_POST['aggiungiGioco'])){
                     $nuovoNodoImmagine=$docGiochi->createElement("Immagine", $target_file);
                     $nuovoNodoGenere=$docGiochi->createElement("Generi",$_POST['nuovo_genere']);
                     $nuovoNodoDisponibilie=$docGiochi->createElement("Disponibile",1);
-                    $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",$_POST['MediaRecensioniAdmin']);
+                    $nuovoNodoMediaAdmin=$docGiochi->createElement("MediaRecensioniAdmin",0);
                     $nuovoNodoMediaUtenti=$docGiochi->createElement("MediaRecensioniUtenti",0);
                     $nuovoNodoTitoliCorrelati=$docGiochi->createElement("TitoliCorrelati");
 
@@ -241,8 +238,6 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
             
             if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
 
-            if(isset($_POST['nuovaMediaAdmin'])) $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent = $_POST['nuovaMediaAdmin'];
-
             if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
 
             if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
@@ -251,11 +246,13 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
                 if($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 0){
                     $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 1;
                 }
-            else if ($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 1){
-            $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 0;
+                
+            }
+            else{
+                if ($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 1){
+                    $gioco->getElementsByTagName("Disponibile")->item(0)->textContent = 0;
                 }
             }
-            
             
             if(isset($_POST['id_correlati'])){
                     if(!empty($_POST['id_correlati'])){
@@ -746,11 +743,7 @@ if (isset($_POST["agencyToggleSubmit"])){
                     </p>
 
 
-                    <p>    
-                        <label for=\"MediaRecensioniAdmin\"> Nuova media recensioni admin :</label>
-                        <input type=\"text\" id=\"MediaRecensioniAdmin\" name=\"MediaRecensioniAdmin\" >
-                        </br>
-                    </p>
+
 
                     <p>Requisiti Minimi</br></br></p>
                     <ul>
@@ -1057,11 +1050,6 @@ if (isset($_POST["agencyToggleSubmit"])){
                             echo ">{$setValoriGenere[9]}</option>
                         </select>
                         </br>
-                    </p>
-
-                    <p>
-                        <label for=\"nuovo_media_admin\"> Inserisci media Admin :</label>
-                        <input type=\"text\" id=\"nuovo_media_admin\" name=\"nuovaMediaAdmin\" value=\"$mediaAdmin\"></br>
                     </p>
 
                     <p>
