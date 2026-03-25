@@ -35,10 +35,29 @@
 
     class scontiUtente{
         private $idUtente;
+        private $grado;
         private $sconti=[];
 
         function __construct($idUtente){
             $this->idUtente=$idUtente;
+
+            $pointDB = new connectionDB();
+            $mysqliConnection = $pointDB->connectDB();
+
+
+            if (mysqli_connect_errno()){
+
+                printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+            }
+
+            $query = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID='$idUtente'";
+            $resultQ = mysqli_query($mysqliConnection, $query);
+            $num = mysqli_num_rows($resultQ);
+            if($num == 1){
+                $row=mysqli_fetch_array($resultQ);
+                $this->grado = $row['Grado'];
+            }
+
             //Ad ogni creazione dello scanner (quindi ad ogni reload della pagina dove è inserito) 
             // vengono ricalcolati gli sconti assegnati all'utente, 
             // in modo da essere sempre aggiornati in base alle azioni dell'utente stesso
@@ -56,11 +75,29 @@
 
         }
         private function blacklistChecker($idUtente, $categoria){
+            $assPointer = new scontiAss();
             $blacklistPointer = xmlPointer('XML/BlacklistSconti.xml');
             foreach($blacklistPointer as $utente){
                 if($utente->getAttribute('id_user')== $idUtente){
                     foreach($utente->childNodes as $sconto){
-                        if($sconto->textContent == $categoria) return true;
+                        if($sconto->textContent == $categoria){
+                            $assPointer->reset();
+                        
+                            foreach($assPointer->elemAss as $u){
+                                if($u->getAttribute('id_user')==$idUtente){
+                                    foreach($u->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                        if($scontoRef->textContent==$categoria){
+                                            $scontoDaEliminare = $scontoRef;
+                                        }
+                                    }
+                                }
+                            }
+                            if(isset($scontoDaEliminare)){
+                                $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                                $assPointer->save();
+                            }
+                            return true;
+                        }
                     }
                 }
             }
@@ -75,9 +112,9 @@
 
             // 1.  clienti che hanno speso N crediti finora,
             if(!($this->blacklistChecker($idUtente, 1))){
-
                 
                 $saldo = 0;
+                $assPointer->reset();
                 foreach($elemUtenti as $utente){
                     if($utente->getAttribute('id_user')== $idUtente){
                         if($utente->getElementsByTagName('listaGiochi')->length!=0){
@@ -619,8 +656,21 @@
                 }
             }
             rsort($arraySconti);
+            $scontiInUscita = [];
+            if($this->grado==3){
+                $scontiInUscita = array_slice($arraySconti, 0, 1);
+            }
+            else if($this->grado==4){
+                $scontiInUscita = array_slice($arraySconti, 0, 2);
 
-            return $arraySconti;
+            }
+            else if($this->grado>5){
+                $scontiInUscita = array_slice($arraySconti, 0, 3);
+
+            }
+
+
+            return $scontiInUscita;
         }
         
         public function percentualeScontoGiocoAndTipo($idGioco, $tipoSconto){

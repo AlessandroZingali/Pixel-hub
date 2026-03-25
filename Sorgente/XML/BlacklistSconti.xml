@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Blacklist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/BlacklistSconti_XML_schema.xsd">
+  <Utente id_user="3"/>
 </Blacklist>
