@@ -50,7 +50,13 @@
     <xsd:complexType>
       <xsd:simpleContent>
         <xsd:extension base="xsd:integer">
-          <xsd:attribute name="data_acquisizione" type="xsd:date" use="required" />
+          <xsd:attribute name="data_acquisizione" use="required">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:pattern value="\d{2}-\d{2}-\d{4}"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
           <xsd:attribute name="spesa" type="xsd:float" use="required"/>
         </xsd:extension>
       </xsd:simpleContent>

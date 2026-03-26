@@ -7,9 +7,6 @@
     <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione>Besygug</Descrizione>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="56.99">9</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="19-02-2010" spesa="29.99">60</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="19-12-2025" spesa="39.99">10</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic/>
   </Utente>
@@ -22,8 +19,7 @@
     <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.&#13;Viva le papere</DescrizionePublisher>
     <ToggleAgency>true</ToggleAgency>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="10">3</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="05-02-2026" spesa="19.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="26-03-2026" spesa="24.99">4</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic/>
   </Utente>
@@ -34,48 +30,10 @@
     <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione/>
     <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="07-03-2026" spesa="24.99">4</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="08-03-2026" spesa="10">24</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="09-03-2026" spesa="39.99">15</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="24-03-2026" spesa="17.99">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="24-03-2026" spesa="27.99">7</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic>
       <idPropic>3</idPropic>
     </listaPropic>
-  </Utente>
-  <Utente id_user="5">
-    <linkEsterno/>
-    <DataIscrizione>11-03-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <Descrizione/>
-    <ToggleAgency/>
-    <DescrizionePublisher/>
-    <listaGiochi/>
-    <listaPropic/>
-  </Utente>
-  <Utente id_user="6">
-    <linkEsterno/>
-    <DataIscrizione>12-03-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Rouge-like</GenerePreferito>
-    <Descrizione/>
-    <ToggleAgency>true</ToggleAgency>
-    <DescrizionePublisher>SIAMO LA BANDAI NAMCO E FACCIAMO BEI GIOCHI</DescrizionePublisher>
-    <listaGiochi/>
-    <listaPropic>
-      <idPropic>1</idPropic>
-    </listaPropic>
-  </Utente>
-  <Utente id_user="7">
-    <linkEsterno/>
-    <DataIscrizione>18-03-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita/>
-    <GenerePreferito>Sparatutto</GenerePreferito>
-    <Descrizione/>
-    <ToggleAgency/>
-    <DescrizionePublisher/>
-    <listaGiochi/>
-    <listaPropic/>
   </Utente>
 </listaUtenti>

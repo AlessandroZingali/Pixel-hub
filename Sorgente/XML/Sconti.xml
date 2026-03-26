@@ -6,8 +6,8 @@
     <Gioco valoreSconto="10">6</Gioco>
     <Gioco valoreSconto="15">1</Gioco>
     <Gioco valoreSconto="10">23</Gioco>
-    <Gioco valoreSconto="10">15</Gioco>
     <Gioco valoreSconto="10">14</Gioco>
+    <Gioco valoreSconto="5">26</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="2">
     <Gioco valoreSconto="15">8</Gioco>
@@ -18,7 +18,7 @@
     <Gioco valoreSconto="10">18</Gioco>
     <Gioco valoreSconto="15">4</Gioco>
     <Gioco valoreSconto="5">23</Gioco>
-    <Gioco valoreSconto="5">15</Gioco>
+    <Gioco valoreSconto="15">15</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="3">
     <Gioco valoreSconto="5">17</Gioco>
@@ -42,10 +42,13 @@
     <Gioco valoreSconto="20">22</Gioco>
     <Gioco valoreSconto="10">16</Gioco>
   </Sconto>
-  <Sconto id_tipoSconto="7"/>
+  <Sconto id_tipoSconto="7">
+    <Gioco valoreSconto="20">26</Gioco>
+  </Sconto>
   <Sconto id_tipoSconto="8">
     <Gioco valoreSconto="15">8</Gioco>
     <Gioco valoreSconto="5">25</Gioco>
+    <Gioco valoreSconto="25">26</Gioco>
   </Sconto>
   <Sconto id_tipoSconto="9">
     <Gioco valoreSconto="15">23</Gioco>
@@ -54,5 +57,6 @@
     <Gioco valoreSconto="10">7</Gioco>
     <Gioco valoreSconto="10">17</Gioco>
     <Gioco valoreSconto="10">25</Gioco>
+    <Gioco valoreSconto="10">26</Gioco>
   </Sconto>
 </listaSconti>

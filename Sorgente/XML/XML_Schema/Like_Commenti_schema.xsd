@@ -6,8 +6,6 @@
       <xsd:sequence>
         <xsd:element ref="ref_Commento" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
-      <xsd:attribute name="flagLike" type="xsd:integer" use="required"/>
-      <xsd:attribute name="flagDislike" type="xsd:integer" use="required"/>
       </xsd:complexType>
   </xsd:element>
   <xsd:element name="ref_Commento">
@@ -17,6 +15,8 @@
         <xsd:element ref="Id_Commento" minOccurs="1" maxOccurs="1"/>
         <xsd:element ref="Id_Gioco" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
+      <xsd:attribute name="flagLike" type="xsd:integer" use="required"/>
+      <xsd:attribute name="flagDislike" type="xsd:integer" use="required"/>
     </xsd:complexType>
     </xsd:element>
   <xsd:element name="Id_Utente" type="xsd:integer"/>

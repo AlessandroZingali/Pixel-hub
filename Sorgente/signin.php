@@ -90,19 +90,19 @@ if(isset($_POST['signin']) && $jumper==0){
                         //in questo caso si inserisce un utente normale 
                         $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 0,'ProfilePic/propicblank.png')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',1000,'{$_POST['DataNascita']}', 3, 0, 500, 0,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "1"){//Accesso come  publisher che possiede una partita iva con il campo PIVA non vuoto 
                             $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente,imgProfiloPath,imgProfiloPathPub, PIVA)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',1000,'{$_POST['DataNascita']}', 3, 0, 500, 1,'ProfilePic/propicblank.png','ProfilePic/propicblank.png','{$_POST['PIVA']}')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
                         else if($_COOKIE['tipoSignIn'] == "2"){//Accesso come admin con tipologia utente settata a 2
                             $sql="INSERT INTO {$pointDB->getTableUsers()} (Nome, Cognome, Email, Password, Username,Esperienza, Data_di_Nascita, Grado, Pixels, Saldo_attuale, Tipologia_utente, imgProfiloPath)
                         VALUES
-                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',0,'{$_POST['DataNascita']}', 3, 0, 500, 2,'ProfilePic/propicblank.png')";
+                        ('{$_POST['Nome']}','{$_POST['Cognome']}','{$_POST['Email']}','{$_POST['Password']}','{$_POST['Nickname']}',1000,'{$_POST['DataNascita']}', 3, 0, 500, 2,'ProfilePic/propicblank.png')";
                         setcookie('tipoSignIn', "", time() - 3600);
                         }
 
@@ -140,7 +140,7 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $utente->appendChild($doc->createElement("CasaDiSviluppoPreferita", "$_POST[CasaDiSviluppo]"));
                                 $utente->appendChild($doc->createElement("GenerePreferito", "$_POST[Genere]"));
                                 $utente->appendChild($doc->createElement("Descrizione"));
-                                if ($_COOKIE['tipoSignIn'] == "1") $utente->appendChild($doc->createElement("ToggleAgency", false));
+                                if ($_COOKIE['tipoSignIn'] == "1") $utente->appendChild($doc->createElement("ToggleAgency", "false"));
                                 if ($_COOKIE['tipoSignIn'] == "1") $utente->appendChild($doc->createElement("DescrizionePublisher"));
                                 $utente->appendChild($doc->createElement("listaGiochi"));
                                 
@@ -161,7 +161,7 @@ if(isset($_POST['signin']) && $jumper==0){
                                 $root->appendChild($utente);
                                 $doc->save("XML/ScontiAssegnati.xml");
 
-                        
+                                setcookie('tipoSignIn', "", time() - 3600);
                                 header("Location: login.php");
                             }
                             else printf("problemi di connessione : %s\n", mysqli_connect_error(connectDB()));
@@ -174,13 +174,13 @@ if(isset($_POST['signin']) && $jumper==0){
             }
             //settaggio di messaggi di errore: in base all'inserimento errato dell'email al momento dell'iscrizione
     } 
-    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
+    else if(!(preg_match('/^.*@.*$/', $_POST['Email'])) && isset($_POST['signin'])){
         $service=("Email non valida!");
     }
-    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
+    else if(!(preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['DataNascita'])) && isset($_POST['signin'])){
         $service=("Data di Nascita non valida!");
     }
-    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password'])) && isset($_POST['signin']) && $jumper==0 && $unlock == 0){
+    else if(!(preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&_]{8,}$/', $_POST['Password'])) && isset($_POST['signin'])){
         $service=("Password non valida! Deve contenere almeno una lettera maiuscola, un carattere speciale (!,@,=,&) ed essere lunga almeno 8 caratteri.");
     }
     

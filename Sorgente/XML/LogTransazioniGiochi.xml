@@ -7,4 +7,11 @@
       <Importo>17.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="2" ModCommentiUsato="1" IDGiocatore="2" DataOra="26/03/26 16:51" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Hades</Titolo>
+      <IDGioco>4</IDGioco>
+      <Importo>24.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

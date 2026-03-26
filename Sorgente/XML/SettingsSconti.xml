@@ -2,8 +2,8 @@
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/SettingsSconti_XML_Schema.xsd">
   <MinimiSpesi>50</MinimiSpesi>
   <MinimiSpesiDa>
-    <Valore>1000</Valore>
-    <DataInizio>20-03-2000</DataInizio>
+    <Valore>100</Valore>
+    <DataInizio>20-03-2025</DataInizio>
   </MinimiSpesiDa>
   <listaGiochiAdmin>
     <Gioco>1</Gioco>
@@ -11,9 +11,9 @@
     <Gioco>8</Gioco>
     <Gioco>5</Gioco>
   </listaGiochiAdmin>
-  <ReputazioneMin>100</ReputazioneMin>
+  <ReputazioneMin>2000</ReputazioneMin>
   <MesiMin>6</MesiMin>
   <AnniMin>1</AnniMin>
-  <CasaSconto>From Software</CasaSconto>
-  <GenereSconto>Avventura</GenereSconto>
+  <CasaSconto>Bungie</CasaSconto>
+  <GenereSconto>Sparatutto</GenereSconto>
 </Settings>

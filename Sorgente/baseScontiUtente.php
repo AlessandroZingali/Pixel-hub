@@ -1,7 +1,7 @@
 <!-- 
 1.  clienti che hanno speso N crediti finora, 
 2.  clienti che hanno speso M crediti da una certa data, 
-3.  clienti che hanno acquistato una certa offerta(giochi correlati); 
+3.  clienti che hanno acquistato una certa offerta(giochi ListAdmin); 
 4.  clienti che hanno una certa reputazione; 
 5.  clienti che sono con noi da X mesi; 
 6.  clienti che sono con noi da Y anni; 
@@ -176,7 +176,7 @@
                     $elemUtenti = xmlPointer('XML/utenti.xml');
                     $SettingSelector = getRoot('XML/SettingsSconti.xml');
                     $ValoreSpesa= $SettingSelector->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('Valore')->item(0)->textContent;
-                    $SpesaData = trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')[0]->getElementsByTagName('DataInizio')->item(0)->textContent);
+                    $SpesaData = trim($SettingSelector->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('DataInizio')->item(0)->textContent);
                     $giorno = substr($SpesaData, 0, 2);
                     $mese  = substr($SpesaData, 3, 2);
                     $anno  = substr($SpesaData, 6, 4);
@@ -195,12 +195,14 @@
                                     $meseC  = substr($dataAcquisto, 3, 2);
                                     $annoC  = substr($dataAcquisto, 6, 4);
                                     
-                                    if($annoC>$anno || ($annoC==$anno && $meseC>$mese) || ($annoC==$anno && $meseC==$mese && $giornoC>=$giorno)){
-                                    $saldo+= (int)$gioco->getAttribute('spesa');
-                                    
+                                    if($annoC>=$anno){
+                                        if($meseC>=$mese){
+                                            if($giornoC>=$giorno){
+                                                $saldo+= (int)$gioco->getAttribute('spesa');
+                                            }
+                                        }
                                     }    
                                 }
-                                
                             }
                         }
 
@@ -214,7 +216,7 @@
                         foreach($assPointer->elemAss as $utente){
                             if($utente->getAttribute('id_user')==$idUtente){
                                 foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==1){
+                                    if($scontoRef->textContent==2){
                                         $alreadyAssigned=true;
                                     }
                                 }
@@ -233,20 +235,24 @@
                         }
                 }
                 else{
-                        $assPointer->reset();
-                        
-                        foreach($assPointer->elemAss as $utente){
-                            if($utente->getAttribute('id_user')==$idUtente){
-                                foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
-                                    if($scontoRef->textContent==2){
-                                        $scontoDaEliminare = $scontoRef;
-                                        $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
-                                        $assPointer->save();
-                                    }
+                    $assPointer->reset();
+                    
+                    foreach($assPointer->elemAss as $utente){
+                        if($utente->getAttribute('id_user')==$idUtente){
+                            foreach($utente->getElementsByTagName('scontiAssegnati')[0]->getElementsByTagName('Sconto') as $scontoRef){
+                                if($scontoRef->textContent==2){
+                                    $scontoDaEliminare = $scontoRef;
                                 }
                             }
                         }
-                        
+                    }
+                    if(isset($scontoDaEliminare)){
+                        if($scontoDaEliminare != null && $scontoDaEliminare->parentNode != null){
+                            $scontoDaEliminare->parentNode->removeChild($scontoDaEliminare);
+                            $assPointer->save();
+                        }
+                    }
+                    
                 }
             }
            
@@ -664,7 +670,7 @@
                 $scontiInUscita = array_slice($arraySconti, 0, 2);
 
             }
-            else if($this->grado>5){
+            else if($this->grado>=5){
                 $scontiInUscita = array_slice($arraySconti, 0, 3);
 
             }

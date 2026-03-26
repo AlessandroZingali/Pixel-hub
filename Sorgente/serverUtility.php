@@ -9,25 +9,27 @@ il limite massimo di giochi da mostrare in ogni slider.*/
 
 
 class connectionDB{
+    private $host_name;
     private $db_name;
     private $table_users;
     private $usernameDB;
     private $passwordDB;
 
     function __construct()
-    {
-        $this->db_name = "Dabello";
+    {        
+        $this->host_name = "localhost";
+        $this->db_name = "DonLucio";
         $this->table_users = "Tabella_Utenti";
-        $this->usernameDB = "archer";
-        $this->passwordDB = "archer";
+        $this->usernameDB = "arco";
+        $this->passwordDB = "frecce";
     }
     function connectDB(){
-        $mysqliConnection = new mysqli("localhost", $this->usernameDB, $this->passwordDB, $this->db_name);
+        $mysqliConnection = new mysqli($this->host_name, $this->usernameDB, $this->passwordDB, $this->db_name);
         return $mysqliConnection;
     }
 
     function installDB(){
-        $mysqliConnection = new mysqli("localhost", $this->usernameDB, $this->passwordDB);
+        $mysqliConnection = new mysqli($this->host_name, $this->usernameDB, $this->passwordDB);
         return $mysqliConnection;
     }
 

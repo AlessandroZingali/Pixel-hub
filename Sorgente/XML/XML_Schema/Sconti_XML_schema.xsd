@@ -20,10 +20,11 @@
   
   <xsd:element name="Gioco">
     <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element ref="id_gioco" minOccurs="1" maxOccurs="1"/>
-      </xsd:sequence>
+      <xsd:simpleContent>
+      <xsd:extension base="xsd:integer">
        <xsd:attribute name="valoreSconto" type="xsd:integer" use="required"/>
+       </xsd:extension>
+       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
   

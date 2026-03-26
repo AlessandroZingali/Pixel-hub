@@ -76,22 +76,28 @@ require_once 'baseScontiUtente.php';
 
                 switch($gradoAttuale > 0){
                     case $gradoAttuale == 1:
+                        $lowcap=-1;
                         $capEsperienza = 500;
                         break;
                     case $gradoAttuale == 2:
+                        $lowcap=500;
                         $capEsperienza = 1000;
                         break;
                     case $gradoAttuale == 3:
+                        $lowcap=1000;
                         $capEsperienza = 3000;
                         break;
                     case $gradoAttuale == 4:
+                        $lowcap=3000;
                         $capEsperienza = 4000;
                         break;
                     case $gradoAttuale == 5:
+                        $lowcap=4000;
                         $capEsperienza = 8000;
                         break;
                     default:
                         $capEsperienza = 0;
+                        $lowcap = -1;
                         break;
                 }
                 //Se la nuova esperienza supera il cap di esperienza per il grado attuale, l'utente viene promosso al grado successivo.
@@ -100,7 +106,7 @@ require_once 'baseScontiUtente.php';
                     $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
                     mysqli_query($pointDB->connectDB(), $updateGradoQuery);
                 }
-                else if($nuovaEsperienza < $capEsperienza && $gradoAttuale > 0){
+                else if($nuovaEsperienza < $lowcap && $gradoAttuale > 0){
                     //Se la nuova esperienza è inferiore al cap di esperienza per il grado attuale, ma l'utente ha già un grado, viene retrocesso al grado precedente.
                     $nuovoGrado = $gradoAttuale - 1;
                     $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";

@@ -358,16 +358,12 @@ if(isset($_POST['buttonRimuovi'])){
                                                             $gradoUtente = $row['Grado'];
 
 
-                                                        if(count($scontiSulGioco) < 3){
+                                                        if(count($scontiSulGioco) <= 3){
                                                             foreach($scontiSulGioco as $sconto){
                                                                 $scontoFinale+=$sconto;   
                                                             }
                                                         }
-                                                        else{
-                                                            for($i=0; $i<$gradoUtente; $i++){
-                                                                $scontoFinale+=$scontiSulGioco[$i];
-                                                            }
-                                                        }
+                                                        else if(count($scontiSulGioco) == 0) $scontoFinale = 0;
                                                         }
                                                         $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
                                                         $pageCart->aggiungiGioco($idGioco, $titolo, $prezzoIniziale, $prezzoFinale, $scontiSulGioco, $scontoFinale);

@@ -8,7 +8,7 @@ require_once 'gestioneEsperienzauser.php';
 error_reporting(E_ALL &~E_NOTICE);
 session_start();
 // Se si apre la pagina si unsetta la sessione precendente togliendo i vari valori su session
-if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);;
+if(isset($_COOKIE{'tipoSignIn'})) setcookie('tipoSignIn', "", time() - 3600);
 
 if(isset($_SESSION['userId'])){
     session_unset();
