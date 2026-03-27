@@ -110,7 +110,7 @@ if(isset($_POST['aggiungiGioco'])){
 
         if(preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']) &&
                 preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']) &&
-                preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita'])){
+                preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['nuova_dataUscita'])){
              // echo "Il file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " è stato caricato.";
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)){
             
@@ -185,7 +185,7 @@ if(isset($_POST['aggiungiGioco'])){
         else{
             $esitoCorrelati = !preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']);
             $esitoPrezzo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']);
-            $esitoData = !preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita']);
+            $esitoData = !preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['nuova_dataUscita']);
             if($esitoCorrelati){
                 echo "<script type='text/javascript'>alert('Formato ID correlati non valido. Deve essere una lista di numeri separati da una virgola');</script>";
             }
