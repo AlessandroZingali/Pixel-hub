@@ -219,27 +219,38 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $root = $xml->documentElement;
     $elem = $root->childNodes;
 
-    foreach ($elem as $gioco) {
-        if ($gioco->getAttribute('id_gioco') == $id_gioco) {
+   foreach ($elem as $gioco) {
+    if ($gioco->getAttribute('id_gioco') == $id_gioco) {
 
-             
-            if(isset($_POST['nuovo_nome'])) $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
-            
-            if(isset($_POST['nuovo_prezzo'])) $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
+        if(isset($_POST['nuovo_nome']) && preg_match('/^.{1,100}$/u', $_POST['nuovo_nome']))
+            $gioco->getElementsByTagName("Titolo")->item(0)->textContent = $_POST['nuovo_nome'];
 
-            if(isset($_POST['nuovaCasa'])) $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
 
-            if(isset($_POST['nuovoPublisher'])) $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
-            
-            if(isset($_POST['nuoviReqMin'])) $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
+        if(isset($_POST['nuovo_prezzo']) && preg_match('/^\d+(\.\d{1,2})?$/', $_POST['nuovo_prezzo']))
+            $gioco->getElementsByTagName("Prezzo")->item(0)->textContent = $_POST['nuovo_prezzo'];
 
-            if(isset($_POST['nuoviReqRac'])) $gioco->getElementsByTagName("RequisitiRaccomandati")->item(0)->textContent = $_POST['nuoviReqRac'];
-            
-            if(isset($_POST['nuova_descrizione'])) $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
 
-            if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
+        if(isset($_POST['nuovaCasa']) && preg_match('/^.{1,100}$/u', $_POST['nuovaCasa']))
+            $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent = $_POST['nuovaCasa'];
 
-            if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
+        if(isset($_POST['nuovoPublisher']) && preg_match('/^.{1,100}$/u', $_POST['nuovoPublisher']))
+            $gioco->getElementsByTagName("Publisher")->item(0)->textContent = $_POST['nuovoPublisher'];
+
+        if(isset($_POST['nuoviReqMin']) && preg_match('/^.{1,500}$/u', $_POST['nuoviReqMin']))
+            $gioco->getElementsByTagName("RequisitiMinimi")->item(0)->textContent = $_POST['nuoviReqMin'];
+
+        if(isset($_POST['nuoviReqRac']) && preg_match('/^.{1,500}$/u', $_POST['nuoviReqRac']))
+            $gioco->getElementsByTagName("RequisitiRaccomandati")->item(0)->textContent = $_POST['nuoviReqRac'];
+
+        if(isset($_POST['nuova_descrizione']) && preg_match('/^.{1,1000}$/u', $_POST['nuova_descrizione']))
+            $gioco->getElementsByTagName("Descrizione")->item(0)->textContent = $_POST['nuova_descrizione'];
+
+        if(isset($_POST['nuovaData']) && preg_match('/^\d{2}-\d{2}-\d{4}$/', $_POST['nuovaData']))
+            $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
+
+        if(isset($_POST['nuovoGenere']) && preg_match('/^[a-zA-Z0-9,\s]+$/', $_POST['nuovoGenere']))
+            $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
+    
 
             if(isset($_POST['nuovaDisponibilità'])) {
                 if($gioco->getElementsByTagName("Disponibile")->item(0)->textContent == 0){
@@ -279,6 +290,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
     $xml->save('XML/Giochi.xml');
     header("Location: gestionePublisher.php");
 }
+
 
 if(isset($_POST['rimuoviCorrelati']) && !empty($_POST['id_correlati_eliminati']) && !empty($_POST['id_da_modificare'])){
     $id_gioco = $_POST['id_da_modificare'];
