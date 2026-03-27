@@ -18,10 +18,10 @@ class connectionDB{
     function __construct()
     {        
         $this->host_name = "localhost";
-        $this->db_name = "DonLucio";
-        $this->table_users = "Tabella_Utenti";
-        $this->usernameDB = "arco";
-        $this->passwordDB = "frecce";
+        $this->db_name = "Pixelbase";
+        $this->table_users = "Tabella_Gaymers";
+        $this->usernameDB = "archer";
+        $this->passwordDB = "archer";
     }
     function connectDB(){
         $mysqliConnection = new mysqli($this->host_name, $this->usernameDB, $this->passwordDB, $this->db_name);

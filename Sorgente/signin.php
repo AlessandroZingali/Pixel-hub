@@ -274,13 +274,17 @@ if(isset($_POST['signin']) && $jumper==0){
                     <div id="generePreferito">
                         <p>Genere preferito</p>
                         <select name="Genere">
-                            <option value=""></option>
-                            <option value="Sparatutto">Sparatutto</option> 
-                            <option value="RPG">RPG</option>
-                            <option value="Avventura">Avventura</option>
-                            <option value="Souls-like">Souls-like</option>
-                            <option value="Strategia">Strategia</option>
-                            <option value="Rouge-like">Rouge-like</option>
+                                            <option value="Nessuno">Nessuno</option>
+                                            <option value="Sparatutto">Sparatutto</option> 
+                                            <option value="RPG">RPG</option>
+                                            <option value="Avventura">Avventura</option>
+                                            <option value="Souls-like">Souls-like</option>
+                                            <option value="Strategia">Strategia</option>
+                                            <option value="Rouge-like">Rouge-like</option>
+                                            <option value="Picchiaduro">Picchiaduro</option>
+                                            <option value="Azione">Azione</option>
+                                            <option value="Simulazione">Simulazione</option>
+                                            <option value="Sandbox">Sandbox</option>
                         </select>
                     </div>
                     <!-- si possono inserire come opzioni diversi generi che andranno a dare eventuali sconti all'utente o comunque mostrano all'inizio dell' home page la categoria selezionata -->

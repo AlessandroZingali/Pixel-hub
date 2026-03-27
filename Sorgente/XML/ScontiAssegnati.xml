@@ -21,7 +21,21 @@
     <scontiAssegnati>
       <Sconto>9</Sconto>
       <Sconto>7</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="4">
+    <scontiAssegnati>
+      <Sconto>1</Sconto>
       <Sconto>2</Sconto>
+      <Sconto>8</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="5">
+    <scontiAssegnati/>
+  </Utente>
+  <Utente id_user="6">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
     </scontiAssegnati>
   </Utente>
 </listaAssegnazioneSconti>

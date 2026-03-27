@@ -58,5 +58,6 @@
     <Gioco valoreSconto="10">17</Gioco>
     <Gioco valoreSconto="10">25</Gioco>
     <Gioco valoreSconto="10">26</Gioco>
+    <Gioco valoreSconto="70">27</Gioco>
   </Sconto>
 </listaSconti>

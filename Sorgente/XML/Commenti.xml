@@ -5,4 +5,9 @@
       <text>Belloh</text>
     </Commento>
   </Gioco>
+  <Gioco id_gioco="18">
+    <Commento id_commento="1" id_utente="4" data="27/03/2026" ore="11" minuti="41" like="0" dislike="0" segnalazioni="0">
+      <text>FATALITYH</text>
+    </Commento>
+  </Gioco>
 </listaCommenti>

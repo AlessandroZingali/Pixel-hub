@@ -14,4 +14,26 @@
       <Importo>24.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="3" ModCommentiUsato="1" IDGiocatore="4" DataOra="27/03/26 11:39" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>17.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Cyberpunk 2077</Titolo>
+      <IDGioco>3</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Final Fantasy Tacticts: The Ivalice Chronicles</Titolo>
+      <IDGioco>23</IDGioco>
+      <Importo>25.49</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

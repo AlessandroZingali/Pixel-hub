@@ -65,7 +65,7 @@ if(isset($_POST['Accedi']) ){
         $_SESSION['Grado']=$row['Grado'];
         $_SESSION['Pixels']=$row['Pixels'];
         $_SESSION['Saldo']=$row['Saldo_attuale'];
-        $_SESSION['agencyMod']=$agencyElem;
+        if(isset($_SESSION['tipoUtente']) && $_SESSION['tipoUtente'] == "1") $_SESSION['agencyMod'] = $agencyElem;
         $commenti=xmlPointer("XML/Commenti.xml");
         $mod = calcoloModCommenti($commenti);
         $_SESSION['modCommenti'] = $mod;
@@ -144,7 +144,10 @@ if(isset($_POST['Accedi']) ){
                     echo "<div id=\"esito\"> <p>$esitoerrore</p> </div>"; 
                     }
                     if($flag == 4){
-                    echo "<div id=\"esito\"> <p>$esitogrado</p> </div>"; 
+                    echo "<div id=\"esito\"> <p>$esitogrado</p> </div>";
+                        session_unset();
+                        session_destroy(); 
+                        $removeClientSession = true; 
                     }
                     
                     ?>

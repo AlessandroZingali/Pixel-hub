@@ -185,7 +185,6 @@ if(isset($_POST['aggiungiGioco'])){
         else{
             $esitoCorrelati = !preg_match('/^([0-9]+(, *[0-9]+)*)?$/', $_POST['id_correlati']);
             $esitoPrezzo = !preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['nuovo_prezzo']);
-            $esitoMediaAdmin = !preg_match('/^[0-9]+$/', $_POST['MediaRecensioniAdmin']);
             $esitoData = !preg_match('/^[0-9]{2}.[0-9]{2}.[0-9]{4}$/', $_POST['nuova_dataUscita']);
             if($esitoCorrelati){
                 echo "<script type='text/javascript'>alert('Formato ID correlati non valido. Deve essere una lista di numeri separati da una virgola');</script>";
@@ -672,7 +671,8 @@ if (isset($_POST["agencyToggleSubmit"])){
                             'Rouge-like',
                             'Picchiaduro',
                             'Azione',
-                            'Simulazione'
+                            'Simulazione',
+                            'Sandbox'
                         ];
  
                 echo "<form method='post' action='gestionePublisher.php' enctype=\"multipart/form-data\">
@@ -739,6 +739,10 @@ if (isset($_POST["agencyToggleSubmit"])){
                             <option value=\"{$setValoriGenere[9]}\" ";
                             
                             echo ">{$setValoriGenere[9]}</option>
+                            
+                            <option value=\"{$setValoriGenere[10]}\" ";
+                            
+                            echo ">{$setValoriGenere[10]}</option>
                         </select>
                     </p>
 

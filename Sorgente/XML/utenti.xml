@@ -6,8 +6,7 @@
     <CasaDiSviluppoPreferita>ArrowHead</CasaDiSviluppoPreferita>
     <GenerePreferito>Avventura</GenerePreferito>
     <Descrizione>Besygug</Descrizione>
-    <listaGiochi>
-    </listaGiochi>
+    <listaGiochi/>
     <listaPropic/>
   </Utente>
   <Utente id_user="2">
@@ -35,5 +34,41 @@
     <listaPropic>
       <idPropic>3</idPropic>
     </listaPropic>
+  </Utente>
+  <Utente id_user="4">
+    <linkEsterno>socialghei</linkEsterno>
+    <DataIscrizione>27-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Square Enix</CasaDiSviluppoPreferita>
+    <GenerePreferito>Picchiaduro</GenerePreferito>
+    <Descrizione>LA COLA é SUUUUUUUUUUUUUPER</Descrizione>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="27-03-2026" spesa="17.99">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="27-03-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="27-03-2026" spesa="59.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="27-03-2026" spesa="25.49">23</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>6</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="5">
+    <linkEsterno/>
+    <DataIscrizione>27-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Besughi</CasaDiSviluppoPreferita>
+    <GenerePreferito>Avventura</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="6">
+    <linkEsterno/>
+    <DataIscrizione>27-03-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Re-Logic</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sandbox</GenerePreferito>
+    <Descrizione/>
+    <ToggleAgency>true</ToggleAgency>
+    <DescrizionePublisher>Siamo i creatori del gioco di terrariaboh</DescrizionePublisher>
+    <listaGiochi/>
+    <listaPropic/>
   </Utente>
 </listaUtenti>

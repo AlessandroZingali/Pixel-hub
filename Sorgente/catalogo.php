@@ -124,7 +124,7 @@ if(isset($_SESSION['userId'])){
                             array_push($catalogo, $ref);
                         }
                         //caricando nell'array tutti i giochi usando usort per stabilire un ordine alfabetico
-                        usort($catalogo, function($rA, $rB){ return $rA->titolo <=> $rB->titolo;});
+                        usort($catalogo, function($rA, $rB){ return strtolower($rA->titolo) <=> strtolower($rB->titolo);});
                         
                         
                         //Scansione dell'array catalogo per mostrare i giochi in ordine alfabetico con separazione per iniziale e lettera Maiuscola

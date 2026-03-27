@@ -39,7 +39,13 @@
   <xsd:element  name="Descrizione" type="xsd:string" />
   <xsd:element  name="RequisitiMinimi"  type="xsd:string" /> 
   <xsd:element  name="RequisitiRaccomandati"  type="xsd:string"/> 
-  <xsd:element  name="DataDiUscita" type="xsd:string"/> 
+  <xsd:element  name="DataDiUscita">
+    <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:pattern value="\d{2}-\d{2}-\d{4}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+  </xsd:element>
   <xsd:element  name="Immagine"  type="xsd:string"/> 
   <xsd:element  name="Generi"  type="xsd:string" /> 
   <xsd:element  name="Disponibile"  type="xsd:integer" /> 

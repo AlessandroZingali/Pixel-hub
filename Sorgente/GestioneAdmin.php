@@ -1296,7 +1296,26 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                             }
                         }
                     }
+                    $pointDB = new connectionDB();
+                    $mysqliConnection = $pointDB->connectDB();
 
+                    if (mysqli_connect_errno()){
+                        printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+                    }
+            
+
+                    $queryLogin = "SELECT * FROM {$pointDB->getTableUsers()} WHERE ID = '".$_POST['id_user_sconti_blacklist']."'";
+                    $resultQ = mysqli_query($mysqliConnection, $queryLogin);
+                    $num = mysqli_num_rows($resultQ);
+
+                // Se il numero di righe restituite dalla query è 1 allora l'utente esiste e puo essere loggato
+                if($num == 1){
+                    $flag=1;
+                    
+                    $row=mysqli_fetch_array($resultQ);
+                    
+
+                    echo "<h3>Imposta quali sconti l'utente ".$row['Username']." di ID: ".$row['ID']." non puo usare:</h3>";
                     echo "<form method=\"post\" action=\"GestioneAdmin.php\">";
                     echo"<ul>";
                     foreach($tipologiaSconti as $key => $value){
@@ -1317,6 +1336,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     
                     echo "<input type=\"submit\" name=\"impostaBlacklistSconti\" value=\"Imposta Sconti\">";
                     echo "</form>";
+                }
                 }
 
                 ?>
