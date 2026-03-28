@@ -13,7 +13,7 @@
     <Generi>Sparatutto</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>6</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>54.5</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>8</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>
@@ -446,7 +446,7 @@
     <RequisitiRaccomandati>OS: Windows 10 64-bit; Processor: Intel Core i5 or AMD Phenom II X3, 2.8 GHz; Memory: 6 GB RAM; Graphics: NVIDIA GeForce GTX 660 or AMD Radeon HD 7950; DirectX: Version 11; Network: Broadband internet connection; Storage: 30 GB available space; </RequisitiRaccomandati>
     <DataDiUscita>16-05-2011</DataDiUscita>
     <Immagine>ImmaginiGiochi\Terraria_portrait_cover.jpg</Immagine>
-    <Generi>Avventura</Generi>
+    <Generi>Sandbox</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>100</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
@@ -505,7 +505,7 @@
     <RequisitiRaccomandati>OS: eee; Processore Consiato: eee; Ram Consigliata: eee; GPU Consigliata: eee; DirectX: ee; Network: eee; Spazio Raccomandato e t memoria: eee; </RequisitiRaccomandati>
     <DataDiUscita>27-03-2026</DataDiUscita>
     <Immagine>ImmaginiGiochi\otherworld.png</Immagine>
-    <Generi>Avventura</Generi>
+    <Generi>Sandbox</Generi>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>0</MediaRecensioniAdmin>
     <MediaRecensioniUtenti>0</MediaRecensioniUtenti>

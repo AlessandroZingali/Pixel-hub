@@ -4,6 +4,9 @@
     <Recensione id_recensione="1" id_utente="3" data="24/03/2026" ore="12" minuti="11" like="0" dislike="0" segnalazioni="0" voto="19">
       <text>Bello</text>
     </Recensione>
+    <Recensione id_recensione="2" id_utente="6" data="28/03/2026" ore="11" minuti="15" like="0" dislike="0" segnalazioni="0" voto="90">
+      <text>spettacolare</text>
+    </Recensione>
   </Gioco>
   <Gioco id_gioco="18">
     <Recensione id_recensione="1" id_utente="4" data="27/03/2026" ore="11" minuti="41" like="0" dislike="0" segnalazioni="0" voto="69">

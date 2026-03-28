@@ -1064,6 +1064,9 @@ if (isset($_POST["agencyToggleSubmit"])){
                             <option value=\"{$setValoriGenere[9]}\" ";
                             if($generi == $setValoriGenere[9]) echo " selected";
                             echo ">{$setValoriGenere[9]}</option>
+                            <option value=\"{$setValoriGenere[10]}\" ";
+                            if($generi == $setValoriGenere[10]) echo " selected";
+                            echo ">{$setValoriGenere[10]}</option>
                         </select>
                         </br>
                     </p>

@@ -19,7 +19,7 @@ class connectionDB{
     {        
         $this->host_name = "localhost";
         $this->db_name = "Pixelbase";
-        $this->table_users = "Tabella_Gaymers";
+        $this->table_users = "Tabella_Utenti";
         $this->usernameDB = "archer";
         $this->passwordDB = "archer";
     }
