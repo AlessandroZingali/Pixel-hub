@@ -12,11 +12,13 @@
    <xsd:element name="Sconto">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element  ref="Descrizione" type="xsd:string" minOccurs="1" maxOccurs="1" use="required"/>
+        <xsd:element  ref="Descrizione"  minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
-        <xsd:attribute name="ID_sconto" type="xsd:integer" use="required"/>
+        <xsd:attribute name="ID_Sconto" type="xsd:integer" use="required"/>
     </xsd:complexType>
   </xsd:element>
+
+  <xsd:element name="Descrizione" type="xsd:string"></xsd:element>
 
 
 </xsd:schema>
