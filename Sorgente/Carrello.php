@@ -328,6 +328,7 @@ if(isset($_POST['buttonRimuovi'])){
                                             $scontoFinale = 0;
                                             $prezzoIniziale = 0;
                                             $prezzoFinale = 0;
+                                            $tiposconto = null;
                                             $elemCarrello = xmlPointer('XML/Carrelli.xml');
                                             foreach($elemCarrello as $carrello){
                                                 if($carrello->getAttribute('id_user')==$_SESSION['userId']){
@@ -339,6 +340,8 @@ if(isset($_POST['buttonRimuovi'])){
                                                         $titolo=$gioco->getElementsByTagName('Titolo')->item(0)->textContent;
                                                         $prezzoIniziale=$gioco->getElementsByTagName('prezzo')->item(0)->textContent;
                                                         $scontiSulGioco = $servizioSconti->percentualeScontoGioco($idGioco);
+                                                        $tiposconto = $servizioSconti->tipoScontoGioco($idGioco);
+                                                        
                                                         
 
                                                         $pointDB = new connectionDB();
@@ -367,13 +370,15 @@ if(isset($_POST['buttonRimuovi'])){
                                                         }
                                                         $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
                                                         $pageCart->aggiungiGioco($idGioco, $titolo, $prezzoIniziale, $prezzoFinale, $scontiSulGioco, $scontoFinale);
-                                                        // $tiposconto = $servizioSconti->tipoScontoApplicato($idGioco);
+                                                        
                                                         
 
                                                         echo "<td>$titolo</td>";
                                                         echo "<td>$prezzoIniziale €</td>";
                                                         echo "<td> $prezzoFinale €</td>";
-                                                        // echo "<td> $tiposconto</td>";
+                                                        echo"<td>";                                                         foreach($scontiSulGioco as $sconto){
+                                                            echo "$tiposconto ";
+                                                        }echo"</td>";
                                                         echo "<td>";
                                                         foreach($scontiSulGioco as $sconto){
                                                             echo "$sconto % ";

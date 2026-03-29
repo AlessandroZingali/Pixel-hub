@@ -18,7 +18,7 @@ class connectionDB{
     function __construct()
     {        
         $this->host_name = "localhost";
-        $this->db_name = "Pixelbase";
+        $this->db_name = "dabello";
         $this->table_users = "Tabella_Utenti";
         $this->usernameDB = "archer";
         $this->passwordDB = "archer";

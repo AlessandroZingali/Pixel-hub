@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+
+  <xsd:element name="listaScontiDescrizioni">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="Sconto" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+   <xsd:element name="Sconto">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element  ref="Descrizione" type="xsd:string" minOccurs="1" maxOccurs="1" use="required"/>
+      </xsd:sequence>
+        <xsd:attribute name="ID_sconto" type="xsd:integer" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+
+
+</xsd:schema>

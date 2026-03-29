@@ -585,7 +585,18 @@ if(isset($_SESSION['tipoUtente'])){
                                     else echo "Non ancora valutato";
                                     echo "</td>
                                 </tr>
-                              </table>";
+                              </table>
+
+                              <br>
+
+                               <table>
+                              <th>Sono stati applicati i seguenti sconti:</th>";
+
+                              foreach($sconti as $sconto){
+                                echo"
+                            <tr><td>Sconto</td> <td > $sconto % </td> <td>Tipologia sconto:</td> <td> </td> </tr>";
+                            }
+                              echo"</table>";
                      ?>
                     </div>
 

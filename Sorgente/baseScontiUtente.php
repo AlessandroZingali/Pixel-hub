@@ -646,8 +646,10 @@
             return $this->sconti;
         }
 
+
         public function percentualeScontoGioco($idGioco){
             $arraySconti = [];
+
             foreach($this->sconti as $s){
                 $elem = xmlPointer('XML/Sconti.xml');
                 foreach($elem as $sconto){
@@ -678,6 +680,7 @@
 
             return $scontiInUscita;
         }
+
         
         public function percentualeScontoGiocoAndTipo($idGioco, $tipoSconto){
             $elem = xmlPointer('XML/Sconti.xml');
