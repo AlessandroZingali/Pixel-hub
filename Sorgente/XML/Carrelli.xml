@@ -1,9 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd">
-  <carrello id_user="3" id_cart="1">
-    <gioco id_gioco="25">
-      <Titolo>Ace Combat 8: Wings of theve</Titolo>
-      <prezzo>89.99</prezzo>
-    </gioco>
-  </carrello>
-</listaCarrelli>
+<listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd"/>

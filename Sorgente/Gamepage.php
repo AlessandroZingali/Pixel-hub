@@ -536,11 +536,15 @@ if(isset($_SESSION['tipoUtente'])){
                                 <tr>
                                     <td>Prezzo</td>";
                                         if($service==1){
-                                            $sconti = $scontoManager->percentualeScontoGioco($idGioco);
+                                            $sconti = $scontoManager->tipologiaAndPercentualeScontoGioco($idGioco);
                                             if(count($sconti) > 0){
-                                            $sommaSconti=array_sum($sconti);
-                                            $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
-                                            echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
+                                                $sommaSconti = 0;
+                                                foreach($sconti as $sconto){
+                                                    $valoreSconto = $sconto['ValoreSconto'];
+                                                    $sommaSconti+=$valoreSconto;
+                                                }
+                                                $prezzoGiocoScontato = $PrezzoGioco - ($PrezzoGioco * ($sommaSconti/100));
+                                                echo "<td> <p> <s>$PrezzoGioco</s> €  - > ".round($prezzoGiocoScontato, 2)." €</p></td>";
                                             }
                                              else{
                                                 echo "<td> $PrezzoGioco € </td> ";
@@ -591,11 +595,34 @@ if(isset($_SESSION['tipoUtente'])){
 
                                <table>
                               <th>Sono stati applicati i seguenti sconti:</th>";
-
+                              $arraySconti=[];
+                              $elemDescrizione=xmlPointer("XML/DescrizioniSconti.xml");
                               foreach($sconti as $sconto){
+                                foreach($elemDescrizione as $descrizione){
+                                    if($descrizione->getAttribute("ID_Sconto")==$sconto['TipoSconto']){
+                                        $descrizioneBase = $descrizione->getElementsByTagName("Descrizione")->item(0)->textContent;
+                                        $check = $scontoManager->valoreSettingsSconti($sconto['TipoSconto']);
+                                        $descrizioneTipo = $descrizioneBase.$check;
+                                        $ValoreSconto=$sconto['ValoreSconto'];
+                                        $tupla = ['Descrizione'=>$descrizioneTipo, 'ValoreSconto'=>$ValoreSconto];
+                                        if($check != 'Nullo') array_push($arraySconti, $tupla);
+                                    }
+                                }
+                              }
+                            // echo"<tr><th>Tipologia sconto:</th></tr>";
+                            echo "<tr><td><ul>";
+                              foreach($arraySconti as $sconto){
                                 echo"
-                            <tr><td>Sconto</td> <td > $sconto % </td> <td>Tipologia sconto:</td> <td> </td> </tr>";
+                                <li>".$sconto['Descrizione']." <br/>Sconto: ". $sconto['ValoreSconto']." % </li><br/>";
                             }
+                            echo "<li>Visto che sei di Grado ".$_SESSION['Grado']." verra applicato sul totale della spesa uno sconto del ";
+                            
+                            foreach($_SESSION['arrayScontiPerGrado'] as $gs){
+                                if($gs['Grado'] == $_SESSION['Grado']) echo $gs['Sconto'];
+                            }
+                                    
+                            echo"</li>";
+                            echo "</ul></td></tr>";
                               echo"</table>";
                      ?>
                     </div>

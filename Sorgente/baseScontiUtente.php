@@ -11,6 +11,7 @@
 
 <?php
     require_once 'serverUtility.php';
+    session_start();
 
     class scontiAss{
         public $doc;
@@ -37,6 +38,7 @@
         private $idUtente;
         private $grado;
         private $sconti=[];
+        private $intersection;
 
         function __construct($idUtente){
             $this->idUtente=$idUtente;
@@ -282,6 +284,7 @@
                 }
 
                 $intersezione = array_intersect($giochiAdmin, $listaGiochiUtente);
+                $this->intersection = $intersezione;
                 if(!(empty($intersezione))){
 
                     foreach($assPointer->elemAss as $utente){
@@ -638,6 +641,22 @@
                     }
                 }
             }
+
+            //caso 10: sconto in base al grado dell'utente (dinamico)
+            if(!($this->blacklistChecker($idUtente, 10))){
+                $elem=getRoot('XML/SettingsSconti.xml');
+                $GradoSconto = $elem->getElementsByTagName('GradoSconto');
+                $arraySconti=[];
+                foreach($GradoSconto as $tipoSconto){
+                    $grado=$tipoSconto->getAttribute('Grado');
+                    $sconto=$tipoSconto->getElementsByTagName('Sconto')[0]->textContent;
+                    $tupla=['Grado'=>$grado, 'Sconto'=>$sconto];
+                    array_push($arraySconti, $tupla);
+                }
+
+                if(count($arraySconti)>0) $_SESSION['arrayScontiPerGrado'] = $arraySconti;
+            
+            }
         }
         
         
@@ -664,37 +683,76 @@
                 }
             }
             rsort($arraySconti);
-            $scontiInUscita = [];
-            if($this->grado==3){
-                $scontiInUscita = array_slice($arraySconti, 0, 1);
-            }
-            else if($this->grado==4){
-                $scontiInUscita = array_slice($arraySconti, 0, 2);
-
-            }
-            else if($this->grado>=5){
-                $scontiInUscita = array_slice($arraySconti, 0, 3);
-
-            }
-
-
-            return $scontiInUscita;
+           
+            return $arraySconti;
         }
 
         
-        public function percentualeScontoGiocoAndTipo($idGioco, $tipoSconto){
+        public function tipologiaAndPercentualeScontoGioco($idGioco){
+            $elencoScontiAndTipo=[];
             $elem = xmlPointer('XML/Sconti.xml');
             foreach($elem as $sconto){
-                if($sconto->getAttribute('id_tipoSconto') == $tipoSconto){
+                $tipoSconto = (int)$sconto->getAttribute('id_tipoSconto');
+                if(in_array($sconto->getAttribute('id_tipoSconto'), $this->sconti)){
                     $ref = $sconto->getElementsByTagName('Gioco');
                     foreach($ref as $giocoRef){
-                        if($giocoRef->item(0)->textContent == $idGioco){
-                            return (int)$giocoRef->getAttribute('valoreSconto');
+                        if($giocoRef->textContent == $idGioco){
+                            $tupla=['TipoSconto'=>$tipoSconto, 'ValoreSconto'=>(int)$giocoRef->getAttribute('valoreSconto')];
+                            array_push($elencoScontiAndTipo, $tupla);
                         }
                     }
                 }
             }
-            return 0;
+            return $elencoScontiAndTipo;
+        }
+
+        public function valoreSettingsSconti($tipoSconto){
+            $elem = getRoot('XML/SettingsSconti.xml');
+            $valore=0;
+            switch($tipoSconto){
+                case 1:
+                    $valore = $elem->getElementsByTagName('MinimiSpesi')->item(0)->textContent;
+                    $stringa = $valore.' &euro;';
+                    return $stringa;
+                case 2:
+                    $campo1 = $elem->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('Valore')->item(0)->textContent;
+                    $campo2 = $elem->getElementsByTagName('MinimiSpesiDa')->item(0)->getElementsByTagName('DataInizio')->item(0)->textContent;
+                    $valore = ['Valore'=>$campo1, 'DataInizio'=>$campo2];
+                    $stringa = 'Spesa di '.$valore['Valore'].' &euro; dal '.$valore['DataInizio'];
+                    return $stringa;
+                case 3:
+                    $giochi=xmlPointer('XML/Giochi.xml');
+                    foreach($giochi as $gioco){
+                        if(in_array($gioco->getAttribute('id_gioco'), $this->intersection)){
+                            $stringa.=$gioco->getElementsByTagName('Titolo')[0]->textContent.", ";
+                        }
+                    }
+                    $stringa = substr($stringa, 0, -3);
+                    return $stringa;
+                case 4:
+                    $valore = $elem->getElementsByTagName('ReputazioneMin')->item(0)->textContent;
+                    $stringa = $valore.' punti reputazione';
+                    return $stringa;
+                case 5:
+                    $valore = $elem->getElementsByTagName('MesiMin')->item(0)->textContent;
+                    $stringa = $valore.' mesi';
+                    return $stringa;
+                case 6:
+                    $valore = $elem->getElementsByTagName('AnniMin')->item(0)->textContent;
+                    $stringa = $valore.' anni';
+                    return $stringa;
+                case 7:
+                    $valore = $elem->getElementsByTagName('CasaSconto')->item(0)->textContent;
+                    $stringa = $valore;
+                    return $stringa;
+                case 8:
+                    $valore = $elem->getElementsByTagName('GenereSconto')->item(0)->textContent;
+                    $stringa = $valore;
+                    return $stringa;
+                default:
+                    return 'Nullo';
+            }
+            
         }
     }
 ?>

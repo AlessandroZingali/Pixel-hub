@@ -95,6 +95,10 @@ require_once 'baseScontiUtente.php';
                         $lowcap=4000;
                         $capEsperienza = 8000;
                         break;
+
+                    case $gradoAttuale == 6:
+                        $lowcap=8000;
+                        break;
                     default:
                         $capEsperienza = 0;
                         $lowcap = -1;
@@ -133,11 +137,14 @@ require_once 'baseScontiUtente.php';
     
     function calcoloModCommenti($elem){
         if(isset($_SESSION['userId'])){
+            $ElemSetting = xmlPointer("XML/SettingModCommenti.xml");
+
+            $rangeMax = (float)$ElemSetting->item(0)->getAttribute("RangeMax");
+            $forza = (int)$ElemSetting->item(0)->getAttribute("Forza");
+    
             $idUtenteLoggato = $_SESSION['userId'];
             $commenti=$elem;
             $numeroCommenti = 0;
-            $forza = 15;
-            $rangeMax = 0.25;
             $likeTotali = 0;
             $dislikeTotali = 0;
             

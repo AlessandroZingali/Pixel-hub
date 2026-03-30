@@ -276,6 +276,37 @@ if (isset($_POST['rimuoviSconto']) && isset($_POST['id_user']) && !empty($_POST[
     header("Location: GestioneAdmin.php");
     exit();
 }
+
+if(isset($_POST['modificaValoreForza']) && !empty($_POST['valoreforza'])){
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['valoreforza'])){
+        $valoreForza = $_POST['valoreforza'];
+        $doc = getDoc('XML/SettingModCommenti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('Forza')->item(0)->textContent = $valoreForza;
+        $doc->save('XML/SettingModCommenti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato valore forza non valido. Deve essere un numero decimale');</script>";
+    }
+    
+}
+
+if(isset($_POST['modificaValoreRange']) && !empty($_POST['valoreRange'])){
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['valoreRange'])){
+        $valoreRange = $_POST['valoreRange'];
+        $doc = getDoc('XML/SettingModCommenti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('RangeMax')->item(0)->textContent = $valoreRange;
+        $doc->save('XML/SettingModCommenti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato valore range non valido. Deve essere un numero decimale');</script>";
+    }
+    
+}
+
 // Funzione per eliminare un gioco dal catalogo
 if(isset($_POST['eliminaGioco']) && !empty($_POST['id_da_modificare'])){
     $id_gioco = $_POST['id_da_modificare'];
@@ -1213,7 +1244,8 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         </p>
                     </div>
                     <div class="settings">
-                        <p> - Modifica le regole per l'assegnazione degli sconti - >
+                        <p> - Modifica le regole per l'assegnazione degli sconti <br>
+                        e imposta i parametri del modificatore commenti - >
                             <!-- accedi alla card 11 nascondi la card 0 -->
                             <button onclick="swapperInSettingsSconti()">   <img src="Stile/Icone/settingsicon.png" alt="settingsbutton" > 
                             </button>
@@ -2269,6 +2301,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     <form method=\"post\" action=\"GestioneAdmin.php\">
                         <label for=\"anniMin\">Modifica Anni Minimi:</label>
                         <input type=\"text\" id=\"anniMin\" name=\"anniMin\" >
+                        <br>
                         <label for=\"mesiMin\">Modifica Mesi Minimi:</label>
                         <input type=\"text\" id=\"mesiMin\" name=\"mesiMin\" >
                         <input type=\"submit\" name=\"modificaTempoIscrizione\" value=\"Modifica\">
@@ -2330,6 +2363,28 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     
 
                     <hr><br />
+
+                    <h2> Impostazione i parametri del modificatore commenti</h2>
+                     <form action=\"GestioneAdmin.php\" method=\"post\">
+                        <label for=\"valoreforza\">Valore forza modificatore commenti:</label>
+                        <select id=\"valoreforza\" name=\"valoreforza\" >";
+                            for($i=0; $i<=20; $i++){
+                                echo "<option value=\"$i\" selected>$i</option>";
+                                
+                            }
+                        echo" </select>
+                        <br>
+                        <input type=\"submit\" name=\"modificaValoreForza\" value=\"Modifica\">
+                        <label for=\"valorerangemax\">Valore range max modificatore commenti:</label>
+                        <select id=\"valoreRange\" name=\"valoreRange\" >";
+                            for($i=0.01; $i<=0.25; $i+=0.01){
+                                echo "<option value=\"$i\" selected>$i</option>";
+                                
+                            }
+                        echo" </select>
+                        <br>
+                        <input type=\"submit\" name=\"modificaValoreRange\" value=\"Modifica\">
+                    </form>
                     <div class=\"buttons\">
                         <div class=\"backarrow\">
                             <button onclick=\"swapperInSettingsSconti()\"><img src=\"Stile/Icone/iconafreccia.png\" alt=\"ricercagiocobutton\" ></button>

@@ -11,6 +11,7 @@
                 <xsd:element ref="AnniMin" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="CasaSconto" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="GenereSconto" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="GradoSconto" minOccurs="1" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -45,5 +46,23 @@
         </xsd:simpleType>
     </xsd:element>
     <xsd:element name="Gioco" type="xsd:integer"/>
+
+    <xsd:element name="GradoSconto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="TipoSconto" minOccurs="3" maxOccurs="3"/>
+            </xsd:sequence>
+            <xsd:attribute name="Grado" type="xsd:integer" use="required"/>
+            </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="TipoSconto">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="Sconto" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+            </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="Sconto" type="xsd:float"/>
 
 </xsd:schema>

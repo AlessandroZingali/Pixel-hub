@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaScontiDescrizioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Tipologia_sconti_XML_schema.xsd">
 <Sconto ID_Sconto="1">
-<Descrizione>Lo sconto di tipo 1 si attiva quando l'utente ha speso nel nostro sito una certa quantità di soldi per fare acquisti.</Descrizione>
+<Descrizione>Hai speso una certa quantita di crediti sul sito: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="2">
-<Descrizione>Lo sconto di tipo 2 si attiva quando l'utente ha speso nel nostro sito una certa quantità di soldi per fare acquisti da una certa data.Questa quantita differisce da quella dello sconto 1</Descrizione>
+<Descrizione>Hai speso una certa quantita di crediti da una certa data: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="3">
-<Descrizione>Lo sconto di tipo 3 si attiva quando si acquistano certi giochi che sono stati stabiliti da noi.</Descrizione>
+<Descrizione>Hai acquistato almeno uno tra i seguenti giochi delle best choice degli amministratori: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="4">
-<Descrizione>Lo sconto di tipo 4 si attiva se l'utente possiede una certa esperienza nel suo profilo</Descrizione>
+<Descrizione>Hai superato un certo livello di esperienza guadagnata: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="5">
-<Descrizione>Lo sconto di tipo 5 si attiva se l'utente è iscritto sul sito da una certa quantità di mesi </Descrizione>
+<Descrizione>Sei con noi da ormai questa quantita di mesi: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="6">
-<Descrizione>Lo sconto di tipo 6 si attiva se si è iscritti una certa quantita di anni</Descrizione>
+<Descrizione>Sei con noi da questa quantita di anni: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="7">
-<Descrizione>Lo sconto di tipo 7 si attiva se il gioco appartiene a un certa casa di sviluppo</Descrizione>
+<Descrizione>Il gioco appartiene a questa casa di sviluppo: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="8">
-<Descrizione>Lo sconto di tipo 8 si attiva se il gioco appartiene a un certo genere</Descrizione>
+<Descrizione>Il gioco è del genere: </Descrizione>
 </Sconto>
 <Sconto ID_Sconto="9">
-<Descrizione>Sconto a sorpresa!</Descrizione>
+<Descrizione>Sul gioco è applicato lo sconto indiscriminato del: </Descrizione>
+</Sconto>
+<Sconto ID_Sconto="10">
+<Descrizione>Inoltre, essendo di questo grado hai diritto al: </Descrizione>
 </Sconto>
 </listaScontiDescrizioni>

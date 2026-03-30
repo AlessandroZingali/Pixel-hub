@@ -36,4 +36,16 @@
       <Importo>25.49</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="4" ModCommentiUsato="1" IDGiocatore="3" DataOra="30/03/26 17:37" PixelIniziali="89">
+    <Gioco>
+      <Titolo>Ace Combat 8: Wings of theve</Titolo>
+      <IDGioco>25</IDGioco>
+      <Importo>76.49</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Helldivers II</Titolo>
+      <IDGioco>6</IDGioco>
+      <Importo>39.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>
