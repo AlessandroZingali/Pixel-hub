@@ -7,29 +7,14 @@ include 'serverUtility.php'; // Includo il file di utilità per la connessione a
 
 $pointDB = new connectionDB(); // Creo un oggetto per la connessione al database, se necessario in futuro
 
-$mysqliConnection = $pointDB->installDB(); // Connessione al database
+$pointDB->resetDB();
 
+
+$mysqliConnection = $pointDB->installDB(); // Connessione al database, per l'installazione
 
 // Controllo errori di connessione
-if (mysqli_connect_errno()) {
-
-    // Stampa il messaggio di errore
-    printf("Problemi di connessione : %s\n", mysqli_connect_error());
-}
+if ($mysqliConnection->connect_error) printf("Problemi di connessione : %s\n", $mysqliConnection->connect_error);
 else {
-
-
-    //Per debug/necessita di resettare il server per una modifica nella sua struttura
-    $mysqliConnection = $pointDB->installDB(); // Connessione al database
-
-    $queryControllo ="DROP DATABASE IF EXISTS {$pointDB->getDbName()}"; // Query per eliminare il database se esiste già, in modo da poterlo ricreare da zero (utile per test o modifiche alla struttura del databa
-    if ($resultQ = mysqli_query($mysqliConnection, $queryControllo)) {
-	printf("Database eliminato...<br /> ");
-  
-    }
-    else {
-        printf("Database non esistente.");
-    }
 
     // Connessione riuscita
     printf("Connessione avvenuta con successo ...\n");
@@ -42,6 +27,13 @@ else {
 
         printf("Database creato ...\n");
 
+        // Chiudo la connessione senza database
+        $pointDB->close($mysqliConnection);
+        
+
+        // Nuova connessione, questa volta al database appena creato
+        $mysqliConnection = $pointDB->connectDB(); 
+
         // Query per creare la tabella utenti
         $sqlQuery = "CREATE TABLE {$pointDB->getTableUsers()} ( 
             ID INT AUTO_INCREMENT,                 -- ID univoco utente
@@ -52,24 +44,16 @@ else {
             Grado INT,                            -- Grado utente (1-6) di base parte a 3
             Pixels INT,                           -- Valuta virtuale
             Saldo_attuale FLOAT,                  -- Saldo reale
-            Data_di_Nascita VARCHAR(50),          -- Data di nascita
+            Data_di_Nascita DATE,                 -- Data di nascita
             Nome VARCHAR(50),                     -- Nome
             Cognome VARCHAR(50),                  -- Cognome
-            Tipologia_utente INT,                 -- 1=admin 2=user 3=publisher
+            Tipologia_utente INT,                 -- 0=user 1=publisher 2=admin
             imgProfiloPath VARCHAR(250),          -- Percorso immagine profilo
             imgProfiloPathPub VARCHAR(250),       -- Percorso immagine profilo Publisher
             PIVA VARCHAR(12),                     -- Partita IVA
-            PRIMARY KEY (ID, Email),              -- Chiave primaria composta
-            UNIQUE KEY Email_UNIQUE (Email)       -- Email unica
+            PRIMARY KEY (ID),                     -- Chiave primaria
+            UNIQUE (Email)                         -- Email unica
         );";
-
-        // Chiudo la connessione senza database
-        $pointDB->close($mysqliConnection);
-        
-
-        // Nuova connessione, questa volta al database appena creato
-        $mysqliConnection = $pointDB->connectDB(); 
-        
 
         // Creazione della tabella
         if ($resultQ = mysqli_query($mysqliConnection, $sqlQuery)) {
@@ -90,7 +74,7 @@ else {
                 0,
                 0, 
                 200.0, 
-                \"15-04-1990\", 
+                \"1990-03-12\", 
                 \"Marco\", 
                 \"Rossi\", 
                 0, 
@@ -105,7 +89,7 @@ else {
                 500,
                 0, 
                 200.0, 
-                \"30-02-1995\", 
+                \"1995-02-13\", 
                 \"Luca\", 
                 \"Verdi\", 
                 1, 
@@ -120,7 +104,7 @@ else {
                 1000,
                 0, 
                 200.0, 
-                \"20-06-1985\", 
+                \"1985-12-23\", 
                 \"Mauro\", 
                 \"Bianchi\", 
                 2, 

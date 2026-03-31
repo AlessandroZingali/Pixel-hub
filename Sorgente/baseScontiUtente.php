@@ -644,20 +644,35 @@
 
             //caso 10: sconto in base al grado dell'utente (dinamico)
             if(!($this->blacklistChecker($idUtente, 10))){
-                $elem=getRoot('XML/SettingsSconti.xml');
+                $elem = getRoot('XML/SettingsSconti.xml');
+    
+                // Ottieni l'elemento GradoSconto
                 $GradoSconto = $elem->getElementsByTagName('GradoSconto');
-                $arraySconti=[];
-                foreach($GradoSconto as $tipoSconto){
-                    $grado=$tipoSconto->getAttribute('Grado');
-                    $sconto=$tipoSconto->getElementsByTagName('Sconto')[0]->textContent;
-                    $tupla=['Grado'=>$grado, 'Sconto'=>$sconto];
-                    array_push($arraySconti, $tupla);
+    
+                // Se esiste, accedi al primo elemento (ce n'è solo uno)
+                if($GradoSconto->length > 0) {
+                    $gradoScontoNode = $GradoSconto->item(0);
+        
+                    // Ora cerca i TipoSconto dentro GradoSconto
+                    $TipiSconto = $gradoScontoNode->getElementsByTagName('TipoSconto');
+                    $arraySconti = [];
+        
+                    foreach($TipiSconto as $tipoSconto){
+                        $grado = $tipoSconto->getAttribute('Grado');
+                        $sconto = $tipoSconto->getElementsByTagName('Sconto')[0]->textContent;
+                        $tupla = ['Grado' => $grado, 'Sconto' => $sconto];
+                        array_push($arraySconti, $tupla);
+                    }
                 }
-
-                if(count($arraySconti)>0) $_SESSION['arrayScontiPerGrado'] = $arraySconti;
+        
+                if(count($arraySconti) > 0) $_SESSION['arrayScontiPerGrado'] = $arraySconti;
             
             }
+            else{
+                if(isset($_SESSION['arrayScontiPerGrado'])) unset($_SESSION['arrayScontiPerGrado']);
+            }
         }
+        
         
         
 

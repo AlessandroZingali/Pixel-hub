@@ -18,7 +18,7 @@ class connectionDB{
     function __construct()
     {        
         $this->host_name = "localhost";
-        $this->db_name = "dabello";
+        $this->db_name = "Database_Pixelhub";
         $this->table_users = "Tabella_Utenti";
         $this->usernameDB = "archer";
         $this->passwordDB = "archer";
@@ -31,6 +31,13 @@ class connectionDB{
     function installDB(){
         $mysqliConnection = new mysqli($this->host_name, $this->usernameDB, $this->passwordDB);
         return $mysqliConnection;
+    }
+    function resetDB(){
+        $mysqliConnection = new mysqli($this->host_name, $this->usernameDB, $this->passwordDB);
+        $queryControllo ="DROP DATABASE IF EXISTS {$this->db_name};";
+        mysqli_query($mysqliConnection, $queryControllo); // Query per eliminare il database se esiste già, in modo da poterlo ricreare da zero (utile per test o modifiche alla struttura del databa
+        $mysqliConnection->close();
+        return;
     }
 
     function getDbName(){

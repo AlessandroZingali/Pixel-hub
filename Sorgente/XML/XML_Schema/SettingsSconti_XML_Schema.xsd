@@ -15,6 +15,7 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+    
     <xsd:element name="MinimiSpesi" type="xsd:float"/>
     <xsd:element name="ReputazioneMin" type="xsd:float"/>
     <xsd:element name="MesiMin" type="xsd:integer"/>
@@ -30,6 +31,7 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+
     <xsd:element name="listaGiochiAdmin">
         <xsd:complexType>
             <xsd:sequence>
@@ -37,7 +39,9 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
+
     <xsd:element name="Valore" type="xsd:float"/>
+
     <xsd:element name="DataInizio">
         <xsd:simpleType>
             <xsd:restriction base="xsd:string">
@@ -63,6 +67,7 @@
             </xsd:sequence>
             </xsd:complexType>
     </xsd:element>
+
     <xsd:element name="Sconto" type="xsd:float"/>
 
 </xsd:schema>

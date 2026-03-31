@@ -359,12 +359,23 @@ if(isset($_POST['buttonRimuovi'])){
                                                             $row = mysqli_fetch_array($resultQ);
                                                             $gradoUtente = $row['Grado'];
 
-                                                        $insiemeSconti=[];
-                                                        foreach($scontiSulGioco as $tipoAndSconto){
-                                                            $scontoFinale+=$tipoAndSconto['ValoreSconto'];
-                                                            array_push($insiemeSconti, $tipoAndSconto['ValoreSconto']);
+                                                            $insiemeSconti=[];
+                                                            foreach($scontiSulGioco as $tipoAndSconto){
+                                                                $scontoFinale+=$tipoAndSconto['ValoreSconto'];
+                                                                array_push($insiemeSconti, $tipoAndSconto['ValoreSconto']);
+                                                            }
+                                                            if(isset($_SESSION['arrayScontiPerGrado'])){
+                                                                if((int)$_SESSION['Grado']>=4){
+                                                                    foreach($_SESSION['arrayScontiPerGrado'] as $gs){
+                                                                        if($gs['Grado'] == $_SESSION['Grado']) {
+                                                                            $scontoFinale+=$gs['Sconto'];
+                                                                            array_push($insiemeSconti, $gs['Sconto']);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
-                                                        }
+
                                                         $prezzoFinale = round(  $prezzoIniziale - ($prezzoIniziale * ($scontoFinale / 100)), 2);
                                                         $pageCart->aggiungiGioco($idGioco, $titolo, $prezzoIniziale, $prezzoFinale, $insiemeSconti, $scontoFinale);
                                                         

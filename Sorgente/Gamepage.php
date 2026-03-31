@@ -591,39 +591,71 @@ if(isset($_SESSION['tipoUtente'])){
                                 </tr>
                               </table>
 
-                              <br>
+                              <br>";
+                               $elem = xmlPointer("XML/utenti.xml");
+                               foreach ($elem as $utente) {
 
-                               <table>
-                              <th>Sono stati applicati i seguenti sconti:</th>";
-                              $arraySconti=[];
-                              $elemDescrizione=xmlPointer("XML/DescrizioniSconti.xml");
-                              foreach($sconti as $sconto){
-                                foreach($elemDescrizione as $descrizione){
-                                    if($descrizione->getAttribute("ID_Sconto")==$sconto['TipoSconto']){
-                                        $descrizioneBase = $descrizione->getElementsByTagName("Descrizione")->item(0)->textContent;
-                                        $check = $scontoManager->valoreSettingsSconti($sconto['TipoSconto']);
-                                        $descrizioneTipo = $descrizioneBase.$check;
-                                        $ValoreSconto=$sconto['ValoreSconto'];
-                                        $tupla = ['Descrizione'=>$descrizioneTipo, 'ValoreSconto'=>$ValoreSconto];
-                                        if($check != 'Nullo') array_push($arraySconti, $tupla);
+                                $idUtente = $utente->getAttribute("id_user");
+
+                                if ($idUtente == $_SESSION['userId']) {
+
+                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                    $possiedeGioco = false;
+
+                                    foreach ($giochi as $gioco) {
+                                        $idGiocoP = $gioco->textContent;
+
+                                        if ($idGiocoP == $idGioco) {
+                                            $possiedeGioco = true;
+
+
+                                            
+                                            break;
+                                        }
                                     }
                                 }
-                              }
-                            // echo"<tr><th>Tipologia sconto:</th></tr>";
-                            echo "<tr><td><ul>";
-                              foreach($arraySconti as $sconto){
-                                echo"
-                                <li>".$sconto['Descrizione']." <br/>Sconto: ". $sconto['ValoreSconto']." % </li><br/>";
-                            }
-                            echo "<li>Visto che sei di Grado ".$_SESSION['Grado']." verra applicato sul totale della spesa uno sconto del ";
-                            
-                            foreach($_SESSION['arrayScontiPerGrado'] as $gs){
-                                if($gs['Grado'] == $_SESSION['Grado']) echo $gs['Sconto'];
-                            }
+                               }
+                               if($service == 1 && !$possiedeGioco){
+                                    echo " <table>
+                                    <th>Sono stati applicati i seguenti sconti:</th>";
+                                    $arraySconti=[];
+                                    $elemDescrizione=xmlPointer("XML/DescrizioniSconti.xml");
+                                    foreach($sconti as $sconto){
+                                        foreach($elemDescrizione as $descrizione){
+                                            if($descrizione->getAttribute("ID_Sconto")==$sconto['TipoSconto']){
+                                                $descrizioneBase = $descrizione->getElementsByTagName("Descrizione")->item(0)->textContent;
+                                                $check = $scontoManager->valoreSettingsSconti($sconto['TipoSconto']);
+                                                $descrizioneTipo = $descrizioneBase.$check;
+                                                $ValoreSconto=$sconto['ValoreSconto'];
+                                                $tupla = ['Descrizione'=>$descrizioneTipo, 'ValoreSconto'=>$ValoreSconto];
+                                                if($check != 'Nullo') array_push($arraySconti, $tupla);
+                                            }
+                                        }
+                                    }
+                                    // echo"<tr><th>Tipologia sconto:</th></tr>";
+                                    echo "<tr><td><ul>";
+                                    foreach($arraySconti as $sconto){
+                                        echo"
+                                        <li>".$sconto['Descrizione']." <br/>Sconto: ". $sconto['ValoreSconto']." % </li><br/>";
+                                    }
                                     
-                            echo"</li>";
-                            echo "</ul></td></tr>";
-                              echo"</table>";
+                                    //var_dump($_SESSION['arrayScontiPerGrado']);
+                                    if(isset($_SESSION['arrayScontiPerGrado'])){
+                                        if((int)$_SESSION['Grado']>=4){
+                                            echo "<li>Visto che sei di Grado ".$_SESSION['Grado']." verra applicato sul totale della spesa uno sconto del ";
+                                            foreach($_SESSION['arrayScontiPerGrado'] as $gs){
+                                                if($gs['Grado'] == $_SESSION['Grado']) echo $gs['Sconto'] ." %";
+                                            }
+                                            echo"</li>";
+                                        }
+                                    }
+                                            
+                                    
+                                    echo "</ul></td></tr>";
+                                    echo"</table>";
+                               }
+                             
+                             
                      ?>
                     </div>
 

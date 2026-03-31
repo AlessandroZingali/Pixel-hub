@@ -17,6 +17,7 @@ $tipologiaSconti = [
     7=>"il gioco appartiene ad una certa casa di sviluppo",
     8=>"il gioco appartiene ad un certo genere (magari tra quelli più apprezzati dal cliente)",
     9=>"sconto indipendente(esempio saldi invernali o festivi o altro)",
+    10=>"sconto personalizzato assegnato direttamente dall'admin in base al grado"
 ];
 
 session_start();
