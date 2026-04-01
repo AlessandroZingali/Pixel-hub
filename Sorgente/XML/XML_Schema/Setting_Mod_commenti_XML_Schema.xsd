@@ -8,6 +8,6 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="RangeMax" type="xsd:integer"/>
+    <xsd:element name="RangeMax" type="xsd:float"/>
     <xsd:element name="Forza" type="xsd:float"/>
 </xsd:schema>

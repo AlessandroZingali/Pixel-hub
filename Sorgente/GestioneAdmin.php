@@ -203,6 +203,40 @@ if(isset($_POST['modificaGiochiAdmin'])){
 
     header("Location: GestioneAdmin.php");
 }
+if(isset($_POST['modificaScontoGrado'])){
+    if(($_POST['scontoGrado4']< $_POST['scontoGrado5'] && $_POST['scontoGrado5'] < $_POST['scontoGrado6']) && $_POST['scontoGrado6'] <= 70){
+        $scontoGrado4 = $_POST['scontoGrado4'];
+        $scontoGrado5 = $_POST['scontoGrado5'];
+        $scontoGrado6 = $_POST['scontoGrado6'];
+        $doc = getDoc('XML/SettingsSconti.xml');
+        $root = $doc->documentElement;
+
+        $NodoGradoSconto = $root->getElementsByTagName('GradoSconto')->item(0);
+        $tipi = $NodoGradoSconto->getElementsByTagName('TipoSconto');
+
+        foreach($tipi as $tipo){
+            $grado = $tipo->getAttribute('Grado');
+
+            if($grado == '4'){
+                $tipo->getElementsByTagName('Sconto')->item(0)->textContent = $scontoGrado4;
+            }
+            elseif($grado == '5'){
+                $tipo->getElementsByTagName('Sconto')->item(0)->textContent = $scontoGrado5;
+            }
+            elseif($grado == '6'){
+                $tipo->getElementsByTagName('Sconto')->item(0)->textContent = $scontoGrado6;
+            }
+        }
+
+        $doc->save('XML/SettingsSconti.xml');
+        header("Location: GestioneAdmin.php");
+        exit;
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato sconto per grado non valido. Assicurarsi che: sconto grado 4 < sconto grado 5 < sconto grado 6 e che la somma dei tre sconti non superi il 70%');</script>";
+    }
+    
+}
 // Funzione per assegnare o rimuovere sconti agli utenti
 if (isset($_POST['assegnaSconto']) && isset($_POST['id_user']) && !empty($_POST['sconto'])) {
     $id_user = $_POST['id_user'];
@@ -485,7 +519,7 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 
     if(preg_match('/^.*@.*$/',$_POST['Email']) && 
     preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) &&
-    preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita']) && 
+    preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $_POST['Data_di_Nascita']) && 
     preg_match('/^[0-9]+$/', $_POST['Esperienza']) && 
     preg_match('/^[0-9]+$/', $_POST['Pixels']) && 
     preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['Saldo_attuale']) &&
@@ -523,6 +557,7 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
         } else {
             printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
         }
+
         
         $sql2 = "";
 
@@ -541,14 +576,7 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
             Tipologia_utente = '".$_POST['Tipologia_utente']."',
             imgProfiloPath = '".$_POST['imgProfiloPath']."'";
             
-        if($tipoUtente == '1') {
-            $sql2 = ", PIVA = '".$_POST['PIVA']."'";
-        }
-        
-        $sql3 = " WHERE ID = '$id_utente';";
-
-        $sql = $sql1 . $sql2 . $sql3;
-
+    
 
         // Esecuzione query
         if (mysqli_query($mysqliConnection, $sql)) {
@@ -559,7 +587,77 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
         }
         $baseScontiUtente = new ScontiUtente($id_utente);
             // I dati sono validi
-    } 
+        
+        if($tipoUtente == '1') {
+            $sql2 = ", PIVA = '".$_POST['PIVA']."'";
+        }
+        
+        $sql3 = " WHERE ID = '$id_utente';";
+
+        $sql = $sql1 . $sql2 . $sql3;
+        if (mysqli_query($mysqliConnection, $sql)) {
+
+        } 
+        else{
+            printf("problemi di connessione : %s\n", mysqli_connect_error($mysqliConnection));
+        }
+            
+
+        $xml = getDoc('XML/utenti.xml');
+        $root = $xml->documentElement;
+        $elem = $root->getElementsByTagName("Utente");
+        // var_dump($tipoUtente);
+        // var_dump($_POST['Tipologia_utente']);
+        if(($tipoUtente == '0' || $tipoUtente == '2') && $_POST['Tipologia_utente'] == '1'){
+         
+            foreach ($elem as $utente) {
+
+                if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+                    $newToggleAgency = $xml->createElement("ToggleAgency", "false");
+                    $newDescrizionePublisher = $xml->createElement("DescrizionePublisher", "");
+                    break;
+                }
+
+            }
+
+            if(isset($newToggleAgency) && isset($newDescrizionePublisher)){
+                $utente->appendChild($newToggleAgency);
+                $utente->appendChild($newDescrizionePublisher);
+            }
+            
+            $xml->save('XML/utenti.xml');
+            
+        }
+        
+        
+        else if($tipoUtente == '1' && ($_POST['Tipologia_utente'] == '0' || $_POST['Tipologia_utente'] == '2')){
+           
+            foreach ($elem as $utente) {
+
+                if ($utente->getAttribute('id_user') == $_POST['id_user_gestione']) {
+                    $nodoAgency = $utente->getElementsByTagName("ToggleAgency");
+                    $nodoDescrizionePublisher = $utente->getElementsByTagName("DescrizionePublisher");
+                    break;
+                }
+                
+            
+            }
+
+            if(isset($nodoAgency) && isset($nodoDescrizionePublisher)){
+                if($nodoDescrizionePublisher->length > 0) $utente->removeChild($nodoDescrizionePublisher->item(0));
+                if($nodoAgency->length > 0) $utente->removeChild($nodoAgency->item(0));
+            }
+
+            $xml->save('XML/utenti.xml');
+        
+        }
+    }
+    
+    
+
+
+
+ 
     else {
 
         $errorepasword = !preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']);
@@ -1227,6 +1325,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                     </div>
                     <div class="gestioneUtenti">
                         <p>- Gestisci gli utenti iscritti - >
+                            <!-- accedi alla card 2 nascondi la card 0 -->
                             <button onclick="swapperSearchUtente()"> <img src="Stile/Icone/utentiicon.png"
                             alt="gestioneutentibutton">
                             </button>
@@ -2361,6 +2460,32 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         
                     echo "<input type=\"submit\" name=\"modificaGiochiAdmin\" value=\"Modifica\">
                     </form>
+
+                    <p>Impostazioni Sconto grado</p>
+                    <form method=\"post\" action=\"GestioneAdmin.php\">
+                        <label for=\"scontoGrado4\">Sconto grado 4:</label>
+                        <select id=\"scontoGrado4\" name=\"scontoGrado4\" >";
+                            for($i=0; $i<=70; $i+=5){
+                                echo "<option value=\"$i\">$i%</option>";
+                            }
+                        echo "</select><br>
+                        <label for=\"scontoGrado5\">Sconto grado 5:</label>
+                        <select id=\"scontoGrado5\" name=\"scontoGrado5\" >";
+                            for($i=0; $i<=70; $i+=5){
+                                echo "<option value=\"$i\">$i%</option>";
+                            }
+                        echo "</select><br>
+                         <label for=\"scontoGrado6\">Sconto grado 6:</label>
+                        <select id=\"scontoGrado6\" name=\"scontoGrado6\" >";
+                            for($i=0; $i<=70; $i+=5){
+                                echo "<option value=\"$i\">$i%</option>";
+                            }
+                        echo "</select><br>";
+                        
+                        echo "<input type=\"submit\" name=\"modificaScontoGrado\" value=\"Modifica\">
+                    </form>
+                                
+                            
                     
 
                     <hr><br />
@@ -2369,7 +2494,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                      <form action=\"GestioneAdmin.php\" method=\"post\">
                         <label for=\"valoreforza\">Valore forza modificatore commenti:</label>
                         <select id=\"valoreforza\" name=\"valoreforza\" >";
-                            for($i=0; $i<=20; $i++){
+                            for($i=5; $i<=50; $i+=0.5){
                                 echo "<option value=\"$i\" selected>$i</option>";
                                 
                             }
@@ -2378,7 +2503,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         <input type=\"submit\" name=\"modificaValoreForza\" value=\"Modifica\">
                         <label for=\"valorerangemax\">Valore range max modificatore commenti:</label>
                         <select id=\"valoreRange\" name=\"valoreRange\" >";
-                            for($i=0.01; $i<=0.25; $i+=0.01){
+                            for($i=0.01; $i<=0.5; $i+=0.01){
                                 echo "<option value=\"$i\" selected>$i</option>";
                                 
                             }

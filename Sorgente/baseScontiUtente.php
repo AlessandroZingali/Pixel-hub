@@ -7,7 +7,8 @@
 6.  clienti che sono con noi da Y anni; 
 7.  il gioco appartiene ad una certa casa di sviluppo 
 8.  il gioco appartiene ad un certo genere (magari tra quelli più apprezzati dal cliente)
-9.  sconto indipendente(esempio saldi invernali o festivi o altro)-->
+9.  sconto indipendente(esempio saldi invernali o festivi o altro)
+10. sconto dato dal grado -->
 
 <?php
     require_once 'serverUtility.php';
