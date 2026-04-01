@@ -515,7 +515,7 @@ if(isset($_SESSION['tipoUtente'])){
                             if($i->getAttribute("id_gioco")==$idGioco){
                                $PrezzoGioco = $i->getElementsByTagName('Prezzo')->item(0)->textContent;
                                $DataUscitaGioco = $i->getElementsByTagName('DataDiUscita')->item(0)->textContent;
-                               $GenereGioco = $i->getElementsByTagName('Generi')->item(0)->textContent;
+                               $GenereGioco = $i->getElementsByTagName('Genere')->item(0)->textContent;
                                $PublisherGioco = $i->getElementsByTagName('Publisher')->item(0)->textContent;
                                $CasaSviluppoGioco = $i->getElementsByTagName('CasaSviluppo')->item(0)->textContent;
                                $DescrizioneGioco = $i->getElementsByTagName('Descrizione')->item(0)->textContent;
@@ -559,7 +559,7 @@ if(isset($_SESSION['tipoUtente'])){
 
                                 echo "</tr>
                                 <tr>
-                                    <td>Generi</td>
+                                    <td>Genere</td>
                                     <td>$GenereGioco </td>
                                 </tr>
                                 <tr>

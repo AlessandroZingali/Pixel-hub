@@ -73,4 +73,13 @@
     <listaGiochi/>
     <listaPropic/>
   </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>01-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>boh</CasaDiSviluppoPreferita>
+    <GenerePreferito>Simulazione</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>

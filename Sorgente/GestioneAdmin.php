@@ -428,7 +428,7 @@ if (isset($_POST['modificaGioco']) && !empty($_POST['id_da_modificare'])) {
 
                 if(isset($_POST['nuovaData'])) $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent = $_POST['nuovaData'];
 
-                if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Generi")->item(0)->textContent = $_POST['nuovoGenere'];
+                if(isset($_POST['nuovoGenere'])) $gioco->getElementsByTagName("Genere")->item(0)->textContent = $_POST['nuovoGenere'];
                 
                 
                 
@@ -1548,7 +1548,7 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                                 $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
                                 $casaSviluppo = $gioco->getElementsByTagName("CasaSviluppo")->item(0)->textContent;
                                 $dataUscita = $gioco->getElementsByTagName("DataDiUscita")->item(0)->textContent;
-                                $generi = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                                $Genere = $gioco->getElementsByTagName("Genere")->item(0)->textContent;
                                 $descrizione = $gioco->getElementsByTagName("Descrizione")->item(0)->textContent;
                                 $mediaAdmin = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
                               
@@ -1624,34 +1624,34 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         <label for=\"nuovo_genere\"> Nuovo genere :</label>
                          <select name=\"nuovoGenere\" id=\"nuovo_genere\">
                                             <option value=\"{$setValoriGenere[0]}\" ";
-                                            if($generi == $setValoriGenere[0]) echo " selected";
+                                            if($Genere == $setValoriGenere[0]) echo " selected";
                                             echo ">{$setValoriGenere[0]}</option>
                                             <option value=\"{$setValoriGenere[1]}\"";
-                                            if($generi == $setValoriGenere[1]) echo " selected";
+                                            if($Genere == $setValoriGenere[1]) echo " selected";
                                             echo ">{$setValoriGenere[1]}</option> 
                                             <option value=\"{$setValoriGenere[2]}\" ";
-                                            if($generi == $setValoriGenere[2]) echo " selected";
+                                            if($Genere == $setValoriGenere[2]) echo " selected";
                                             echo ">{$setValoriGenere[2]}</option>
                                             <option value=\"{$setValoriGenere[3]}\" ";
-                                            if($generi == $setValoriGenere[3]) echo " selected";
+                                            if($Genere == $setValoriGenere[3]) echo " selected";
                                             echo ">{$setValoriGenere[3]}</option>
                                             <option value=\"{$setValoriGenere[4]}\" ";
-                                            if($generi == $setValoriGenere[4]) echo " selected";
+                                            if($Genere == $setValoriGenere[4]) echo " selected";
                                             echo ">{$setValoriGenere[4]}</option>
                                             <option value=\"{$setValoriGenere[5]}\" ";
-                                            if($generi == $setValoriGenere[5]) echo " selected";
+                                            if($Genere == $setValoriGenere[5]) echo " selected";
                                             echo ">{$setValoriGenere[5]}</option>
                                             <option value=\"{$setValoriGenere[6]}\" ";
-                                            if($generi == $setValoriGenere[6]) echo " selected";
+                                            if($Genere == $setValoriGenere[6]) echo " selected";
                                             echo ">{$setValoriGenere[6]}</option>
                                             <option value=\"{$setValoriGenere[7]}\" ";
-                                            if($generi == $setValoriGenere[7]) echo " selected";
+                                            if($Genere == $setValoriGenere[7]) echo " selected";
                                             echo ">{$setValoriGenere[7]}</option>
                                             <option value=\"{$setValoriGenere[8]}\" ";
-                                            if($generi == $setValoriGenere[8]) echo " selected";
+                                            if($Genere == $setValoriGenere[8]) echo " selected";
                                             echo ">{$setValoriGenere[8]}</option>
                                             <option value=\"{$setValoriGenere[9]}\" ";
-                                            if($generi == $setValoriGenere[9]) echo " selected";
+                                            if($Genere == $setValoriGenere[9]) echo " selected";
                                             echo ">{$setValoriGenere[9]}</option>
                                         </select>  <br />
                     </p>

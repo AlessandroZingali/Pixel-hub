@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listaRecovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recovery_XML_schema.xsd"/>
+<listaRecovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recovery_XML_schema.xsd">
+  <Recovery id_recovery="1" data="01/04/2026" ore="14" minuti="47">
+    <text>belandibesughis@gmail.com</text>
+  </Recovery>
+</listaRecovery>

@@ -571,7 +571,7 @@
                 foreach($giochiPointer as $gioco){
                     foreach($utenteNode->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto') as $giocoUtente){
                         if($gioco->getAttribute('id_gioco') == $giocoUtente->textContent){
-                            if($gioco->getElementsByTagName('Generi')->item(0)->textContent == $genereSelezionato){
+                            if($gioco->getElementsByTagName('Genere')->item(0)->textContent == $genereSelezionato){
                                 $offertaValida=true;
                             }
                         }

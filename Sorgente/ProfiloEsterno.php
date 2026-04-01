@@ -405,7 +405,7 @@ if($tipoUtente != null && $tipoUtente == '1') {
                                     $idGioco = $gioco->getAttribute('id_gioco');
 
                                     $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
-                                    $genere = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                                    $genere = $gioco->getElementsByTagName("Genere")->item(0)->textContent;
                                     $voto = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
                                     $publisher = $gioco->getElementsByTagName("Publisher")->item(0)->textContent;
                                     $image = $gioco->getElementsByTagName("Immagine")->item(0)->textContent;

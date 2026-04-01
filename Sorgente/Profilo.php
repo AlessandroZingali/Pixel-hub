@@ -706,7 +706,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                             
                                     <form method="post" action="Profilo.php"> 
                                         <td>
-                                        <select name="Genere" id="GeneriScelta">
+                                        <select name="Genere" id="GenereScelta">
                                             <option value="Nessuno">Nessuno</option>
                                             <option value="Sparatutto">Sparatutto</option> 
                                             <option value="RPG">RPG</option>
@@ -957,7 +957,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
 
                                                 $titolo = $g->getElementsByTagName("Titolo")->item(0)->textContent;
                                                 $image = $g->getElementsByTagName("Immagine")->item(0)->textContent;
-                                                $genere = $g->getElementsByTagName("Generi")->item(0)->textContent;
+                                                $genere = $g->getElementsByTagName("Genere")->item(0)->textContent;
                                                 $voto = $g->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
                                                 $publisher = $g->getElementsByTagName("Publisher")->item(0)->textContent;
 
@@ -1040,7 +1040,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                          $idGioco = $gioco->getAttribute('id_gioco');
 
                             $titolo = $gioco->getElementsByTagName("Titolo")->item(0)->textContent;
-                            $genere = $gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                            $genere = $gioco->getElementsByTagName("Genere")->item(0)->textContent;
                             $votoA = $gioco->getElementsByTagName("MediaRecensioniAdmin")->item(0)->textContent;
                             $votoU = $gioco->getElementsByTagName("MediaRecensioniUtenti")->item(0)->textContent;
                             $prezzo = $gioco->getElementsByTagName("Prezzo")->item(0)->textContent;
