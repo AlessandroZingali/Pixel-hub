@@ -139,6 +139,8 @@ require_once 'baseScontiUtente.php';
 
             $rangeMax = (float)$ElemSetting->item(0)->getAttribute("RangeMax");
             $forza = (int)$ElemSetting->item(0)->getAttribute("Forza");
+            $lowerBound = (float)$ElemSetting->item(0)->getAttribute("LowerBound");
+            $upperBound = (float)$ElemSetting->item(0)->getAttribute("UpperBound");
     
             $idUtenteLoggato = $_SESSION['userId'];
             $commenti=$elem;
@@ -191,7 +193,7 @@ require_once 'baseScontiUtente.php';
             //Infine si applica un bound al modificatore dei commenti, 
             // in modo che non possa variare oltre 0.75 e 1.25, stabilizzando l'algoritmo e evitando che utenti 
             // con pochi commenti o pochi like/dislike possano avere un modificatore dei commenti troppo alto o troppo basso.
-            return round(max(0.75, min(1.25, $mod)), 2); 
+            return round(max($lowerBound, min($upperBound, $mod)), 2); 
         }
             
     }

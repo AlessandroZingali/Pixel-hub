@@ -5,9 +5,13 @@
             <xsd:sequence>
                 <xsd:element ref="RangeMax" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="Forza" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="LowerBound" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="UpperBound" minOccurs="1" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="RangeMax" type="xsd:float"/>
     <xsd:element name="Forza" type="xsd:float"/>
+    <xsd:element name="LowerBound" type="xsd:float"/>
+    <xsd:element name="UpperBound" type="xsd:float"/>
 </xsd:schema>

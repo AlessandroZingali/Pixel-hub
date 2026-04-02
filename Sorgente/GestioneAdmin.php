@@ -341,6 +341,34 @@ if(isset($_POST['modificaValoreRange']) && !empty($_POST['valoreRange'])){
     }
     
 }
+if(isset($_POST['modificaValoreLowerBound']) && !empty($_POST['valoreLowerBound'])){
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['valoreLowerBound'])){
+        $valoreLowerBound = $_POST['valoreLowerBound'];
+        $doc = getDoc('XML/SettingModCommenti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('LowerBound')->item(0)->textContent = $valoreLowerBound;
+        $doc->save('XML/SettingModCommenti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato valore lower bound non valido. Deve essere un numero decimale');</script>";
+    }
+    
+}
+if(isset($_POST['modificaValoreUpperBound']) && !empty($_POST['valoreUpperBound'])){
+    if(preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['valoreUpperBound'])){
+        $valoreUpperBound = $_POST['valoreUpperBound'];
+        $doc = getDoc('XML/SettingModCommenti.xml');
+        $root = $doc->documentElement;
+        $root->getElementsByTagName('UpperBound')->item(0)->textContent = $valoreUpperBound;
+        $doc->save('XML/SettingModCommenti.xml');
+        header("Location: GestioneAdmin.php");
+    }
+    else{
+        echo "<script type='text/javascript'>alert('Formato valore upper bound non valido. Deve essere un numero decimale');</script>";
+    }
+    
+}
 
 // Funzione per eliminare un gioco dal catalogo
 if(isset($_POST['eliminaGioco']) && !empty($_POST['id_da_modificare'])){
@@ -2510,6 +2538,25 @@ if(isset($_POST['impostaBlacklistSconti']) && !empty($_POST['id_user_sconti_blac
                         echo" </select>
                         <br>
                         <input type=\"submit\" name=\"modificaValoreRange\" value=\"Modifica\">
+                        <label for=\"valoreLowerBound\">Valore lower bound modificatore commenti:</label>
+                        <select id=\"valoreLowerBound\" name=\"valoreLowerBound\" >";
+                            for($i=0.5; $i<=1; $i+=0.05){
+                                echo "<option value=\"$i\" selected>$i</option>";
+                                
+                            }
+                        echo" </select>
+                        <br>
+                        <input type=\"submit\" name=\"modificaValoreLowerBound\" value=\"Modifica\">
+                        <label for=\"valoreUpperBound\">Valore upper bound modificatore commenti:</label>
+                        <select id=\"valoreUpperBound\" name=\"valoreUpperBound\" >";
+                            for($i=1; $i<=2; $i+=0.05){
+                                echo "<option value=\"$i\" selected>$i</option>";
+                                
+                            }
+                        echo" </select>
+                        <br>
+                        <input type=\"submit\" name=\"modificaValoreUpperBound\" value=\"Modifica\">
+
                     </form>
                     <div class=\"buttons\">
                         <div class=\"backarrow\">
