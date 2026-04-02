@@ -56,7 +56,6 @@
             <xsd:sequence>
                 <xsd:element ref="TipoSconto" minOccurs="3" maxOccurs="3"/>
             </xsd:sequence>
-            <xsd:attribute name="Grado" type="xsd:integer" use="required"/>
             </xsd:complexType>
     </xsd:element>
 
@@ -65,6 +64,7 @@
             <xsd:sequence>
                 <xsd:element ref="Sconto" minOccurs="1" maxOccurs="1"/>
             </xsd:sequence>
+            <xsd:attribute name="Grado" type="xsd:integer" use="required"/>
             </xsd:complexType>
     </xsd:element>
 
