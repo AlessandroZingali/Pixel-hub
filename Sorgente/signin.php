@@ -287,7 +287,7 @@ if(isset($_POST['signin']) && $jumper==0){
                                             <option value="Sandbox">Sandbox</option>
                         </select>
                     </div>
-                    <!-- si possono inserire come opzioni diversi generi che andranno a dare eventuali sconti all'utente o comunque mostrano all'inizio dell' home page la categoria selezionata -->
+                    <!-- si possono inserire come opzioni diversi Genere che andranno a dare eventuali sconti all'utente o comunque mostrano all'inizio dell' home page la categoria selezionata -->
                     <div>
                         <input type="submit" name="signin" value="Iscriviti" />
                     </div>

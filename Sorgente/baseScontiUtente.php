@@ -7,7 +7,8 @@
 6.  clienti che sono con noi da Y anni; 
 7.  il gioco appartiene ad una certa casa di sviluppo 
 8.  il gioco appartiene ad un certo genere (magari tra quelli più apprezzati dal cliente)
-9.  sconto indipendente(esempio saldi invernali o festivi o altro)-->
+9.  sconto indipendente(esempio saldi invernali o festivi o altro)
+10. sconto dato dal grado -->
 
 <?php
     require_once 'serverUtility.php';
@@ -570,7 +571,7 @@
                 foreach($giochiPointer as $gioco){
                     foreach($utenteNode->getElementsByTagName('listaGiochi')[0]->getElementsByTagName('idGiocoPosseduto') as $giocoUtente){
                         if($gioco->getAttribute('id_gioco') == $giocoUtente->textContent){
-                            if($gioco->getElementsByTagName('Generi')->item(0)->textContent == $genereSelezionato){
+                            if($gioco->getElementsByTagName('Genere')->item(0)->textContent == $genereSelezionato){
                                 $offertaValida=true;
                             }
                         }

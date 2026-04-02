@@ -22,7 +22,7 @@
         <xsd:element  ref="RequisitiRaccomandati" minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="DataDiUscita"  minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="Immagine"  minOccurs="1" maxOccurs="1"/>  
-        <xsd:element  ref="Generi"   minOccurs="1" maxOccurs="unbounded"/> 
+        <xsd:element  ref="Genere"   minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="Disponibile"   minOccurs="1" maxOccurs="1"/>
         <xsd:element  ref="MediaRecensioniAdmin"  minOccurs="1" maxOccurs="1"/> 
         <xsd:element  ref="MediaRecensioniUtenti" minOccurs="1" maxOccurs="1"/>
@@ -47,7 +47,7 @@
     </xsd:simpleType>
   </xsd:element>
   <xsd:element  name="Immagine"  type="xsd:string"/> 
-  <xsd:element  name="Generi"  type="xsd:string" /> 
+  <xsd:element  name="Genere"  type="xsd:string" /> 
   <xsd:element  name="Disponibile"  type="xsd:integer" /> 
   <xsd:element  name="MediaRecensioniAdmin"  type="xsd:float"/> 
   <xsd:element  name="MediaRecensioniUtenti"  type="xsd:float" />

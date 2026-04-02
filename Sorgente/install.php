@@ -44,7 +44,7 @@ else {
             Grado INT,                            -- Grado utente (1-6) di base parte a 3
             Pixels INT,                           -- Valuta virtuale
             Saldo_attuale FLOAT,                  -- Saldo reale
-            Data_di_Nascita DATE,                 -- Data di nascita
+            Data_di_Nascita VARCHAR(10),          -- Data di nascita
             Nome VARCHAR(50),                     -- Nome
             Cognome VARCHAR(50),                  -- Cognome
             Tipologia_utente INT,                 -- 0=user 1=publisher 2=admin
@@ -68,7 +68,7 @@ else {
             -- i 3 utenti hanno rispettivamente grado uno due e tre 
             -- per test del sito e le varie sezioni che sono disponibibili o meno in base al comportamento dell'utente 
                 \"marcorossi@gmail.com\",  
-                \"marcorossi123!\", 
+                \"Marcorossi123!\", 
                 \"marcorossi\", 
                 1, 
                 0,
@@ -83,7 +83,7 @@ else {
                 NULL
             ),(
                 \"bandasoft@gmail.com\", 
-                \"banda1234!\", 
+                \"Banda1234!\", 
                 \"Bandai Namco Entertainment\", 
                 2, 
                 500,
@@ -98,7 +98,7 @@ else {
                 \"123456789012\"
             ),(
                 \"gabibbo@gmail.com\", 
-                \"gabibbo123!\", 
+                \"Gabibbo123!\", 
                 \"MastroGabibbo\", 
                 3, 
                 1000,

@@ -135,7 +135,7 @@ if(isset($_SESSION['userId'])){
                                  //tramite javascript, in modo da mostrare solo alcune celle alla volta.
                                 for($j=0; $j < $limite ; $j++){
                                     $gioco=$elem->item($j);
-                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                                    $genereGioco=$gioco->getElementsByTagName("Genere")->item(0)->textContent;
 
                                    if($genereGioco == $_SESSION['generePreferito']){
                                         $idGioco = $gioco->getAttribute("id_gioco");
@@ -454,7 +454,7 @@ if(isset($_SESSION['userId'])){
                                 echo "<tr>";
                                 for($j=0; $j < $limite ; $j++){
                                     $gioco=$elem->item($j);
-                                    $genereGioco=$gioco->getElementsByTagName("Generi")->item(0)->textContent;
+                                    $genereGioco=$gioco->getElementsByTagName("Genere")->item(0)->textContent;
 
                                    if($genereGioco=="Sparatutto"){
                                         $idGioco = $gioco->getAttribute("id_gioco");
