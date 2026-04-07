@@ -6,4 +6,18 @@
       <prezzo>14.99</prezzo>
     </gioco>
   </carrello>
+  <carrello id_user="3" id_cart="2">
+    <gioco id_gioco="5">
+      <Titolo>Clair Obscur:Expedition 33</Titolo>
+      <prezzo>14.99</prezzo>
+    </gioco>
+    <gioco id_gioco="12">
+      <Titolo>Dead Cells</Titolo>
+      <prezzo>24.99</prezzo>
+    </gioco>
+    <gioco id_gioco="9">
+      <Titolo>Borderlands</Titolo>
+      <prezzo>59.99</prezzo>
+    </gioco>
+  </carrello>
 </listaCarrelli>

@@ -103,6 +103,7 @@ max-width: 600px;
     border-radius: 15px;
     /* margin-left: 10%; */
     height: 200x;
+    margin-bottom: 10%;
   
     
     
@@ -433,9 +434,7 @@ padding-right: 10px;
     #Acquisto{  margin-top: 2%;
     }
 
-    #buttonAcquista{
-    margin-left: 0;
-    }
+    
 
  }
 
@@ -445,5 +444,13 @@ padding-right: 10px;
     #descAndBuy{
         flex-direction: column;
     }
+}
+
+@media {max-width: 800px}{
+    
+    #buttonAcquista{
+    padding-bottom: 10%;
+    }
+    
 }
 

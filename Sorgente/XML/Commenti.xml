@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="1">
-    <Commento id_commento="1" id_utente="3" data="24/03/2026" ore="12" minuti="10" like="1" dislike="0" segnalazioni="1">
-      <text>Belloh</text>
-    </Commento>
-  </Gioco>
+  <Gioco id_gioco="1"/>
   <Gioco id_gioco="18">
     <Commento id_commento="1" id_utente="4" data="27/03/2026" ore="11" minuti="41" like="0" dislike="0" segnalazioni="0">
       <text>FATALITYH</text>

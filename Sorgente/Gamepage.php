@@ -536,6 +536,33 @@ if(isset($_SESSION['tipoUtente'])){
                                 <tr>
                                     <td>Prezzo</td>";
                                         if($service==1){
+                                            $elem = xmlPointer("XML/utenti.xml");
+                                            foreach ($elem as $utente) {
+
+                                                $idUtente = $utente->getAttribute("id_user");
+
+                                                if ($idUtente == $_SESSION['userId']) {
+
+                                                    $giochi = $utente->getElementsByTagName("listaGiochi")[0]->getElementsByTagName("idGiocoPosseduto");
+                                                    $possiedeGioco = false;
+
+                                                    foreach ($giochi as $gioco) {
+                                                        $idGiocoP = $gioco->textContent;
+
+                                                        if ($idGiocoP == $idGioco) {
+                                                            $possiedeGioco = true;
+
+
+                                                            
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if($possiedeGioco){
+                                                echo "<td> $PrezzoGioco € </td> ";
+                                            
+                                            }else{
                                             $sconti = $scontoManager->tipologiaAndPercentualeScontoGioco($idGioco);
                                             if(count($sconti) > 0){
                                                 $sommaSconti = 0;
@@ -549,6 +576,7 @@ if(isset($_SESSION['tipoUtente'])){
                                              else{
                                                 echo "<td> $PrezzoGioco € </td> ";
                                             }
+                                        }
                                         }
                                         else if($service==0){
                                             echo "<td> $PrezzoGioco € </td> ";
