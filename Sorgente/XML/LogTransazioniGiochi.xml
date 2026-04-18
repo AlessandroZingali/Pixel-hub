@@ -48,4 +48,47 @@
       <Importo>39.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="5" ModCommentiUsato="0" IDGiocatore="4" DataOra="19/04/26 00:09" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Dead Cells</Titolo>
+      <IDGioco>12</IDGioco>
+      <Importo>22.49</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Starcraft II: Wings of Liberty</Titolo>
+      <IDGioco>11</IDGioco>
+      <Importo>26.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>The Witcher 3: Wild Hunt</Titolo>
+      <IDGioco>2</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Doom Eternal</Titolo>
+      <IDGioco>10</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="6" ModCommentiUsato="0" IDGiocatore="4" DataOra="19/04/26 00:14" PixelIniziali="747">
+    <Gioco>
+      <Titolo>Dark Souls Remastered</Titolo>
+      <IDGioco>14</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="7" ModCommentiUsato="0" IDGiocatore="4" DataOra="19/04/26 00:29" PixelIniziali="926">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>19.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="8" ModCommentiUsato="0" IDGiocatore="3" DataOra="19/04/26 00:30" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Doom Eternal</Titolo>
+      <IDGioco>10</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>
