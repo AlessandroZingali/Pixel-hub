@@ -13,11 +13,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
-<<<<<<< HEAD
     <MediaRecensioniUtenti>26.33</MediaRecensioniUtenti>
-=======
-    <MediaRecensioniUtenti>59.67</MediaRecensioniUtenti>
->>>>>>> 5929e2b5fa4b62637dc3ab3f8ba93a6ea16bf9c0
     <TitoliCorrelati>
       <idGiocoCorrelato>8</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>

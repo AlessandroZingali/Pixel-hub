@@ -60,4 +60,179 @@
     </listaGiochi>
     <listaPropic/>
   </Utente>
+  <Utente id_user="4">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>EA</CasaDiSviluppoPreferita>
+    <GenerePreferito>Strategia</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="37.99">13</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="23.74">12</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>1</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="5">
+    <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
+    <DataIscrizione>29-01-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Bungie</CasaDiSviluppoPreferita>
+    <GenerePreferito>Sandbox</GenerePreferito>
+    <Descrizione>Ciao sono Gallo e amo sviluppare videogiochi</Descrizione>
+    <DescrizionePublisher/>
+    <ToggleAgency>false</ToggleAgency>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="25.99">26</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="22.49">20</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="28.49">22</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="23.74">12</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="44.99">2</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>4</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="6">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>EA</CasaDiSviluppoPreferita>
+    <GenerePreferito>Strategia</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="25.49">23</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="47.49">2</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="17.99">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="39.99">13</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="37.99">21</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="71.99">25</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="49.99">10</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="39.99">18</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="53.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="33.99">6</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="37.99">15</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="7">
+    <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
+    <DataIscrizione>18-02-2016</DataIscrizione>
+    <CasaDiSviluppoPreferita>EA</CasaDiSviluppoPreferita>
+    <GenerePreferito>Simulazione</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="12">22</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="15.99">7</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="9">24</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="8">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Gamefreak</CasaDiSviluppoPreferita>
+    <GenerePreferito>Rogue-like</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="47.49">2</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="76.49">25</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="50.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="49.99">10</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="20.99">23</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>3</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="9">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>DDSoft</CasaDiSviluppoPreferita>
+    <GenerePreferito>Picchiaduro</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="80.99">25</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">3</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="39.99">18</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="39.99">14</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="35.99">19</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="35.99">16</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="35.99">15</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic>
+      <idPropic>6</idPropic>
+    </listaPropic>
+  </Utente>
+  <Utente id_user="10">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Blizzard</CasaDiSviluppoPreferita>
+    <GenerePreferito>Strategia</GenerePreferito>
+    <Descrizione/>
+    <ToggleAgency>true</ToggleAgency>
+    <DescrizionePublisher/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">1</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="29.99">11</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="35.99">26</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="29.99">22</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="11">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>Nintendo</CasaDiSviluppoPreferita>
+    <GenerePreferito>Avventura</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="12">
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita/>
+    <GenerePreferito>Simulazione</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="80.99">25</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="10">24</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="3.6">27</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="23.74">20</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="29.99">22</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="42.4">8</idGiocoPosseduto>
+    </listaGiochi>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="13">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>DICE</CasaDiSviluppoPreferita>
+    <GenerePreferito>Souls-like</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+   <Utente id_user="14">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>DICE</CasaDiSviluppoPreferita>
+    <GenerePreferito>Souls-like</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
+  <Utente id_user="15">
+    <linkEsterno/>
+    <DataIscrizione>19-04-2026</DataIscrizione>
+    <CasaDiSviluppoPreferita>aaaaaa</CasaDiSviluppoPreferita>
+    <GenerePreferito>Avventura</GenerePreferito>
+    <Descrizione/>
+    <listaGiochi/>
+    <listaPropic/>
+  </Utente>
 </listaUtenti>
