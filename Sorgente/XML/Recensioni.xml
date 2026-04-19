@@ -61,6 +61,9 @@
     <Recensione id_recensione="3" id_utente="7" data="19/04/2026" ore="18" minuti="07" like="0" dislike="0" segnalazioni="0" voto="80">
       <text>La bambina è inquietante, bel lavoro. Big Daddy ne mio cuore ormai</text>
     </Recensione>
+    <Recensione id_recensione="3" id_utente="4" data="19/04/2026" ore="00" minuti="08" like="0" dislike="0" segnalazioni="0" voto="70">
+      <text>ggg</text>
+    </Recensione>
   </Gioco>
   <Gioco id_gioco="18">
     <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="16" minuti="04" like="1" dislike="2" segnalazioni="0" voto="100">

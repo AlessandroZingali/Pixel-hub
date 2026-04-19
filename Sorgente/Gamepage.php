@@ -807,27 +807,27 @@ if(isset($_SESSION['tipoUtente'])){
                                     //echo $possiedeGioco ? "Possiedi il gioco" : "Non possiedi il gioco";
                                     //echo $inCart ? " - Presente nel carrello" : " - Non presente nel carrello";
                                 
-                                    if (!$possiedeGioco && !$inCart) {
-                                        echo '
-                                        <form method="post" action="Gamepage.php?titoloGioco='.$titoloGioco.'&idGioco='.$idGioco.'">
-                                        <div id="Acquisto">
-                                            <input type="submit" id="buttonAcquista" value="Acquisto" name="Acquisto"/>
-                                        </div></form>';
-                                    }
-                                    else if(!$possiedeGioco && $inCart){
-                                        echo '
-                                        <div id="Acquisto">
-                                            <p>Presente nel carrello.</p>
-                                        </div>';
-                                    }
-                                    else{
-                                        echo '
-                                        <div id="Acquisto">
-                                            <p>Presente nella libreria.</p>
-                                        </div>';
-                                    }
-                                    break;
+                                    
                                 }    
+                            }
+                            if (!$possiedeGioco && !$inCart) {
+                                echo '
+                                <form method="post" action="Gamepage.php?titoloGioco='.$titoloGioco.'&idGioco='.$idGioco.'">
+                                <div id="Acquisto">
+                                    <input type="submit" id="buttonAcquista" value="Acquisto" name="Acquisto"/>
+                                </div></form>';
+                            }
+                            else if(!$possiedeGioco && $inCart){
+                                echo '
+                                <div id="Acquisto">
+                                <p>Presente nel carrello.</p>
+                                </div>';
+                            }
+                            else{
+                                echo '
+                                <div id="Acquisto">
+                                    <p>Presente nella libreria.</p>
+                                </div>';
                             }
                         }
                         
