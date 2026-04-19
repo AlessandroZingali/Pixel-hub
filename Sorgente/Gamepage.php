@@ -33,6 +33,7 @@ $doc = getDoc("XML/Giochi.xml");
 
 
 session_start();
+
 //Verifica se l'utente è loggato (servizio di autenticazione)
 if(isset($_SESSION['userId'])){
     $utente = $_SESSION['userName'];
@@ -644,6 +645,7 @@ if(isset($_SESSION['tipoUtente'])){
                                 }
                                }
                                if($service == 1 && !$possiedeGioco){
+                                
                                     echo " <table>
                                     <th>Sono stati applicati i seguenti sconti:</th>";
                                     $arraySconti=[];
@@ -652,14 +654,26 @@ if(isset($_SESSION['tipoUtente'])){
                                         foreach($elemDescrizione as $descrizione){
                                             if($descrizione->getAttribute("ID_Sconto")==$sconto['TipoSconto']){
                                                 $descrizioneBase = $descrizione->getElementsByTagName("Descrizione")->item(0)->textContent;
-                                                $check = $scontoManager->valoreSettingsSconti($sconto['TipoSconto']);
-                                                $descrizioneTipo = $descrizioneBase.$check;
+
+                                                if($sconto['TipoSconto'] == 9 || $sconto['TipoSconto'] == 10) $descrizioneTipo = $descrizioneBase;      
+                                                else{
+                                                    $check = $scontoManager->valoreSettingsSconti($sconto['TipoSconto']);
+                                                    $descrizioneTipo = $descrizioneBase.$check;
+                                                    
+                                                    }
+                                                
+
                                                 $ValoreSconto=$sconto['ValoreSconto'];
                                                 $tupla = ['Descrizione'=>$descrizioneTipo, 'ValoreSconto'=>$ValoreSconto];
-                                                if($check != 'Nullo') array_push($arraySconti, $tupla);
+                                                array_push($arraySconti, $tupla);
                                             }
                                         }
+
                                     }
+                                    if(count($arraySconti) == 0 && !isset($_SESSION['arrayScontiPerGrado'])){
+                                        echo "<tr><td>Non sono stati applicati sconti su questo gioco</td></tr>";
+                                    }
+                                    
                                     // echo"<tr><th>Tipologia sconto:</th></tr>";
                                     echo "<tr><td><ul>";
                                     foreach($arraySconti as $sconto){
@@ -677,6 +691,7 @@ if(isset($_SESSION['tipoUtente'])){
                                             echo"</li>";
                                         }
                                     }
+                                    
                                             
                                     
                                     echo "</ul></td></tr>";
@@ -811,6 +826,7 @@ if(isset($_SESSION['tipoUtente'])){
                                             <p>Presente nella libreria.</p>
                                         </div>';
                                     }
+                                    break;
                                 }    
                             }
                         }

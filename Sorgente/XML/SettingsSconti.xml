@@ -18,13 +18,13 @@
   <GenereSconto>Sparatutto</GenereSconto>
   <GradoSconto>
     <TipoSconto Grado="4">
-      <Sconto>0</Sconto>
-    </TipoSconto>
-    <TipoSconto Grado="5">
       <Sconto>5</Sconto>
     </TipoSconto>
-    <TipoSconto Grado="6">
+    <TipoSconto Grado="5">
       <Sconto>10</Sconto>
+    </TipoSconto>
+    <TipoSconto Grado="6">
+      <Sconto>15</Sconto>
     </TipoSconto>
   </GradoSconto>
 </Settings>

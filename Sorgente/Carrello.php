@@ -1,5 +1,5 @@
 <?php
-/* Pagina che mostrera il carrello ancora in fase di sviluppo;
+/* 
 L'idea è di un elenco dei prodotti acquistati con il nome  il prezzo di partenza e quello finale dato dopo gli sconti */
 require 'baseScontiUtente.php';
 require_once 'gestioneEsperienzauser.php';
@@ -89,7 +89,6 @@ if(isset($_POST['Acquista'])){
     $pointDB = new connectionDB();
     $mysqliConnection = $pointDB->connectDB();
     $listaGiochi_json = json_decode($_SESSION['gameList']);
-    // var_dump($listaGiochi_json);
 
     if (mysqli_connect_errno()){
 

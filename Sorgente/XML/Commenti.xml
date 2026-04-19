@@ -1,9 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCommenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Commenti_XML_schema.xsd">
-  <Gioco id_gioco="1"/>
+  <Gioco id_gioco="1">
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="37" like="2" dislike="1" segnalazioni="0">
+      <text>Questo gioco è praticamente fatto per gli allupati lol :)</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="12" minuti="28" like="4" dislike="1" segnalazioni="0">
+      <text>Ridateci Jeff Kaplan!!! :(&#13;</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="5">
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="43" like="2" dislike="1" segnalazioni="0">
+      <text>Il personaggio di Lune, è praticamente il 5/7 del prezzo del gioco</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="1" data="19/04/2026" ore="10" minuti="33" like="1" dislike="2" segnalazioni="0">
+      <text>ciaohhhh</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="2">
+    <Commento id_commento="3" id_utente="2" data="19/04/2026" ore="15" minuti="40" like="1" dislike="0" segnalazioni="0">
+      <text>Una cura per il mondo di gioco sopraffina</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="38" like="2" dislike="0" segnalazioni="0">
+      <text>Geraldo mio padre</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="12" minuti="27" like="4" dislike="0" segnalazioni="0">
+      <text>Geraldo è sempre una garanzia</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="23">
+    <Commento id_commento="3" id_utente="14" data="19/04/2026" ore="18" minuti="40" like="0" dislike="0" segnalazioni="0">
+      <text>Direi la mia infanzia cavolo</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="49" like="0" dislike="0" segnalazioni="0">
+      <text>Un gioco che non capirò mai</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="12" minuti="29" like="3" dislike="0" segnalazioni="0">
+      <text>Mi ha fatto tornare bambino</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Commento id_commento="3" id_utente="9" data="19/04/2026" ore="16" minuti="08" like="3" dislike="2" segnalazioni="0">
+      <text>Un gioco che devo avere assolutamente!!!! Una vecchia gloria da recuperare</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="57" like="3" dislike="2" segnalazioni="0">
+      <text>Spaventoso!</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="12" minuti="29" like="6" dislike="2" segnalazioni="0">
+      <text>Questo si che è un gioco vecchia scuola</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="21">
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="13" minuti="09" like="3" dislike="0" segnalazioni="0">
+      <text>Che mazzate!</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="25">
+    <Commento id_commento="5" id_utente="12" data="19/04/2026" ore="16" minuti="53" like="1" dislike="1" segnalazioni="0">
+      <text>Devo costruirmi un jet dopo di questo</text>
+    </Commento>
+    <Commento id_commento="4" id_utente="10" data="19/04/2026" ore="16" minuti="40" like="3" dislike="0" segnalazioni="0">
+      <text>Chissa cosa bolle in pentola per il prossimo capitolo</text>
+    </Commento>
+    <Commento id_commento="3" id_utente="9" data="19/04/2026" ore="16" minuti="06" like="3" dislike="2" segnalazioni="0">
+      <text>Ve lo sconsiglio, meglio i caccia stellari!!!</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="40" like="3" dislike="2" segnalazioni="0">
+      <text>Le simulazioni su questo gioco volano alte!!!</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="13" minuti="22" like="3" dislike="2" segnalazioni="0">
+      <text>Cavolo, quanto vanno veloci questi aerei</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="15">
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="17" minuti="05" like="2" dislike="1" segnalazioni="0">
+      <text>Poche spade</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="6" data="19/04/2026" ore="13" minuti="26" like="4" dislike="0" segnalazioni="0">
+      <text>No vabbè non puoi capire che figata, muoio sempre</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="26">
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="56" like="2" dislike="0" segnalazioni="0">
+      <text>Bungie morta... lol</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="41" like="1" dislike="1" segnalazioni="0">
+      <text>Qua si spara duro e male</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="20">
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="16" minuti="50" like="0" dislike="0" segnalazioni="0">
+      <text>WuaAwe che gioco pieno di sofferenza per tutte le età</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="43" like="0" dislike="0" segnalazioni="0">
+      <text>Il finale mi ha fatto piangere male&#13;insieme al fatto che per arrivarci ci ho messo 200 ore</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="11">
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="43" like="0" dislike="0" segnalazioni="0">
+      <text>Giuro non capisco come i coreani ci lavorano su questo XD</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="27">
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="16" minuti="51" like="0" dislike="0" segnalazioni="0">
+      <text>Bel seguito</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="44" like="0" dislike="0" segnalazioni="0">
+      <text>e mai si vedra ancora non è uscito :c</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="10">
+    <Commento id_commento="2" id_utente="2" data="19/04/2026" ore="15" minuti="47" like="3" dislike="1" segnalazioni="0">
+      <text>REAP AND TEAR</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="45" like="4" dislike="0" segnalazioni="0">
+      <text>Vi prego datemi più OST cosi epiche e più sangueeeee!!!!</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="13">
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="52" like="0" dislike="1" segnalazioni="0">
+      <text>Spuderman Spuderman nah anh anh anh spuderMan</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="45" like="1" dislike="0" segnalazioni="0">
+      <text>LO SPIDEY DI QUARTIERE è IL MIO PREFERITOH</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="17">
+    <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="54" like="1" dislike="0" segnalazioni="0">
+      <text>Nan Daro SEKIROOOOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="46" like="1" dislike="0" segnalazioni="0">
+      <text>Che figata clamorosa&#13;ancora non ho superato il tutorial ma che figata clamorosa</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="6">
+    <Commento id_commento="2" id_utente="9" data="19/04/2026" ore="16" minuti="16" like="0" dislike="2" segnalazioni="0">
+      <text>Non so cosa ci troviate in questo inno all'imperialismo  bleh</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="48" like="2" dislike="0" segnalazioni="0">
+      <text>Per la super Terra!</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="22">
+    <Commento id_commento="2" id_utente="7" data="19/04/2026" ore="18" minuti="09" like="0" dislike="0" segnalazioni="0">
+      <text>Quanto mi manca il 3... mi consolo con il doppio</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="49" like="4" dislike="1" segnalazioni="0">
+      <text>La civiltà che manca sono sicuramente gli Unni... wa immagina guidare i signori della guerra di Attila però usando Ghandi </text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="16">
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="18" minuti="06" like="0" dislike="0" segnalazioni="0">
+      <text>Spumeggiante&#13;</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="2" data="19/04/2026" ore="15" minuti="50" like="2" dislike="1" segnalazioni="0">
+      <text>Talmente iconico che mi sono tatuato il sole del dlc sulla spalla</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="17" minuti="05" like="0" dislike="1" segnalazioni="0">
+      <text>Spase giuste ma troppo mana</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="14">
+    <Commento id_commento="3" id_utente="9" data="19/04/2026" ore="17" minuti="11" like="0" dislike="0" segnalazioni="0">
+      <text>Vorrei vedere voi a creare tutti sti Item -.-</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="17" minuti="05" like="0" dislike="1" segnalazioni="0">
+      <text>Troppe spade</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="52" like="0" dislike="1" segnalazioni="0">
+      <text>Prima di acquistare questo gioco l'inferno si congelerà</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="9">
+    <Commento id_commento="3" id_utente="12" data="19/04/2026" ore="16" minuti="55" like="3" dislike="0" segnalazioni="0">
+      <text>Però delle armi davvero ben curate, manca solo una che ti faccia diventare vegano</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="9" data="19/04/2026" ore="16" minuti="08" like="3" dislike="2" segnalazioni="0">
+      <text>76</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="53" like="3" dislike="3" segnalazioni="0">
+      <text>67</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="19">
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="15" minuti="59" like="2" dislike="1" segnalazioni="0">
+      <text>Ricordo le serate passate con la vecchia squadra a massacrarci di botte&#13;Queste sono le amicizie piu belle!</text>
+    </Commento>
+  </Gioco>
   <Gioco id_gioco="18">
-    <Commento id_commento="1" id_utente="4" data="27/03/2026" ore="11" minuti="41" like="0" dislike="0" segnalazioni="0">
-      <text>FATALITYH</text>
+    <Commento id_commento="3" id_utente="12" data="19/04/2026" ore="18" minuti="08" like="0" dislike="0" segnalazioni="0">
+      <text>HELLNO</text>
+    </Commento>
+    <Commento id_commento="2" id_utente="6" data="19/04/2026" ore="17" minuti="15" like="2" dislike="0" segnalazioni="0">
+      <text>Non mai amato questo tipo di picchiaduro... meglio Tekken </text>
+    </Commento>
+    <Commento id_commento="1" id_utente="9" data="19/04/2026" ore="16" minuti="04" like="1" dislike="2" segnalazioni="0">
+      <text>&lt;3 &lt;3 &lt;3 &lt;3</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="8">
+    <Commento id_commento="1" id_utente="9" data="19/04/2026" ore="16" minuti="14" like="2" dislike="0" segnalazioni="0">
+      <text>Un brutto copia incolla con Aggiunta di cavallo</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="3">
+    <Commento id_commento="2" id_utente="12" data="19/04/2026" ore="16" minuti="56" like="2" dislike="0" segnalazioni="0">
+      <text>Vorrei scritturare il signor Reeves... come lo contatto?!</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="10" data="19/04/2026" ore="16" minuti="43" like="1" dislike="2" segnalazioni="0">
+      <text>Pistole, e modifiche... sembra interessante -.-</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="24">
+    <Commento id_commento="2" id_utente="7" data="19/04/2026" ore="18" minuti="06" like="0" dislike="0" segnalazioni="0">
+      <text>Non mi sono piaciute le nuvole</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="12" data="19/04/2026" ore="16" minuti="53" like="1" dislike="0" segnalazioni="0">
+      <text>Solo amore per le api</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="4">
+    <Commento id_commento="1" id_utente="12" data="19/04/2026" ore="16" minuti="59" like="0" dislike="0" segnalazioni="0">
+      <text>Non ho capito molto di questo gioco... non ho capito gli isometrici</text>
+    </Commento>
+  </Gioco>
+  <Gioco id_gioco="12">
+    <Commento id_commento="2" id_utente="4" data="19/04/2026" ore="17" minuti="40" like="0" dislike="1" segnalazioni="0">
+      <text>Vorrei più Giochi cosi</text>
+    </Commento>
+    <Commento id_commento="1" id_utente="8" data="19/04/2026" ore="17" minuti="04" like="1" dislike="1" segnalazioni="0">
+      <text>Ho visto all'infinito il trailer quella musica spacca&#13;Come le padelle qui&#13;</text>
     </Commento>
   </Gioco>
 </listaCommenti>

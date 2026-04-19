@@ -48,4 +48,349 @@
       <Importo>39.99</Importo>
     </Gioco>
   </Transazione>
+  <Transazione IDTransazione="5" ModCommentiUsato="0" IDGiocatore="1" DataOra="19/04/26 10:35" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Clair Obscur:Expedition 33</Titolo>
+      <IDGioco>5</IDGioco>
+      <Importo>13.49</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="6" ModCommentiUsato="0" IDGiocatore="5" DataOra="19/04/26 10:58" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>19.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="7" ModCommentiUsato="0" IDGiocatore="5" DataOra="19/04/26 11:29" PixelIniziali="99">
+    <Gioco>
+      <Titolo>Clair Obscur:Expedition 33</Titolo>
+      <IDGioco>5</IDGioco>
+      <Importo>14.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="8" ModCommentiUsato="0" IDGiocatore="5" DataOra="19/04/26 11:31" PixelIniziali="173">
+    <Gioco>
+      <Titolo>Overwatch Origin</Titolo>
+      <IDGioco>1</IDGioco>
+      <Importo>50.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="9" ModCommentiUsato="0" IDGiocatore="5" DataOra="19/04/26 11:36" PixelIniziali="427">
+    <Gioco>
+      <Titolo>Dark Souls Remastered</Titolo>
+      <IDGioco>14</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="10" ModCommentiUsato="1" IDGiocatore="6" DataOra="19/04/26 12:11" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Final Fantasy Tacticts: The Ivalice Chronicles</Titolo>
+      <IDGioco>23</IDGioco>
+      <Importo>25.49</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="11" ModCommentiUsato="1" IDGiocatore="6" DataOra="19/04/26 12:12" PixelIniziali="127">
+    <Gioco>
+      <Titolo>The Witcher 3: Wild Hunt</Titolo>
+      <IDGioco>2</IDGioco>
+      <Importo>47.49</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Overwatch Origin</Titolo>
+      <IDGioco>1</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>17.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Spiderman Remastered</Titolo>
+      <IDGioco>13</IDGioco>
+      <Importo>39.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="12" ModCommentiUsato="0" IDGiocatore="6" DataOra="19/04/26 12:31" PixelIniziali="954">
+    <Gioco>
+      <Titolo>Street Fighter 6</Titolo>
+      <IDGioco>21</IDGioco>
+      <Importo>37.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Ace Combat 8: Wings of theve</Titolo>
+      <IDGioco>25</IDGioco>
+      <Importo>71.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Doom Eternal</Titolo>
+      <IDGioco>10</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="13" ModCommentiUsato="0" IDGiocatore="1" DataOra="19/04/26 12:43" PixelIniziali="67">
+    <Gioco>
+      <Titolo>Spiderman Remastered</Titolo>
+      <IDGioco>13</IDGioco>
+      <Importo>36.79</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="14" ModCommentiUsato="1" IDGiocatore="1" DataOra="19/04/26 13:08" PixelIniziali="250">
+    <Gioco>
+      <Titolo>Dark Souls 3</Titolo>
+      <IDGioco>16</IDGioco>
+      <Importo>33.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="15" ModCommentiUsato="1" IDGiocatore="1" DataOra="19/04/26 13:09" PixelIniziali="419">
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>16.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="16" ModCommentiUsato="1.07" IDGiocatore="6" DataOra="19/04/26 13:21" PixelIniziali="2053">
+    <Gioco>
+      <Titolo>Mortal Kombat 11</Titolo>
+      <IDGioco>18</IDGioco>
+      <Importo>39.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Cyberpunk 2077</Titolo>
+      <IDGioco>3</IDGioco>
+      <Importo>53.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="17" ModCommentiUsato="1.07" IDGiocatore="6" DataOra="19/04/26 13:24" PixelIniziali="4000">
+    <Gioco>
+      <Titolo>Helldivers II</Titolo>
+      <IDGioco>6</IDGioco>
+      <Importo>33.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Dark Souls 2</Titolo>
+      <IDGioco>15</IDGioco>
+      <Importo>37.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="18" ModCommentiUsato="1" IDGiocatore="1" DataOra="19/04/26 15:27" PixelIniziali="503">
+    <Gioco>
+      <Titolo>Overwatch Origin</Titolo>
+      <IDGioco>1</IDGioco>
+      <Importo>50.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="19" ModCommentiUsato="1" IDGiocatore="8" DataOra="19/04/26 15:35" PixelIniziali="0">
+    <Gioco>
+      <Titolo>The Witcher 3: Wild Hunt</Titolo>
+      <IDGioco>2</IDGioco>
+      <Importo>47.49</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Cyberpunk 2077</Titolo>
+      <IDGioco>3</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="20" ModCommentiUsato="1" IDGiocatore="8" DataOra="19/04/26 15:36" PixelIniziali="837">
+    <Gioco>
+      <Titolo>Ace Combat 8: Wings of theve</Titolo>
+      <IDGioco>25</IDGioco>
+      <Importo>76.49</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Overwatch Origin</Titolo>
+      <IDGioco>1</IDGioco>
+      <Importo>50.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Doom Eternal</Titolo>
+      <IDGioco>10</IDGioco>
+      <Importo>49.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="21" ModCommentiUsato="1.01" IDGiocatore="8" DataOra="19/04/26 15:50" PixelIniziali="1724">
+    <Gioco>
+      <Titolo>Final Fantasy Tacticts: The Ivalice Chronicles</Titolo>
+      <IDGioco>23</IDGioco>
+      <Importo>20.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="22" ModCommentiUsato="1" IDGiocatore="9" DataOra="19/04/26 16:00" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Borderlands</Titolo>
+      <IDGioco>9</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Ace Combat 8: Wings of theve</Titolo>
+      <IDGioco>25</IDGioco>
+      <Importo>80.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Cyberpunk 2077</Titolo>
+      <IDGioco>3</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Mortal Kombat 11</Titolo>
+      <IDGioco>18</IDGioco>
+      <Importo>39.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Dark Souls Remastered</Titolo>
+      <IDGioco>14</IDGioco>
+      <Importo>39.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="23" ModCommentiUsato="1" IDGiocatore="9" DataOra="19/04/26 16:14" PixelIniziali="2154">
+    <Gioco>
+      <Titolo>Killer Instinct</Titolo>
+      <IDGioco>19</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="24" ModCommentiUsato="1" IDGiocatore="10" DataOra="19/04/26 16:38" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Overwatch Origin</Titolo>
+      <IDGioco>1</IDGioco>
+      <Importo>59.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Starcraft II: Wings of Liberty</Titolo>
+      <IDGioco>11</IDGioco>
+      <Importo>29.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Marathon</Titolo>
+      <IDGioco>26</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Civilization VI</Titolo>
+      <IDGioco>22</IDGioco>
+      <Importo>29.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="25" ModCommentiUsato="1" IDGiocatore="12" DataOra="19/04/26 16:49" PixelIniziali="0">
+    <Gioco>
+      <Titolo>Ace Combat 8: Wings of theve</Titolo>
+      <IDGioco>25</IDGioco>
+      <Importo>80.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Terraria</Titolo>
+      <IDGioco>24</IDGioco>
+      <Importo>10</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Terraria Otherworld</Titolo>
+      <IDGioco>27</IDGioco>
+      <Importo>3.6</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>The Binding of Isaac:Rebirth</Titolo>
+      <IDGioco>20</IDGioco>
+      <Importo>23.74</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="26" ModCommentiUsato="1" IDGiocatore="12" DataOra="19/04/26 16:56" PixelIniziali="591">
+    <Gioco>
+      <Titolo>Civilization VI</Titolo>
+      <IDGioco>22</IDGioco>
+      <Importo>29.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="27" ModCommentiUsato="1" IDGiocatore="12" DataOra="19/04/26 16:57" PixelIniziali="740">
+    <Gioco>
+      <Titolo>Elder Ring</Titolo>
+      <IDGioco>8</IDGioco>
+      <Importo>42.4</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="28" ModCommentiUsato="0.98" IDGiocatore="9" DataOra="19/04/26 17:07" PixelIniziali="2333">
+    <Gioco>
+      <Titolo>Dark Souls 3</Titolo>
+      <IDGioco>16</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Dark Souls 2</Titolo>
+      <IDGioco>15</IDGioco>
+      <Importo>35.99</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="29" ModCommentiUsato="1" IDGiocatore="4" DataOra="19/04/26 17:39" PixelIniziali="400">
+    <Gioco>
+      <Titolo>Spiderman Remastered</Titolo>
+      <IDGioco>13</IDGioco>
+      <Importo>37.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Dead Cells</Titolo>
+      <IDGioco>12</IDGioco>
+      <Importo>23.74</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="30" ModCommentiUsato="1" IDGiocatore="5" DataOra="19/04/26 17:54" PixelIniziali="610">
+    <Gioco>
+      <Titolo>Marathon</Titolo>
+      <IDGioco>26</IDGioco>
+      <Importo>25.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>The Binding of Isaac:Rebirth</Titolo>
+      <IDGioco>20</IDGioco>
+      <Importo>22.49</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="31" ModCommentiUsato="1" IDGiocatore="5" DataOra="19/04/26 17:56" PixelIniziali="652">
+    <Gioco>
+      <Titolo>Civilization VI</Titolo>
+      <IDGioco>22</IDGioco>
+      <Importo>28.49</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="32" ModCommentiUsato="1" IDGiocatore="5" DataOra="19/04/26 17:57" PixelIniziali="794">
+    <Gioco>
+      <Titolo>Dead Cells</Titolo>
+      <IDGioco>12</IDGioco>
+      <Importo>23.74</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="33" ModCommentiUsato="1" IDGiocatore="7" DataOra="19/04/26 18:05" PixelIniziali="100">
+    <Gioco>
+      <Titolo>Civilization VI</Titolo>
+      <IDGioco>22</IDGioco>
+      <Importo>12</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Bioshock</Titolo>
+      <IDGioco>7</IDGioco>
+      <Importo>15.99</Importo>
+    </Gioco>
+    <Gioco>
+      <Titolo>Terraria</Titolo>
+      <IDGioco>24</IDGioco>
+      <Importo>9</Importo>
+    </Gioco>
+  </Transazione>
+  <Transazione IDTransazione="34" ModCommentiUsato="1" IDGiocatore="5" DataOra="19/04/26 18:10" PixelIniziali="912">
+    <Gioco>
+      <Titolo>The Witcher 3: Wild Hunt</Titolo>
+      <IDGioco>2</IDGioco>
+      <Importo>44.99</Importo>
+    </Gioco>
+  </Transazione>
 </LogTransazioniGiochi>

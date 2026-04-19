@@ -51,9 +51,7 @@ require_once 'baseScontiUtente.php';
 
             $pocketPixelTotale = array_sum($pocketPixel);//Viene sommato il totale dei pixel guadagnati da un acquisto, sommando i pixel guadagnati da ogni gioco acquistato.
             $esperienzaGuadagnata = ($pocketPixelTotale * $modcommenti);
-            echo "pixel guadagnati " . $pocketPixelTotale;
-            echo "mod commenti: " . $modcommenti;
-            echo "Esperienza prima: " . $_SESSION['Esperienza'];
+          
             $sqlConnection = $pointDB->connectDB();
 
             //Viene chiamato il DB per inserire la nuova esperienza e in caso modificatore il grado dell'utente.
@@ -85,19 +83,19 @@ require_once 'baseScontiUtente.php';
                         break;
                     case $gradoAttuale == 3:
                         $lowcap=1000;
-                        $capEsperienza = 3000;
+                        $capEsperienza = 2000;
                         break;
                     case $gradoAttuale == 4:
-                        $lowcap=3000;
-                        $capEsperienza = 4000;
+                        $lowcap=2000;
+                        $capEsperienza = 3000;
                         break;
                     case $gradoAttuale == 5:
-                        $lowcap=4000;
-                        $capEsperienza = 8000;
+                        $lowcap=3000;
+                        $capEsperienza = 3500;
                         break;
 
                     case $gradoAttuale == 6:
-                        $lowcap=8000;
+                        $lowcap=3500;
                         break;
                 }
                 //Se la nuova esperienza supera il cap di esperienza per il grado attuale, l'utente viene promosso al grado successivo.
@@ -135,12 +133,13 @@ require_once 'baseScontiUtente.php';
     
     function calcoloModCommenti($elem){
         if(isset($_SESSION['userId'])){
-            $ElemSetting = xmlPointer("XML/SettingModCommenti.xml");
+            $ElemSetting = getRoot("XML/SettingModCommenti.xml");
 
-            $rangeMax = (float)$ElemSetting->item(0)->getAttribute("RangeMax");
-            $forza = (int)$ElemSetting->item(0)->getAttribute("Forza");
-            $lowerBound = (float)$ElemSetting->item(0)->getAttribute("LowerBound");
-            $upperBound = (float)$ElemSetting->item(0)->getAttribute("UpperBound");
+            $rangeMax = (float)$ElemSetting->getElementsByTagName("RangeMax")->item(0)->nodeValue;
+            $forza = (int)$ElemSetting->getElementsByTagName("Forza")->item(0)->nodeValue;
+            $lowerBound = (float)$ElemSetting->getElementsByTagName("LowerBound")->item(0)->nodeValue;
+            $upperBound = (float)$ElemSetting->getElementsByTagName("UpperBound")->item(0)->nodeValue;
+
     
             $idUtenteLoggato = $_SESSION['userId'];
             $commenti=$elem;

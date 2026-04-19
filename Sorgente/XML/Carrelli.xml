@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaCarrelli xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Carrelli_XML_schema.xsd">
-  <carrello id_user="1" id_cart="1">
-    <gioco id_gioco="5">
-      <Titolo>Clair Obscur:Expedition 33</Titolo>
-      <prezzo>14.99</prezzo>
-    </gioco>
-  </carrello>
   <carrello id_user="3" id_cart="2">
     <gioco id_gioco="5">
       <Titolo>Clair Obscur:Expedition 33</Titolo>
@@ -18,6 +12,16 @@
     <gioco id_gioco="9">
       <Titolo>Borderlands</Titolo>
       <prezzo>59.99</prezzo>
+    </gioco>
+  </carrello>
+  <carrello id_user="8" id_cart="3">
+    <gioco id_gioco="15">
+      <Titolo>Dark Souls 2</Titolo>
+      <prezzo>39.99</prezzo>
+    </gioco>
+    <gioco id_gioco="16">
+      <Titolo>Dark Souls 3</Titolo>
+      <prezzo>39.99</prezzo>
     </gioco>
   </carrello>
 </listaCarrelli>

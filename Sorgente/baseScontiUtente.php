@@ -737,14 +737,16 @@
                     $stringa = 'Spesa di '.$valore['Valore'].' &euro; dal '.$valore['DataInizio'];
                     return $stringa;
                 case 3:
-                    $giochi=xmlPointer('XML/Giochi.xml');
-                    foreach($giochi as $gioco){
-                        if(in_array($gioco->getAttribute('id_gioco'), $this->intersection)){
-                            $stringa.=$gioco->getElementsByTagName('Titolo')[0]->textContent.", ";
+                    $giochi = xmlPointer('XML/Giochi.xml');
+                    $titoli = [];
+
+                    foreach ($giochi as $gioco) {
+                        if (in_array($gioco->getAttribute('id_gioco'), $this->intersection)) {
+                            $titoli[] = $gioco->getElementsByTagName('Titolo')->item(0)->textContent;
                         }
                     }
-                    $stringa = substr($stringa, 0, -3);
-                    return $stringa;
+
+                    return implode(", ", $titoli);
                 case 4:
                     $valore = $elem->getElementsByTagName('ReputazioneMin')->item(0)->textContent;
                     $stringa = $valore.' punti reputazione';

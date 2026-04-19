@@ -20,7 +20,10 @@ else {
     header("Location:login.php");
 }
 
-
+// echo "rangeMax: $rangeMax<br>";
+// echo "forza: $forza<br>";
+// echo "lowerBound: $lowerBound<br>";
+// echo "upperBound: $upperBound<br>";
 
 //    CAMBIO USERNAME (DB)
 
@@ -435,6 +438,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
         
     </head>
     <body>
+        
         <div id="container">
              <div id="header"><!--header della pagina -->
                 <div id="logo"><img src='Loghi/logo pixelhub slim.png' alt="Logo di Pixel Hub" id="logoimg"/></div>
@@ -667,6 +671,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                                 }
                                                 }
                                             }
+                                            break;
                                         
                                     }
                                 }
@@ -713,7 +718,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                             <option value="Avventura">Avventura</option>
                                             <option value="Souls-like">Souls-like</option>
                                             <option value="Strategia">Strategia</option>
-                                            <option value="Rouge-like">Rouge-like</option>
+                                            <option value="Rogue-like">Rogue-like</option>
                                             <option value="Picchiaduro">Picchiaduro</option>
                                             <option value="Azione">Azione</option>
                                             <option value="Simulazione">Simulazione</option>
@@ -837,51 +842,7 @@ if (isset($_POST["cambiaImmaginePub"]) && !empty($_POST["newPropicPub"])){
                                 </tr>
 
                             <tr>
-                            <?php 
-
-                            if($_SESSION['tipoUtente']==1){
-
-                                echo"
-                                <form method=\"post\" action=\"Profilo.php\">
-                                    <td>Modifica Immagine Profilo Publisher</td>
-                                    <td>
-
-                                       <select name=\"newPropicPub\">";
-
-                                    
-                                        $cartella = "loghiPub";
-                                        $files = scandir($cartella);
-
-                                        foreach($files as $file){
-                                            if($file != "." && $file != ".."){
-
-                                                $estensione = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-
-                                                if(in_array($estensione, ["png","jpg","jpeg","webp","gif"])){
-                                                echo "<option value='".$cartella."/".$file."'>" .$file."</option>";
-                                                }
-
-                                            }
-                                        }
-                                    echo"
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type=\"submit\" name=\"cambiaImmaginePub\" value=\"Modifica la Publisher ProPic \"/>
-                                    
-                                    </td>
-                                </form>
-                            </tr>";
-                                
-                            }
-                            ?>
-                                
-
-
-
-                                
-                            
-                            
+  
                         </table>
                     </div>
                 </div>     

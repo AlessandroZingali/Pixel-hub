@@ -13,7 +13,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>54.5</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>26.33</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>8</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>
@@ -34,7 +34,7 @@
     <Genere>RPG</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>93.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>100</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>77.5</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>5</idGiocoCorrelato>
     </TitoliCorrelati>
@@ -52,7 +52,7 @@
     <Genere>RPG</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>78.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>58</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>6</idGiocoCorrelato>
@@ -90,7 +90,7 @@
     <Genere>Avventura</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>75.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>95</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
     </TitoliCorrelati>
@@ -108,7 +108,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>85.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>20</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>75</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>3</idGiocoCorrelato>
@@ -127,7 +127,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>96.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>83.33</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>10</idGiocoCorrelato>
@@ -146,7 +146,7 @@
     <Genere>Souls-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>96.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>85</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>15</idGiocoCorrelato>
@@ -165,7 +165,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>89.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>81</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>3</idGiocoCorrelato>
       <idGiocoCorrelato>7</idGiocoCorrelato>
@@ -184,7 +184,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>88.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>82</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>6</idGiocoCorrelato>
@@ -203,7 +203,7 @@
     <Genere>Strategia</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>60</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>23</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>
@@ -222,7 +222,7 @@
     <Genere>Rogue-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>71.33</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>4</idGiocoCorrelato>
@@ -260,7 +260,7 @@
     <Genere>Souls-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>65</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>80</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>15</idGiocoCorrelato>
       <idGiocoCorrelato>16</idGiocoCorrelato>
@@ -279,7 +279,7 @@
     <Genere>Souls-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>65</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>14</idGiocoCorrelato>
       <idGiocoCorrelato>16</idGiocoCorrelato>
@@ -298,7 +298,7 @@
     <Genere>Souls-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>70</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>14</idGiocoCorrelato>
       <idGiocoCorrelato>15</idGiocoCorrelato>
@@ -317,7 +317,7 @@
     <Genere>Souls-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>10</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>2</idGiocoCorrelato>
       <idGiocoCorrelato>14</idGiocoCorrelato>
@@ -336,7 +336,7 @@
     <Genere>Picchiaduro</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>69</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>80</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>19</idGiocoCorrelato>
     </TitoliCorrelati>
@@ -354,7 +354,7 @@
     <Genere>Picchiaduro</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>87.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>55</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>18</idGiocoCorrelato>
       <idGiocoCorrelato>21</idGiocoCorrelato>
@@ -373,7 +373,7 @@
     <Genere>Rogue-like</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>90.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>71</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>12</idGiocoCorrelato>
       <idGiocoCorrelato>4</idGiocoCorrelato>
@@ -411,7 +411,7 @@
     <Genere>Strategia</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>12</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>46.5</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>23</idGiocoCorrelato>
       <idGiocoCorrelato>11</idGiocoCorrelato>
@@ -430,7 +430,7 @@
     <Genere>Strategia</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>91.0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>80</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>11</idGiocoCorrelato>
       <idGiocoCorrelato>22</idGiocoCorrelato>
@@ -449,7 +449,7 @@
     <Genere>Sandbox</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>100</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>76</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>2</idGiocoCorrelato>
@@ -466,9 +466,9 @@
     <DataDiUscita>04-03-2026</DataDiUscita>
     <Immagine>ImmaginiGiochi\ace-combat-8-wings-of-theve__52265.jpg</Immagine>
     <Genere>Simulazione</Genere>
-    <Disponibile>0</Disponibile>
+    <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>75</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>80.33</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>16</idGiocoCorrelato>
       <idGiocoCorrelato>14</idGiocoCorrelato>
@@ -488,7 +488,7 @@
     <Genere>Sparatutto</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>50</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>69</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>1</idGiocoCorrelato>
       <idGiocoCorrelato>12</idGiocoCorrelato>
@@ -508,7 +508,7 @@
     <Genere>Sandbox</Genere>
     <Disponibile>1</Disponibile>
     <MediaRecensioniAdmin>0</MediaRecensioniAdmin>
-    <MediaRecensioniUtenti>0</MediaRecensioniUtenti>
+    <MediaRecensioniUtenti>83</MediaRecensioniUtenti>
     <TitoliCorrelati>
       <idGiocoCorrelato>24</idGiocoCorrelato>
     </TitoliCorrelati>

@@ -1,2 +1,683 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Associazione_Like_Commenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Commenti_schema.xsd"/>
+<Associazione_Like_Commenti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Like_Commenti_schema.xsd">
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>23</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>23</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>23</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>21</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>1</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>21</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>3</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>21</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>2</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>14</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>22</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>19</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>8</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>8</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>26</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>26</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>22</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>19</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>1</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>17</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>17</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>13</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>13</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>10</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>2</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>4</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>22</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>14</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>9</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>16</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>18</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>4</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>5</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>6</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>5</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>6</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>4</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>12</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>26</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>26</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>5</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>4</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>25</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>22</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>12</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>12</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>16</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>16</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>10</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>8</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>5</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>19</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>9</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>8</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>18</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>13</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>18</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>16</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="0" flagDislike="1">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>3</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>15</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>7</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>24</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>18</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>12</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>18</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>7</Id_Utente>
+    <Id_Commento>3</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>7</Id_Utente>
+    <Id_Commento>2</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>7</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>7</Id_Gioco>
+  </ref_Commento>
+  <ref_Commento flagLike="1" flagDislike="0">
+    <Id_Utente>7</Id_Utente>
+    <Id_Commento>1</Id_Commento>
+    <Id_Gioco>22</Id_Gioco>
+  </ref_Commento>
+</Associazione_Like_Commenti>

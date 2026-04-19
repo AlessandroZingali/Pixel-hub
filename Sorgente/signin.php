@@ -280,7 +280,7 @@ if(isset($_POST['signin']) && $jumper==0){
                                             <option value="Avventura">Avventura</option>
                                             <option value="Souls-like">Souls-like</option>
                                             <option value="Strategia">Strategia</option>
-                                            <option value="Rouge-like">Rouge-like</option>
+                                            <option value="Rogue-like">Rogue-like</option>
                                             <option value="Picchiaduro">Picchiaduro</option>
                                             <option value="Azione">Azione</option>
                                             <option value="Simulazione">Simulazione</option>

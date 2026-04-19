@@ -5,6 +5,15 @@
       <Sconto>9</Sconto>
       <Sconto>5</Sconto>
       <Sconto>6</Sconto>
+      <Sconto>3</Sconto>
+      <Sconto>1</Sconto>
+      <Sconto>8</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="2">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>7</Sconto>
     </scontiAssegnati>
   </Utente>
   <Utente id_user="3">
@@ -18,27 +27,89 @@
       <Sconto>2</Sconto>
     </scontiAssegnati>
   </Utente>
-  <Utente id_user="2">
+  <Utente id_user="3">
     <scontiAssegnati>
+      <Sconto>5</Sconto>
+      <Sconto>6</Sconto>
       <Sconto>9</Sconto>
+      <Sconto>8</Sconto>
       <Sconto>7</Sconto>
-    </scontiAssegnati>
-  </Utente>
-  <Utente id_user="4">
-    <scontiAssegnati>
       <Sconto>1</Sconto>
       <Sconto>2</Sconto>
     </scontiAssegnati>
   </Utente>
+  <Utente id_user="4">
+    <scontiAssegnati>
+      <Sconto>4</Sconto>
+      <Sconto>9</Sconto>
+      <Sconto>1</Sconto>
+    </scontiAssegnati>
+  </Utente>
   <Utente id_user="5">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>4</Sconto>
+      <Sconto>7</Sconto>
+      <Sconto>3</Sconto>
+      <Sconto>8</Sconto>
+      <Sconto>1</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="7">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>4</Sconto>
+      <Sconto>5</Sconto>
+      <Sconto>6</Sconto>
+      <Sconto>8</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="8">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>1</Sconto>
+      <Sconto>8</Sconto>
+      <Sconto>3</Sconto>
+      <Sconto>4</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="9">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>1</Sconto>
+      <Sconto>4</Sconto>
+      <Sconto>8</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="10">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>1</Sconto>
+      <Sconto>3</Sconto>
+      <Sconto>8</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="11">
     <scontiAssegnati/>
   </Utente>
-  <Utente id_user="6">
+  <Utente id_user="12">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+      <Sconto>1</Sconto>
+      <Sconto>3</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="13">
     <scontiAssegnati>
       <Sconto>9</Sconto>
     </scontiAssegnati>
   </Utente>
-  <Utente id_user="4">
+  <Utente id_user="14">
+    <scontiAssegnati>
+      <Sconto>9</Sconto>
+    </scontiAssegnati>
+  </Utente>
+  <Utente id_user="15">
     <scontiAssegnati/>
   </Utente>
 </listaAssegnazioneSconti>

@@ -1,16 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listaRecensioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Recensioni_XML_schema.xsd">
   <Gioco id_gioco="1">
-    <Recensione id_recensione="1" id_utente="3" data="24/03/2026" ore="12" minuti="11" like="0" dislike="1" segnalazioni="0" voto="19">
+    <Recensione id_recensione="1" id_utente="3" data="24/03/2026" ore="12" minuti="11" like="1" dislike="2" segnalazioni="0" voto="19">
       <text>Bello</text>
     </Recensione>
-    <Recensione id_recensione="2" id_utente="6" data="28/03/2026" ore="11" minuti="15" like="0" dislike="0" segnalazioni="0" voto="90">
-      <text>spettacolare</text>
+    <Recensione id_recensione="2" id_utente="6" data="19/04/2026" ore="12" minuti="28" like="0" dislike="2" segnalazioni="0" voto="10">
+      <text>Molto divertente che un gioco fatto anche da dei molestatori sia ancora in piedi!</text>
+    </Recensione>
+    <Recensione id_recensione="3" id_utente="8" data="19/04/2026" ore="15" minuti="38" like="1" dislike="1" segnalazioni="0" voto="50">
+      <text>Gioco davvero decente, se non fosse per il competitivo abbastanza scadente. Dopo la dipartita di Kaplan, praticamente sta andando a picco, spero facciano uscire più eroi nel tempo</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="5">
+    <Recensione id_recensione="1" id_utente="1" data="19/04/2026" ore="10" minuti="34" like="2" dislike="1" segnalazioni="0" voto="100">
+      <text>bello</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="8" data="19/04/2026" ore="15" minuti="44" like="3" dislike="0" segnalazioni="0" voto="90">
+      <text>E' inquietante come degli sviluppatori francesi senza la minima conoscenza di nessun linguaggio di programmazione, snobbando completamente il c++. E usando solamente programmi di modellazione gratuiti come blender siano riusciti a tirare fuori una cosa cosi bella. Da provare assolutamente.</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="2">
+    <Recensione id_recensione="1" id_utente="6" data="19/04/2026" ore="12" minuti="27" like="1" dislike="0" segnalazioni="0" voto="80">
+      <text>Ho provato questo gioco, mi è sembrato davvero bello. Rutilia è il mio cavallo preferito! Da comprare</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="8" data="19/04/2026" ore="15" minuti="40" like="0" dislike="1" segnalazioni="0" voto="75">
+      <text>Spero prendano in cosiderazione una nuova path grafica più leggera, tutto sommato è un ottimo esempio di GDR. Per quanto il 70% del gameplay sia colpisci scudo colpisci scudo ecc. Tutto sommato lo consiglio</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="25">
+    <Recensione id_recensione="1" id_utente="8" data="19/04/2026" ore="15" minuti="42" like="2" dislike="1" segnalazioni="0" voto="91">
+      <text>Spero che nel tempo aggiungano più aerei e missioni. Per il resto lamento l'assenza al supporto ai vecchi visore in-lich come l'HTC CE. E' davvero un grande mancanza. Però il gameplay solido è insostituibile.</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="9" data="19/04/2026" ore="16" minuti="05" like="1" dislike="4" segnalazioni="0" voto="50">
+      <text>Gioco penoso. Dove sono le battaglie aere, dove sono le esplosioni e il sangue. Mi sarei immaginato una cosa più alla Battlefield o alla Battlefront II... BOCCIATO!</text>
+    </Recensione>
+    <Recensione id_recensione="3" id_utente="12" data="19/04/2026" ore="16" minuti="54" like="2" dislike="0" segnalazioni="0" voto="100">
+      <text>Vorrei solo congratularmi per le ottime AI che avete inserito. Davvero ben curate. Il pilota automatico non si schianta come nei precedenti giochi</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="10">
+    <Recensione id_recensione="1" id_utente="8" data="19/04/2026" ore="15" minuti="46" like="2" dislike="2" segnalazioni="0" voto="82">
+      <text>Spero che nei prossimi capitoli aggiustino i cali di frame, per il resto è Doom... cosa ti aspetti &lt;3</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="3">
+    <Recensione id_recensione="1" id_utente="8" data="19/04/2026" ore="15" minuti="55" like="2" dislike="2" segnalazioni="0" voto="86">
+      <text>L'ESEMPIO DELLA FENICE CHE RINASCE DALLE CENERI! Dopo la pubblicazione di questo colabrodo di gioco non mi aspettavo questa evoluzione. Un gigantesco inchino di scuse. Il brutto anatroccolo che diventa un cigno. Veramente complimenti, solo da prendere esempio,</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="9" data="19/04/2026" ore="16" minuti="11" like="1" dislike="1" segnalazioni="0" voto="30">
+      <text>Spero che uqetso gioco sia tolto dal mercato. E' vergognoso che una compagnai provi a truffare i suoi giocatori. Per poi cosa?! Provare a chiedere scusa con un gioco che se prima era 1 /10 di quello promesso adesso è diventato i 6/10!?!? Siete ciechi tutti quandi! Ci hanno preso solo in giro!</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="7">
+    <Recensione id_recensione="1" id_utente="8" data="19/04/2026" ore="15" minuti="58" like="2" dislike="2" segnalazioni="0" voto="90">
+      <text>Questa storia che viene raccontata in modo cosi frenetico da non farti dormire la notta è talmente innovativa (per l'epoca)che è diventato un oggetto di culto</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="6" data="19/04/2026" ore="17" minuti="18" like="1" dislike="0" segnalazioni="0" voto="80">
+      <text>Un gran titolo spero nei prossimi mesi aggiungano anche il supporto ai controller di nuova generazione o una remastered che lo faccia... forse una remastered servirebbe ormai</text>
+    </Recensione>
+    <Recensione id_recensione="3" id_utente="7" data="19/04/2026" ore="18" minuti="07" like="0" dislike="0" segnalazioni="0" voto="80">
+      <text>La bambina è inquietante, bel lavoro. Big Daddy ne mio cuore ormai</text>
     </Recensione>
   </Gioco>
   <Gioco id_gioco="18">
-    <Recensione id_recensione="1" id_utente="4" data="27/03/2026" ore="11" minuti="41" like="0" dislike="0" segnalazioni="0" voto="69">
-      <text>VIULENZA</text>
+    <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="16" minuti="04" like="1" dislike="2" segnalazioni="0" voto="100">
+      <text>Il gioco più mortale del mondo. Fiero di aver giocato il primo grazie a mio padre. Tutta la storia che c'è dietro è assurda. Non è solo un picchiaduro è un credo. Poi non parliamo di questo gioco in particolare, una perla di mazzate nude e crude da cui dovrebbero prendere esempio</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="6" data="19/04/2026" ore="17" minuti="16" like="1" dislike="0" segnalazioni="0" voto="60">
+      <text>Non sono stato un grande apprezzatore di questo gioco. Ma non mi sento di criticarlo troppo alla fine è spettacolare</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="9">
+    <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="16" minuti="09" like="4" dislike="1" segnalazioni="0" voto="79">
+      <text>A parte gli scandali sulle foto di membri in gioco, quetso è letteralmente il gioco definitivo per gli FPS. Non vedo l'ora che sul sito mettano il 4. Vi adoro 2K &lt;3</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="6" data="19/04/2026" ore="17" minuti="19" like="0" dislike="2" segnalazioni="0" voto="83">
+      <text>Dovrei avere più armi strane nei prossimi capitoli, la grafica cartunesca rende possibile molte cose d'altronde. Un gioco da vare Regazzi</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="14">
+    <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="16" minuti="13" like="0" dislike="0" segnalazioni="0" voto="80">
+      <text>Ho adorato tutta  questa remastered spero di facciano una nuova. Non fatevi scoraggiare dalle morti ragazzi è ora di diventare veri uomini</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="19">
+    <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="16" minuti="15" like="1" dislike="1" segnalazioni="0" voto="55">
+      <text>Ho giocato questo gioco 10 ore... penoso. Vorrei fare il rimborso ma ho deciso di appenderlo come monito in camera mia per ricordarmi di come non si crea un picchiaduro... vi ringrazio...</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="26">
+    <Recensione id_recensione="1" id_utente="10" data="19/04/2026" ore="16" minuti="39" like="0" dislike="0" segnalazioni="0" voto="68">
+      <text>Diamo il nostro più grande sostegno a Bungie.. Ottimo gioco... non portiamo rancore per la separazione  &lt;3</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="5" data="19/04/2026" ore="17" minuti="55" like="0" dislike="0" segnalazioni="0" voto="70">
+      <text>Direi che si poteva fare meglio ma direi in linea di massima ottimo gioco, speriamo regga</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="20">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="16" minuti="51" like="0" dislike="0" segnalazioni="0" voto="71">
+      <text>Vorrei sottolineare che una motosega dentata con denti umani sarebbe un ottima aggiunta, darò un voto più alto se la aggiungerete</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="27">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="16" minuti="52" like="0" dislike="0" segnalazioni="0" voto="83">
+      <text>Ottimo come il primo... avrei preferito più maturo terrore</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="24">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="16" minuti="52" like="0" dislike="1" segnalazioni="0" voto="90">
+      <text>OH SI! Ne trarro sicuramente una grande ispirazione anche se mi domando come funzioni un sistema digestivo in 2d ma davvero un gameplay e un avventura infinita davvero appassionanti</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="7" data="19/04/2026" ore="18" minuti="06" like="0" dislike="0" segnalazioni="0" voto="62">
+      <text>Avrei preferito che il gioco non fosse cosi complesso ho preferito sandbox diversi tipo Minecraft</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="22">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="16" minuti="57" like="2" dislike="0" segnalazioni="0" voto="20">
+      <text>Darei un voto più alto... se ci fossero anche gli imperi cinesi pre dinastia Ming... ma no... che meno</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="5" data="19/04/2026" ore="17" minuti="56" like="0" dislike="1" segnalazioni="0" voto="73">
+      <text>Avrei voluto più opzioni per personalizzare il battaglione romano ma in sostanza niente male.</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="8">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="16" minuti="58" like="2" dislike="0" segnalazioni="0" voto="85">
+      <text>Un gioco davvero esemplare vorrei avere anche io una tale ispirazione. Come Level Designer ho molto da impaarre da questo, solo complimenti</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="12">
+    <Recensione id_recensione="1" id_utente="8" data="19/04/2026" ore="17" minuti="04" like="1" dislike="1" segnalazioni="0" voto="70">
+      <text>Frenetico spettacolare</text>
+    </Recensione>
+    <Recensione id_recensione="2" id_utente="4" data="19/04/2026" ore="17" minuti="40" like="0" dislike="1" segnalazioni="0" voto="94">
+      <text>Bisognava dare il Gothy Indie a questo capolavoro!!!!</text>
+    </Recensione>
+    <Recensione id_recensione="3" id_utente="5" data="19/04/2026" ore="17" minuti="57" like="0" dislike="0" segnalazioni="0" voto="50">
+      <text>Troppo veloce</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="16">
+    <Recensione id_recensione="1" id_utente="9" data="19/04/2026" ore="17" minuti="10" like="2" dislike="0" segnalazioni="0" voto="70">
+      <text>Non mi ha fatto impazzire. Potenziare cosi la Estus solo perché nel primo qualche giocatore piagnucolone si è lamentato. Sono davvero deluso. Per il resto è una copia del primo con più fan service</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="6">
+    <Recensione id_recensione="1" id_utente="6" data="19/04/2026" ore="17" minuti="22" like="0" dislike="0" segnalazioni="0" voto="75">
+      <text>Direi che uno sparatutto meglio di questo attualmente sul mercato non c'è. Se vi piaccino le vibe da guerra spaziale ma non siete troppo Goth per WarHammer... comprate questo</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="15">
+    <Recensione id_recensione="1" id_utente="6" data="19/04/2026" ore="17" minuti="24" like="0" dislike="3" segnalazioni="0" voto="65">
+      <text>Volevo solo dire che: ho comprato questo gioco per fare un favore ad un amico e giocare online. E invece sono rimasto per la lore. Per chi la sta scoprnedo e per chi la scoprira, ragazzi fa per voi fidatevi</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="23">
+    <Recensione id_recensione="1" id_utente="12" data="19/04/2026" ore="18" minuti="07" like="0" dislike="0" segnalazioni="0" voto="80">
+      <text>Adoro un botto la pixelart e la storia è molto bella</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="17">
+    <Recensione id_recensione="1" id_utente="5" data="19/04/2026" ore="18" minuti="11" like="0" dislike="0" segnalazioni="0" voto="10">
+      <text>LA VIA DEL SAMURAI FA SCHIFO</text>
+    </Recensione>
+  </Gioco>
+  <Gioco id_gioco="11">
+    <Recensione id_recensione="1" id_utente="5" data="19/04/2026" ore="18" minuti="11" like="0" dislike="0" segnalazioni="0" voto="60">
+      <text>Boh troppo complicato &#13;bello stile pero</text>
     </Recensione>
   </Gioco>
 </listaRecensioni>

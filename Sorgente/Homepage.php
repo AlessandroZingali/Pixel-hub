@@ -19,6 +19,7 @@ if(isset($_SESSION['userId'])){
     $scontoManager = new scontiUtente($_SESSION['userId']);
 
 }
+// var_dump($_SESSION['modCommenti']);
 
  
 ?>

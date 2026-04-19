@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ModCommentiSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XML_Schema/Setting_Mod_commenti_XML_Schema.xsd">
-  <RangeMax>0.25</RangeMax>
+  <RangeMax>0.35</RangeMax>
   <Forza>15</Forza>
   <LowerBound>0.75</LowerBound>
-  <UpperBound>1.35</UpperBound>
+  <UpperBound>1.60</UpperBound>
 </ModCommentiSettings>

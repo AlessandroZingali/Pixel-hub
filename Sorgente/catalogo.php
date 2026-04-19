@@ -192,7 +192,9 @@ if(isset($_SESSION['userId'])){
                                                     
                                                 }
                                                 else echo "<div class=\"acquistato\"><p>  Acquistato!  </p></div> ";
+                                            break;
                                             }
+                                            
                                         }
                                       }
                                       else echo "<div class=\"prezzoNoSconto\"><p>  $c->prezzo € </p></div> "; //Mostro il prezzo se l'utente non è loggato
