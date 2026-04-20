@@ -19,9 +19,10 @@
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
     <DataIscrizione>29-01-2026</DataIscrizione>
     <CasaDiSviluppoPreferita>Bungie</CasaDiSviluppoPreferita>
-    <GenerePreferito>Nessuno</GenerePreferito>
+    <GenerePreferito>Sparatutto</GenerePreferito>
     <Descrizione>Ciao sono luke il grande gamemakererer</Descrizione>
-    <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.&#13;Viva le papere</DescrizionePublisher>
+    <DescrizionePublisher>Parte del gruppo BANDAI NAMCO, leader dell'industria dell'intrattenimento mondiale, BANDAI NAMCO Entertainment Europe pubblica e distribuisce videogiochi e prodotti di intrattenimento in Europa, Medio Oriente, Africa e Asia-Pacifico.La missione del nostro gruppo è di portare "più divertimento per tutti" in tutto il mondo, con l'obiettivo di diventare i leader dell'innovazione nell'intrattenimento globale.Dal nostro quartier generale a Lione (la capitale culinaria francese!) lavoriamo a titoli come PAC-MAN, SOULCALIBUR, TEKKEN e DARK SOULS… oltre a nuovi progetti come LITTLE NIGHTMARES, TWIN MIRROR e THE DARK PICTURES.&#13;
+Viva le papere</DescrizionePublisher>
     <ToggleAgency>true</ToggleAgency>
     <listaGiochi>
       <idGiocoPosseduto data_acquisizione="26-03-2026" spesa="24.99">4</idGiocoPosseduto>
@@ -59,20 +60,6 @@
       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="19.99">7</idGiocoPosseduto>
     </listaGiochi>
     <listaPropic/>
-  </Utente>
-  <Utente id_user="4">
-    <linkEsterno/>
-    <DataIscrizione>19-04-2026</DataIscrizione>
-    <CasaDiSviluppoPreferita>EA</CasaDiSviluppoPreferita>
-    <GenerePreferito>Strategia</GenerePreferito>
-    <Descrizione/>
-    <listaGiochi>
-      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="37.99">13</idGiocoPosseduto>
-      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="23.74">12</idGiocoPosseduto>
-    </listaGiochi>
-    <listaPropic>
-      <idPropic>1</idPropic>
-    </listaPropic>
   </Utente>
   <Utente id_user="5">
     <linkEsterno>https://card.io/ref?id=837188727</linkEsterno>
@@ -155,7 +142,7 @@
     <GenerePreferito>Picchiaduro</GenerePreferito>
     <Descrizione/>
     <listaGiochi>
-       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">9</idGiocoPosseduto>
+      <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">9</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="80.99">25</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="59.99">3</idGiocoPosseduto>
       <idGiocoPosseduto data_acquisizione="19-04-2026" spesa="39.99">18</idGiocoPosseduto>
@@ -194,6 +181,7 @@
     <listaPropic/>
   </Utente>
   <Utente id_user="12">
+    <linkEsterno/>
     <DataIscrizione>19-04-2026</DataIscrizione>
     <CasaDiSviluppoPreferita/>
     <GenerePreferito>Simulazione</GenerePreferito>
@@ -217,7 +205,7 @@
     <listaGiochi/>
     <listaPropic/>
   </Utente>
-   <Utente id_user="14">
+  <Utente id_user="14">
     <linkEsterno/>
     <DataIscrizione>19-04-2026</DataIscrizione>
     <CasaDiSviluppoPreferita>DICE</CasaDiSviluppoPreferita>

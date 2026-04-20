@@ -621,6 +621,7 @@ if(isset($_SESSION['tipoUtente'])){
                               </table>
 
                               <br>";
+                              if($service == 1) {
                                $elem = xmlPointer("XML/utenti.xml");
                                foreach ($elem as $utente) {
 
@@ -644,7 +645,10 @@ if(isset($_SESSION['tipoUtente'])){
                                     }
                                 }
                                }
+                              }
                                if($service == 1 && !$possiedeGioco){
+
+                               
                                 
                                     echo " <table>
                                     <th>Sono stati applicati i seguenti sconti:</th>";
@@ -670,7 +674,7 @@ if(isset($_SESSION['tipoUtente'])){
                                         }
 
                                     }
-                                    if(count($arraySconti) == 0 && !isset($_SESSION['arrayScontiPerGrado'])){
+                                    if(count($arraySconti) == 0){
                                         echo "<tr><td>Non sono stati applicati sconti su questo gioco</td></tr>";
                                     }
                                     

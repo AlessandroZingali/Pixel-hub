@@ -9,6 +9,9 @@
     </Commento>
   </Gioco>
   <Gioco id_gioco="5">
+    <Commento id_commento="3" id_utente="2" data="20/04/2026" ore="10" minuti="45" like="0" dislike="0" segnalazioni="0">
+      <text>Belloh</text>
+    </Commento>
     <Commento id_commento="2" id_utente="8" data="19/04/2026" ore="15" minuti="43" like="2" dislike="1" segnalazioni="0">
       <text>Il personaggio di Lune, è praticamente il 5/7 del prezzo del gioco</text>
     </Commento>

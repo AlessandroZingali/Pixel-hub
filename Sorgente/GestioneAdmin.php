@@ -547,7 +547,7 @@ if(isset($_POST['modificaUtente']) && !empty($_POST['id_user_gestione'])) {
 
     if(preg_match('/^.*@.*$/',$_POST['Email']) && 
     preg_match('/^(?=.*[A-Z])(?=.*[!@=&])[A-Za-z0-9!@=&]{8,}$/', $_POST['Password']) &&
-    preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $_POST['Data_di_Nascita']) && 
+    preg_match('/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/', $_POST['Data_di_Nascita']) && 
     preg_match('/^[0-9]+$/', $_POST['Esperienza']) && 
     preg_match('/^[0-9]+$/', $_POST['Pixels']) && 
     preg_match('/^[0-9]+(\.[0-9]+)?$/', $_POST['Saldo_attuale']) &&
