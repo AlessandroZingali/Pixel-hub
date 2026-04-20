@@ -104,6 +104,7 @@ require_once 'baseScontiUtente.php';
                         $nuovoGrado = $gradoAttuale + 1;
                         $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
                         mysqli_query($pointDB->connectDB(), $updateGradoQuery);
+                        $_SESSION['Grado'] = $nuovoGrado;
                     }
                 }
                 if($nuovaEsperienza < $lowcap && $gradoAttuale > 0){
@@ -111,7 +112,7 @@ require_once 'baseScontiUtente.php';
                     $nuovoGrado = $gradoAttuale - 1;
                     $updateGradoQuery = "UPDATE ".$pointDB->getTableUsers()." SET Grado = $nuovoGrado WHERE ID = $idUtenteLoggato;";
                     mysqli_query($pointDB->connectDB(), $updateGradoQuery);
-
+                    $_SESSION['Grado'] = $nuovoGrado;
                 }
                 
                 echo "Esperienza guadagnata: " . $esperienzaGuadagnata;
