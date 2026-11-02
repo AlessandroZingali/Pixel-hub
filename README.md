@@ -89,7 +89,7 @@ The application runs on a local server environment managed through **XAMPP**:
 ## Project Structure
 
 ```
-.
+./Sorgente
 ├── index.php            # Store home page and game showcase
 ├── catalog.php          # Complete catalog with filters and search
 ├── game.php             # Individual video game detail page
