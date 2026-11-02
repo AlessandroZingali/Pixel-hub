@@ -15,7 +15,7 @@ L'applicazione si appoggia ad un ambiente server locale gestito tramite **XAMPP*
 ## Struttura del progetto
 
 ```
-.
+./Sorgente
 ├── index.php            # Home page dello store e vetrina dei giochi
 ├── catalog.php          # Catalogo completo con filtri e ricerca
 ├── game.php             # Scheda dettagliata del singolo videogioco
